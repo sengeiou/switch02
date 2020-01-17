@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contorller.EcgDataActivity"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/gray1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/registor_icon_back"
+            android:layout_marginLeft="@dimen/item_margin_parallel"/>
+
+        <ImageView
+            android:id="@+id/shareIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/item_margin_parallel"
+            android:src="@mipmap/report_icon_share"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.szip.sportwatch.View.DrawGradView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.szip.sportwatch.View.WH_ECGView
+            android:id="@+id/ecg_data_ecgView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+        <com.szip.sportwatch.View.WH_ECGView
+            android:id="@+id/ecg_data_ecgView1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/ecg_data_ecgView"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/report_margin"
+            android:layout_marginLeft="@dimen/report_margin"
+            android:background="@drawable/bg_item_normal"
+            android:layout_below="@id/ecg_data_ecgView1">
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/report_margin_parallel"
+                    android:layout_marginBottom="12dp">
+
+
+                    <TextView
+                        android:id="@+id/nameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/rayblue"
+                        android:textSize="@dimen/report_text_size_mid"
+                        android:text="球儿"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/nameTv"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/report_text_size_small"
+                        android:text="@string/userName"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="45dp"
+                    android:background="@color/gray"
+                    android:layout_gravity="center_vertical"/>
+
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/report_margin_parallel"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/averageTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/rayblue"
+                        android:textSize="@dimen/report_text_size_mid"
+                        android:text="66"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/averageTv"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/report_text_size_small"
+                        android:text="@string/averageHeart"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="45dp"
+                    android:background="@color/gray"
+                    android:layout_gravity="center_vertical"/>
+
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/report_margin_parallel"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/maxTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/rayblue"
+                        android:textSize="@dimen/report_text_size_mid"
+                        android:text="90"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/maxTv"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/report_text_size_small"
+                        android:text="@string/maxHeart"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="45dp"
+                    android:background="@color/gray"
+                    android:layout_gravity="center_vertical"/>
+
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/report_margin_parallel"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/minTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/rayblue"
+                        android:textSize="@dimen/report_text_size_mid"
+                        android:text="50"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/minTv"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/report_text_size_small"
+                        android:text="@string/minHeart"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/layout">
+
+                <TextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/report_text_size_small"
+                    android:text="@string/minHeart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/report_text_size_small"
+                    android:text="@string/ecgTip"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

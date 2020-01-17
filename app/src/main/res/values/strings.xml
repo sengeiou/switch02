@@ -1,0 +1,221 @@
+<resources>
+    <string name="app_name">iSmarport</string>
+
+    <!--登录页面/找回密码页面/注册页面-->
+    <string name="logo">Welcome to iSmarport</string>
+    <string name="user">User</string>
+    <string name="phoneOrEmail">Enter your phone number/E-mail</string>
+    <string name="password">Password</string>
+    <string name="enterPassword">Enter a 6-20 digit password</string>
+    <string name="confirmPassword">Confirm password</string>
+    <string name="enterPasswordAgain">Enter your password again</string>
+    <string name="forget"><u>Forgot password</u></string>
+    <string name="register"><u>Registered</u></string>
+    <string name="login">Login</string>
+    <string name="country">Country/Region</string>
+    <string name="choseCountry">Please select country/region</string>
+    <string name="send">Send</string>
+    <string name="verification">Verification Code</string>
+    <string name="enterVerification">Enter your Verification Code</string>
+    <string name="newPassword">New Password</string>
+    <string name="enterNewPassword">Enter your new Password</string>
+    <string name="reset">Reset Password</string>
+    <string name="registerTitle">Register</string>
+    <string name="next">Next</string>
+    <string name="privacy">Agree《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">User agreement</a>》and《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">Privacy policy</a>》</string>
+    <string name="checkPrivacy">Please be sure to read the privacy policy</string>
+    <string name="setPassword">Set Password</string>
+
+    <!--主页-->
+    <string name="healthy">Healthy</string>
+    <string name="sport">Sport</string>
+    <string name="mine">Me</string>
+    <string name="touchAgain">Press again to exit the program</string>
+
+    <!--健康页面-->
+    <string name="planStep">Step gauge target</string>
+    <string name="sleep">Sleep</string>
+    <string name="heart">Heart Rate</string>
+    <string name="blood">Blood Pressure</string>
+    <string name="bloodo">Blood Oxygen</string>
+    <string name="check">To view</string>
+    <string name="perfect">perfect</string>
+    <string name="good">good</string>
+    <string name="bad">bad</string>
+    <string name="quick">quick</string>
+    <string name="normal">normol</string>
+    <string name="slow">slow</string>
+    <string name="higher">higher</string>
+    <string name="flat">flat</string>
+
+    <!--运动界面-->
+    <string name="best">Best outdoor running record</string>
+    <string name="history">历史运动记录</string>
+    <string name="track">运动轨迹</string>
+    <string name="notrack">无运动轨迹</string>
+    <string name="speed">Pace</string>
+    <string name="kcal">Burn(kcal)</string>
+    <string name="time">Length</string>
+
+    <!--我的页面-->
+    <string name="device">Device</string>
+    <string name="stepPlan">Step gauge target</string>
+    <string name="sleepPlan">Sleep gauge target</string>
+    <string name="find">Find Watch</string>
+    <string name="notification">应用通知</string>
+    <string name="blePhone">Bluetooth phone</string>
+    <string name="blePhoto">Bluetooth pictures</string>
+    <string name="unit">Unit</string>
+    <string name="about">About us</string>
+    <string name="logout">Logout</string>
+    <string name="me">Me</string>
+    <string name="set">Set</string>
+    <string name="other">Other</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="tip">Tip</string>
+    <string name="unbind">Please confirm unbinding</string>
+    <string name="logoutTip">Please confirm to log out</string>
+    <string name="sendOK">Send Success</string>
+    <string name="searchDevice">Search Device</string>
+    <string name="noDevice">No device found</string>
+    <string name="connect">Connected</string>
+    <string name="disConnect">Unconnect</string>
+    <string name="connectting">Connectting</string>
+    <string name="syceError">The watch is not connected, the data will be set into the watch the next time it is connected</string>
+
+    <!--蓝牙通话界面-->
+    <string name="step1">1.The watch is paired with the phone\'s bluetooth</string>
+    <string name="step2">2.Unmatching relation</string>
+    <string name="str1">1)Enter the bluetooth function in the watch\n2)Search for bluetooth devices - select the phone\'s bluetooth name\n3)After pairing with the mobile phone, you can use the watch to make bluetooth calls</string>
+    <string name="str2">Enter the system setting - bluetooth - the paired device, find the device, enter and click \"unpaired\" to remove the pairing relationship.\n\nTip:After removing the pairing relationship, the watch cannot use the bluetooth call function</string>
+
+    <!--关于界面-->
+    <string name="version">Version</string>
+
+    <!--单位制式界面-->
+    <string name="measureUnit">Unit of measure</string>
+    <string name="metric">metric</string>
+    <string name="british">british</string>
+
+    <!--报告页面-->
+    <string name="stepReport">Step Report</string>
+    <string name="sleepReport">Sleep Report</string>
+    <string name="heartReport">Heart Rate Report</string>
+    <string name="bloodPressureReport">Blood Pressure Report</string>
+    <string name="bloodOxygenReport">Blood Oxygen Report</string>
+    <string name="ecgReport">ECG report</string>
+    <string name="day">DAY</string>
+    <string name="week">WEEK</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tues">Tues</string>
+    <string name="wed">Wed</string>
+    <string name="thus">Thus</string>
+    <string name="fri">Fri</string>
+    <string name="sta">Sta</string>
+    <string name="today">Today</string>
+    <string name="month">MONTH</string>
+    <string name="year">YEAR</string>
+    <string name="allStep">All Steps</string>
+    <string name="averageStep">Average Steps</string>
+    <string name="allSleep">All Sleep Duration</string>
+    <string name="averageSleep">Average sleep Duration</string>
+    <string name="light">Light Sleep</string>
+    <string name="deep">Deep Sleep</string>
+    <string name="lightTable">L</string>
+    <string name="deepTable">D</string>
+    <string name="averageHeart">Average Value</string>
+    <string name="minHeart">Min Value</string>
+    <string name="maxHeart">Max Value</string>
+    <string name="averageSBP">Average SBP</string>
+    <string name="sbp">SBP</string>
+    <string name="averageDBP">Average DBP</string>
+    <string name="dbp">DBP</string>
+    <string name="averageSao">Average Value</string>
+    <string name="passRate">Success Rate</string>
+    <string name="ecgTip">The test is for reference only and cannot be used as evidence of medical diagnosis</string>
+
+
+    <!--用户信息页面-->
+    <string name="userInfo">User Information</string>
+    <string name="picture">Portrait</string>
+    <string name="userName">Nickname</string>
+    <string name="enterUserName">Enter your nickname</string>
+    <string name="sex">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="birthday">Birthday</string>
+
+
+    <!--提示语-->
+    <string name="tokenTimeOut">Login expired, please login again</string>
+    <string name="enterRightEmail">Enter the correct mailbox format</string>
+    <string name="httpError">Network response timeout, please check network connection status</string>
+    <string name="logging">Logging...</string>
+    <string name="waitting">Waitting...</string>
+    <string name="resetSuccess">Password reset successful</string>
+    <string name="passwordUnSame">Two different passwords</string>
+    <string name="saved">Save success</string>
+    <string name="notificationlistener_prompt_title">Enable notification</string>
+    <string name="notificationlistener_prompt_content">iSmarport Need to forward application notifications to remote smart devices.Press \" ok \" to activate the notification page。</string>
+    <string name="tokenTimeout">Login has expired, please login again</string>
+    <string name="lostDevice">Device not connected</string>
+    <string name="permissionErrorForCamare">权限没通过，无法打开拍照功能</string>
+    <string name="findPermission">权限没通过，将无法搜索到设备列表</string>
+    <string name="applyPermission">申请权限</string>
+    <string name="shareFailForPermission">分享失败,相关权限没通过</string>
+    <string name="permissionErrorForSMS">权限没通过，无法打开短信通知功能</string>
+    <string name="loading">loading...</string>
+
+    <!--分享界面-->
+    <string name="planOK">今日目标已达成</string>
+    <string name="planNO">今日目标未达成</string>
+    <string name="planStepShare">目标步数: %dsteps</string>
+    <string name="distanceShare">行走距离: %.1fKm</string>
+    <string name="calurieShare">消耗卡路里: %.1fKcal</string>
+
+    <string name="planSleep">目标时长: %.1fh</string>
+    <string name="deepSleepShare">深睡时长: %02dh%02dmin</string>
+    <string name="lightSleepShare">浅睡时长: %02dh%02dmin</string>
+
+    <string name="testTimes">今日测量数: %d</string>
+    <string name="maxHeartShare">最大心率: %dbpm</string>
+    <string name="minHeartShare">最小心率: %dbpm</string>
+
+    <string name="bloodOxygenData">血氧饱和度</string>
+    <string name="testValue">测试结果: </string>
+    <string name="passTimeData">合格率: %.1f%%</string>
+    <string name="bloodPressureData">平均收缩压/舒张压</string>
+    <string name="shareSuccess">分享成功</string>
+    <string name="shareCancel">取消分享</string>
+    <string name="shareFail">分享失败</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">Loading</string>
+    <string name="progress_dialog_message">Please wait&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <!-- sos call -->
+    <string name="operate_error">Failed</string>
+
+</resources>

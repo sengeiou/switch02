@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">sleepEE</string>
+    <string name="cp_search_hint_text">Search</string>
+    <string name="cp_no_result">not find</string>
+    <string name="cp_locate_failed">定位失败</string>
+    <string name="cp_locating">正在定位…</string>
+
+    <string name="country">Countries/Regions</string>
+</resources>

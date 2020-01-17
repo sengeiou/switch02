@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contorller.RegisterActivity"
+    android:background="@color/bgColor">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/gray1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/registor_icon_back"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registerTitle"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginTop="@dimen/register_margin_each_model"
+            android:textColor="@color/rayblue"
+            android:textSize="26sp"/>
+
+
+        <TextView
+            android:id="@+id/countryTipTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginTop="@dimen/register_margin_each_model"
+            android:textSize="@dimen/register_text_size"
+            android:textColor="@color/rayblue"/>
+
+        <RelativeLayout
+            android:id="@+id/countryRl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/register_margin_parallel"
+            android:layout_marginLeft="@dimen/register_margin_parallel">
+
+            <TextView
+                android:id="@+id/countryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choseCountry"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/register_text_size"
+                android:textColor="@color/gray"/>
+
+            <TextView
+                android:id="@+id/countryCodeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/register_text_size"
+                android:textColor="@color/gray"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/rayblue"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/userTipTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:text="@string/user"
+            android:layout_marginTop="@dimen/register_margin_each_model"
+            android:textSize="@dimen/register_text_size"
+            android:textColor="@color/rayblue"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:layout_marginRight="@dimen/register_margin_parallel"
+            android:layout_marginLeft="@dimen/register_margin_parallel">
+
+            <EditText
+                android:id="@+id/userEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phoneOrEmail"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/register_text_size"
+                android:textColorHint="@color/gray"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/rayblue"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/verifyCodeTipTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:text="@string/verification"
+            android:layout_marginTop="@dimen/register_margin_each_model"
+            android:textSize="@dimen/register_text_size"
+            android:textColor="@color/rayblue"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:layout_marginRight="@dimen/register_margin_parallel"
+            android:layout_marginLeft="@dimen/register_margin_parallel">
+
+            <EditText
+                android:id="@+id/verifyCodeEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enterVerification"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/register_text_size"
+                android:textColorHint="@color/gray"
+                android:inputType="number"/>
+
+
+            <TextView
+                android:id="@+id/sendTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/register_text_size"
+                android:textColor="@color/gray"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/rayblue"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginRight="@dimen/register_margin_parallel">
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:button="@drawable/check_box_bg1"/>
+
+            <TextView
+                android:id="@+id/privacyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/rayblue"
+                android:textColorLink="@color/lineBlue"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/register_margin_parallel"
+            android:layout_marginLeft="@dimen/register_margin_parallel">
+
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button_corner"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/login_bg"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

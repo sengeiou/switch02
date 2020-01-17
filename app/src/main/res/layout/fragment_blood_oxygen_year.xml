@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:layout_weight="3"
+        android:layout_marginTop="@dimen/report_margin"
+        android:layout_marginRight="@dimen/report_margin"
+        android:layout_marginLeft="@dimen/report_margin"
+        android:background="@drawable/bg_report_orange1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/report_margin_parallel"
+            android:layout_marginTop="@dimen/report_margin_parallel"
+            android:layout_marginBottom="@dimen/report_margin">
+
+            <ImageView
+                android:id="@+id/leftIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/dateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/report_text_size_small"
+                android:textColor="@color/white"
+                android:text="@string/today"/>
+
+            <ImageView
+                android:id="@+id/rightIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <com.szip.sportwatch.View.ReportView
+            android:id="@+id/tableView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/report_margin"
+            android:layout_marginRight="@dimen/report_margin_table_parallel"
+            android:layout_marginLeft="@dimen/report_margin_table_parallel"
+            app:flag="5"
+            app:is_bar="true"
+            app:bar_bg_color="#EF888E"
+            app:pross_color1="@color/white"
+            app:data_number="12"
+            app:text_color="@color/white"
+            app:text_size="@dimen/report_text_size_table"
+            app:x_value="true"
+            app:x_value_num="12"
+            app:y_value="true"
+            app:y_value_num="6"
+            app:maxVelue="30"
+            app:bar_width="12dp" />
+
+    </LinearLayout>
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/sao2_shadow"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/report_margin"
+            android:layout_marginLeft="@dimen/report_margin"
+            android:background="@drawable/bg_item_normal">
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/report_margin_parallel"
+                android:layout_marginBottom="@dimen/report_margin_parallel">
+
+
+                <TextView
+                    android:id="@+id/averageTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/rayblue"
+                    android:textSize="@dimen/report_text_size_mid"
+                    android:text="--%"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/averageTv"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/report_text_size_small"
+                    android:text="@string/averageSao"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="45dp"
+                android:background="@color/gray"
+                android:layout_gravity="center_vertical"/>
+
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/report_margin_parallel"
+                android:layout_marginBottom="@dimen/report_margin_parallel">
+
+
+                <TextView
+                    android:id="@+id/reachTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/rayblue"
+                    android:textSize="@dimen/report_text_size_mid"
+                    android:text="--%"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reachTv"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/report_text_size_small"
+                    android:text="@string/passRate"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

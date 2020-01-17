@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+def dbflow_version = "4.2.4"
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    sourceSets.main.jniLibs.srcDirs = ['libs']
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    defaultConfig {
+        applicationId "com.szip.sportwatch"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+    }
+}
+
+MobSDK {
+    appKey "2dd1dcd33f540"
+    appSecret "56e7427a1f9bb5453c8c277add84d55a"
+    ShareSDK {
+        loopShare true
+        devInfo {
+            Wechat {
+                appId "wxa6cff3088f1c746b"
+                appSecret "e30d51162bd98723db04696fa3a5ca89"
+                bypassApproval false
+            }
+            WechatMoments {
+                appId "wxa6cff3088f1c746b"
+                appSecret "e30d51162bd98723db04696fa3a5ca89"
+                shareByAppClient true
+            }
+//            QQ {
+//                appId "100371282"
+//                appKey "aed9b0303e3ed1e27bae87c33761161d"
+//                shareByAppClient true
+//            }
+//            Facebook {
+//                appKey "1412473428822331"
+//                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
+//                callbackUri "https://mob.com"
+//            }
+            SinaWeibo {
+                appKey "3865839557"
+                appSecret "94316b8ff7988126551e58837817de23"
+                shareByAppClient true
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation project(':ncalendar')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    //数据库
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:$dbflow_version"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:$dbflow_version"
+    //http
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    implementation 'com.google.code.gson:gson:2.3.1'
+    //加载框
+    implementation 'com.kaopiz:kprogresshud:1.0.1'
+
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':okhttputils')
+    implementation project(':citypicker')
+
+
+    implementation files('libs/commons-codec-1.5.jar')
+    implementation files('libs/FotaVdmLib.jar')
+    implementation files('libs/MREPermission.jar')
+    implementation files('libs/signpost-commonshttp4-1.2.1.1.jar')
+    implementation files('libs/signpost-core-1.2.1.1.jar')
+    implementation files('libs/wearable.jar')
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+}

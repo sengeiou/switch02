@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="3"
+        android:background="@mipmap/sport_bg">
+
+        <LinearLayout
+            android:id="@+id/userLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="@dimen/sport_margin_parallel">
+
+            <ImageView
+                android:id="@+id/pictureIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/my_head_male_52"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/userNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="用户名"
+                android:layout_marginLeft="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/sport_margin_parallel">
+                <ImageView
+                    android:id="@+id/historyIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/sport_icon_list"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/white"
+            android:layout_below="@+id/userLl"
+            android:text="@string/best"
+            android:layout_marginTop="@dimen/sport_margin_parallel"
+            android:layout_marginLeft="@dimen/sport_margin_parallel" />
+
+
+        <RelativeLayout
+            android:id="@+id/stepRl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/sport"
+                android:layout_centerVertical="true"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/sportTypeIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/sport_icon_type"/>
+
+                <TextView
+                    android:id="@+id/distanceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="0"
+                    android:textSize="@dimen/sport_text_size_big"
+                    android:textStyle="bold"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="km"
+                    android:textSize="@dimen/healthy_text_size"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/sport_icon_speed"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/speedTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_normal"
+                android:textColor="@color/rayblue"
+                android:textStyle="bold"
+                android:text="00'00''"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_small"
+                android:textColor="@color/black1"
+                android:layout_gravity="center"
+                android:text="@string/speed"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:layout_gravity="center"/>
+        
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/sport_icon_kcal"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/calorieTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_normal"
+                android:textColor="@color/rayblue"
+                android:textStyle="bold"
+                android:text="00"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_small"
+                android:textColor="@color/black1"
+                android:layout_gravity="center"
+                android:text="@string/kcal"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/sport_icon_time"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/sportTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_normal"
+                android:textColor="@color/rayblue"
+                android:textStyle="bold"
+                android:text="00:00:00"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sport_text_size_small"
+                android:textColor="@color/black1"
+                android:layout_gravity="center"
+                android:text="@string/time"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

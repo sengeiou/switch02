@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iSmarport</string>
+
+    <!--登录页面/找回密码页面/注册页面-->
+    <string name="logo">欢迎来到iSmarport</string>
+    <string name="user">账号</string>
+    <string name="phoneOrEmail">请输入您的电话/邮箱</string>
+    <string name="password">密码</string>
+    <string name="enterPassword">请输入6-20位密码</string>
+    <string name="confirmPassword">确认密码</string>
+    <string name="enterPasswordAgain">请再输入一次密码</string>
+    <string name="forget"><u>忘记密码</u></string>
+    <string name="register"><u>注册</u></string>
+    <string name="login">登录</string>
+    <string name="country">国家/地区</string>
+    <string name="choseCountry">请选择国家/地区</string>
+    <string name="send">发送验证码</string>
+    <string name="verification">验证码</string>
+    <string name="enterVerification">请输入验证码</string>
+    <string name="newPassword">新密码</string>
+    <string name="enterNewPassword">请输入新密码</string>
+    <string name="reset">重置密码</string>
+    <string name="registerTitle">注册</string>
+    <string name="next">下一步</string>
+    <string name="privacy">同意《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">用户服务协议</a>》和《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">隐私条款</a>》</string>
+    <string name="checkPrivacy">请确认阅读隐私条款</string>
+    <string name="setPassword">设置密码</string>
+
+    <!--主页-->
+    <string name="healthy">健康</string>
+    <string name="sport">运动</string>
+    <string name="mine">我的</string>
+    <string name="touchAgain">再按一次退出程序</string>
+
+    <!--健康页面-->
+    <string name="planStep">目标步数%d</string>
+    <string name="sleep">睡眠</string>
+    <string name="heart">心率</string>
+    <string name="blood">血压</string>
+    <string name="bloodo">血氧</string>
+    <string name="check">查看</string>
+    <string name="perfect">优</string>
+    <string name="good">良</string>
+    <string name="bad">差</string>
+    <string name="quick">过快</string>
+    <string name="normal">正常</string>
+    <string name="slow">过缓</string>
+    <string name="higher">偏高</string>
+    <string name="flat">偏低</string>
+
+
+    <!--运动界面-->
+    <string name="best">户外跑最佳记录</string>
+    <string name="history">历史运动记录</string>
+    <string name="track">运动轨迹</string>
+    <string name="notrack">无运动轨迹</string>
+    <string name="speed">配速</string>
+    <string name="kcal">消耗(kcal)</string>
+    <string name="time">时长</string>
+
+
+    <!--我的页面-->
+    <string name="device">设备</string>
+    <string name="stepPlan">计步目标</string>
+    <string name="sleepPlan">睡眠目标</string>
+    <string name="find">寻找手表</string>
+    <string name="notification">应用通知</string>
+    <string name="blePhone">蓝牙通话</string>
+    <string name="blePhoto">蓝牙拍照</string>
+    <string name="unit">单位制式</string>
+    <string name="about">关于</string>
+    <string name="logout">退出登录</string>
+    <string name="me">我的</string>
+    <string name="set">设置</string>
+    <string name="other">其他</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="tip">提示</string>
+    <string name="unbind">确定要解除绑定吗？</string>
+    <string name="logoutTip">确定要退出登录吗？</string>
+    <string name="sendOK">发送成功</string>
+    <string name="searchDevice">搜索设备</string>
+    <string name="noDevice">未搜索到设备</string>
+    <string name="connect">已连接</string>
+    <string name="disConnect">未连接</string>
+    <string name="connectting">正在连接</string>
+    <string name="syceError">手表未连接，数据将会再下次连接时设置进手表</string>
+
+    <!--蓝牙通话界面-->
+    <string name="step1">1.手表与手机蓝牙配对</string>
+    <string name="step2">2.解除匹配关系</string>
+    <string name="str1">1)在手表中进入蓝牙功能\n2)搜索蓝牙设备-选择手机蓝牙名称\n3)与手机完成配对即可使用手表进行蓝牙通话</string>
+    <string name="str2">进入系统设置-蓝牙-已配对的设备,找到设备,进入点击“取消配对”,解除配对关系。\n\n注:解除配对关系后手表不能使用蓝牙通话功能</string>
+
+    <!--关于界面-->
+    <string name="version">当前版本</string>
+
+    <!--单位制式界面-->
+    <string name="measureUnit">度量单位</string>
+    <string name="metric">公制</string>
+    <string name="british">英制</string>
+
+    <!--报告页面-->
+    <string name="stepReport">计步报告</string>
+    <string name="sleepReport">睡眠报告</string>
+    <string name="heartReport">心率报告</string>
+    <string name="bloodPressureReport">血压报告</string>
+    <string name="bloodOxygenReport">血氧报告</string>
+    <string name="ecgReport">心电报告</string>
+    <string name="day">日</string>
+    <string name="week">周</string>
+    <string name="sun">周日</string>
+    <string name="mon">周一</string>
+    <string name="tues">周二</string>
+    <string name="wed">周三</string>
+    <string name="thus">周四</string>
+    <string name="fri">周五</string>
+    <string name="sta">周六</string>
+    <string name="today">今天</string>
+    <string name="month">月</string>
+    <string name="year">年</string>
+    <string name="allStep">总步数</string>
+    <string name="averageStep">平均步数</string>
+    <string name="allSleep">总睡眠时间</string>
+    <string name="averageSleep">平均睡眠时间</string>
+    <string name="light">浅睡</string>
+    <string name="deep">深睡</string>
+    <string name="lightTable">浅</string>
+    <string name="deepTable">深</string>
+    <string name="averageHeart">平均心率</string>
+    <string name="minHeart">最小心率</string>
+    <string name="maxHeart">最大心率</string>
+    <string name="averageSBP">平均收缩压</string>
+    <string name="sbp">收缩压</string>
+    <string name="averageDBP">平均舒张压</string>
+    <string name="dbp">舒张压</string>
+    <string name="averageSao">平均血氧</string>
+    <string name="passRate">达标率</string>
+    <string name="ecgTip">该检测仅从参考，不能作为医疗诊断凭证</string>
+
+
+
+
+    <!--用户信息页面-->
+    <string name="userInfo">用户信息</string>
+    <string name="picture">头像</string>
+    <string name="userName">昵称</string>
+    <string name="enterUserName">请输入您的昵称</string>
+    <string name="sex">性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="birthday">生日</string>
+
+
+
+
+    <!--提示语-->
+    <string name="tokenTimeOut">登录过期，请重新登录</string>
+    <string name="enterRightEmail">请输入正确的邮箱格式</string>
+    <string name="httpError">网络应答超时，请检查网络连接状况</string>
+    <string name="logging">登录中...</string>
+    <string name="waitting">请稍等...</string>
+    <string name="resetSuccess">重置密码成功</string>
+    <string name="passwordUnSame">两次输入密码不一致</string>
+    <string name="saved">保存成功</string>
+    <string name="notificationlistener_prompt_title">启用通知</string>
+    <string name="notificationlistener_prompt_content">iSmarport需要转发应用通知到远程智能设备。按\"确定\"键进入通知页面激活。</string>
+    <string name="tokenTimeout">登录已经过期，请重新登录</string>
+    <string name="lostDevice">设备未连接</string>
+    <string name="permissionErrorForCamare">权限没通过，无法打开拍照功能</string>
+    <string name="findPermission">权限没通过，将无法搜索到设备列表</string>
+    <string name="applyPermission">申请权限</string>
+    <string name="shareFailForPermission">分享失败,相关权限没通过</string>
+    <string name="permissionErrorForSMS">权限没通过，无法打开短信通知功能</string>
+    <string name="loading">加载中...</string>
+
+
+    <!--分享界面-->
+    <string name="planOK">今日目标已达成</string>
+    <string name="planNO">今日目标未达成</string>
+    <string name="planStepShare">目标步数: %dsteps</string>
+    <string name="distanceShare">行走距离: %.1fKm</string>
+    <string name="calurieShare">消耗卡路里: %.1fKcal</string>
+
+    <string name="planSleep">目标时长: %.1fh</string>
+    <string name="deepSleepShare">深睡时长: %02dh%02dmin</string>
+    <string name="lightSleepShare">浅睡时长: %02dh%02dmin</string>
+
+    <string name="testTimes">今日测量数: %d</string>
+    <string name="maxHeartShare">最大心率: %dbpm</string>
+    <string name="minHeartShare">最小心率: %dbpm</string>
+
+    <string name="bloodOxygenData">血氧饱和度</string>
+    <string name="testValue">测试结果:</string>
+    <string name="passTimeData">合格率: %.1f%%</string>
+
+    <string name="bloodPressureData">平均收缩压/舒张压</string>
+    <string name="shareSuccess">分享成功</string>
+    <string name="shareCancel">取消分享</string>
+    <string name="shareFail">分享失败</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">Loading</string>
+    <string name="progress_dialog_message">Please wait&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <string name="operate_error">Failed</string>
+
+</resources>
