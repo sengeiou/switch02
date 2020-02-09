@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class NotificationDataManager {
-    private static final String TAG = "AppManager/Noti/Manager";
+    private static final String TAG = "notify******";
     // For get tile and content of notification
     private static final int NOTIFICATION_TITLE_TYPE = 9;
     private static final int NOTIFICATION_CONTENT_TYPE = 10;
@@ -48,8 +48,8 @@ public class NotificationDataManager {
         HashSet<String> ignoreList = IgnoreList.getInstance().getIgnoreList();
         HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
         Log.i(TAG, "blockList = " + blockList.contains(notificationData.getPackageName())+
-                "ignoreList = " + ignoreList.contains(notificationData.getPackageName())+
-                "exclusionList = " + exclusionList.contains(notificationData.getPackageName()));
+                " ;ignoreList = " + ignoreList.contains(notificationData.getPackageName())+
+                " ;exclusionList = " + exclusionList.contains(notificationData.getPackageName()));
         if (!blockList.contains(notificationData.getPackageName()) && !ignoreList.contains(notificationData.getPackageName())
                 && !exclusionList.contains(notificationData.getPackageName())) {
             Log.i(TAG, "Notice: notification need send, package name=" + notificationData.getPackageName());

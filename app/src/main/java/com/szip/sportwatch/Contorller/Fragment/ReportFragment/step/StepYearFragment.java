@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.step;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
@@ -27,13 +28,12 @@ import java.util.Random;
  * Created by Administrator on 2019/12/16.
  */
 
-public class StepYearFragment extends BaseFragment {
+public class StepYearFragment extends BaseFragment implements View.OnClickListener{
 
     private ReportView reportView;
     private ReportDataBean reportDataBean;
     private TextView allStepTv,reachTv;
     private MyApplication app;
-    private long time = DateUtil.getTimeOfToday();
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +43,7 @@ public class StepYearFragment extends BaseFragment {
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
         app = (MyApplication) getActivity().getApplicationContext();
+        initEvent();
         initData();
         initView();
         updateView();
@@ -58,6 +59,11 @@ public class StepYearFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -94,4 +100,17 @@ public class StepYearFragment extends BaseFragment {
         updateView();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
+                updateView();
+                break;
+        }
+    }
 }

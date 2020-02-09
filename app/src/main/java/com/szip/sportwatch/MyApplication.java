@@ -1,45 +1,30 @@
 package com.szip.sportwatch;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
-
-import com.mediatek.leprofiles.LocalBluetoothLEManager;
-import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.Model.UserInfo;
-import com.szip.sportwatch.Notification.BlockList;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
-import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.TopExceptionHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -80,8 +65,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         /**
          * 把log上传到云端
          * */
-//        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
-
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
         //初始化文件存储
         FileUtil.getInstance().initFile(getExternalFilesDir(null).getPath());
@@ -91,9 +75,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
         //初始化不推送的应用
         initIgnoreList();
-
-        UtilBroadcat utilBroadcat = new UtilBroadcat(getApplicationContext());
-        utilBroadcat.onRegister();
 
         /**
          * 拿去本地缓存的数据
@@ -189,8 +170,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         });
     }
     private void initIgnoreList() {
-        HashSet<String> ignoreList = IgnoreList.getInstance().getIgnoreList();
-        HashSet<CharSequence> blockList = BlockList.getInstance().getBlockList();
         HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
         List<PackageInfo> packagelist = getPackageManager().getInstalledPackages(0);
 
@@ -201,14 +180,17 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                     continue;
                 }
                 // Add app name
-                String appName = getPackageManager()
-                        .getApplicationLabel(packageInfo.applicationInfo).toString();
+                String appName = packageInfo.packageName;
                 // Add to package list
                 if (MathUitl.isSystemApp(packageInfo.applicationInfo)) {
-                    ignoreList.add(appName);
+                    IgnoreList.getInstance().addIgnoreItem(appName);
+                }else {
+                    if (!(appName.equals("com.tencent.mm")||appName.equals("com.tencent.mobileqq")))
+                        IgnoreList.getInstance().addIgnoreItem(appName);
                 }
             }
         }
+        IgnoreList.getInstance().saveIgnoreList();
     }
 
     public UserInfo getUserInfo() {

@@ -41,21 +41,21 @@ public class MyNotificationReceiver extends NotificationListenerService{
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        Log.i("SZIP******","Notification Posted, " + "ID: " + sbn.getId() + ", Package: "
+        Log.i("notify******","Notification Posted, " + "ID: " + sbn.getId() + ", Package: "
                 + sbn.getPackageName());
         configureMusicControl(sbn.getPackageName());
-        Log.d("SZIP******", "sdk version is " + android.os.Build.VERSION.SDK_INT);
+        Log.d("notify******", "sdk version is " + android.os.Build.VERSION.SDK_INT);
         if(android.os.Build.VERSION.SDK_INT  < 18){
-            Log.i("SZIP******","Android platform version is lower than 18.");
+            Log.i("notify******","Android platform version is lower than 18.");
             return;
         }
         Notification notification = (Notification) sbn.getNotification();
 
         if (notification == null) {
-            Log.e("SZIP******","Notification is null, return");
+            Log.e("notify******","Notification is null, return");
             return;
         }
-        Log.i("SZIP******","packagename = " + sbn.getPackageName() + "tag = " +sbn.getTag()+"Id = " + sbn.getId());
+        Log.i("notify******","packagename = " + sbn.getPackageName() + "tag = " +sbn.getTag()+"Id = " + sbn.getId());
         NotificationData notificationData = notificationDataManager.getNotificationData(
                 notification, sbn.getPackageName(),sbn.getTag(),sbn.getId());
         notificationDataManager.sendNotificationData(notificationData);
@@ -70,25 +70,28 @@ public class MyNotificationReceiver extends NotificationListenerService{
         for (int i = 0; i < localList.size(); i++) {
             ResolveInfo localResolveInfo = localList.get(i);
             String pack = localResolveInfo.activityInfo.packageName;
-            if (pack.equals(packageName))
+            if (pack.equals(packageName)){
+                Log.d("notify******","set musice = "+pack);
                 RemoteMusicController.getInstance(MyApplication.getInstance()).setMusicApp(pack);
+            }
+
         }
         return localList;
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        Log.i("SZIP******","Notification Removed, " + "ID: " + sbn.getId() + ", Package: "
+        Log.i("notify******","Notification Removed, " + "ID: " + sbn.getId() + ", Package: "
                 + sbn.getPackageName());
 
         if(android.os.Build.VERSION.SDK_INT  < 18){
-            Log.i("SZIP******","Android platform version is lower than 18.");
+            Log.i("notify******","Android platform version is lower than 18.");
             return;
         }
 
         Notification notification = (Notification) sbn.getNotification();
         if (notification == null) {
-            Log.e("SZIP******","Notification is null, return");
+            Log.e("notify******","Notification is null, return");
             return;
         }
 
@@ -118,9 +121,9 @@ public class MyNotificationReceiver extends NotificationListenerService{
                 if(!isPackageNameSame || !isTextSame || !issContentSame){*/
                 NotificationController.getInstance(getBaseContext()).sendDelNotfications(
                         notificationData.getMsgId());
-                Log.e("SZIP******","Notification Removed,sendDelNotfications");
+                Log.e("notify******","Notification Removed,sendDelNotfications");
                 /*} else{
-                   Log.e("SZIP******,"Notification Removed,do not sendDelNotfications");
+                   Log.e("notify******,"Notification Removed,do not sendDelNotfications");
                 }*/
                 syncList.remove(notificationData);
                 NotificationSyncList.getInstance().saveSyncList();
@@ -141,7 +144,7 @@ public class MyNotificationReceiver extends NotificationListenerService{
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.i("SZIP******", "onUnbind()");
+        Log.i("notify******", "onUnbind()");
         return false;
     }
 
@@ -157,12 +160,12 @@ public class MyNotificationReceiver extends NotificationListenerService{
             int id = -1;
             if (intent != null) {
                 id = intent.getIntExtra("msgid", -1);
-                Log.e("SZIP******", "handleMessage,id = " + id);
+                Log.e("notify******", "handleMessage,id = " + id);
             }
             ArrayList<NotificationData> syncList = NotificationSyncList.getInstance().getSyncList();
             for(NotificationData notificationData : syncList){
                 if(notificationData.getMsgId() == id){
-                    Log.e("SZIP******", "handleMessage,cancel notificaiton : " + notificationData);
+                    Log.e("notify******", "handleMessage,cancel notificaiton : " + notificationData);
                     NotificationSyncList.getInstance().removeNotificationData(String.valueOf(id));
                     NotificationSyncList.getInstance().saveSyncList();
                     // if the notification with the flag Notification.FLAG_ONGOING_EVENT ,

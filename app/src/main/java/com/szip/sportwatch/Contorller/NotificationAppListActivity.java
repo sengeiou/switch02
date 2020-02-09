@@ -119,7 +119,6 @@ public class NotificationAppListActivity extends BaseActivity {
 
     private void saveIgnoreList() {
         IgnoreList.getInstance().saveIgnoreList();
-
         // Prompt user that have saved successfully .
         // Toast.makeText(this, R.string.save_successfully,
         // Toast.LENGTH_SHORT).show();

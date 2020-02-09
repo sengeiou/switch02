@@ -2,10 +2,12 @@ package com.szip.sportwatch.Contorller.Fragment.ReportFragment.bloodPressure;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Adapter.BloodAdapter;
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -29,7 +31,7 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class BloodPressureDayFragment extends BaseFragment implements OnPageViewScorllAble{
+public class BloodPressureDayFragment extends BaseFragment implements OnPageViewScorllAble, View.OnClickListener {
 
     private ReportScorllView reportScorllView;
 
@@ -47,6 +49,7 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -62,6 +65,11 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -102,5 +110,21 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
+                initData();
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
+                initData();
+                updateView();
+                break;
+        }
     }
 }

@@ -29,7 +29,10 @@
             <ImageView
                 android:id="@+id/leftIv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@mipmap/report_icon_white_left"
+                android:layout_marginRight="20dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/dateTv"
@@ -42,7 +45,10 @@
             <ImageView
                 android:id="@+id/rightIv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@mipmap/report_icon_white_right"
+                android:layout_marginLeft="20dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

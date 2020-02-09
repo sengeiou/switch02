@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.bloodOxygen;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mediatek.wearable.WearableManager;
@@ -27,7 +28,7 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class BloodOxygenMonthFragment extends BaseFragment{
+public class BloodOxygenMonthFragment extends BaseFragment implements View.OnClickListener{
 
     private ReportView reportView;
     private TextView averageTv,reachTv;
@@ -40,6 +41,7 @@ public class BloodOxygenMonthFragment extends BaseFragment{
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -55,6 +57,11 @@ public class BloodOxygenMonthFragment extends BaseFragment{
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -93,5 +100,21 @@ public class BloodOxygenMonthFragment extends BaseFragment{
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate+=28*24*60*60;
+                initData();
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate-=28*24*60*60;
+                initData();
+                updateView();
+                break;
+        }
     }
 }

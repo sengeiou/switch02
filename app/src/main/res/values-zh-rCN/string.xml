@@ -26,6 +26,7 @@
     <string name="privacy">同意《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">用户服务协议</a>》和《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">隐私条款</a>》</string>
     <string name="checkPrivacy">请确认阅读隐私条款</string>
     <string name="setPassword">设置密码</string>
+    <string name="china">中国</string>
 
     <!--主页-->
     <string name="healthy">健康</string>
@@ -153,6 +154,8 @@
     <string name="height">身高</string>
     <string name="weight">体重</string>
     <string name="birthday">生日</string>
+    <string name="album">相册</string>
+    <string name="camera">拍照</string>
 
 
 
@@ -176,7 +179,8 @@
     <string name="shareFailForPermission">分享失败,相关权限没通过</string>
     <string name="permissionErrorForSMS">权限没通过，无法打开短信通知功能</string>
     <string name="loading">加载中...</string>
-
+    <string name="privacyTip">您是否已经认真阅读隐私协议，并同意注册成为我司的新用户？\n当您点击"确定"即表示你已经同意该协议的条款。\n用户隐私政策主要包括以下内容:\n1.个人资料(头像、昵称、身高、体重、运动数据等)的收集，保存和分享。\n2.设备权限(位置，通讯录，相机等)的使用</string>
+    <string name="crop_pic_failed">截取图像失败，请选择jpg,png格式图片！</string>
 
     <!--分享界面-->
     <string name="planOK">今日目标已达成</string>

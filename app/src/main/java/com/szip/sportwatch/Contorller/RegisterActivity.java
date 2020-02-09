@@ -21,6 +21,7 @@ import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
+import com.szip.sportwatch.View.MyAlerDialog;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
@@ -76,6 +77,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         timer.cancel();
                         sendTv.setEnabled(true);
                         sendTv.setText(getCodeAgain);
+                        sendTv.setTextColor(getResources().getColor(R.color.rayblue));
                     }else {
                         sendTv.setText(time+"s");
                     }
@@ -156,6 +158,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         } catch (IOException e) {
             e.printStackTrace();
         }
+        sendTv.setTextColor(getResources().getColor(R.color.gray));
         sendTv.setEnabled(false);
         time = 60;
         TimerTask timerTask = new TimerTask() {
@@ -222,27 +225,34 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 } else if (!checkBox.isChecked()){
                     showToast(getString(R.string.checkPrivacy));
                 } else{
-                    try {
-                        if (userEt.getText().toString().contains("@")){//邮箱
-                            if (isEmail(userEt.getText().toString())){
-                                ProgressHudModel.newInstance().show(RegisterActivity.this,
-                                        getString(R.string.waitting),getString(R.string.httpError),10000);
-                                HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),
-                                        verifyCodeEt.getText().toString());
-                                isPhone = false;
-                            }
-                            else
-                                showToast(getString(R.string.enterRightEmail));
-                        }else {//电话
-                            ProgressHudModel.newInstance().show(RegisterActivity.this,
-                                    getString(R.string.waitting),getString(R.string.httpError),10000);
-                            HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
-                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString());
-                            isPhone = true;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.privacyTip), getString(R.string.confirm),
+                            getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
+                                @Override
+                                public void onDialogTouch(boolean flag) {
+                                    try {
+                                        if (userEt.getText().toString().contains("@")){//邮箱
+                                            if (isEmail(userEt.getText().toString())){
+                                                ProgressHudModel.newInstance().show(RegisterActivity.this,
+                                                        getString(R.string.waitting),getString(R.string.httpError),10000);
+                                                HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),
+                                                        verifyCodeEt.getText().toString());
+                                                isPhone = false;
+                                            }
+                                            else
+                                                showToast(getString(R.string.enterRightEmail));
+                                        }else {//电话
+                                            ProgressHudModel.newInstance().show(RegisterActivity.this,
+                                                    getString(R.string.waitting),getString(R.string.httpError),10000);
+                                            HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
+                                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString());
+                                            isPhone = true;
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },this);
+
                 }
                 break;
         }

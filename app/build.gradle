@@ -85,6 +85,9 @@ dependencies {
     //加载框
     implementation 'com.kaopiz:kprogresshud:1.0.1'
 
+    //图片裁剪
+    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation 'com.github.Creky:uCrop:2.2.3'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

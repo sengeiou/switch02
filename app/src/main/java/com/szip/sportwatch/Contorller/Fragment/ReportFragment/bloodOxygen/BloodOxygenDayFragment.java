@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.bloodOxygen;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewScorllAble{
+public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewScorllAble, View.OnClickListener {
 
     private ReportScorllView reportScorllView;
 
@@ -45,6 +46,7 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -60,6 +62,12 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -99,5 +107,21 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                initData();
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
+                initData();
+                updateView();
+                break;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.bloodOxygen;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
@@ -25,7 +26,7 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class BloodOxygenWeekFragment extends BaseFragment{
+public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClickListener{
 
     private ReportView reportView;
     private TextView averageTv,reachTv;
@@ -38,6 +39,7 @@ public class BloodOxygenWeekFragment extends BaseFragment{
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -53,6 +55,12 @@ public class BloodOxygenWeekFragment extends BaseFragment{
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -89,5 +97,21 @@ public class BloodOxygenWeekFragment extends BaseFragment{
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate+=7*24*60*60;
+                initData();
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((BloodOxygenReportActivity)getActivity()).reportDate-=7*24*60*60;
+                initData();
+                updateView();
+                break;
+        }
     }
 }

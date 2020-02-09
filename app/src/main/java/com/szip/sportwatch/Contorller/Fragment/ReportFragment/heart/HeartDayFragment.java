@@ -1,9 +1,11 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.heart;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
+import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -25,7 +27,7 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class HeartDayFragment extends BaseFragment{
+public class HeartDayFragment extends BaseFragment implements View.OnClickListener {
 
     private ReportView reportView;
     private TextView averageTv,maxTv,minTv;
@@ -37,6 +39,7 @@ public class HeartDayFragment extends BaseFragment{
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -52,6 +55,11 @@ public class HeartDayFragment extends BaseFragment{
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -85,5 +93,21 @@ public class HeartDayFragment extends BaseFragment{
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
+                initData();
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
+                initData();
+                updateView();
+                break;
+        }
     }
 }

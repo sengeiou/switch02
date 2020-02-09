@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.sleep;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
@@ -26,12 +27,11 @@ import java.util.Random;
  * Created by Administrator on 2019/12/18.
  */
 
-public class SleepYearFragment extends BaseFragment {
+public class SleepYearFragment extends BaseFragment implements View.OnClickListener{
 
     private ReportView reportView;
     private ReportDataBean reportDataBean;
     private TextView allSleepTv,averageSleepTv;
-    private long time = DateUtil.getTimeOfToday();
 
     @Override
     protected int getLayoutId() {
@@ -40,6 +40,7 @@ public class SleepYearFragment extends BaseFragment {
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
+        initEvent();
         initData();
         initView();
         updateView();
@@ -55,6 +56,11 @@ public class SleepYearFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initEvent() {
+        getView().findViewById(R.id.leftIv).setOnClickListener(this);
+        getView().findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void updateView() {
@@ -88,5 +94,19 @@ public class SleepYearFragment extends BaseFragment {
     public void updateReport(UpdateReport updateReport){
         initData();
         updateView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rightIv:
+                ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
+                updateView();
+                break;
+            case R.id.leftIv:
+                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
+                updateView();
+                break;
+        }
     }
 }

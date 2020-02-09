@@ -65,6 +65,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                         timer.cancel();
                         sendTv.setEnabled(true);
                         sendTv.setText(getCodeAgain);
+                        sendTv.setTextColor(getResources().getColor(R.color.rayblue));
                     }else {
                         sendTv.setText(time+"s");
                     }
@@ -157,6 +158,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
         } catch (IOException e) {
             e.printStackTrace();
         }
+        sendTv.setTextColor(getResources().getColor(R.color.gray));
         sendTv.setEnabled(false);
         time = 60;
         TimerTask timerTask = new TimerTask() {
