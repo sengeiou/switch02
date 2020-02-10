@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SportWatch.iml" filepath="$PROJECT_DIR$/SportWatch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/citypicker/citypicker.iml" filepath="$PROJECT_DIR$/citypicker/citypicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ismarport.iml" filepath="$PROJECT_DIR$/ismarport.iml" />
       <module fileurl="file://$PROJECT_DIR$/ncalendar/ncalendar.iml" filepath="$PROJECT_DIR$/ncalendar/ncalendar.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttputils/okhttputils.iml" filepath="$PROJECT_DIR$/okhttputils/okhttputils.iml" />
     </modules>
