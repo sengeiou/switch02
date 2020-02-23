@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -432,12 +433,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode != Activity.RESULT_OK)
-            return;
-        else if (resultCode == UCrop.RESULT_ERROR){
+        Log.d("IMAGE******","回调 = "+resultCode+";request = "+requestCode);
+       if (resultCode == UCrop.RESULT_ERROR){
             showToast(getString(R.string.crop_pic_failed));
         }
-        switch (resultCode){
+        switch (requestCode){
             case IMAGE_CAPTURE:{// 相机
                 File file = new File(photoName);
                 if (file.exists()) {
@@ -452,11 +452,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             }
                 break;
             case IMAGE_MEDIA:{
+                Log.d("IMAGE******","相册回调");
                 startPhotoZoom(data.getData());
             }
                 break;
             case  UCrop.REQUEST_CROP:{
+                Log.d("IMAGE******","裁剪回调");
                 Uri resultUri = UCrop.getOutput(data);
+                pictureIv.setImageURI(resultUri);
 //                setPicToView(resultUri);
             }
                 break;
@@ -471,6 +474,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * @param uri
      */
     private void startPhotoZoom(Uri uri) {
+        Log.d("IMAGE******","裁剪");
         try {
             tmpFile = null;
             BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -504,6 +508,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             file.getParentFile().mkdirs();
             boolean res = file.createNewFile();
             if (res) {
+                Log.d("IMAGE******","裁剪");
                 Uri target = Uri.fromFile(file);
                 UCrop.Options options = new UCrop.Options();
                 options.setToolbarColor(getResources().getColor(R.color.blue));

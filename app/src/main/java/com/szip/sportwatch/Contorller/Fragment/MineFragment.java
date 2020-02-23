@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -95,7 +96,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(this);
         if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTED){
             stateTv.setText(getString(R.string.connect));
         }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
@@ -273,6 +273,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                             public void onDialogTouch(boolean flag) {
                                 if (flag){
                                     try {
+                                        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
                                         String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
                                         HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
                                         ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)

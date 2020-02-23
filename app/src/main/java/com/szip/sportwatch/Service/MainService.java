@@ -109,12 +109,12 @@ public class MainService extends Service {
         public void onConnectChange(int oldState, int newState) {
             Log.d("SZIP******","STATE = "+newState);
             connectState = newState;
-                if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
-                    EventBus.getDefault().post(new ConnectState(newState));
-                    EXCDController.getInstance().writeForSetDate();
-                    EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
-                    EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
-                }
+            EventBus.getDefault().post(new ConnectState(newState));
+            if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
+                EXCDController.getInstance().writeForSetDate();
+                EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
+                EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
+            }
         }
 
         @Override
@@ -401,22 +401,22 @@ public class MainService extends Service {
     }
 
     public void startConnect(){
+        if ((WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_FAIL||
+                WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_LOST ||
+                WearableManager.getInstance().getConnectState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
+            //如果没有连接，则连接
+            Log.d("SZIP******","连接设备");
+            WearableManager.getInstance().connect();
+        }
         isThreadRun = true;
         connectThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (isThreadRun){
-                    if (WearableManager.getInstance().getRemoteDevice()!=null){
-                        if ((WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_FAIL||
-                                WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_LOST ||
-                                WearableManager.getInstance().getConnectState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
-                            //如果没有连接，则连接
-                            Log.d("SZIP******","连接设备");
-                            WearableManager.getInstance().connect();
-                        }else if (WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
+                    if (WearableManager.getInstance().getRemoteDevice()!=null&&
+                            WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
                             Log.d("SZIP******","发送心跳包");
                             EXCDController.getInstance().writeForCheckVersion();
-                        }
                     }
                     try {
                         Thread.sleep(6000);
@@ -424,7 +424,6 @@ public class MainService extends Service {
                         e.printStackTrace();
                     }
                 }
-
             }
         });
         connectThread.start();

@@ -53,9 +53,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
-
-
-
         app = (MyApplication)getApplicationContext();
         /**
          * 拿去本地缓存的数据
@@ -64,7 +61,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
         isFirst = sharedPreferences.getBoolean("isFirst",true);
         app.setUserInfo(MathUitl.loadInfoData(sharedPreferences));
-
 
         /**
          * 获取权限·
@@ -185,7 +181,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
     }
 
     private void initData() {
-
         thread = new Thread(this);
         thread.start();
     }
