@@ -91,6 +91,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     private void initEvent() {
 
         findViewById(R.id.registerBtn).setOnClickListener(this);
+        findViewById(R.id.backIv).setOnClickListener(this);
 
         passwordEt.addTextChangedListener(watcher);
         passwordEt.setOnFocusChangeListener(focusChangeListener);
@@ -142,6 +143,9 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.backIv:
+                finish();
                 break;
         }
     }

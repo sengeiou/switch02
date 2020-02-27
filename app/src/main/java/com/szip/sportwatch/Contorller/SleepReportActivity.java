@@ -39,7 +39,7 @@ public class SleepReportActivity extends BaseActivity implements View.OnClickLis
     private TabLayout mTab;
     private NoScrollViewPager mPager;
 
-    public long reportDate = DateUtil.getTimeOfToday();
+    public long reportDate = DateUtil.getTimeOfToday()-24*60*60;
 
     private MyPagerAdapter myPagerAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();

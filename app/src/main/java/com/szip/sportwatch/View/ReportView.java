@@ -321,21 +321,23 @@ public class ReportView extends View {
             }
         }else {
             if (flag == 3){//心率
-                RectF[] rectFS = getRectFTop();
-                Path path = new Path();
-                path.moveTo(rectFS[0].centerX(), rectFS[0].top+mBarWidth/2+pad15*2);
-                if (rectFS.length==1){
-                    DrawHelper.pathCubicTo(path, new PointF(rectFS[0].centerX(),rectFS[0].top+mBarWidth/2+pad15*2),
-                            new PointF(rectFS[0].centerX()+1,rectFS[0].top+mBarWidth/2+pad15*2));
+                if (data_num!=0){
+                    RectF[] rectFS = getRectFTop();
+                    Path path = new Path();
+                    path.moveTo(rectFS[0].centerX(), rectFS[0].top+mBarWidth/2+pad15*2);
+                    if (rectFS.length==1){
+                        DrawHelper.pathCubicTo(path, new PointF(rectFS[0].centerX(),rectFS[0].top+mBarWidth/2+pad15*2),
+                                new PointF(rectFS[0].centerX()+1,rectFS[0].top+mBarWidth/2+pad15*2));
 
-                }else {
-                    for (int i = 1; i< datas1.length; i++){
-                        DrawHelper.pathCubicTo(path, new PointF(rectFS[i-1].centerX(),rectFS[i-1].top+mBarWidth/2+pad15*2),
-                                new PointF(rectFS[i].centerX(),rectFS[i].top+mBarWidth/2+pad15*2));
+                    }else {
+                        for (int i = 1; i< datas1.length; i++){
+                            DrawHelper.pathCubicTo(path, new PointF(rectFS[i-1].centerX(),rectFS[i-1].top+mBarWidth/2+pad15*2),
+                                    new PointF(rectFS[i].centerX(),rectFS[i].top+mBarWidth/2+pad15*2));
+                        }
                     }
-                }
 
-                canvas.drawPath(path, linePaint);//画心率图
+                    canvas.drawPath(path, linePaint);//画心率图
+                }
             }
         }
     }
@@ -521,16 +523,23 @@ public class ReportView extends View {
      * 添加数据
      * */
     public void addData(List<DrawDataBean> list){
-        if (data_num<list.size())//如果传进来的数据量比默认的是数据长，则顶替默认值
-            data_num = list.size();
-        datas1 = new int[list.size()];
-        datas2 = new int[list.size()];
-        for (int i = 0;i<list.size();i++){
-            datas1[i] = list.get(i).getValue();
-            datas2[i] = list.get(i).getValue1();
-            if (datas1[i]> maxValue)
-                maxValue = datas1[i];
+        if (list!=null){
+            if (data_num<list.size())//如果传进来的数据量比默认的是数据长，则顶替默认值
+                data_num = list.size();
+            datas1 = new int[list.size()];
+            datas2 = new int[list.size()];
+            for (int i = 0;i<list.size();i++){
+                datas1[i] = list.get(i).getValue();
+                datas2[i] = list.get(i).getValue1();
+                if (datas1[i]> maxValue)
+                    maxValue = datas1[i];
+            }
+        }else {
+            datas1 = new int[0];
+            datas2 = new int[0];
+            data_num = 0;
         }
+
         postInvalidate();
     }
 

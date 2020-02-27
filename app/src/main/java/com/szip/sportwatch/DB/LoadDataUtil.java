@@ -843,7 +843,7 @@ public class LoadDataUtil {
 
         SleepData sleepData = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.is(time))
+                .where(SleepData_Table.time.is(time-24*60*60))
                 .querySingle();
         if (sleepData!=null){
             healthyDataModel.setLightSleepData(sleepData.lightTime);

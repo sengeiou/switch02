@@ -24,9 +24,9 @@
             android:id="@+id/backIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/registor_icon_back"
             android:layout_marginLeft="@dimen/register_margin_parallel"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/registor_icon_back" />
 
         <TextView
             android:layout_width="wrap_content"

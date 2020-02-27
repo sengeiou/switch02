@@ -1,7 +1,9 @@
 package com.szip.sportwatch.Contorller;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -55,6 +57,14 @@ public class MainActivity extends BaseActivity{
         mContext = this;
         app = (MyApplication) getApplicationContext();
         layout = findViewById(R.id.layout);
+
+        //判断蓝牙状态
+        BluetoothAdapter blueadapter = BluetoothAdapter.getDefaultAdapter();
+        if (!blueadapter.isEnabled()) {
+            Intent bleIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(bleIntent);
+        }
+
         initAnimation();
         initTabData();
         initHost();

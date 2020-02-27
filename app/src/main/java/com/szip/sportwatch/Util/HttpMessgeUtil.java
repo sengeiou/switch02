@@ -204,7 +204,6 @@ public class HttpMessgeUtil {
                 .url(url)
                 .addHeader("Time-Diff",time)
                 .addHeader("Accept-Language",language)
-                .addParams("project","sleep")
                 .addParams("type",type)
                 .addParams("areaCode",areaCode)
                 .addParams("phoneNumber",phoneNumber)

@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -168,6 +169,14 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(SeachingActivity.this,true);
+
+        //判断蓝牙状态
+        BluetoothAdapter blueadapter = BluetoothAdapter.getDefaultAdapter();
+        if (!blueadapter.isEnabled()) {
+            Intent bleIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(bleIntent);
+        }
+
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.searchDevice));
         searchIv = findViewById(R.id.rightIv);
         searchIv.setImageResource(R.mipmap.my_device_refresh);

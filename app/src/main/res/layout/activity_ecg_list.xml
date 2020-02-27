@@ -9,7 +9,7 @@
     android:background="@color/bgColor">
 
 
-    <include layout="@layout/title_report"/>
+    <include layout="@layout/title"/>
 
     <TextView
         android:id="@+id/timeTv"

@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
@@ -62,6 +63,14 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         mInstance = this;
         FlowManager.init(this);
         LoadDataUtil.newInstance().initCalendarPoint();
+
+
+        /**
+         * 注册广播
+         * */
+        UtilBroadcat broadcat = new UtilBroadcat(getApplicationContext());
+        broadcat.onRegister();
+
         /**
          * 把log上传到云端
          * */

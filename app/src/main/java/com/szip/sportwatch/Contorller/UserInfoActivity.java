@@ -137,6 +137,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
                     sexTv.setText(sexList.get(option1));
+                    if (option1==0)
+                        pictureIv.setImageResource(R.mipmap.my_head_female_36);
+                    else
+                        pictureIv.setImageResource(R.mipmap.my_head_male_36);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -281,6 +285,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         userInfo = app.getUserInfo();
         userNameTv.setText(userInfo.getUserName());
         sexTv.setText(userInfo.getSex()==1?getString(R.string.male):getString(R.string.female));
+        if (userInfo.getSex()==1)
+            pictureIv.setImageResource(R.mipmap.my_head_male_36);
+        else
+            pictureIv.setImageResource(R.mipmap.my_head_female_36);
         isMetric = userInfo.getUnit().equals("metric");
         heightTv.setText(userInfo.getHeight());
         weightTv.setText(userInfo.getWeight());

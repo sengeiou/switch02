@@ -25,7 +25,7 @@ public class AboutActivity extends AppCompatActivity {
         try {
             ver = getPackageManager().getPackageInfo("com.szip.sportwatch",
                     0).versionName;
-            versionTv.setText("v" + ver);
+            versionTv.setText("V" + ver);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

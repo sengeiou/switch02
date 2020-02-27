@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,7 +42,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
 
     private void initEvent() {
         findViewById(R.id.backIv).setOnClickListener(this);
-        findViewById(R.id.image2).setOnClickListener(this);
+        findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void initData() {
@@ -58,6 +59,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         listView = findViewById(R.id.ecgListView);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.ecgReport));
+        ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         ecgDataAdapter = new EcgDataAdapter(dataList,this);
         listView.setAdapter(ecgDataAdapter);
@@ -82,7 +84,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
             case R.id.backIv:
                 finish();
                 break;
-            case R.id.image2:
+            case R.id.rightIv:
                 CalendarPicker.getInstance()
                         .enableAnimation(true)
                         .setFragmentManager(getSupportFragmentManager())

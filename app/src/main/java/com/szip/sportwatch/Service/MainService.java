@@ -2,7 +2,9 @@ package com.szip.sportwatch.Service;
 
 import android.Manifest;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -107,7 +109,7 @@ public class MainService extends Service {
 
         @Override
         public void onConnectChange(int oldState, int newState) {
-            Log.d("SZIP******","STATE = "+newState);
+            Log.d("LINE******","STATE = "+newState);
             connectState = newState;
             EventBus.getDefault().post(new ConnectState(newState));
             if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
@@ -124,6 +126,13 @@ public class MainService extends Service {
 
         @Override
         public void onDeviceScan(BluetoothDevice device) {
+
+            if (device.getAddress().equals(((MyApplication)getApplication()).getUserInfo().getDeviceCode())){
+                Log.d("SZIP******","正在搜索="+device.getAddress());
+                WearableManager.getInstance().scanDevice(false);
+                WearableManager.getInstance().setRemoteDevice(device);
+                WearableManager.getInstance().connect();
+            }
             return;
         }
 
@@ -455,6 +464,7 @@ public class MainService extends Service {
         WearableManager.getInstance().setRemoteDevice(null);
         isThreadRun = false;
     }
+
 
     @Override
     public void onDestroy() {

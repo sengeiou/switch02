@@ -405,7 +405,8 @@ public class MathUitl {
         String data[] = new String[0];
         for (int i = 0;i<steps.size();i++){
             data = steps.get(i).split("\\|");
-            hour[Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))] += Integer.valueOf(data[3]);
+            hour[Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))==24?23:
+                    Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))] += Integer.valueOf(data[3]);
         }
         StringBuffer stepString = new StringBuffer();
         for (int i = 0;i<hour.length;i++){

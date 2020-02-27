@@ -68,6 +68,11 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
             averageTv.setText(reportDataBean.getValue()+"");
             maxTv.setText(reportDataBean.getValue1()+45+"");
             minTv.setText(reportDataBean.getValue2()+45+"");
+        }else {
+            reportView.addData(null);
+            averageTv.setText("--");
+            maxTv.setText("--");
+            minTv.setText("--");
         }
         if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));

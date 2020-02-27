@@ -1,16 +1,23 @@
 package com.szip.sportwatch.Contorller.Fragment;
 
 import android.Manifest;
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -45,9 +52,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -64,6 +73,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private ImageView pictureIv;
     private TextView userNameTv;
 
+    private TextView deviceTv;
     private TextView stateTv;
 
     private TextView stepPlanTv;
@@ -76,7 +86,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private int STEPFLAG = 1,SLEEPFLAG = 2;
     private int stepPlan = 0,sleepPlan = 0;
 
+    /**
+     * 下拉菜单实例
+     * */
+    private PopupWindow mPop;
 
+    /**
+     * 选项列表
+     * */
+    private ListView MenuItem;
+    private ArrayAdapter<String> ItemAdapter;
+    private List<String> ItemValue;
 
     @Override
     protected int getLayoutId() {
@@ -97,7 +117,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         super.onResume();
         EventBus.getDefault().register(this);
         if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTED){
-            stateTv.setText(getString(R.string.connect));
+            stateTv.setText(getString(R.string.connected));
         }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
                 MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_FAIL){
             stateTv.setText(getString(R.string.disConnect));
@@ -116,13 +136,83 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBleConnectStateChange(ConnectState connectBean){
         if (connectBean.getState() == WearableManager.STATE_CONNECTED){
-            stateTv.setText(getString(R.string.connect));
+            stateTv.setText(getString(R.string.connected));
         }else if (connectBean.getState()  == WearableManager.STATE_CONNECT_LOST||
                 connectBean.getState()  == WearableManager.STATE_CONNECT_FAIL){
             stateTv.setText(getString(R.string.disConnect));
         }else if (connectBean.getState()  == WearableManager.STATE_CONNECTING){
             stateTv.setText(getString(R.string.connectting));
         }
+    }
+
+
+    /**
+     * 初始化下拉菜单
+     * */
+    private void initSelectPopup() {
+        if(WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTED){
+            ItemValue= new ArrayList<>(Arrays.asList(getString(R.string.unline),getString(R.string.unBind)));
+        }else {
+            ItemValue= new ArrayList<>(Arrays.asList(getString(R.string.line),getString(R.string.unBind)));
+        }
+
+
+        MenuItem = new ListView(getActivity());
+        ItemAdapter = new ArrayAdapter<>(getActivity(),R.layout.popwindow_layout2,ItemValue);
+        MenuItem.setAdapter(ItemAdapter);
+        MenuItem.setBackgroundResource(R.color.space);
+
+        MenuItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position==1){
+                    MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.unbind), null, null,
+                            false, new MyAlerDialog.AlerDialogOnclickListener() {
+                                @Override
+                                public void onDialogTouch(boolean flag) {
+                                    if (flag){
+                                        try {
+                                            HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+                                            String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
+                                            HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
+                                            ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
+                                                    ,3000);
+                                            HttpMessgeUtil.getInstance(getActivity().getApplicationContext()).getUnbindDevice();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            },getActivity());
+                }else {
+                    if (WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTED){
+                        MainService.getInstance().stopConnect();
+                    }else {
+                        MainService.getInstance().startConnect();
+                    }
+                }
+                mPop.dismiss();
+            }
+        });
+
+
+        WindowManager wm = (WindowManager)getActivity()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+
+        mPop = new PopupWindow(MenuItem, width/2, ActionBar.LayoutParams.WRAP_CONTENT, true);
+
+        Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.bg_corner);
+        mPop.setBackgroundDrawable(drawable);
+        mPop.setFocusable(true);
+        mPop.setOutsideTouchable(true);
+        mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                // 关闭popup窗口
+                mPop.dismiss();
+            }
+        });
     }
 
     /**
@@ -181,8 +271,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
      * 初始化视图
      * */
     private void initView() {
-        pictureIv = getView().findViewById(R.id.pictureIv);
+        deviceTv = getView().findViewById(R.id.deviceTv);
+        deviceTv.setText(app.getUserInfo().getDeviceCode());
         userNameTv = getView().findViewById(R.id.userNameTv);
+        pictureIv = getView().findViewById(R.id.pictureIv);
         stateTv = getView().findViewById(R.id.deviceNameTv);
         stepPlanTv = getView().findViewById(R.id.stepPlanTv);
         sleepPlanTv = getView().findViewById(R.id.sleepPlanTv);
@@ -241,7 +333,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -268,24 +359,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.deviceLl:
-                MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.unbind), null, null,
-                        false, new MyAlerDialog.AlerDialogOnclickListener() {
-                            @Override
-                            public void onDialogTouch(boolean flag) {
-                                if (flag){
-                                    try {
-                                        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
-                                        String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
-                                        HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
-                                        ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
-                                        ,3000);
-                                        HttpMessgeUtil.getInstance(getActivity().getApplicationContext()).getUnbindDevice();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        },getActivity());
+                if (WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTING){
+                    showToast(getString(R.string.connectting));
+                }else {
+                    initSelectPopup();
+                    if (mPop != null && !mPop.isShowing()) {
+                        mPop.showAsDropDown(deviceTv, 10, 10);
+                    }
+                }
                 break;
             case R.id.stepPlanLl:
                 window.showAtLocation(v, Gravity.BOTTOM, 0, 0);

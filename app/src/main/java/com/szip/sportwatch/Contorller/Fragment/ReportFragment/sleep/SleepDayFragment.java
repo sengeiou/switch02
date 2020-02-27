@@ -66,6 +66,12 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
                     (reportDataBean.getValue1()+reportDataBean.getValue2())%60));
             deepTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue1()/60,reportDataBean.getValue1()%60));
             lightTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue2()/60,reportDataBean.getValue2()%60));
+        }else {
+            reportView.setSleepState(0,0);
+            reportView.addData(null);
+            allSleepTv.setText("--h%--min");
+            deepTv.setText("--h%--min");
+            lightTv.setText("--h%--min");
         }
         if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));

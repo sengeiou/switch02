@@ -135,7 +135,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         sendTv.setOnClickListener(this);
         findViewById(R.id.countryRl).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
-
+        findViewById(R.id.backIv).setOnClickListener(this);
         userEt.addTextChangedListener(watcher);
         userEt.setOnFocusChangeListener(focusChangeListener);
         verifyCodeEt.addTextChangedListener(watcher);
@@ -214,6 +214,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     } else
                         startTimer();
                 }
+                break;
+            case R.id.backIv:
+                finish();
                 break;
             case R.id.nextBtn:
                 if (countryCodeTv.getText().toString().equals("")){

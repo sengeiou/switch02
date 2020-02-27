@@ -97,7 +97,7 @@ public class SideIndexBar extends View{
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = getWidth();
         mHeight = Math.max(h, oldh);
-        mItemHeight = mHeight / mIndexItems.size();
+        mItemHeight = mHeight/1.2f/ mIndexItems.size();
         mTopMargin = (mHeight - mItemHeight * mIndexItems.size()) / 2;
     }
 
@@ -112,7 +112,7 @@ public class SideIndexBar extends View{
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                float y = event.getY();
+                float y = event.getY()-mHeight*0.12f;
                 int indexSize = mIndexItems.size();
                 int touchedIndex = (int) (y / mItemHeight);
                 if (touchedIndex < 0) {
