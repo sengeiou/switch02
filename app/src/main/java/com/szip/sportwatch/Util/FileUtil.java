@@ -68,6 +68,20 @@ public class FileUtil {
         return path+"/"+fileName;
     }
 
+    public File renameFile(String name,String oldName,boolean isNull){
+        if (isNull)
+            new File(oldName).delete();
+        else {
+            if (new File(name).length()!=0)
+                new File(name).delete();
+            File file = new File(oldName);
+            if (file.length()!=0)
+                file.renameTo(new File(name));
+            return new File(name);
+        }
+        return null;
+    }
+
     public void deleteFile(String fileName){
         File file = new File(fileName);
         file.delete();

@@ -23,8 +23,10 @@ import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.SportData_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
+import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 import com.szip.sportwatch.Util.DateUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -145,6 +147,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","计步详情数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -219,6 +222,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","睡眠详情保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -269,6 +273,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","心率数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -303,6 +308,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","血压数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -336,6 +342,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","血氧数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -369,6 +376,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","ECG数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }

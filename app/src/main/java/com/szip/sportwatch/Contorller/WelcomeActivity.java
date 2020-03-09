@@ -10,7 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
@@ -19,11 +23,20 @@ import android.view.WindowManager;
 
 import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import static com.szip.sportwatch.MyApplication.FILE;
 
@@ -68,9 +81,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+                    || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED){
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
-                        Manifest.permission.READ_SMS},
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS},
                         sportWatchCode);
             }else {
                 initBLE();
@@ -152,8 +166,9 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             int code = grantResults[0];
             int code1 = grantResults[1];
             int code2= grantResults[2];
+            int code3= grantResults[3];
             if (code == PackageManager.PERMISSION_GRANTED&&code1 == PackageManager.PERMISSION_GRANTED
-                    &&code2 == PackageManager.PERMISSION_GRANTED){
+                    &&code2 == PackageManager.PERMISSION_GRANTED&&code3 == PackageManager.PERMISSION_GRANTED){
                 Log.d("SZIP******","权限通过");
                 initBLE();
                 if (!isNotificationListenerActived()) {
@@ -185,11 +200,12 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         thread.start();
     }
 
+
     @Override
     public void run() {
         try {
             while (time != 0){
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 time = time -1;
             }
             if(isFirst){

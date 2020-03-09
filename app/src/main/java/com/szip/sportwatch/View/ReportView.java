@@ -367,7 +367,7 @@ public class ReportView extends View {
     private RectF[] getRectFTop(){
         if (datas1 ==null)
             datas1 = new int[data_num];
-        RectF[] rectFS = new RectF[data_num];
+        RectF[] rectFS = new RectF[datas1.length];
         for (int i = 0; i< datas1.length; i++){
             float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
             float top;
@@ -524,10 +524,11 @@ public class ReportView extends View {
      * */
     public void addData(List<DrawDataBean> list){
         if (list!=null){
-            if (data_num<list.size())//如果传进来的数据量比默认的是数据长，则顶替默认值
-                data_num = list.size();
+            data_num = list.size();
             datas1 = new int[list.size()];
             datas2 = new int[list.size()];
+            if(flag==3&&data_num<10)
+                data_num = 10;
             for (int i = 0;i<list.size();i++){
                 datas1[i] = list.get(i).getValue();
                 datas2[i] = list.get(i).getValue1();

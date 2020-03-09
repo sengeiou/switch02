@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -59,7 +60,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
 
     private void initEvent() {
         findViewById(R.id.backIv).setOnClickListener(this);
-        findViewById(R.id.image2).setOnClickListener(this);
+        findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void initData() {
@@ -82,6 +83,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
         listView = findViewById(R.id.sportList);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.history));
+        ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         sportDataAdapter = new SportDataAdapter(dataList,this);
         listView.setAdapter(sportDataAdapter);
@@ -114,7 +116,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
             case R.id.backIv:
                 finish();
                 break;
-            case R.id.image2:
+            case R.id.rightIv:
                 CalendarPicker.getInstance()
                         .enableAnimation(true)
                         .setFragmentManager(getSupportFragmentManager())

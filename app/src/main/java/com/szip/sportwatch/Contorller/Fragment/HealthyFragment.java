@@ -2,11 +2,16 @@ package com.szip.sportwatch.Contorller.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.EcgListActivity;
@@ -15,14 +20,27 @@ import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
+import com.szip.sportwatch.Interface.MyListener;
+import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ViewUtil;
+import com.szip.sportwatch.View.CircularImageView;
 import com.szip.sportwatch.View.ColorArcProgressBar;
 import com.szip.sportwatch.View.HealthyProgressView;
+import com.szip.sportwatch.View.PullToRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
+
+import androidx.core.content.FileProvider;
 
 /**
  * Created by Administrator on 2019/12/1.
@@ -48,6 +66,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     private TextView heartDataTv;
     private TextView bloodDataTv;
     private TextView bloodODataTv;
+    private TextView ecgDataTv;
 
     /**
      * 最近一次健康数据的model
@@ -66,16 +85,26 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         app = (MyApplication) getActivity().getApplicationContext();
         initView();
         initEvent();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
+        EXCDController.getInstance().writeForCheckVersion();
         initData();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
     private void initView() {
+        ((PullToRefreshLayout) getView().findViewById(R.id.refresh_view))
+                .setOnRefreshListener(new MyListener());
+
         stepPb = getView().findViewById(R.id.stepPb);
         sleepPv = getView().findViewById(R.id.sleepPv);
         sbpPv = getView().findViewById(R.id.sbpPv);
@@ -96,6 +125,8 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         bloodDataTv = getView().findViewById(R.id.bloodDataTv);
 
         bloodODataTv = getView().findViewById(R.id.bloodODataTv);
+
+        ecgDataTv = getView().findViewById(R.id.ecgDataTv);
     }
 
     private void initEvent() {
@@ -147,9 +178,32 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                     getView().findViewById(R.id.bloodOxygenPv));
         }
 
-        if (app.getUserInfo()!=null)
-            ((ImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_36:
+        if (healthyDataModel.getEcgData()!=0){
+            ecgDataTv.setText(healthyDataModel.getEcgData()+"Bpm");
+        }
+
+        if (app.getAvtar()!=null){
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_36:
                     R.mipmap.my_head_female_36);
+
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageURI(app.getAvtar());
+        }else {
+            MainService.getInstance().downloadAvatar(app.getUserInfo().getAvatar(), "iSmarport_" + app.getUserInfo().getId() + ".jpg");
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_36:
+                    R.mipmap.my_head_female_36);
+        }
+    }
+
+
+    /**
+     * 更新数据显示
+     * */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdataView(ConnectState connectBean){
+        if (connectBean.getState() == 101) {
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageURI(app.getAvtar());
+        } else
+            initData();
     }
 
     @Override

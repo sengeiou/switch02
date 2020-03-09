@@ -4,6 +4,7 @@ package com.szip.sportwatch.Util;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 
 import com.szip.sportwatch.Contorller.LoginActivity;
@@ -19,11 +20,14 @@ import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.R;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -51,6 +55,7 @@ public class HttpMessgeUtil {
     private int GET_VERIFICATION = 100;
     public static int UPDOWN_LOG = 101;
     public static int UPDOWN_DATA = 102;
+    public static int UPDOWN_AVATAR = 103;
 
     public static HttpMessgeUtil getInstance(Context context)
     {
@@ -461,6 +466,23 @@ public class HttpMessgeUtil {
 //    }
 //
     /**
+     * 上传头像
+     * */
+    private void _postUpdownAvatar(File avatar)throws IOException{
+        String url = this.url+"user/setProfilePicture";
+        OkHttpUtils
+                .fpost()
+                .url(url)
+                .id(UPDOWN_AVATAR)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addFile("file","iSmarport_6.jpg",avatar)
+                .build()
+                .execute(baseApiGenericsCallback);
+    }
+
+
+    /**
      * 绑定设备
      * */
     private void _getBindDevice(String deviceCode)throws IOException{
@@ -630,6 +652,10 @@ public class HttpMessgeUtil {
 
     public void getForDownloadReportData(String time, String size)throws IOException{
         _getForDownloadReportData(time,size);
+    }
+
+    public void postUpdownAvatar(File avatar)throws IOException{
+        _postUpdownAvatar(avatar);
     }
 //
 //    public void postForChangeClock(String clockId,String type,String hour,String minute,String index,String isPhone,

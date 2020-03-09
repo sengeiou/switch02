@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,7 @@ import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
@@ -50,6 +52,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -80,9 +83,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     private Dialog dialog;
     private String tmpFile;
-    private String photoName;
+    private String photoName = "";
+    private String fileName;
     private final int IMAGE_CAPTURE = 0;
     private final int IMAGE_MEDIA = 1;
+    private  Intent data;
 
 
     /**
@@ -285,10 +290,21 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         userInfo = app.getUserInfo();
         userNameTv.setText(userInfo.getUserName());
         sexTv.setText(userInfo.getSex()==1?getString(R.string.male):getString(R.string.female));
-        if (userInfo.getSex()==1)
-            pictureIv.setImageResource(R.mipmap.my_head_male_36);
-        else
-            pictureIv.setImageResource(R.mipmap.my_head_female_36);
+        File file = new File(getExternalFilesDir(null).getPath()+"/shgame/file/iSmarport_" + app.getUserInfo().getId() + ".jpg");
+        if (file!=null){
+            Uri uri;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                uri = Uri.fromFile(file);
+            } else {
+                uri = FileProvider.getUriForFile(this, "com.szip.sportwatch.fileprovider", file);
+            }
+            pictureIv.setImageURI(uri);
+        }else {
+            if (userInfo.getSex()==1)
+                pictureIv.setImageResource(R.mipmap.my_head_male_36);
+            else
+                pictureIv.setImageResource(R.mipmap.my_head_female_36);
+        }
         isMetric = userInfo.getUnit().equals("metric");
         heightTv.setText(userInfo.getHeight());
         weightTv.setText(userInfo.getWeight());
@@ -409,7 +425,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
 
     private void takePhoto(){
-        photoName = getExternalFilesDir(null).getPath()+"/shgame/" + DateUtil.getTimeOfToday() + ".png";
+        photoName = getExternalFilesDir(null).getPath()+"/shgame/" + Calendar.getInstance().getTimeInMillis() + ".png";
         File file = new File(photoName);
 
         Uri photoURI = null;
@@ -441,12 +457,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d("IMAGE******","回调 = "+resultCode+";request = "+requestCode);
        if (resultCode == UCrop.RESULT_ERROR){
             showToast(getString(R.string.crop_pic_failed));
         }
         switch (requestCode){
             case IMAGE_CAPTURE:{// 相机
+                Log.d("IMAGE******","拍照回调");
                 File file = new File(photoName);
                 if (file.exists()) {
                     Uri uri;
@@ -461,13 +477,20 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
             case IMAGE_MEDIA:{
                 Log.d("IMAGE******","相册回调");
+                if (data!=null)
                 startPhotoZoom(data.getData());
             }
                 break;
             case  UCrop.REQUEST_CROP:{
                 Log.d("IMAGE******","裁剪回调");
-                Uri resultUri = UCrop.getOutput(data);
-                pictureIv.setImageURI(resultUri);
+                if (data!=null){
+                    this.data = data;
+                    try {
+                        HttpMessgeUtil.getInstance(this).postUpdownAvatar(new File(fileName));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 //                setPicToView(resultUri);
             }
                 break;
@@ -482,54 +505,46 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * @param uri
      */
     private void startPhotoZoom(Uri uri) {
-        Log.d("IMAGE******","裁剪");
         try {
             tmpFile = null;
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inJustDecodeBounds = true;
-            String realPath = MathUitl.getRealFilePath(this, uri);
-            BitmapFactory.decodeFile(realPath, opts);
-            if (StringUtils.endsWithIgnoreCase(opts.outMimeType, "webp")) {
-                opts.inJustDecodeBounds = false;
-                Bitmap bmp = BitmapFactory.decodeFile(realPath, opts);
-                if (bmp != null) {
-                    OutputStream out = null;
-                    try {
-
-                        tmpFile = getExternalFilesDir(null).getPath()+"/shgame/file/tmp_" + DateUtil.getTimeOfToday() + ".jpg";
-                        out = new FileOutputStream(tmpFile);
-                        bmp.compress(Bitmap.CompressFormat.JPEG, 80, out);
-                    } catch (Exception e) {
-                    } finally {
-                        out.close();
-                    }
-                }
-            }
+//            BitmapFactory.Options opts = new BitmapFactory.Options();
+//            opts.inJustDecodeBounds = true;
+//            String realPath = MathUitl.getRealFilePath(this, uri);
+//            BitmapFactory.decodeFile(realPath, opts);
+//            if (StringUtils.endsWithIgnoreCase(opts.outMimeType, "webp")) {
+//                opts.inJustDecodeBounds = false;
+//                Bitmap bmp = BitmapFactory.decodeFile(realPath, opts);
+//                if (bmp != null) {
+//                    OutputStream out = null;
+//                    try {
+//                        tmpFile = getExternalFilesDir(null).getPath()+"/shgame/file/tmp_" + DateUtil.getTimeOfToday() + ".jpg";
+//                        out = new FileOutputStream(tmpFile);
+//                        bmp.compress(Bitmap.CompressFormat.JPEG, 80, out);
+//                    } catch (Exception e) {
+//                    } finally {
+//                        out.close();
+//                    }
+//                }
+//            }
             Uri path;
             if (!MathUitl.isBlank(tmpFile))
                 path = Uri.fromFile(new File(tmpFile));
             else
                 path = uri;
-
-            String fileName = getExternalFilesDir(null).getPath()+"/shgame/file/" + DateUtil.getTimeOfToday() + ".jpg";
+            //临时用一个名字用来保存裁剪后的图片
+            fileName = getExternalFilesDir(null).getPath()+"/shgame/file/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
             File file = new File(fileName);
             file.getParentFile().mkdirs();
-            boolean res = file.createNewFile();
-            if (res) {
-                Log.d("IMAGE******","裁剪");
-                Uri target = Uri.fromFile(file);
-                UCrop.Options options = new UCrop.Options();
-                options.setToolbarColor(getResources().getColor(R.color.blue));
-                options.setStatusBarColor(getResources().getColor(R.color.blue));
-                options.setActiveWidgetColor(getResources().getColor(R.color.blue));
-                options.setCompressionQuality(70);
-                options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-                UCrop.of(path, target)
-                        .withAspectRatio(1f, 1f)
-                        .withMaxResultSize(500, 500)
-                        .withOptions(options)
-                        .start(this);
-            }
+            Uri target = Uri.fromFile(file);
+            UCrop.Options options = new UCrop.Options();
+            options.setToolbarColor(getResources().getColor(R.color.rayblue));
+            options.setStatusBarColor(getResources().getColor(R.color.rayblue));
+            options.setActiveWidgetColor(getResources().getColor(R.color.rayblue));
+            UCrop.of(path, target)
+                    .withAspectRatio(1f, 1f)
+                    .withMaxResultSize(200, 200)
+                    .withOptions(options)
+                    .start(this);
         } catch (Exception e) {
         }
     }
@@ -541,17 +556,31 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     public void onCallback(BaseApi baseApi, int id) {
         ProgressHudModel.newInstance().diss();
         showToast(getString(R.string.saved));
-        app.getUserInfo().setUserName(userNameTv.getText().toString());
-        app.getUserInfo().setSex(sexTv.getText().toString().equals(getString(R.string.male))?1:0);
-        app.getUserInfo().setBirthday(birthdayTv.getText().toString());
-        app.getUserInfo().setHeight(heightTv.getText().toString());
-        app.getUserInfo().setWeight(weightTv.getText().toString());
-        MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
-        if (MainService.getInstance().getConnectState()!=3){
-            showToast(getString(R.string.syceError));
+        if (id == 103){//上传头像
+            if (data!=null){
+                Uri resultUri = UCrop.getOutput(data);
+                pictureIv.setImageURI(resultUri);
+            }
+            //裁剪成功之后，删掉之前拍的照片
+            if (new File(photoName)!=null)
+                new File(photoName).delete();
+            //裁剪成功之后，把裁剪后的文件以iSmarport+id号的格式对其重命名
+            File file = FileUtil.getInstance().renameFile(getExternalFilesDir(null).getPath()+"/shgame/file/iSmarport_" + app.getUserInfo().getId() + ".jpg",
+                    fileName,data==null);
+            app.setAvatar(Uri.fromFile(file));
         }else {
-            EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+            app.getUserInfo().setUserName(userNameTv.getText().toString());
+            app.getUserInfo().setSex(sexTv.getText().toString().equals(getString(R.string.male))?1:0);
+            app.getUserInfo().setBirthday(birthdayTv.getText().toString());
+            app.getUserInfo().setHeight(heightTv.getText().toString());
+            app.getUserInfo().setWeight(weightTv.getText().toString());
+            MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
+            if (MainService.getInstance().getConnectState()!=3){
+                showToast(getString(R.string.syceError));
+            }else {
+                EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+            }
+            finish();
         }
-        finish();
     }
 }

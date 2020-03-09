@@ -31,6 +31,8 @@ public class ShareActivity extends BaseActivity {
 
     private long time;
     private int value,value1,value2,value3;
+    private boolean isFirst = true;
+
 
     private LinearLayout layout;
     private TextView timeTv,stateTv,valueTv,valueTv1,valueTv2,valueTv3;
@@ -50,6 +52,13 @@ public class ShareActivity extends BaseActivity {
         initView(flag);
         checkPermission();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isFirst)
+            finish();
     }
 
     private void checkPermission() {
@@ -239,6 +248,7 @@ public class ShareActivity extends BaseActivity {
         // TODO Auto-generated method stub
         String filePath = ScreenCapture.getBitmap
                 (ShareActivity.this, layout);
+        isFirst = false;
         shareShow(filePath);
 //        Intent intent = new Intent();
 //        intent.putExtra("filePath", filePath);

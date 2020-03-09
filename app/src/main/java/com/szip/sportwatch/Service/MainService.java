@@ -1,18 +1,22 @@
 package com.szip.sportwatch.Service;
 
 import android.Manifest;
+import android.app.DownloadManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -20,6 +24,7 @@ import android.provider.Settings;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import com.mediatek.ctrl.map.MapController;
 import com.mediatek.ctrl.music.RemoteMusicController;
@@ -51,10 +56,13 @@ import com.szip.sportwatch.Notification.SystemNotificationService;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.core.content.FileProvider;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 import static android.media.AudioManager.STREAM_MUSIC;
@@ -116,6 +124,7 @@ public class MainService extends Service {
                 EXCDController.getInstance().writeForSetDate();
                 EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
                 EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
+                EXCDController.getInstance().writeForCheckVersion();
             }
         }
 
@@ -428,7 +437,7 @@ public class MainService extends Service {
                             EXCDController.getInstance().writeForCheckVersion();
                     }
                     try {
-                        Thread.sleep(6000);
+                        Thread.sleep(10*60*1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -583,6 +592,87 @@ public class MainService extends Service {
      * Clear notification service instance.
      */
     public static void clearNotificationReceiver() {
+    }
+
+
+    private DownloadManager downloadManager;
+    private long mTaskId;
+    /**
+     * 下载图片
+     * */
+    public void downloadAvatar(String avatarUrl, String avatarName) {
+        if (avatarUrl!=null){
+            //创建下载任务
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(avatarUrl));
+//        request.addRequestHeader("token",HttpMessgeUtil.getInstance(BleService.this).getToken());
+            request.setAllowedOverRoaming(false);//漫游网络是否可以下载
+
+            //设置文件类型，可以在下载结束后自动打开该文件
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            String mimeString = mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(avatarUrl));
+            request.setMimeType(mimeString);
+
+            //在通知栏中显示，默认就是显示的
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+            request.setVisibleInDownloadsUi(true);
+
+            //sdcard的目录下的download文件夹，必须设置
+            request.setDestinationInExternalPublicDir("/Android/data/com.szip.sportwatch/files/shgame/file/", avatarName);
+//        request.setDestinationInExternalFilesDir(BleService.this,path,versionName);
+//        Log.d("SZIP******","avatarUrl = "+avatarUrl+";avatarName = " + avatarName);
+
+            //将下载请求加入下载队列
+            downloadManager = (DownloadManager) MainService.this.getSystemService(Context.DOWNLOAD_SERVICE);
+            //加入下载队列后会给该任务返回一个long型的id，
+            //通过该id可以取消任务，重启任务等等
+            mTaskId = downloadManager.enqueue(request);
+
+            //注册广播接收者，监听下载状态
+            MainService.this.registerReceiver(receiver,
+                    new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        }
+    }
+
+    //广播接受者，接收下载状态
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            checkDownloadStatus();//检查下载状态
+        }
+    };
+
+    private void checkDownloadStatus() {
+        DownloadManager.Query query = new DownloadManager.Query();
+        query.setFilterById(mTaskId);//筛选下载任务，传入任务ID，可变参数
+        Cursor c = downloadManager.query(query);
+        if (c.moveToFirst()) {
+            int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
+            switch (status) {
+                case DownloadManager.STATUS_PAUSED:
+                    //Log.d("SZIP******",">>>下载暂停");
+                case DownloadManager.STATUS_PENDING:
+                    //Log.d("SZIP******",">>>下载延迟");
+                case DownloadManager.STATUS_RUNNING:
+                    //Log.d("SZIP******",">>>正在下载");
+                    break;
+                case DownloadManager.STATUS_SUCCESSFUL:
+                    //Log.d("SZIP******",">>>下载完成");
+                    File file = new File(getExternalFilesDir(null).getPath()+"/shgame/file/iSmarport_" + ((MyApplication)getApplication())
+                            .getUserInfo().getId() + ".jpg");
+                    Uri uri;
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        uri = Uri.fromFile(file);
+                    } else {
+                        uri = FileProvider.getUriForFile(this, "com.szip.sportwatch.fileprovider", file);
+                    }
+                    ((MyApplication)getApplication()).setAvatar(uri);
+                    EventBus.getDefault().post(new ConnectState(101));
+                    break;
+                case DownloadManager.STATUS_FAILED:
+                    //Log.d("SZIP******",">>>下载失败");
+                    break;
+            }
+        }
     }
 
 }

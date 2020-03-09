@@ -47,6 +47,11 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
 
     private void initData() {
         dataList =  LoadDataUtil.newInstance().getEcgDataList(reportDate);
+        if(dataList.size()==0){
+            findViewById(R.id.noDataLl).setVisibility(View.VISIBLE);
+        }else {
+            findViewById(R.id.noDataLl).setVisibility(View.GONE);
+        }
     }
 
     private void updateView() {
@@ -66,13 +71,15 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(EcgListActivity.this,EcgDataActivity.class);
-                intent.putExtra("name",((MyApplication)getApplication()).getUserInfo().getUserName());
-                intent.putExtra("average",dataList.get(position).getValue());
-                intent.putExtra("max",dataList.get(position).getValue1());
-                intent.putExtra("min",dataList.get(position).getValue2());
-                intent.putExtra("time",dataList.get(position).getTime());
-                startActivity(intent);
+                if(position!=dataList.size()){
+                    Intent intent = new Intent(EcgListActivity.this,EcgDataActivity.class);
+                    intent.putExtra("name",((MyApplication)getApplication()).getUserInfo().getUserName());
+                    intent.putExtra("average",dataList.get(position).getValue());
+                    intent.putExtra("max",dataList.get(position).getValue1());
+                    intent.putExtra("min",dataList.get(position).getValue2());
+                    intent.putExtra("time",dataList.get(position).getTime());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -95,7 +102,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void onClickDate(String date) {
                                 reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                dataList =  LoadDataUtil.newInstance().getEcgDataList(reportDate);
+                                initData();
                                 updateView();
                             }
                         })

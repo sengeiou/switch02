@@ -33,8 +33,8 @@
 
         <com.szip.sportwatch.View.CircularImageView
             android:id="@+id/pictureIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginRight="@dimen/item_margin_model_right"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

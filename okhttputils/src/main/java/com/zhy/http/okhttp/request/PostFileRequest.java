@@ -8,15 +8,16 @@ import java.io.File;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Created by zhy on 15/12/14.
+ * Created by SZIP on 15/12/14.
  */
 public class PostFileRequest extends OkHttpRequest
 {
-    private static MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream");
+    private static MediaType MEDIA_TYPE_STREAM = MediaType.parse("multipart/form-data");
 
     private File file;
     private MediaType mediaType;
@@ -40,7 +41,12 @@ public class PostFileRequest extends OkHttpRequest
     @Override
     protected RequestBody buildRequestBody()
     {
-        return RequestBody.create(mediaType, file);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file","iSmarport_6",fileBody)
+                .build();
+        return requestBody;
     }
 
     @Override

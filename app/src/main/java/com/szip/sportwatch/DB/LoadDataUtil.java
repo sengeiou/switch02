@@ -888,6 +888,28 @@ public class LoadDataUtil {
             healthyDataModel.setBloodOxygenData(bloodOxygenData.bloodOxygenData);
         else
             healthyDataModel.setBloodOxygenData(0);
+
+
+        EcgData ecgData = SQLite.select()
+                .from(EcgData.class)
+                .where(EcgData_Table.time.greaterThanOrEq(time),
+                        EcgData_Table.time.lessThanOrEq(time*24*60*60-1))
+                .orderBy(OrderBy.fromString(EcgData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (ecgData!=null){
+            String heartArray[] = ecgData.heart.split(",");
+            ArrayList<DrawDataBean> heart = new ArrayList<>();
+            for (int j = 0;j<heartArray.length;j++){
+                if (Integer.valueOf(heartArray[j])!=0)
+                    heart.add(new DrawDataBean(Integer.valueOf(heartArray[j]),0,0));
+            }
+            healthyDataModel.setEcgData(getAverage(heart)[0]);
+        }
+
+        else
+            healthyDataModel.setEcgData(0);
+
         return healthyDataModel;
     }
 
@@ -938,25 +960,25 @@ public class LoadDataUtil {
 
         for (BloodPressureData bloodPressureData:bloodPressureDataList){
             LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,"yyyy-MM-dd"));
-            if (!heartPointList.contains(localDate))
+            if (!bloodPressurePointList.contains(localDate))
                 bloodPressurePointList.add(localDate);
         }
 
         for (BloodOxygenData bloodOxygenData:bloodOxygenDataList){
             LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,"yyyy-MM-dd"));
-            if (!heartPointList.contains(localDate))
+            if (!bloodOxygenPointList.contains(localDate))
                 bloodOxygenPointList.add(localDate);
         }
 
         for (EcgData ecgData:ecgDataList){
             LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,"yyyy-MM-dd"));
-            if (!heartPointList.contains(localDate))
+            if (!ecgPointList.contains(localDate))
                 ecgPointList.add(localDate);
         }
 
         for (SportData sportData:sportDataList){
             LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,"yyyy-MM-dd"));
-            if (!heartPointList.contains(localDate))
+            if (!sportPointList.contains(localDate))
                 sportPointList.add(localDate);
         }
 

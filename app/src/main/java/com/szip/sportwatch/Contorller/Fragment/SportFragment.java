@@ -1,7 +1,10 @@
 package com.szip.sportwatch.Contorller.Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +15,11 @@ import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.View.CircularImageView;
+
+import java.io.File;
+
+import androidx.core.content.FileProvider;
 
 /**
  * Created by Administrator on 2019/12/1.
@@ -19,7 +27,7 @@ import com.szip.sportwatch.R;
 
 public class SportFragment extends BaseFragment implements View.OnClickListener{
 
-    private ImageView pictureIv;
+    private CircularImageView pictureIv;
     private TextView userNameTv,distanceTv,speedTv,calorieTv,sportTimeTv;
 
     private MyApplication app;
@@ -34,7 +42,7 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         app = (MyApplication) getActivity().getApplicationContext();
         initView();
         initEvent();
-        initData();
+
     }
 
     @Override
@@ -69,10 +77,13 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
             calorieTv.setText(sportData.calorie+"");
             sportTimeTv.setText(String.format("%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
         }
-        if (app.getUserInfo()!=null){
-            userNameTv.setText(app.getUserInfo().getUserName());
+        if (app.getAvtar()!=null){
+            pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+            pictureIv.setImageURI(app.getAvtar());
+        }else {
             pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
         }
+        userNameTv.setText(app.getUserInfo().getUserName());
     }
 
     @Override

@@ -14,6 +14,7 @@ public class HealthyDataModel {
     private int sbpData;
     private int dbpData;
     private int bloodOxygenData;
+    private int ecgData;
 
     public int getStepsData() {
         return stepsData;
@@ -85,5 +86,13 @@ public class HealthyDataModel {
 
     public void setBloodOxygenData(int bloodOxygenData) {
         this.bloodOxygenData = bloodOxygenData;
+    }
+
+    public int getEcgData() {
+        return ecgData;
+    }
+
+    public void setEcgData(int ecgData) {
+        this.ecgData = ecgData;
     }
 }

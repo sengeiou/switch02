@@ -27,6 +27,7 @@ import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.HostTabView;
 import com.szip.sportwatch.View.MyToastView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;

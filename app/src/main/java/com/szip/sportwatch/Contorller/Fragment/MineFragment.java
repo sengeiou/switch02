@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,6 +44,7 @@ import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.View.CharacterPickerWindow;
+import com.szip.sportwatch.View.CircularImageView;
 import com.szip.sportwatch.View.MyAlerDialog;
 import com.szip.sportwatch.View.character.OnOptionChangedListener;
 import com.szip.sportwatch.BLE.EXCDController;
@@ -50,6 +53,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +61,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -70,7 +75,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private UserInfo userInfo;
     private MyApplication app;
 
-    private ImageView pictureIv;
+    private CircularImageView pictureIv;
     private TextView userNameTv;
 
     private TextView deviceTv;
@@ -108,7 +113,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         app = (MyApplication) getActivity().getApplicationContext();
         initView();
         initEvent();
-        initData();
         initWindow();
     }
 
@@ -120,10 +124,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             stateTv.setText(getString(R.string.connected));
         }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
                 MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_FAIL){
-            stateTv.setText(getString(R.string.disConnect));
+            WearableManager.getInstance().connect();
         }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTING){
             stateTv.setText(getString(R.string.connectting));
+        }else {
+            stateTv.setText(getString(R.string.disConnect));
         }
+        initData();
     }
 
     @Override
@@ -219,7 +226,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
      * 初始化选择器
      * */
     private void initWindow() {
-        //性别选择器
+        //步行计划选择器
         window = new CharacterPickerWindow(getContext(),getString(R.string.stepPlan));
 
         final List<String> stepList = MathUitl.getStepPlanList();
@@ -232,6 +239,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
+                    HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
                     ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError),3000);
                     HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(stepList.get(option1),STEPFLAG);
                     stepPlan = Integer.valueOf(stepList.get(option1));
@@ -242,7 +250,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         });
 
 
-        //身高选择器
+        //睡眠计划选择器
         window1 = new CharacterPickerWindow(getContext(),getString(R.string.sleepPlan));
 
         final ArrayList<String> sleepList = MathUitl.getSleepPlanList();
@@ -256,6 +264,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
+                    HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
                     ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError),3000);
                     HttpMessgeUtil.getInstance(getContext()).postForSetSleepPlan((int)(Float.valueOf(sleepList.get(option1))*60)+"",SLEEPFLAG);
                     sleepPlan = (int)(Float.valueOf(sleepList.get(option1))*60);
@@ -327,9 +336,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private void initData() {
         userInfo = app.getUserInfo();
         userNameTv.setText(userInfo.getUserName());
-        pictureIv.setImageResource(userInfo.getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+
         stepPlanTv.setText(userInfo.getStepsPlan()+"");
         sleepPlanTv.setText(String.format("%.1fh",userInfo.getSleepPlan()/60f));
+
+        if (app.getAvtar()!=null){
+            pictureIv.setImageResource(userInfo.getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+            pictureIv.setImageURI(app.getAvtar());
+        }else {
+            pictureIv.setImageResource(userInfo.getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+        }
     }
 
 
@@ -435,7 +451,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
             }
         }else if (id == SLEEPFLAG){
-            sleepPlanTv.setText(String.format("%.1f",sleepPlan/60f));
+            sleepPlanTv.setText(String.format("%.1fh",sleepPlan/60f));
             app.getUserInfo().setSleepPlan(sleepPlan);
         }else {
             app.getUserInfo().setDeviceCode(null);

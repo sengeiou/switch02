@@ -36,22 +36,12 @@ public class PostFormRequest extends OkHttpRequest {
     @Override
     protected RequestBody buildRequestBody()
     {
-        if (files == null || files.isEmpty())
-        {
-//            Gson gson=new Gson();
-//            RequestBody body = FormBody.create(MediaType.parse("application/json"),
-//                    params==null?"{}":gson.toJson(params));
-
-
-
+        if (files == null || files.isEmpty()) {
             FormBody.Builder builder = new FormBody.Builder();
             addParams(builder);
             FormBody formBody = builder.build();
-            Log.d("TOKENSZIP******","param = "+formBody.toString());
             return formBody;
-
-        } else
-        {
+        } else {
             MultipartBody.Builder builder = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM);
             addParams(builder);
@@ -109,7 +99,7 @@ public class PostFormRequest extends OkHttpRequest {
         }
         if (contentTypeFor == null)
         {
-            contentTypeFor = "application/octet-stream";
+            contentTypeFor = "multipart/form-data";
         }
         return contentTypeFor;
     }

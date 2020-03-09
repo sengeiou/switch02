@@ -647,6 +647,7 @@ public class MathUitl {
         editor.putInt("sex",info.getSex());
         editor.putInt("stepsPlan",info.getStepsPlan());
         editor.putInt("sleepPlan",info.getSleepPlan());
+        editor.putInt("id",info.getId());
         editor.putString("deviceCode",info.getDeviceCode());
         return editor;
     }
@@ -661,6 +662,7 @@ public class MathUitl {
         info.setSex(sharedPreferences.getInt("sex",1));
         info.setStepsPlan(sharedPreferences.getInt("stepsPlan",6000));
         info.setSleepPlan(sharedPreferences.getInt("sleepPlan",480));
+        info.setId(sharedPreferences.getInt("id",0));
         info.setDeviceCode(sharedPreferences.getString("deviceCode",null));
         return info;
     }

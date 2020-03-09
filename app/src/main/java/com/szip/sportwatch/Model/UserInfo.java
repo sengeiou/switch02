@@ -5,6 +5,7 @@ package com.szip.sportwatch.Model;
  */
 
 public class UserInfo {
+    private int id;
     private String areaCode;
     private String phoneNumber;
     private String email;
@@ -157,5 +158,13 @@ public class UserInfo {
 
     public void setSleepPlan(int sleepPlan) {
         this.sleepPlan = sleepPlan;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

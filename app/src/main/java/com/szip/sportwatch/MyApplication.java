@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -51,6 +52,8 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     private static MyApplication mInstance;
     private boolean camerable;//能否使用照相机
 
+    public Uri avatarUri;
+
     public static MyApplication getInstance(){
         return mInstance;
     }
@@ -93,6 +96,9 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
         camerable = sharedPreferences.getBoolean("camera",false);
+        String avatarStr = sharedPreferences.getString("avatar",null);
+        if (avatarStr!=null)
+            avatarUri = Uri.parse(avatarStr);
 //        HttpMessgeUtil.getInstance(this).setUrl(sharedPreferences.getBoolean("isTest",false));
         if (token==null){//未登录
             startState = 1;
@@ -224,6 +230,14 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
         sharedPreferences.edit().putBoolean("camera",camerable).commit();
+    }
+
+    public void setAvatar(Uri uri) {
+        this.avatarUri = uri;
+    }
+
+    public Uri getAvtar(){
+        return avatarUri;
     }
 
     @Override

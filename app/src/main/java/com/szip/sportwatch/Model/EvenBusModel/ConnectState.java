@@ -11,6 +11,9 @@ public class ConnectState {
         this.state = state;
     }
 
+    public ConnectState() {
+    }
+
     public int getState() {
         return state;
     }
