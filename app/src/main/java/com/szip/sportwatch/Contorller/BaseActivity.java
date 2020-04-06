@@ -5,13 +5,19 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
 
 import java.io.File;
 import java.util.HashMap;
+
+import static com.szip.sportwatch.MyApplication.FILE;
 
 /**
  * Created by Administrator on 2019/11/28.
@@ -78,4 +84,32 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("SZIP******","退出保存");
+        getSharedPreferences(FILE,MODE_PRIVATE).edit().putInt("updownTime",((MyApplication)getApplication()).getUpdownTime()).commit();
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.fontScale != 1)//非默认值
+            getResources();
+        super.onConfigurationChanged(newConfig);
+    }
+
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        if (res.getConfiguration().fontScale != 1) {//非默认值
+            Configuration newConfig = new Configuration();
+            newConfig.setToDefaults();//设置默认
+            res.updateConfiguration(newConfig, res.getDisplayMetrics());
+        }
+        return res;
+    }
+
 }

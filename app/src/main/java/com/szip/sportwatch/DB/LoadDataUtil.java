@@ -66,7 +66,8 @@ public class LoadDataUtil {
             if (sqlData.dataForHour!=null){
                 String[] sqlStr = sqlData.dataForHour.split(",");
                 for (int i = 0;i<sqlStr.length;i++){
-                    sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
+                    String[] indexStr = sqlStr[i].split(":");
+                    sql[Integer.valueOf(indexStr[0])] = Integer.valueOf(indexStr[1]);
                 }
                 for (int i = 0;i<sql.length;i++){
                     if (sql[i]!=0)
@@ -813,7 +814,7 @@ public class LoadDataUtil {
 
         SportData sportData = SQLite.select()
                 .from(SportData.class)
-                .orderBy(OrderBy.fromString(SportData_Table.sportTime+OrderBy.DESCENDING))
+                .orderBy(OrderBy.fromString(SportData_Table.distance+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
 
@@ -947,14 +948,17 @@ public class LoadDataUtil {
                 .queryList();
 
         for (StepData stepData:stepDataList){
-            stepPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,"yyyy-MM-dd")));
+            if (stepData.steps>0)
+                stepPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,"yyyy-MM-dd")));
         }
 
         for (SleepData sleepData:sleepDataList){
+            if ((sleepData.lightTime+sleepData.deepTime)>0)
             sleepPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,"yyyy-MM-dd")));
         }
 
         for (HeartData heartData:heartDataList){
+            if (heartData.averageHeart>0)
             heartPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,"yyyy-MM-dd")));
         }
 
@@ -986,6 +990,17 @@ public class LoadDataUtil {
                 ecgPointList,sportPointList);
     }
 
+    public void clearCalendarPoint(){
+        List<LocalDate> stepPointList = new ArrayList<>();
+        List<LocalDate> sleepPointList = new ArrayList<>();
+        List<LocalDate> heartPointList = new ArrayList<>();
+        List<LocalDate> bloodPressurePointList = new ArrayList<>();
+        List<LocalDate> bloodOxygenPointList = new ArrayList<>();
+        List<LocalDate> ecgPointList = new ArrayList<>();
+        List<LocalDate> sportPointList = new ArrayList<>();
+        CalendarUtil.setPointList(stepPointList,sleepPointList,heartPointList,bloodPressurePointList,bloodOxygenPointList,
+                ecgPointList,sportPointList);
+    }
 
     /**
      * 求最大值最小值
@@ -1000,7 +1015,7 @@ public class LoadDataUtil {
                 max = dataBeans.get(i).getValue();
         }
         data[0] = max;
-        data[1] = min;
+        data[1] = min==300?0:min;
         return data;
     }
 

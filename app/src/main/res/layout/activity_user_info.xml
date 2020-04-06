@@ -70,6 +70,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/item_text_size"
             android:layout_toLeftOf="@+id/arrow"
+            android:layout_marginLeft="100dp"
+            android:maxLines="1"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/item_margin_model_right"/>
 

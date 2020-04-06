@@ -126,9 +126,14 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
-                                updateView();
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                                    updateView();
+                                }
+
                             }
                         })
                         .show();

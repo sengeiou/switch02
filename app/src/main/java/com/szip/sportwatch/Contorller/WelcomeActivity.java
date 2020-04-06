@@ -82,9 +82,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED){
+                    || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
+                    || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED){
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS},
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS},
                         sportWatchCode);
             }else {
                 initBLE();
@@ -167,9 +168,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             int code1 = grantResults[1];
             int code2= grantResults[2];
             int code3= grantResults[3];
+            int code4= grantResults[4];
             if (code == PackageManager.PERMISSION_GRANTED&&code1 == PackageManager.PERMISSION_GRANTED
-                    &&code2 == PackageManager.PERMISSION_GRANTED&&code3 == PackageManager.PERMISSION_GRANTED){
-                Log.d("SZIP******","权限通过");
+                    &&code2 == PackageManager.PERMISSION_GRANTED&&code3 == PackageManager.PERMISSION_GRANTED
+                    &&code4 == PackageManager.PERMISSION_GRANTED){
                 initBLE();
                 if (!isNotificationListenerActived()) {
                     showNotifiListnerPrompt();
@@ -188,7 +190,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         //切换成GATT模式
         if (WearableManager.getInstance().getWorkingMode() == WearableManager.MODE_SPP)
             WearableManager.getInstance().switchMode();
-        Log.d("SZIP******","WearableManager init state "+isSuccess);
         if (!MainService.isMainServiceActive()) {
             getApplicationContext().startService(
                     new Intent(getApplicationContext(), MainService.class));
@@ -211,59 +212,30 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             if(isFirst){
                 //TODO 此处放引导页
                 if (app.getStartState() == 0){//已登录
-                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
-                        //启动后台自动连接线程
-                        BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-                        BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-                        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
-                        WearableManager.getInstance().setRemoteDevice(device);
-                        MainService.getInstance().startConnect();
-                        Intent guiIntent = new Intent();
-                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
-                        startActivity(guiIntent);
-                        finish();
-                    }else {//未绑定
-                        Intent in = new Intent();
-                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
-                        startActivity(in);
-                        finish();
-                    }
-                }else if (app.getStartState() == 1){//未登录
                     Intent in = new Intent();
-                    in.setClass(WelcomeActivity.this, LoginActivity.class);
+                    in.setClass(WelcomeActivity.this, MainActivity.class);
                     startActivity(in);
                     finish();
-                }else {//登陆过期
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showToast(getString(R.string.tokenTimeout));
-                        }
-                    });
-                    Intent in = new Intent();
-                    in.setClass(WelcomeActivity.this, LoginActivity.class);
-                    startActivity(in);
-                    finish();
-                }
-            }else{
-                if (app.getStartState() == 0){//已登录
-                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
-                        //启动后台自动连接线程
-                        BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-                        BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-                        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
-                        WearableManager.getInstance().setRemoteDevice(device);
-                        MainService.getInstance().startConnect();
-                        Intent guiIntent = new Intent();
-                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
-                        startActivity(guiIntent);
-                        finish();
-                    }else {//未绑定
-                        Intent in = new Intent();
-                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
-                        startActivity(in);
-                        finish();
-                    }
+//                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
+//                        //启动后台自动连接线程
+//                        if (WearableManager.getInstance().getConnectState()!=0){
+//                            BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+//                            BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+//                            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
+//                            WearableManager.getInstance().setRemoteDevice(device);
+//                            MainService.getInstance().startConnect();
+//                        }else
+//                            WearableManager.getInstance().scanDevice(true);
+//                        Intent guiIntent = new Intent();
+//                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
+//                        startActivity(guiIntent);
+//                        finish();
+//                    }else {//未绑定
+//                        Intent in = new Intent();
+//                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
+//                        startActivity(in);
+//                        finish();
+//                    }
                 }else if (app.getStartState() == 1){//未登录
                     Intent in = new Intent();
                     in.setClass(WelcomeActivity.this, LoginActivity.class);
@@ -282,12 +254,48 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     finish();
                 }
             }
+//            else{
+//                if (app.getStartState() == 0){//已登录
+//                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
+//                        //启动后台自动连接线程
+//                        if (WearableManager.getInstance().getConnectState()!=0){
+//                            BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+//                            BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+//                            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
+//                            WearableManager.getInstance().setRemoteDevice(device);
+//                            MainService.getInstance().startConnect();
+//                        }else
+//                            WearableManager.getInstance().scanDevice(true);
+//                        Intent guiIntent = new Intent();
+//                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
+//                        startActivity(guiIntent);
+//                        finish();
+//                    }else {//未绑定
+//                        Intent in = new Intent();
+//                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
+//                        startActivity(in);
+//                        finish();
+//                    }
+//                }else if (app.getStartState() == 1){//未登录
+//                    Intent in = new Intent();
+//                    in.setClass(WelcomeActivity.this, LoginActivity.class);
+//                    startActivity(in);
+//                    finish();
+//                }else {//登陆过期
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showToast(getString(R.string.tokenTimeout));
+//                        }
+//                    });
+//                    Intent in = new Intent();
+//                    in.setClass(WelcomeActivity.this, LoginActivity.class);
+//                    startActivity(in);
+//                    finish();
+//                }
+//            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

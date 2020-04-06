@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Util;
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -38,7 +39,8 @@ public class FileUtil {
     }
 
     public void initFile(String pathStr){
-        this.path = pathStr+"/shgame";
+//        this.path = pathStr+"/shgame";
+        this.path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/";
         if (getExternalStorageState().equals(MEDIA_MOUNTED))
             isSdCard = true;
         else

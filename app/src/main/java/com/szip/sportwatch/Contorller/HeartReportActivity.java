@@ -133,8 +133,12 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                EventBus.getDefault().post(new UpdateReport());
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    EventBus.getDefault().post(new UpdateReport());
+                                }
                             }
                         })
                         .show();
@@ -142,13 +146,23 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
             case R.id.image1:{
                 ReportDataBean reportDataBean = LoadDataUtil.newInstance().getHeartWithDay(reportDate);
                 Intent intent = new Intent(this,ShareActivity.class);
-                intent.putExtra("flag",2);
-                intent.putExtra("time",reportDate);
-                intent.putExtra("value",reportDataBean.getValue());
-                intent.putExtra("value1",reportDataBean.getDrawDataBeans().size());
-                intent.putExtra("value2",reportDataBean.getValue1()+45);
-                intent.putExtra("value3",reportDataBean.getValue2()+45);
+                if (reportDataBean!=null){
+                    intent.putExtra("flag",2);
+                    intent.putExtra("time",reportDate);
+                    intent.putExtra("value",reportDataBean.getValue());
+                    intent.putExtra("value1",reportDataBean.getDrawDataBeans().size());
+                    intent.putExtra("value2",reportDataBean.getValue1()+45);
+                    intent.putExtra("value3",reportDataBean.getValue2()+45);
+                }else{
+                    intent.putExtra("flag",2);
+                    intent.putExtra("time",reportDate);
+                    intent.putExtra("value",0);
+                    intent.putExtra("value1",0);
+                    intent.putExtra("value2",0);
+                    intent.putExtra("value3",0);
+                }
                 startActivityForResult(intent,100);
+
             }
             break;
         }

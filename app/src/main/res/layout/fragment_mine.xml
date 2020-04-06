@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgColor">
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layout"
@@ -59,16 +59,16 @@
                     android:layout_toRightOf="@+id/image" />
 
 
-                <TextView
-                    android:id="@+id/deviceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/device"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/item_text_size"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/device"
-                    android:layout_marginLeft="8dp"/>
+                <!--                <TextView-->
+                <!--                    android:id="@+id/deviceTv"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="@string/device"-->
+                <!--                    android:textColor="@color/blue"-->
+                <!--                    android:textSize="13sp"-->
+                <!--                    android:layout_centerVertical="true"-->
+                <!--                    android:layout_toRightOf="@+id/device"-->
+                <!--                    android:layout_marginLeft="8dp"/>-->
 
                 <TextView
                     android:id="@+id/deviceNameTv"
@@ -470,14 +470,15 @@
         </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/userLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@mipmap/my_head_bg">
+        android:background="@mipmap/my_head_bg"
+        android:clickable="true">
 
         <com.szip.sportwatch.View.CircularImageView
             android:id="@+id/pictureIv"
@@ -489,13 +490,14 @@
 
         <TextView
             android:id="@+id/userNameTv"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_text_size"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:text="用户名"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

@@ -66,8 +66,10 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
     private void updateView() {
         reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageTv.setText(reportDataBean.getValue()+70+"%");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        if (reportDataBean.getValue()!=0)
+            averageTv.setText(reportDataBean.getValue()+70+"%");
+        if (reportDataBean.getValue()!=0)
+            reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
@@ -100,8 +102,12 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
-                updateView();
+                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                    updateView();
+                }
                 break;
             case R.id.leftIv:
                 ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;

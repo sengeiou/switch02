@@ -113,9 +113,13 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                    initData();
+                    updateView();
+                }
                 break;
             case R.id.leftIv:
                 ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;

@@ -2,6 +2,8 @@ package com.szip.sportwatch.Contorller;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,18 +19,22 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Contorller.Fragment.HealthyFragment;
 import com.szip.sportwatch.Contorller.Fragment.MineFragment;
 import com.szip.sportwatch.Contorller.Fragment.SportFragment;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
+import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.HostTabView;
 import com.szip.sportwatch.View.MyToastView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTabHost;
@@ -66,9 +72,37 @@ public class MainActivity extends BaseActivity{
             startActivity(bleIntent);
         }
 
+        initBLE();
         initAnimation();
         initTabData();
         initHost();
+    }
+
+    private void initBLE() {
+        if (app.getUserInfo().getDeviceCode()!=null){//已绑定
+            //连接设备
+            Log.d("SZIP******","state = "+WearableManager.getInstance().getConnectState());
+            if (WearableManager.getInstance().getConnectState()==0){
+                MainService.getInstance().setRestartBle(true);
+                WearableManager.getInstance().scanDevice(true);
+
+            }else if (WearableManager.getInstance().getConnectState() == 5){
+                BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
+                WearableManager.getInstance().setRemoteDevice(device);
+                MainService.getInstance().startConnect();
+            }
+
+            if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
+                //获取云端数据
+                try {
+                    HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

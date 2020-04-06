@@ -87,7 +87,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+
     }
 
     @Override
@@ -123,6 +123,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
         sendTv.setOnClickListener(this);
         findViewById(R.id.countryRl).setOnClickListener(this);
         findViewById(R.id.resetBtn).setOnClickListener(this);
+        findViewById(R.id.backIv).setOnClickListener(this);
         userEt.addTextChangedListener(watcher);
         userEt.setOnFocusChangeListener(focusChangeListener);
         passwordEt.addTextChangedListener(watcher);
@@ -148,6 +149,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
      * */
     private void startTimer(){
         try {
+            HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
             if (userEt.getText().toString().contains("@"))
                 HttpMessgeUtil.getInstance(mContext).getVerificationCode("2","","",
                         userEt.getText().toString());
@@ -245,6 +247,9 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                         e.printStackTrace();
                     }
                 }
+                break;
+            case R.id.backIv:
+                finish();
                 break;
         }
     }

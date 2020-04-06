@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="@dimen/sport_margin_parallel">
+            android:layout_marginLeft="20dp">
 
             <com.szip.sportwatch.View.CircularImageView
                 android:id="@+id/pictureIv"
@@ -28,13 +28,14 @@
 
             <TextView
                 android:id="@+id/userNameTv"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/title_text_size"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:text="用户名"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:maxLines="1"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -104,6 +105,7 @@
 
 
                 <TextView
+                    android:id="@+id/unitTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"

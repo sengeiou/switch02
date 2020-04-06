@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/bgColor">
 
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="25dp"-->
-        <!--android:background="@color/gray1"/>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/gray1"/>
 
     <androidx.fragment.app.FragmentTabHost
         android:id="@android:id/tabhost"

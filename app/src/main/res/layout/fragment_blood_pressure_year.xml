@@ -63,14 +63,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@string/sbp"/>
+                android:text="@string/sbp"
+                android:textSize="13sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#9ee6ef"
                 android:layout_marginLeft="@dimen/report_margin"
-                android:text="@string/dbp"/>
+                android:text="@string/dbp"
+                android:textSize="13sp"/>
 
         </LinearLayout>
 

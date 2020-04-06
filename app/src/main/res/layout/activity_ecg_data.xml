@@ -90,7 +90,8 @@
                         android:textColor="@color/rayblue"
                         android:textSize="@dimen/report_text_size_mid"
                         android:text="球儿"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -135,7 +136,8 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/averageHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -171,7 +173,8 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/maxHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -207,7 +210,8 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/minHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -234,6 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/gray"
+                    android:layout_toRightOf="@id/timeTv"
                     android:textSize="@dimen/report_text_size_small"
                     android:text="@string/ecgTip"/>
 

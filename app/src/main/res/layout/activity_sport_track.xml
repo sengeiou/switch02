@@ -38,16 +38,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.szip.sportwatch.View.CircularImageView
                     android:id="@+id/pictureIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@mipmap/my_head_female_52"
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
@@ -63,7 +63,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/rayblue"
                         android:textSize="@dimen/report_text_size_mid"
-                        android:text="球儿" />
+                        android:text="球儿"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:id="@+id/timeTv"
@@ -96,10 +97,12 @@
                         android:text="3.5"/>
 
                     <TextView
+                        android:id="@+id/unitTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/rayblue1"
-                        android:text="km"/>
+                        android:text="km"
+                        android:textSize="14sp"/>
 
                 </LinearLayout>
 

@@ -19,6 +19,7 @@ import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.MyAlerDialog;
@@ -30,7 +31,6 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.szip.sportwatch.Util.MathUitl.isEmail;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
@@ -54,11 +54,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private TextView sendTv,verifyCodeTipTv;
     private Timer timer;
     private int time;
-
-    /**
-     * 隐私条款
-     * */
-    private CheckBox checkBox;
 
     private Context mContext;
     private SharedPreferences sharedPreferencesp;
@@ -100,7 +95,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
     }
 
     @Override
@@ -125,8 +119,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         verifyCodeTipTv = findViewById(R.id.verifyCodeTipTv);
         sendTv = findViewById(R.id.sendTv);
 
-        checkBox = findViewById(R.id.checkbox);
-        ((TextView)findViewById(R.id.privacyTv)).setMovementMethod(LinkMovementMethod.getInstance());
+
     }
     /**
      * 初始化事件
@@ -147,10 +140,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * */
     private void startTimer(){
         try {
-            if (userEt.getText().toString().contains("@"))
+            HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
+            if (!MathUitl.isNumeric(userEt.getText().toString()))
                 HttpMessgeUtil.getInstance(mContext).getVerificationCode("2","","",
                         userEt.getText().toString());
-
             else
                 HttpMessgeUtil.getInstance(mContext).getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
                         userEt.getText().toString(),"");
@@ -206,8 +199,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }else if (userEt.getText().toString().equals("")){
                     showToast(getString(R.string.phoneOrEmail));
                 }else {
-                    if (userEt.getText().toString().contains("@")){
-                        if (!isEmail(userEt.getText().toString()))
+                    if (!MathUitl.isNumeric(userEt.getText().toString())){
+                        if (!MathUitl.isEmail(userEt.getText().toString()))
                             showToast(getString(R.string.enterRightEmail));
                         else
                             startTimer();
@@ -225,16 +218,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     showToast(getString(R.string.phoneOrEmail));
                 } else if (verifyCodeEt.getText().toString().equals("")){
                     showToast(getString(R.string.enterVerification));
-                } else if (!checkBox.isChecked()){
-                    showToast(getString(R.string.checkPrivacy));
                 } else{
                     MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.privacyTip), getString(R.string.confirm),
                             getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
                                 @Override
                                 public void onDialogTouch(boolean flag) {
                                     try {
-                                        if (userEt.getText().toString().contains("@")){//邮箱
-                                            if (isEmail(userEt.getText().toString())){
+                                        if (!MathUitl.isNumeric(userEt.getText().toString())){//邮箱
+                                            if (MathUitl.isEmail(userEt.getText().toString())){
                                                 ProgressHudModel.newInstance().show(RegisterActivity.this,
                                                         getString(R.string.waitting),getString(R.string.httpError),10000);
                                                 HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),

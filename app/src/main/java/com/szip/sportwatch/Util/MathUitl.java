@@ -10,12 +10,16 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -51,7 +55,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.text.TextUtils.isEmpty;
 import static com.szip.sportwatch.MyApplication.FILE;
 
 /**
@@ -185,21 +194,21 @@ public class MathUitl {
                     span.setSpan(new RelativeSizeSpan(1.5f), i+2, m, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }else {
                     int m = text.indexOf(':');
-                    int i = text.indexOf('h');
+                    int i = text.indexOf('H');
                     if (i>=0){
                         span.setSpan(new RelativeSizeSpan(2f), m, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
-                    i = text.indexOf("min");
+                    i = text.indexOf("Min");
                     if (i>=0){
                         span.setSpan(new RelativeSizeSpan(2f), i-2, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }else {
-                int i = text.indexOf('h');
+                int i = text.indexOf('H');
                 if (i>=0){
                     span.setSpan(new RelativeSizeSpan(2f), 0, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-                i = text.indexOf("min");
+                i = text.indexOf("Min");
                 if (i>=0){
                     span.setSpan(new RelativeSizeSpan(2f), i-2, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
@@ -341,11 +350,22 @@ public class MathUitl {
 
 
     /**
+     * 判断字符串是不是数字
+     * */
+    public static boolean isNumeric(String str){
+        String strPattern = "[0-9]*";
+        if (isEmpty(strPattern)) {
+            return false;
+        } else {
+            return str.matches(strPattern);
+        }
+    }
+    /**
      * 判断邮箱是否合法
      * */
     public static boolean isEmail(String strEmail) {
         String strPattern = "^[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
-        if (TextUtils.isEmpty(strPattern)) {
+        if (isEmpty(strPattern)) {
             return false;
         } else {
             return strEmail.matches(strPattern);
@@ -359,10 +379,18 @@ public class MathUitl {
     /**
      * 公制转英制
      * */
-    public static int [] metric2British(int height,int weight){
-        int data[] = new int[2];
-        data[0] = (int)(height * 0.3937008);
-        data[1] = (int)(weight * 2.2046226);
+    public static int metric2British(int height){
+        int data;
+        data = (int)(height * 0.3937008);
+        return data;
+    }
+
+    /**
+     * 公制转英制
+     * */
+    public static float metric2Miles(int height){
+        float data;
+        data = height * 0.0006214f;
         return data;
     }
 
@@ -381,8 +409,8 @@ public class MathUitl {
 
     public static ArrayList<String> getStepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
-        for (int i = 1;i<=35;i++){
-            list.add(String.format("%d",i*1000));
+        for (int i = 8;i<=40;i++){
+            list.add(String.format("%d",i*500));
         }
         return list;
     }
@@ -616,6 +644,34 @@ public class MathUitl {
         return data.toString();
     }
 
+
+    /**
+     * 获取手机唯一标识
+     * */
+    public static String getDeviceId(Context context) {
+        //如果上面都没有， 则生成一个id：随机码
+        String ANDROID_ID = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+        if(!isEmpty(ANDROID_ID)){
+//            Log.d("SZIP******","uuid = "+ANDROID_ID);
+            return ANDROID_ID;
+        }
+        return null;
+    }
+    /**
+     * 得到全局唯一UUID
+     */
+    public static String getUUID(Context context){
+        String uuid = "";
+        SharedPreferences mShare = context.getSharedPreferences(FILE,MODE_PRIVATE);
+        uuid = mShare.getString("uuid", null);
+
+        if(uuid==null){
+            uuid = UUID.randomUUID().toString();
+            mShare.edit().putString("uuid",uuid).commit();
+        }
+        return uuid;
+    }
+
     public static void saveLastTime(SharedPreferences sharedPreferences){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (stepLast!=0)
@@ -637,7 +693,7 @@ public class MathUitl {
     }
 
     public static SharedPreferences.Editor saveInfoData(Context context, UserInfo info){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE,Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("birthday",info.getBirthday());
         editor.putString("userName",info.getUserName());
@@ -649,6 +705,7 @@ public class MathUitl {
         editor.putInt("sleepPlan",info.getSleepPlan());
         editor.putInt("id",info.getId());
         editor.putString("deviceCode",info.getDeviceCode());
+        editor.putString("avatar",info.getAvatar());
         return editor;
     }
 
@@ -664,6 +721,7 @@ public class MathUitl {
         info.setSleepPlan(sharedPreferences.getInt("sleepPlan",480));
         info.setId(sharedPreferences.getInt("id",0));
         info.setDeviceCode(sharedPreferences.getString("deviceCode",null));
+        info.setAvatar(sharedPreferences.getString("avatar",null));
         return info;
     }
 }

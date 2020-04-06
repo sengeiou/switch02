@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
@@ -67,8 +68,10 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     private void updateView() {
         reportView.setReportDate(((BloodPressureReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
-        averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        if (reportDataBean.getValue()!=0)
+            averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        if (reportDataBean.getValue1()!=0)
+            averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
@@ -101,8 +104,12 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                updateView();
+                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
+                    updateView();
+                }
                 break;
             case R.id.leftIv:
                 ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;

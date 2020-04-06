@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableListener;
@@ -213,7 +215,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.backIv:
-                startActivity(new Intent(SeachingActivity.this,LoginActivity.class));
+                WearableManager.getInstance().scanDevice(false);
                 finish();
                 break;
             case R.id.rightIv:
@@ -278,7 +280,24 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
         WearableManager.getInstance().setRemoteDevice(device);
         MainService.getInstance().startConnect();
 
-        startActivity(new Intent(SeachingActivity.this,MainActivity.class));
+        if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
+            //获取云端数据
+            try {
+                HttpMessgeUtil.getInstance(SeachingActivity.this).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            WearableManager.getInstance().scanDevice(false);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

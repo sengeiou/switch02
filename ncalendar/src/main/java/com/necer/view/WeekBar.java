@@ -64,7 +64,7 @@ public class WeekBar extends AppCompatTextView {
                 day = days[i];
             }
             textPaint.setColor(getContext().getResources().getColor(R.color.blue));
-            textPaint.setTextSize(50);
+            textPaint.setTextSize(35);
             canvas.drawText(day, rect.centerX(), baseLineY, textPaint);
         }
     }

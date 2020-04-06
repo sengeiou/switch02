@@ -51,13 +51,11 @@ public class ReportTableView extends View {
 
     private void initConfig(Context context, AttributeSet attrs){
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ReportView);
-
         textColor = a.getColor(R.styleable.ReportView_text_color, -1);
         textSize = a.getDimension(R.styleable.ReportView_text_size, MathUitl.dipToPx(15,getContext()));
         yValueNum = a.getInteger(R.styleable.ReportView_y_value_num,0);
         flag = a.getInteger(R.styleable.ReportView_flag,1);
         maxValue = a.getInteger(R.styleable.ReportView_maxVelue,100);
-
         a.recycle();
         pad15 = MathUitl.dipToPx(15,context);
         pad10 = MathUitl.dipToPx(10,context);
@@ -65,14 +63,11 @@ public class ReportTableView extends View {
     }
 
     private void initView(){
-
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(textColor);
         paint.setStrokeWidth(1.0f);
-
         textYPaint.setColor(textColor);
         textYPaint.setTextSize(textSize);
-
     }
 
     @Override
@@ -80,13 +75,10 @@ public class ReportTableView extends View {
         if (changed){
             width = getWidth();
             height = getHeight();
-
             textWidth = MathUitl.dipToPx(25,getContext());
             textHeight = MathUitl.dipToPx(6,getContext());
             tableWidth = width- textWidth -pad10*2;
             tableHeight = height- textHeight -pad10;
-
-
             Log.e("SZIP******","本页面宽： " + width +"  高:" + height);
         }
 

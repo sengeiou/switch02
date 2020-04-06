@@ -1,9 +1,11 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.heart;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.HeartReportActivity;
@@ -66,9 +68,14 @@ public class HeartWeekFragment extends BaseFragment implements View.OnClickListe
     private void updateView() {
         reportView.setReportDate(((HeartReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageTv.setText(reportDataBean.getValue()+45+"");
-        maxTv.setText(reportDataBean.getValue1()+45+"");
-        minTv.setText(reportDataBean.getValue2()+45+"");
+
+        if (reportDataBean.getValue()!=0)
+            averageTv.setText(reportDataBean.getValue()+45+"");
+        if (reportDataBean.getValue1()!=0)
+            maxTv.setText(reportDataBean.getValue1()+45+"");
+        if (reportDataBean.getValue2()!=0)
+            minTv.setText(reportDataBean.getValue2()+45+"");
+
         if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((HeartReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
@@ -105,9 +112,14 @@ public class HeartWeekFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((HeartReportActivity)getActivity()).reportDate+=7*24*60*60;
-                initData();
-                updateView();
+                if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((HeartReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((HeartReportActivity)getActivity()).reportDate-=7*24*60*60;

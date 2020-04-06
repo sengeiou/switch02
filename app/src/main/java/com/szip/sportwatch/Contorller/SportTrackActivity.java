@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
 public class SportTrackActivity extends BaseActivity implements View.OnClickListener {
@@ -45,7 +47,7 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
     private void initView() {
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
-        ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
+        findViewById(R.id.rightIv).setVisibility(View.GONE);
         pictureIv = findViewById(R.id.pictureIv);
         nameTv = findViewById(R.id.nameTv);
         timeTv = findViewById(R.id.timeTv);
@@ -54,14 +56,21 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
         calorieTv = findViewById(R.id.calorieTv);
         sportTimeTv = findViewById(R.id.sportTimeTv);
 
-        if (app.getUserInfo().getSex()==0){
-            pictureIv.setImageResource(R.mipmap.my_head_female_52);
-        }else {
-            pictureIv.setImageResource(R.mipmap.my_head_male_52);
-        }
+
+        if (app.getUserInfo().getAvatar()!=null)
+            Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
+        else
+            pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+
         nameTv.setText(app.getUserInfo().getUserName());
         timeTv.setText(DateUtil.getStringDateFromSecond(time,"MM/dd HH:mm:ss"));
-        distanceTv.setText(String.format("%.2f",distance/1000f));
+        if (app.getUserInfo().getUnit().equals("metric")){
+            distanceTv.setText(String.format("%.1f",distance/10f));
+            ((TextView)findViewById(R.id.unitTv)).setText("m");
+        } else{
+            distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(distance/10)));
+            ((TextView)findViewById(R.id.unitTv)).setText("Mi");
+        }
         speedTv.setText(String.format("%02d'%02d''",speed/60,speed%60));
         calorieTv.setText(calorie+"");
         sportTimeTv.setText(String.format("%02d:%02d:%02d",sportTime/3600, sportTime%3600/60,sportTime%3600%60));

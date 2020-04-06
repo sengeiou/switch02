@@ -135,9 +135,12 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                EventBus.getDefault().post(new UpdateReport());
-                            }
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    EventBus.getDefault().post(new UpdateReport());
+                                }}
                         })
                         .show();
                 break;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -103,9 +104,14 @@ public class StepWeekFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((StepReportActivity)getActivity()).reportDate+=7*24*60*60;
-                initData();
-                updateView();
+                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((StepReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((StepReportActivity)getActivity()).reportDate-=7*24*60*60;

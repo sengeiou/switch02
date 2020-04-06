@@ -23,10 +23,11 @@
     <string name="reset">重置密码</string>
     <string name="registerTitle">注册</string>
     <string name="next">下一步</string>
-    <string name="privacy">同意《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">用户服务协议</a>》和《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">隐私条款</a>》</string>
-    <string name="checkPrivacy">请确认阅读隐私条款</string>
+    <string name="privacy">同意《<a href="https://cloud.znsdkj.com:8443/sportWatch/comm/statement?project=sportWatch">隐私条款</a>》</string>
+    <string name="checkPrivacy">未同意《隐私条款》</string>
     <string name="setPassword">设置密码</string>
     <string name="china">中国</string>
+    <string name="vistor">访客登录</string>
 
     <!--主页-->
     <string name="healthy">健康</string>
@@ -40,6 +41,7 @@
     <string name="heart">心率</string>
     <string name="blood">血压</string>
     <string name="bloodo">血氧</string>
+    <string name="ecg">心电</string>
     <string name="check">查看</string>
     <string name="perfect">优</string>
     <string name="good">良</string>
@@ -101,6 +103,11 @@
     <string name="unBind">解除绑定</string>
     <string name="unline">断开连接</string>
     <string name="line">连接手表</string>
+    <string name="addDevice">添加设备</string>
+    <string name="unbindSoon">请先解绑设备</string>
+    <string name="lineError">多次连接失败，请关闭再打开手机的蓝牙或者重启手表</string>
+    <string name="tipUnit">注意:切换了单位制式身高体重将会被重置</string>
+
 
     <!--蓝牙通话界面-->
     <string name="step1">1.手表与手机蓝牙配对</string>
@@ -154,6 +161,7 @@
     <string name="passRate">达标率</string>
     <string name="ecgTip">该检测仅从参考，不能作为医疗诊断凭证</string>
     <string name="noData">无报告</string>
+    <string name="tomorrow">未来还未到来</string>
 
 
 
@@ -195,6 +203,8 @@
     <string name="loading">加载中...</string>
     <string name="privacyTip">您是否已经认真阅读隐私协议，并同意注册成为我司的新用户？\n当您点击"确定"即表示你已经同意该协议的条款。\n用户隐私政策主要包括以下内容:\n1.个人资料(头像、昵称、身高、体重、运动数据等)的收集，保存和分享。\n2.设备权限(位置，通讯录，相机等)的使用</string>
     <string name="crop_pic_failed">截取图像失败，请选择jpg,png格式图片！</string>
+    <string name="deviceOut">抱歉，您之前绑定的设备已经被别的游客挤掉了，如果想稳定使用本产品，请注册新账户进行设备绑定</string>
+    <string name="visiter">游客模式不支持此功能</string>
 
     <!--分享界面-->
     <string name="planOK">今日目标已达成</string>

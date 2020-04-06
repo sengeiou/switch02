@@ -53,4 +53,6 @@
     <dimen name="sport_text_size_big">40sp</dimen>
     <dimen name="sport_text_size_small">15sp</dimen>
 
+    <dimen name="tab_weight">300dp</dimen>
+
 </resources>

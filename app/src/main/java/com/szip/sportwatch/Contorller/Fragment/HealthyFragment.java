@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
@@ -148,20 +149,36 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             stepPb.setMaxValues(app.getUserInfo().getStepsPlan());
             stepPb.setCurrentValues(healthyDataModel.getStepsData());
             stepTv.setText(healthyDataModel.getStepsData()+"");
-            distanceTv.setText(String.format("%.2f",healthyDataModel.getDistanceData()/10000f));
+            if (app.getUserInfo().getUnit().equals("metric")){
+                distanceTv.setText(String.format("%.1f",healthyDataModel.getDistanceData()/10f));
+                ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+            } else{
+                distanceTv.setText(String.format("%.2f",MathUitl.metric2Miles(healthyDataModel.getDistanceData()/10)));
+                ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+            }
             kcalTv.setText(String.format("%.1f",healthyDataModel.getKcalData()/10f));
             planStepTv.setText(String.format(getString(R.string.planStep),app.getUserInfo().getStepsPlan()));
             stepRadioTv.setText(String.format("%.1f%%",healthyDataModel.getStepsData()/(float)app.getUserInfo().getStepsPlan()*100));
         }
+
         if (healthyDataModel.getAllSleepData()!=0){
             sleepDataTv.setText(String.format("%.1fh/%.1fh",healthyDataModel.getAllSleepData()/60f,app.getUserInfo().getSleepPlan()/60f));
             sleepPv.setSleepData(healthyDataModel.getAllSleepData()/(float)app.getUserInfo().getSleepPlan(),
                     healthyDataModel.getAllSleepData(),healthyDataModel.getLightSleepData());
             viewUtil.setSleepView(healthyDataModel.getAllSleepData(),getView().findViewById(R.id.sleepStateTv));
-
+        }else{
+            sleepDataTv.setText(String.format("%.1fh/%.1fh",0f,app.getUserInfo().getSleepPlan()/60f));
+            sleepPv.setSleepData(healthyDataModel.getAllSleepData()/(float)app.getUserInfo().getSleepPlan(),
+                    healthyDataModel.getAllSleepData(),healthyDataModel.getLightSleepData());
+            viewUtil.setSleepView(healthyDataModel.getAllSleepData(),getView().findViewById(R.id.sleepStateTv));
         }
+
         if (healthyDataModel.getHeartData()!=0){
             heartDataTv.setText(healthyDataModel.getHeartData()+"Bpm");
+            viewUtil.setHeartView(healthyDataModel.getHeartData(), getView().findViewById(R.id.heartStateTv),
+                    getView().findViewById(R.id.heartPv));
+        }else {
+            heartDataTv.setText("--Bpm");
             viewUtil.setHeartView(healthyDataModel.getHeartData(), getView().findViewById(R.id.heartStateTv),
                     getView().findViewById(R.id.heartPv));
         }
@@ -170,28 +187,34 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             bloodDataTv.setText(String.format("%d/%dmmHg",healthyDataModel.getSbpData(),healthyDataModel.getDbpData()));
             viewUtil.setBloodPressureView(healthyDataModel.getSbpData(),healthyDataModel.getDbpData(),
                     getView().findViewById(R.id.bloodStateTv),getView().findViewById(R.id.sbpPv),getView().findViewById(R.id.dbpPv));
+        }else {
+            bloodDataTv.setText("--/--mmHg");
+            viewUtil.setBloodPressureView(healthyDataModel.getSbpData(),healthyDataModel.getDbpData(),
+                    getView().findViewById(R.id.bloodStateTv),getView().findViewById(R.id.sbpPv),getView().findViewById(R.id.dbpPv));
         }
 
         if (healthyDataModel.getBloodOxygenData()!=0){
             bloodODataTv.setText(healthyDataModel.getBloodOxygenData()+"%");
             viewUtil.setBloodOxygenView(healthyDataModel.getBloodOxygenData(),getView().findViewById(R.id.bloodOStateTv),
                     getView().findViewById(R.id.bloodOxygenPv));
+        }else {
+            bloodODataTv.setText("--%");
+            viewUtil.setBloodOxygenView(healthyDataModel.getBloodOxygenData(),getView().findViewById(R.id.bloodOStateTv),
+                    getView().findViewById(R.id.bloodOxygenPv));
         }
 
         if (healthyDataModel.getEcgData()!=0){
             ecgDataTv.setText(healthyDataModel.getEcgData()+"Bpm");
-        }
-
-        if (app.getAvtar()!=null){
-            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_36:
-                    R.mipmap.my_head_female_36);
-
-            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageURI(app.getAvtar());
         }else {
-            MainService.getInstance().downloadAvatar(app.getUserInfo().getAvatar(), "iSmarport_" + app.getUserInfo().getId() + ".jpg");
-            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_36:
-                    R.mipmap.my_head_female_36);
+            ecgDataTv.setText("--Bpm");
         }
+
+
+        if (app.getUserInfo().getAvatar()!=null)
+            Glide.with(this).load(app.getUserInfo().getAvatar()).into( ((CircularImageView)getView().findViewById(R.id.pictureIv)));
+        else
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:
+                    R.mipmap.my_head_female_52);
     }
 
 
@@ -200,9 +223,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
      * */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdataView(ConnectState connectBean){
-        if (connectBean.getState() == 101) {
-            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageURI(app.getAvtar());
-        } else
             initData();
     }
 
@@ -210,7 +230,10 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.pictureIv:
-                startActivity(new Intent(getActivity(), UserInfoActivity.class));
+                if (app.getUserInfo().getPhoneNumber()==null&&app.getUserInfo().getEmail()==null)
+                    showToast(getString(R.string.visiter));
+                else
+                    startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.stepRl:
                 startActivity(new Intent(getActivity(), StepReportActivity.class));

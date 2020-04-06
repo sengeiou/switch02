@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -19,6 +20,7 @@ import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
@@ -37,7 +39,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     private SharedPreferences sharedPreferences;
     private int mFinalCount;
-    public static boolean isBackground = false;
     static public String FILE = "sportWatch";
 
     private UserInfo userInfo;
@@ -52,7 +53,8 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     private static MyApplication mInstance;
     private boolean camerable;//能否使用照相机
 
-    public Uri avatarUri;
+    private int updownTime;
+    private Thread updownDataThread;//上传数据的线程
 
     public static MyApplication getInstance(){
         return mInstance;
@@ -65,8 +67,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
         mInstance = this;
         FlowManager.init(this);
-        LoadDataUtil.newInstance().initCalendarPoint();
-
 
         /**
          * 注册广播
@@ -93,13 +93,13 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
          * */
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+        //获取上次退出之后剩余的倒计时上传时间
+        updownTime = sharedPreferences.getInt("updownTime",3600);
+
+        camerable = sharedPreferences.getBoolean("camera",false);
+
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
-        camerable = sharedPreferences.getBoolean("camera",false);
-        String avatarStr = sharedPreferences.getString("avatar",null);
-        if (avatarStr!=null)
-            avatarUri = Uri.parse(avatarStr);
-//        HttpMessgeUtil.getInstance(this).setUrl(sharedPreferences.getBoolean("isTest",false));
         if (token==null){//未登录
             startState = 1;
         }else {//已登录
@@ -135,55 +135,45 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             localPackageManager.setComponentEnabledSetting(localComponentName, 2, 1);
             localPackageManager.setComponentEnabledSetting(localComponentName, 1, 1);
         }
-        registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-            }
+       startUpdownThread();
+    }
 
+    /**
+     * 倒计时累计一个小时就上传一次数据到云端
+     * */
+    private void startUpdownThread(){
+
+        updownDataThread = new Thread(new Runnable() {
             @Override
-            public void onActivityStarted(Activity activity) {
-                mFinalCount++;
-                //如果mFinalCount ==1，说明是从后台到前台
-                Log.e("onActivityStarted", mFinalCount + "");
-                if (mFinalCount == 1) {
-                    //说明从后台回到了前台
-                    MyApplication.isBackground = false;
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(1000);
+                        updownTime--;
+                        if (updownTime == 0)
+                            break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onActivityResumed(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-                mFinalCount--;
-                //如果mFinalCount ==0，说明是前台到后台
-
-                if (mFinalCount == 0) {
-                    //说明从前台回到了后台
-                    MyApplication.isBackground = true;
+                if (getUserInfo().getDeviceCode()!=null){
+                    try {
+                        String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
+                        HttpMessgeUtil.getInstance(MyApplication.this).postForUpdownReportData(datas);
+                        updownTime = 3600;
+                        startUpdownThread();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-
             }
         });
+        updownDataThread.start();
     }
+
+
     private void initIgnoreList() {
         HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
         List<PackageInfo> packagelist = getPackageManager().getInstalledPackages(0);
@@ -232,14 +222,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         sharedPreferences.edit().putBoolean("camera",camerable).commit();
     }
 
-    public void setAvatar(Uri uri) {
-        this.avatarUri = uri;
-    }
-
-    public Uri getAvtar(){
-        return avatarUri;
-    }
-
     @Override
     public void onUserInfo(UserInfoBean userInfoBean) {
         Log.d("SZIP******","GET USER");
@@ -250,5 +232,9 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         }else {//保存用户信息
             setUserInfo(userInfoBean.getData());
         }
+    }
+
+    public int getUpdownTime() {
+        return updownTime;
     }
 }

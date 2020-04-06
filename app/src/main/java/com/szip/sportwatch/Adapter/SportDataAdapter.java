@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Model.DrawDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +62,20 @@ public class SportDataAdapter extends BaseAdapter {
             holder.sportTimeTv = convertView.findViewById(R.id.sportTimeTv);
             holder.calorieTv = convertView.findViewById(R.id.calorieTv);
             holder.typeIv = convertView.findViewById(R.id.typeIv);
+            holder.unitTv = convertView.findViewById(R.id.unitTv);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         holder.timeTv.setText(DateUtil.getStringDateFromSecond(list.get(position).time,"MM/dd HH:mm:ss"));
-        holder.distanceTv.setText(String.format("%.2f",list.get(position).distance/1000f));
+        if (((MyApplication)mContext.getApplicationContext()).getUserInfo().getUnit().equals("metric")){
+            holder.distanceTv.setText(String.format("%.1f",list.get(position).distance/10f));
+            holder.unitTv.setText("m");
+        } else{
+            holder.distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(list.get(position).distance/10)));
+            holder.unitTv.setText("Mi");
+        }
         holder.sportTimeTv.setText(String.format("%02d:%02d:%02d",list.get(position).sportTime/3600,
                 list.get(position).sportTime%3600/60,list.get(position).sportTime%3600%60));
         holder.calorieTv.setText(list.get(position).calorie+"");
@@ -78,7 +87,7 @@ public class SportDataAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        TextView timeTv,distanceTv,sportTimeTv,calorieTv;
+        TextView timeTv,distanceTv,sportTimeTv,calorieTv,unitTv;
         ImageView typeIv;
     }
 }

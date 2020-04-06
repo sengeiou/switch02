@@ -88,6 +88,7 @@ public class SaveDataUtil {
                     @Override
                     public void onSuccess(Transaction transaction) {
                         Log.d("SZIP******","计步数据保存成功");
+                        EventBus.getDefault().post(new ConnectState());
                     }
                 }).build().execute();
     }
@@ -230,8 +231,9 @@ public class SaveDataUtil {
 
     /**
      * 批量保存心率
+     * @param isAdd   判断该条数据是当天需要往上累加的数据还是服务费返回的需要替代的数据
      * */
-    public void saveHeartDataListData(List<HeartData> heartDataList){
+    public void saveHeartDataListData(List<HeartData> heartDataList, final boolean isAdd){
         FlowManager.getDatabase(AppDatabase.class)
                 .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
                         new ProcessModelTransaction.ProcessModel<HeartData>() {
@@ -246,21 +248,28 @@ public class SaveDataUtil {
                                             "yyyy-MM-dd")),2);
                                     heartData.save();
                                 } else {//不为null则代表数据库存在，进行更新
-                                    String heartStr = sqlData.heartArray+","+heartData.heartArray;
-                                    String []heartArray = heartStr.split(",");
-                                    int heartSum = 0;
-                                    int sum = 0;
-                                    StringBuffer heartBuffer = new StringBuffer();
-                                    for (int i = 0;i<heartArray.length;i++){
-                                        if (!heartArray[i].equals("0")){
-                                            heartSum+=Integer.valueOf(heartArray[i]);
-                                            sum++;
-                                            heartBuffer.append(","+heartArray[i]);
+                                    if (isAdd){
+                                        String heartStr = sqlData.heartArray+","+heartData.heartArray;
+                                        String []heartArray = heartStr.split(",");
+                                        int heartSum = 0;
+                                        int sum = 0;
+                                        StringBuffer heartBuffer = new StringBuffer();
+                                        for (int i = 0;i<heartArray.length;i++){
+                                            if (!heartArray[i].equals("0")){
+                                                heartSum+=Integer.valueOf(heartArray[i]);
+                                                sum++;
+                                                heartBuffer.append(","+heartArray[i]);
+                                            }
                                         }
+                                        sqlData.averageHeart = heartSum/sum;
+                                        sqlData.heartArray = heartBuffer.toString().substring(1);
+                                        sqlData.update();
+                                    }else {
+                                        sqlData.averageHeart = heartData.averageHeart;
+                                        sqlData.heartArray = heartData.heartArray;
+                                        sqlData.update();
                                     }
-                                    sqlData.averageHeart = heartSum/sum;
-                                    sqlData.heartArray = heartBuffer.toString().substring(1);
-                                    sqlData.update();
+
                                 }
                             }
                         }).addAll(heartDataList).build())  // add elements (can also handle multiple)

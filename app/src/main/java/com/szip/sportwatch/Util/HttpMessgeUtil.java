@@ -8,17 +8,21 @@ import android.util.Log;
 
 
 import com.szip.sportwatch.Contorller.LoginActivity;
+import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
+import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.GenericsCallback;
@@ -56,6 +60,7 @@ public class HttpMessgeUtil {
     public static int UPDOWN_LOG = 101;
     public static int UPDOWN_DATA = 102;
     public static int UPDOWN_AVATAR = 103;
+    public static int UPDATA_USERINFO = 104;
 
     public static HttpMessgeUtil getInstance(Context context)
     {
@@ -131,7 +136,8 @@ public class HttpMessgeUtil {
      * @param verifyCode             验证码
      * @param password               密码
      * */
-    private void _postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password) throws IOException {
+    private void _postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password,
+                               String phoneId,String phoneSystem) throws IOException {
         String url = this.url+"user/signUp";
         OkHttpUtils
                 .jpost()
@@ -144,6 +150,8 @@ public class HttpMessgeUtil {
                 .addParams("email",email)
                 .addParams("verifyCode",verifyCode)
                 .addParams("password",password)
+                .addParams("phoneId",phoneId)
+                .addParams("phoneSystem",phoneSystem)
                 .build()
                 .execute(baseApiGenericsCallback);
     }
@@ -202,7 +210,7 @@ public class HttpMessgeUtil {
      * @param email                  邮箱
      * @param password               密码
      * */
-    private void _postLogin(String type,String areaCode, String phoneNumber, String email, String password)throws IOException{
+    private void _postLogin(String type,String areaCode, String phoneNumber, String email, String password,String phoneId,String phoneSystem)throws IOException{
         String url = this.url+"user/login";
         OkHttpUtils
                 .jpost()
@@ -214,6 +222,8 @@ public class HttpMessgeUtil {
                 .addParams("phoneNumber",phoneNumber)
                 .addParams("email",email)
                 .addParams("password",password)
+                .addParams("phoneId",phoneId)
+                .addParams("phoneSystem",phoneSystem)
                 .build()
                 .execute(loginBeanGenericsCallback);
     }
@@ -313,6 +323,7 @@ public class HttpMessgeUtil {
         OkHttpUtils
                 .jpost()
                 .url(url)
+                .id(UPDATA_USERINFO)
                 .addHeader("Time-Diff",time)
                 .addHeader("token",token)
                 .addHeader("Accept-Language",language)
@@ -468,7 +479,7 @@ public class HttpMessgeUtil {
     /**
      * 上传头像
      * */
-    private void _postUpdownAvatar(File avatar)throws IOException{
+    private void _postUpdownAvatar(File avatar, GenericsCallback<AvatarBean> callback)throws IOException{
         String url = this.url+"user/setProfilePicture";
         OkHttpUtils
                 .fpost()
@@ -478,7 +489,7 @@ public class HttpMessgeUtil {
                 .addHeader("Accept-Language",language)
                 .addFile("file","iSmarport_6.jpg",avatar)
                 .build()
-                .execute(baseApiGenericsCallback);
+                .execute(callback);
     }
 
 
@@ -573,8 +584,9 @@ public class HttpMessgeUtil {
     /**
      * 提供给用户的方法
      * */
-    public void postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password) throws IOException{
-        _postRegister(type,areaCode,phoneNumber,email,verifyCode,password);
+    public void postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password,
+                             String phoneId,String phoneSystem) throws IOException{
+        _postRegister(type,areaCode,phoneNumber,email,verifyCode,password, phoneId, phoneSystem);
     }
 
     public void getVerificationCode(String type,String areaCode,String phoneNumber,String email)throws IOException{
@@ -586,8 +598,8 @@ public class HttpMessgeUtil {
         _postCheckVerifyCode(type,areaCode,phoneNumber,email,verifyCode);
     }
 
-    public void postLogin(String type, String areaCode,String phoneNumber, String email, String password)throws IOException{
-        _postLogin(type,areaCode,phoneNumber,email,password);
+    public void postLogin(String type, String areaCode,String phoneNumber, String email, String password,String phoneId,String phoneSystem)throws IOException{
+        _postLogin(type,areaCode,phoneNumber,email,password,phoneId,phoneSystem);
     }
 
     public void postForgotPassword(String type,String areaCode,String phoneNumber,String email,String verifyCode,
@@ -654,8 +666,8 @@ public class HttpMessgeUtil {
         _getForDownloadReportData(time,size);
     }
 
-    public void postUpdownAvatar(File avatar)throws IOException{
-        _postUpdownAvatar(avatar);
+    public void postUpdownAvatar(File avatar,GenericsCallback<AvatarBean> callback)throws IOException{
+        _postUpdownAvatar(avatar,callback);
     }
 //
 //    public void postForChangeClock(String clockId,String type,String hour,String minute,String index,String isPhone,
@@ -701,6 +713,8 @@ public class HttpMessgeUtil {
                 }
             }else if (response.getCode() == 401&& id!=UPDOWN_LOG){
                 tokenTimeOut();
+            }else if (response.getCode() == 6001){
+                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -722,6 +736,8 @@ public class HttpMessgeUtil {
                 }
             }else if (response.getCode() == 401){
                 tokenTimeOut();
+            }else if (response.getCode() == 6001){
+                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -801,7 +817,7 @@ public class HttpMessgeUtil {
                     saveDataUtil.saveBloodPressureDataListData(response.getData().getBloodPressureDataList());
 
                 if (response.getData().getHeartDataList().size()!=0)
-                    saveDataUtil.saveHeartDataListData(response.getData().getHeartDataList());
+                    saveDataUtil.saveHeartDataListData(response.getData().getHeartDataList(),false);
 
                 if (response.getData().getSleepDataList().size()!=0)
                     saveDataUtil.saveSleepDataListData(response.getData().getSleepDataList());
@@ -815,8 +831,11 @@ public class HttpMessgeUtil {
                 for (SportData sportData:response.getData().getSportDataList()){
                     saveDataUtil.saveSportData(sportData);
                 }
+                LoadDataUtil.newInstance().initCalendarPoint();
             }else if (response.getCode() == 401){
                 tokenTimeOut();
+            }else if (response.getCode() == 6001){
+                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -877,8 +896,19 @@ public class HttpMessgeUtil {
         editor.putBoolean("isLogin",false);
         editor.putBoolean("isBind",false);
         editor.commit();
+        SaveDataUtil.newInstance(mContext).clearDB();
+        MainService.getInstance().stopConnect();
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intentmain);
+    }
+
+    private void deviceOut(){
+        SaveDataUtil.newInstance(mContext).clearDB();
+        ProgressHudModel.newInstance().diss();
+        MainService.getInstance().stopConnect();
+        MathUitl.showToast(mContext,mContext.getString(R.string.deviceOut));
+        ((MyApplication)mContext.getApplicationContext()).getUserInfo().setDeviceCode(null);
+        mContext.getSharedPreferences(FILE,MODE_PRIVATE).edit().putString("deviceCode",null).commit();
     }
 }

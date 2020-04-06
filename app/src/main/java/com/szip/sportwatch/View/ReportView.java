@@ -527,7 +527,7 @@ public class ReportView extends View {
             data_num = list.size();
             datas1 = new int[list.size()];
             datas2 = new int[list.size()];
-            if(flag==3&&data_num<10)
+            if(flag==3&&data_num<10&&!isBar)
                 data_num = 10;
             for (int i = 0;i<list.size();i++){
                 datas1[i] = list.get(i).getValue();

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -65,8 +66,10 @@ public class BloodPressureWeekFragment extends BaseFragment implements View.OnCl
     private void updateView() {
         reportView.setReportDate(((BloodPressureReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
-        averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        if (reportDataBean.getValue()!=0)
+            averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        if (reportDataBean.getValue1()!=0)
+            averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
         if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodPressureReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
@@ -102,9 +105,14 @@ public class BloodPressureWeekFragment extends BaseFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate+=7*24*60*60;
-                initData();
-                updateView();
+                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodPressureReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((BloodPressureReportActivity)getActivity()).reportDate-=7*24*60*60;

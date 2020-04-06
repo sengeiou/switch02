@@ -104,9 +104,14 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((HeartReportActivity)getActivity()).reportDate-=24*60*60;

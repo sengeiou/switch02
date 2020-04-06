@@ -16,15 +16,14 @@
         android:background="@color/white"
         android:gravity="center_vertical">
 
-        <Button
+        <TextView
             android:id="@+id/j_btnCancel"
             android:layout_width="60dp"
             android:layout_height="34dp"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:text="@string/cancel"
             android:textColor="@color/blue"
-            android:textSize="17sp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/windowTitle"
@@ -36,16 +35,15 @@
             android:text="标题"
             android:textColor="@color/black"/>
 
-        <Button
+        <TextView
             android:id="@+id/j_btnSubmit"
             android:layout_width="60dp"
             android:layout_height="34dp"
             android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
             android:gravity="center"
             android:text="@string/confirm"
             android:textColor="@color/blue"
-            android:textSize="17sp"/>
+            android:textSize="14sp"/>
     </RelativeLayout>
 
     <View

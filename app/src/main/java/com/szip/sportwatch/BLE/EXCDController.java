@@ -28,6 +28,7 @@ import java.util.List;
 
 public class EXCDController extends Controller {
 
+//    private String cmdHead = "KCT_PEDOMETER kct_pedometer ";
     private String cmdHead = "ZNSD_WATCH znsd_watch ";
 
     private static final String sControllerTag = "EXCDController";
@@ -192,7 +193,7 @@ public class EXCDController extends Controller {
                     EventBus.getDefault().post(new UpdateReport());
                 }
             }else if (commands[1].equals("18")){
-                if (commands.length>5){//有数据
+                if (commands.length>6){//有数据
                     if (sports == null){
                         sports = new ArrayList<>();
                         sports.add(command);
@@ -214,7 +215,14 @@ public class EXCDController extends Controller {
                             EventBus.getDefault().post(new UpdateReport());
                         }
                         sports = null;
-                        Log.d("SZIP******","SPORT = "+str.toString());
+                    }
+                    writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
+                }else {
+                    if (sportList.size()!=0){
+                        writeForSport(sportList.get(0));
+                        sportList.remove(0);
+                    }else {
+                        EventBus.getDefault().post(new UpdateReport());
                     }
                     writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
                 }
@@ -454,9 +462,13 @@ public class EXCDController extends Controller {
     //设置个人信息
     public void writeForSetInfo(UserInfo info){
         String height = info.getHeight();
+        if (height!=null)
+            height = height.substring(0,height.length()-2);
         String weight = info.getWeight();
+        if (weight!=null)
+            weight = weight.substring(0,weight.length()-2);
         String str = "SET,10,"+String.format("%d|%d|",info.getStepsPlan(),info.getSex())+
-                height.substring(0,height.length()-2)+"|"+weight.substring(0,weight.length()-2);
+                (height==null?"100":height)+"|"+(weight==null?"100":weight);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -493,6 +505,7 @@ public class EXCDController extends Controller {
     //获取运动数据
     public void writeForSport(String index){
         String str = "GET,18,"+index;
+        Log.d("SZIP******","sport index = "+index);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -511,7 +524,6 @@ public class EXCDController extends Controller {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Log.d("SZIP******","REC = "+cmdHead+String.format("0 0 %d ",str.length()));
         this.send(cmdHead+String.format("0 0 %d ",str.length()),datas,true,false,0);
     }
 }

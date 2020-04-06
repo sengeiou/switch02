@@ -10,7 +10,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/reportTl"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/tab_weight"
         android:layout_height="30dp"
         android:background="#00000000"
         app:tabBackground="@android:color/transparent"

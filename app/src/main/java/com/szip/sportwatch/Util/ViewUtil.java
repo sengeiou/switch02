@@ -23,6 +23,11 @@ public class ViewUtil{
      * 计算心率游标位置
      * */
     public void setHeartView(int heart,View textView,View healthyProgressView){
+        if (heart==0){
+            ((TextView)textView).setText("--");
+            ((HealthyProgressView)healthyProgressView).setRadio(0);
+            return;
+        }
         if (heart/150f<0.333f){
             ((TextView)textView).setText(context.getString(R.string.slow));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.normalT));
@@ -44,6 +49,12 @@ public class ViewUtil{
      * */
     public void setBloodPressureView(int sbp,int dbp,View textView,View healthyProgressView,
                                        View healthyProgressView1){
+        if (sbp==0){
+            ((TextView)textView).setText("--");
+            ((HealthyProgressView)healthyProgressView).setRadio(0);
+            ((HealthyProgressView)healthyProgressView1).setRadio(0);
+            return;
+        }
         if ((sbp-40)/150f<0.333){
             ((TextView)textView).setText(context.getString(R.string.flat));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.normalT));
@@ -76,6 +87,11 @@ public class ViewUtil{
      * 计算血氧游标位置
      * */
     public void setBloodOxygenView(int bloodOxygen,View textView,View healthyProgressView){
+        if (bloodOxygen==0){
+            ((TextView)textView).setText("--");
+            ((HealthyProgressView)healthyProgressView).setRadio(0);
+            return;
+        }
         if ((bloodOxygen-88)/12f<0.5){
             ((TextView)textView).setText(context.getString(R.string.flat));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.normalT));
@@ -92,6 +108,10 @@ public class ViewUtil{
      * 判断睡眠质量
      * */
     public void setSleepView(int sleep, View textView){
+        if (sleep==0){
+            ((TextView)textView).setText("--");
+            return;
+        }
         if (sleep/480f<0.4f){
             ((TextView)textView).setText(context.getString(R.string.bad));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.badT));

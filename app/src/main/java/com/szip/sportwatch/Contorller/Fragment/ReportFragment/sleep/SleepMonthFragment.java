@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -100,9 +101,14 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((SleepReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((SleepReportActivity)getActivity()).reportDate+=28*24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((SleepReportActivity)getActivity()).reportDate-=28*24*60*60;

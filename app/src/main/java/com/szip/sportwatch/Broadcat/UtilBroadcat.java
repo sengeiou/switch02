@@ -39,6 +39,7 @@ public class UtilBroadcat extends BroadcastReceiver {
                     break;
                 case BluetoothAdapter.STATE_ON:
                     Log.d("aaa", "STATE_ON 手机蓝牙开启");
+                    MainService.getInstance().setRestartBle(true);
                     MainService.getInstance().stopConnect();
                     WearableManager.getInstance().scanDevice(true);
                     break;
@@ -46,12 +47,16 @@ public class UtilBroadcat extends BroadcastReceiver {
                     Log.d("aaa", "STATE_TURNING_ON 手机蓝牙正在开启");
                     break;
             }
+        }else if (intent.getAction().equals("android.intent.action.ACTION_SHUTDOWN")){
+            Log.d("SZIP******","关机");
+            WearableManager.getInstance().disconnect();
         }
     }
 
     private IntentFilter getmIntentFilter() {
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        mIntentFilter.addAction("android.intent.action.ACTION_SHUTDOWN");
         return mIntentFilter;
     }
 

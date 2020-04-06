@@ -12,7 +12,8 @@
         android:background="#0366e3"/>
 
 
-    <com.szip.sportwatch.View.PullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.szip.sportwatch.View.PullToRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -45,12 +46,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/healthy_margin_parallel"
                         android:layout_marginRight="@dimen/healthy_margin_parallel"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="13dp">
 
                         <com.szip.sportwatch.View.CircularImageView
                             android:id="@+id/pictureIv"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@mipmap/my_head_male_36"/>
 
                         <!--<ImageView-->
@@ -167,6 +168,7 @@
 
 
                             <TextView
+                                android:id="@+id/unitTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"
@@ -267,7 +269,7 @@
                         android:paddingTop="6dp"
                         android:paddingRight="20dp"
                         android:paddingLeft="20dp"
-                        />
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 
@@ -339,7 +341,8 @@
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingRight="20dp"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 
@@ -422,7 +425,8 @@
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingRight="20dp"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 
@@ -493,7 +497,8 @@
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingRight="20dp"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 
@@ -531,7 +536,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/heart"
+                            android:text="@string/ecg"
                             android:textSize="@dimen/healthy_text_size"
                             android:textColor="@color/rayblue"/>
 
@@ -559,7 +564,8 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="20dp"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 

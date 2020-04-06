@@ -68,8 +68,10 @@ public class BloodOxygenMonthFragment extends BaseFragment implements View.OnCli
         reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
-        averageTv.setText(reportDataBean.getValue()+70+"%");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        if (reportDataBean.getValue()!=0)
+            averageTv.setText(reportDataBean.getValue()+70+"%");
+        if (reportDataBean.getValue()!=0)
+            reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
         if (DateUtil.getTimeOfToday()==((BloodOxygenReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodOxygenReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -106,9 +108,14 @@ public class BloodOxygenMonthFragment extends BaseFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodOxygenReportActivity)getActivity()).reportDate+=28*24*60*60;
+                    initData();
+                    updateView();
+                }
+
                 break;
             case R.id.leftIv:
                 ((BloodOxygenReportActivity)getActivity()).reportDate-=28*24*60*60;
