@@ -73,18 +73,18 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
      * */
     private void initData() {
         SportData sportData = LoadDataUtil.newInstance().getBestSportData();
-        if (sportData!=null){
-            if (app.getUserInfo().getUnit().equals("metric")){
-                distanceTv.setText(String.format("%.1f",sportData.distance/10f));
-                ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
-            } else{
-                distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(sportData.distance/10)));
-                ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
-            }
-            speedTv.setText(String.format("%02d'%02d''",sportData.speed/60,sportData.speed%60));
-            calorieTv.setText(sportData.calorie+"");
-            sportTimeTv.setText(String.format("%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
+
+        if (app.getUserInfo().getUnit().equals("metric")){
+            distanceTv.setText(String.format("%.1f",sportData.distance/10f));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+        } else{
+            distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(sportData.distance/10)));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
         }
+        speedTv.setText(String.format("%02d'%02d''",sportData.speed/60,sportData.speed%60));
+        calorieTv.setText(sportData.calorie+"");
+        sportTimeTv.setText(String.format("%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
+
 
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);

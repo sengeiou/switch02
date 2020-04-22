@@ -107,14 +107,14 @@ public class SleepWeekFragment extends BaseFragment implements View.OnClickListe
                 if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((SleepReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
                     initData();
                     updateView();
                 }
 
                 break;
             case R.id.leftIv:
-                ((SleepReportActivity)getActivity()).reportDate-=7*24*60*60;
+                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
                 initData();
                 updateView();
                 break;

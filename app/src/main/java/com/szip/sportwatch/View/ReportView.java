@@ -414,7 +414,7 @@ public class ReportView extends View {
                 else if (flag == 2)
                     yMsg[i] = String.format("%dh",(maxValue/yValueNum)*(i+1)/60);
                 else if (flag == 3)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+40);
                 else if (flag == 4)
                     yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
                 else if (flag == 5)

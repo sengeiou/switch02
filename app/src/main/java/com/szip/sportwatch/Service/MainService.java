@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -122,7 +123,9 @@ public class MainService extends Service {
                     errorTimes++;
                 } else{
                     errorTimes = 0;
-                    MathUitl.showToast(mSevice,getString(R.string.lineError));
+                    Looper.prepare();
+                    Toast.makeText(mSevice,getString(R.string.lineError),Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
             }
         }
@@ -232,7 +235,7 @@ public class MainService extends Service {
             ArrayList<SleepData> dataArrayList = new ArrayList<>();
             for (int i =0;i<sleepForday.length;i++){
                 String sleepDatas[] = sleepForday[i].split("\\|");
-                long time = DateUtil.getTimeScopeForDay(sleepDatas[0],"yyyy-MM-dd");
+                long time = DateUtil.getTimeScopeForDay(sleepDatas[0],"yyyy-MM-dd")+24*60*60;
                 int deepTime = DateUtil.getMinue(sleepDatas[1]);
                 int lightTime = DateUtil.getMinue(sleepDatas[2]);
                 Log.d("SZIP******","睡眠数据 = "+"time = "+time+" ;deep = "+deepTime+" ;light = "+lightTime);

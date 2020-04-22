@@ -31,13 +31,20 @@ public class CalendarUtil {
     public static void setPointList(List<LocalDate> stepPointList1,List<LocalDate> sleepPointList1,List<LocalDate> heartPointList1,
                              List<LocalDate> bloodPressurePointList1,List<LocalDate> bloodOxygenPointList1,List<LocalDate> ecgPointList1,
                              List<LocalDate> sportPointList1){
-        stepPointList = stepPointList1;
-        sleepPointList = sleepPointList1;
-        heartPointList = heartPointList1;
-        bloodPressurePointList = bloodPressurePointList1;
-        bloodOxygenPointList = bloodOxygenPointList1;
-        ecgPointList = ecgPointList1;
-        sportPointList = sportPointList1;
+        if(stepPointList1.size()!=0)
+            stepPointList = stepPointList1;
+        if(sleepPointList1.size()!=0)
+            sleepPointList = sleepPointList1;
+        if(heartPointList1.size()!=0)
+            heartPointList = heartPointList1;
+        if(bloodPressurePointList1.size()!=0)
+            bloodPressurePointList = bloodPressurePointList1;
+        if(bloodOxygenPointList1.size()!=0)
+            bloodOxygenPointList = bloodOxygenPointList1;
+        if(ecgPointList1.size()!=0)
+            ecgPointList = ecgPointList1;
+        if(sportPointList1.size()!=0)
+            sportPointList = sportPointList1;
     }
 
     public static List<LocalDate> getPointList(int flag){
@@ -55,31 +62,6 @@ public class CalendarUtil {
             return ecgPointList;
         }else{
             return sportPointList;
-        }
-    }
-
-    public static void addPoint(LocalDate localDate,int flag) {
-        if (flag==0){
-            if (!stepPointList.contains(localDate))
-                stepPointList.add(localDate);
-        }else if (flag == 1){
-            if (!sleepPointList.contains(localDate))
-                sleepPointList.add(localDate);
-        }else if (flag == 2){
-            if (!heartPointList.contains(localDate))
-                heartPointList.add(localDate);
-        }else if (flag == 3){
-            if (!bloodPressurePointList.contains(localDate))
-                bloodPressurePointList.add(localDate);
-        }else if (flag == 4){
-            if (!bloodOxygenPointList.contains(localDate))
-                bloodOxygenPointList.add(localDate);
-        }else if (flag == 5){
-            if (!ecgPointList.contains(localDate))
-                ecgPointList.add(localDate);
-        }else{
-            if (!sportPointList.contains(localDate))
-                sportPointList.add(localDate);
         }
     }
 

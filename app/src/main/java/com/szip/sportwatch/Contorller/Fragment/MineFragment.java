@@ -78,12 +78,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private MyApplication app;
 
     private CircularImageView pictureIv;
-    private TextView userNameTv;
-
-    private TextView stateTv;
-
-    private TextView stepPlanTv;
-    private TextView sleepPlanTv;
+    private TextView userNameTv,stateTv,stepPlanTv,sleepPlanTv,deviceTv;
 
     private Switch blePhotoSwitch;
 
@@ -113,6 +108,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
         app = (MyApplication) getActivity().getApplicationContext();
+        userInfo = app.getUserInfo();
         initView();
         initEvent();
         initWindow();
@@ -122,17 +118,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        if (app.getUserInfo().getDeviceCode()==null)
+        if (app.getUserInfo().getDeviceCode()==null){
+            deviceTv.setText("");
             stateTv.setText(getString(R.string.addDevice));
-        else {
+        } else {
             if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTED){
+                deviceTv.setText(userInfo.getDeviceCode());
                 stateTv.setText(getString(R.string.connected));
             }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
                     MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_FAIL){
                 WearableManager.getInstance().connect();
             }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTING){
+                deviceTv.setText("");
                 stateTv.setText(getString(R.string.connectting));
             }else {
+                deviceTv.setText("");
                 stateTv.setText(getString(R.string.disConnect));
             }
         }
@@ -149,9 +149,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBleConnectStateChange(ConnectState connectBean){
         if (connectBean.getState() == WearableManager.STATE_CONNECTED){
+            deviceTv.setText(userInfo.getDeviceCode());
             stateTv.setText(getString(R.string.connected));
         }else if (connectBean.getState()  == WearableManager.STATE_CONNECT_LOST||
                 connectBean.getState()  == WearableManager.STATE_CONNECT_FAIL){
+            deviceTv.setText("");
             if (unbind){
                 unbind = false;
                 ProgressHudModel.newInstance().diss();
@@ -159,10 +161,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 MainService.getInstance().stopConnect();
                 MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();
                 SaveDataUtil.newInstance(getContext()).clearDB();
-                stateTv.setText(getString(R.string.addDevice));
+                getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
             }else
                 stateTv.setText(getString(R.string.disConnect));
         }else if (connectBean.getState()  == WearableManager.STATE_CONNECTING){
+            deviceTv.setText("");
             stateTv.setText(getString(R.string.connectting));
         }
     }
@@ -188,26 +191,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==1){
-                    MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.unbind)+"\n"+getString(R.string.device)+
-                                    ":"+app.getUserInfo().getDeviceCode(), null, null,
-                            false, new MyAlerDialog.AlerDialogOnclickListener() {
-                                @Override
-                                public void onDialogTouch(boolean flag) {
-                                    if (flag){
-                                        try {
-                                            unbind = true;
-                                            HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
-                                            String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
-                                            HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
-                                            ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
-                                                    ,3000);
-                                            HttpMessgeUtil.getInstance(getActivity().getApplicationContext()).getUnbindDevice();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            },getActivity());
+                    try {
+                        LoadDataUtil.newInstance().clearCalendarPoint();
+                        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+                        String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
+                        HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
+                        ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
+                                ,3000);
+                        if (WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){
+                            unbind = true;
+                            MainService.getInstance().stopConnect();
+                        }else {
+                            unbind = false;
+                            ProgressHudModel.newInstance().diss();
+                            app.getUserInfo().setDeviceCode(null);
+                            MainService.getInstance().stopConnect();
+                            SaveDataUtil.newInstance(getContext()).clearDB();
+                            getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
+                        }
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }else {
                     unbind = false;
                     if (WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTED){
@@ -298,6 +304,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
      * 初始化视图
      * */
     private void initView() {
+        deviceTv = getView().findViewById(R.id.deviceTv);
         userNameTv = getView().findViewById(R.id.userNameTv);
         pictureIv = getView().findViewById(R.id.pictureIv);
         stateTv = getView().findViewById(R.id.deviceNameTv);
@@ -350,7 +357,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
      * 初始化数据
      * */
     private void initData() {
-        userInfo = app.getUserInfo();
         userNameTv.setText(userInfo.getUserName());
         stepPlanTv.setText(userInfo.getStepsPlan()+"");
         sleepPlanTv.setText(String.format("%.1fh",userInfo.getSleepPlan()/60f));
@@ -478,18 +484,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             ProgressHudModel.newInstance().diss();
             sleepPlanTv.setText(String.format("%.1fh",sleepPlan/60f));
             app.getUserInfo().setSleepPlan(sleepPlan);
-        }else {
-            LoadDataUtil.newInstance().clearCalendarPoint();
-            if (WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED) {
-                MainService.getInstance().stopConnect();
-            } else{
-                unbind = false;
-                ProgressHudModel.newInstance().diss();
-                app.getUserInfo().setDeviceCode(null);
-                MainService.getInstance().stopConnect();
-                SaveDataUtil.newInstance(getContext()).clearDB();
-                stateTv.setText(getString(R.string.addDevice));
-            }
         }
         MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();
     }

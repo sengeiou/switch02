@@ -44,6 +44,7 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
         getSupportActionBar().hide();
         setContentView(R.layout.activity_blood_pressure_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(4);
         initView();
         initEvent();
         initPager();

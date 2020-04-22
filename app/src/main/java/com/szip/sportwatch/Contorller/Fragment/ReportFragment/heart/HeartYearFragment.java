@@ -69,11 +69,17 @@ public class HeartYearFragment extends BaseFragment implements View.OnClickListe
         reportView.setReportDate(((HeartReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0)
-            averageTv.setText(reportDataBean.getValue()+45+"");
+            averageTv.setText(reportDataBean.getValue()+40+"");
+        else
+            averageTv.setText("--");
         if (reportDataBean.getValue1()!=0)
-            maxTv.setText(reportDataBean.getValue1()+45+"");
+            maxTv.setText(reportDataBean.getValue1()+40+"");
+        else
+            maxTv.setText("--");
         if (reportDataBean.getValue2()!=0)
-            minTv.setText(reportDataBean.getValue2()+45+"");
+            minTv.setText(reportDataBean.getValue2()+40+"");
+        else
+            minTv.setText("--");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((HeartReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);

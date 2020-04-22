@@ -107,14 +107,14 @@ public class StepWeekFragment extends BaseFragment implements View.OnClickListen
                 if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((StepReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
                     initData();
                     updateView();
                 }
 
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=7*24*60*60;
+                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
                 initData();
                 updateView();
                 break;

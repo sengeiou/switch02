@@ -125,7 +125,7 @@ public class CameraActivity extends BaseActivity {
                         if (mediaPlayer==null){
                             mediaPlayer = MediaPlayer.create(CameraActivity.this, R.raw.camera);
                             mediaPlayer.start();
-                            mediaPlayer.setVolume(1f,1f);
+                            mediaPlayer.setVolume(0.5f,0.5f);
                             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mp) {

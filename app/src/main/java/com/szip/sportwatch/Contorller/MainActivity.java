@@ -85,7 +85,6 @@ public class MainActivity extends BaseActivity{
             if (WearableManager.getInstance().getConnectState()==0){
                 MainService.getInstance().setRestartBle(true);
                 WearableManager.getInstance().scanDevice(true);
-
             }else if (WearableManager.getInstance().getConnectState() == 5){
                 BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
                 BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();

@@ -253,7 +253,7 @@ public class DateUtil {
      * */
     public static int getMinue(String time){
         int index = time.indexOf(':');
-        return Integer.valueOf(time.substring(0,index))*60+Integer.valueOf(time.substring(index+1,time.length()));
+        return Integer.valueOf(time.substring(0,index))*60+Integer.valueOf(time.substring(index+1));
     }
 
     /**
@@ -277,11 +277,12 @@ public class DateUtil {
      */
     public static String getSleepDate(String data) {
         String datas[] = data.split("\\|");
-        if (getMinue(datas[1])>600)
-            return datas[0];
-        else {
+        if (getMinue(datas[1])>1320){
             long time = getTimeScopeForDay(datas[0],"yyyy-MM-dd");
-            return getStringDateFromSecond(time-24*60*60,"yyyy-MM-dd");
+            return getStringDateFromSecond(time+24*60*60,"yyyy-MM-dd");
+        }
+        else {
+            return datas[0];
         }
     }
 

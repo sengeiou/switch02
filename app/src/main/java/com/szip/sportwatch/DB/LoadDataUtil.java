@@ -205,7 +205,7 @@ public class LoadDataUtil {
                     drawData.add(new DrawDataBean(Integer.valueOf(str[1]),Integer.valueOf(str[0]),0));
                 }
                 reportDataBean.setDrawDataBeans(drawData);
-                reportDataBean.setValue(Integer.valueOf(sleepStr[0]));
+                reportDataBean.setValue(DateUtil.getMinue(sleepStr[0]));
             }
             reportDataBean.setValue1(sleepData.deepTime);
             reportDataBean.setValue2(sleepData.lightTime);
@@ -309,7 +309,7 @@ public class LoadDataUtil {
      * 取心率日报告
      * */
     public ReportDataBean getHeartWithDay(long time){
-        //绘图数据-45传入控件
+        //绘图数据-40传入控件
         ReportDataBean reportDataBean = null;
 
         HeartData sqlData = SQLite.select()
@@ -323,7 +323,7 @@ public class LoadDataUtil {
             String heartArray[] = sqlData.heartArray.split(",");
             for (int i = 0;i<heartArray.length;i++){
                 if (Integer.valueOf(heartArray[i])!=0)
-                drawData.add(new DrawDataBean(Integer.valueOf(heartArray[i])-45,0,0));
+                drawData.add(new DrawDataBean(Integer.valueOf(heartArray[i])-40<7?7:(Integer.valueOf(heartArray[i])-40),0,0));
             }
             reportDataBean.setDrawDataBeans(drawData);
             reportDataBean.setValue(sqlData.averageHeart);
@@ -347,7 +347,7 @@ public class LoadDataUtil {
                     .where(HeartData_Table.time.is(time-(6-i)*24*60*60))
                     .querySingle();
             if (sqlData!=null)
-                drawData.add(new DrawDataBean(sqlData.averageHeart-45,0,0));
+                drawData.add(new DrawDataBean(sqlData.averageHeart-40,0,0));
             else
                 drawData.add(new DrawDataBean(0,0,0));
         }
@@ -372,7 +372,7 @@ public class LoadDataUtil {
                     .where(HeartData_Table.time.is(time-(27-i)*24*60*60))
                     .querySingle();
             if (sqlData!=null)
-                drawData.add(new DrawDataBean(sqlData.averageHeart-45,0,0));
+                drawData.add(new DrawDataBean(sqlData.averageHeart-40,0,0));
             else
                 drawData.add(new DrawDataBean(0,0,0));
         }
@@ -421,7 +421,7 @@ public class LoadDataUtil {
                     sum++;
                 }
             }
-            drawData.add(new DrawDataBean(sum==0?0:heartSum/sum-45,0,0));
+            drawData.add(new DrawDataBean(sum==0?0:heartSum/sum-40,0,0));
         }
 
         reportDataBean.setDrawDataBeans(drawData);
@@ -817,7 +817,8 @@ public class LoadDataUtil {
                 .orderBy(OrderBy.fromString(SportData_Table.distance+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
-
+        if (sportData == null)
+            return new SportData();
         return sportData;
     }
 
@@ -844,7 +845,7 @@ public class LoadDataUtil {
 
         SleepData sleepData = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.is(time-24*60*60))
+                .where(SleepData_Table.time.is(time))
                 .querySingle();
         if (sleepData!=null){
             healthyDataModel.setLightSleepData(sleepData.lightTime);
@@ -856,8 +857,10 @@ public class LoadDataUtil {
                 .from(HeartData.class)
                 .where(HeartData_Table.time.is(time))
                 .querySingle();
-        if (heartData!=null)
-            healthyDataModel.setHeartData(heartData.getAverageHeart());
+        if (heartData!=null){
+            String[] hearts = heartData.getHeartArray().split(",");
+            healthyDataModel.setHeartData(hearts.length==0?0:Integer.valueOf(hearts[hearts.length-1]));
+        }
         else
             healthyDataModel.setHeartData(0);
 
@@ -917,7 +920,7 @@ public class LoadDataUtil {
     /**
      * 初始化日历中有数据的天数（画黄点）
      * */
-    public void initCalendarPoint(){
+    public void initCalendarPoint(int flag){
         List<LocalDate> stepPointList = new ArrayList<>();
         List<LocalDate> sleepPointList = new ArrayList<>();
         List<LocalDate> heartPointList = new ArrayList<>();
@@ -925,27 +928,51 @@ public class LoadDataUtil {
         List<LocalDate> bloodOxygenPointList = new ArrayList<>();
         List<LocalDate> ecgPointList = new ArrayList<>();
         List<LocalDate> sportPointList = new ArrayList<>();
-        List<StepData> stepDataList = SQLite.select()
-                .from(StepData.class)
-                .queryList();
-        List<SleepData> sleepDataList = SQLite.select()
-                .from(SleepData.class)
-                .queryList();
-        List<HeartData> heartDataList = SQLite.select()
-                .from(HeartData.class)
-                .queryList();
-        List<BloodPressureData> bloodPressureDataList = SQLite.select()
-                .from(BloodPressureData.class)
-                .queryList();
-        List<BloodOxygenData> bloodOxygenDataList = SQLite.select()
-                .from(BloodOxygenData.class)
-                .queryList();
-        List<EcgData> ecgDataList = SQLite.select()
-                .from(EcgData.class)
-                .queryList();
-        List<SportData> sportDataList = SQLite.select()
-                .from(SportData.class)
-                .queryList();
+        List<StepData> stepDataList = new ArrayList<>();
+        List<SleepData> sleepDataList = new ArrayList<>();
+        List<HeartData> heartDataList = new ArrayList<>();
+        List<BloodPressureData> bloodPressureDataList = new ArrayList<>();
+        List<BloodOxygenData> bloodOxygenDataList = new ArrayList<>();
+        List<EcgData> ecgDataList = new ArrayList<>();
+        List<SportData> sportDataList = new ArrayList<>();
+        switch (flag){
+            case 1:
+                stepDataList = SQLite.select()
+                        .from(StepData.class)
+                        .queryList();
+                break;
+            case 2:
+                sleepDataList = SQLite.select()
+                        .from(SleepData.class)
+                        .queryList();
+                break;
+            case 3:
+                heartDataList = SQLite.select()
+                        .from(HeartData.class)
+                        .queryList();
+                break;
+            case 4:
+                bloodPressureDataList = SQLite.select()
+                        .from(BloodPressureData.class)
+                        .queryList();
+                break;
+            case 5:
+                bloodOxygenDataList = SQLite.select()
+                        .from(BloodOxygenData.class)
+                        .queryList();
+                break;
+            case 6:
+                ecgDataList = SQLite.select()
+                        .from(EcgData.class)
+                        .queryList();
+                break;
+            case 7:
+                sportDataList = SQLite.select()
+                        .from(SportData.class)
+                        .queryList();
+                break;
+        }
+
 
         for (StepData stepData:stepDataList){
             if (stepData.steps>0)

@@ -39,7 +39,7 @@ public class SleepReportActivity extends BaseActivity implements View.OnClickLis
     private TabLayout mTab;
     private NoScrollViewPager mPager;
 
-    public long reportDate = DateUtil.getTimeOfToday()-24*60*60;
+    public long reportDate = DateUtil.getTimeOfToday();
 
     private MyPagerAdapter myPagerAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -50,6 +50,7 @@ public class SleepReportActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sleep_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(2);
         initView();
         initEvent();
         initPager();

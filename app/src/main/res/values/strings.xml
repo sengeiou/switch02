@@ -99,7 +99,7 @@
     <string name="connectting">Connectting</string>
     <string name="connect">Device Connecting, Please Try Again Later</string>
     <string name="syceError">Watch Is Not connected，Data Will Be Synced To The Watch The Next Time You Connect</string>
-    <string name="unBind">Unbind</string>
+    <string name="unBind">Replace Device</string>
     <string name="unline">Disconnect</string>
     <string name="line">Connect The Watch</string>
     <string name="addDevice">Add Device</string>
@@ -201,7 +201,7 @@
     <string name="loading">Loading...</string>
     <string name="privacyTip">Have You Read The Privacy Agreement Clearly, Are You Agree To Register As A New User Of Our Company？\nWhen You Click"Confirm"Means You Agree To The Terms Of The Agreement。\nThe User Privacy Policy Mainly Includes The Following:\n1.Personal Information(Profile Photo、Nickname、Height、Weight、Sports Data, etc.)Collection, Save And Share。\n2.Device Permissions(Location，Contact List，Camera, etc.) Using</string>
     <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG/PNG Format Picture!</string>
-    <string name="deviceOut">Sorry, the device you bound before has been crowded out by other tourists. If you want to use this product stably, please register a new account for device binding</string>
+    <string name="deviceOut">Unbound device</string>
     <string name="visiter">This feature is not supported in the visitor mode</string>
 
 

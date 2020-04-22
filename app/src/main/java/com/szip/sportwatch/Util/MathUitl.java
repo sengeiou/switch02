@@ -459,7 +459,7 @@ public class MathUitl {
         for (int i = 0;i<sleeps.size()-1;i++){
             data = sleeps.get(i).split("\\|");
             if (i == 0){//第一条数据，代表睡眠起始时间
-                sleepString.append(DateUtil.getMinue(data[1])+"");//初始化startTime
+                sleepString.append(data[1]);//初始化startTime
                 sleepString.append(String.format(",%d:",DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
                         -DateUtil.getMinue(data[1]))+data[2]);
             }else {

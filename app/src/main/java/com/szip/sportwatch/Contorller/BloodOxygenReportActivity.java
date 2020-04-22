@@ -45,6 +45,7 @@ public class BloodOxygenReportActivity extends BaseActivity implements View.OnCl
         getSupportActionBar().hide();
         setContentView(R.layout.activity_blood_oxygen_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(5);
         initView();
         initEvent();
         initPager();

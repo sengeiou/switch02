@@ -90,8 +90,8 @@
             app:x_value="false"
             app:y_value="true"
             app:y_value_num="5"
-            app:maxVelue="75"
-            app:bar_width="6dp"
+            app:maxVelue="100"
+            app:bar_width="3dp"
             app:pross_color1="@color/white"/>
 
     </LinearLayout>

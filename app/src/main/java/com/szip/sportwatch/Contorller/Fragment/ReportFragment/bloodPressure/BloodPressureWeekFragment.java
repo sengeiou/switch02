@@ -108,14 +108,14 @@ public class BloodPressureWeekFragment extends BaseFragment implements View.OnCl
                 if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodPressureReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
                     initData();
                     updateView();
                 }
 
                 break;
             case R.id.leftIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate-=7*24*60*60;
+                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
                 initData();
                 updateView();
                 break;

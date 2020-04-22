@@ -146,7 +146,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
             Log.d("SZIP******","开始搜索");
             searchIv.startAnimation(rotateRight);
             mHandler.removeCallbacks(mStopRunnable);
-            mHandler.postDelayed(mStopRunnable, 20*1000);
+            mHandler.postDelayed(mStopRunnable, 8*1000);
             deviceAdapter.clearList();
             WearableManager.getInstance().scanDevice(true);
         }else {
@@ -241,15 +241,15 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onDeviceScan(final BluetoothDevice device) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (device.getName()!=null&&(device.getName().indexOf("L7")>=0||device.getName().indexOf("iSmarport")>=0)) {
+            if (device.getName()!=null&&(device.getName().indexOf("L7")>=0||device.getName().indexOf("iSmarport")>=0)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         findViewById(R.id.noDeviceLl).setVisibility(View.GONE);
                         deviceAdapter.addDevice(device);
                     }
-                }
-            });
+                });
+            }
         }
 
         @Override

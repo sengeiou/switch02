@@ -66,8 +66,8 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
         if (reportDataBean!=null) {
             reportView.addData(reportDataBean.getDrawDataBeans());
             averageTv.setText(reportDataBean.getValue()+"");
-            maxTv.setText(reportDataBean.getValue1()+45+"");
-            minTv.setText(reportDataBean.getValue2()+45+"");
+            maxTv.setText(reportDataBean.getValue1()+40+"");
+            minTv.setText(reportDataBean.getValue2()+40+"");
         }else {
             reportView.addData(null);
             averageTv.setText("--");

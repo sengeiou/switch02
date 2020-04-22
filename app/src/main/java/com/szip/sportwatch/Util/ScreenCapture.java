@@ -35,7 +35,7 @@ public class ScreenCapture {
 		try {
 			// 获取内置SD卡路径
 
-			String sdCardPath = activity.getExternalFilesDir(null).getPath()+"/shgame/share";
+			String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport";
 			File fileDir = new File(sdCardPath);
 			if (!fileDir.exists()) {
 				fileDir.mkdir();

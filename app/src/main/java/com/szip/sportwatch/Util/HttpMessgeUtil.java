@@ -41,7 +41,7 @@ public class HttpMessgeUtil {
     private static HttpMessgeUtil mInstance;
     private String urlTest = "https://test.znsdkj.com:8443/sportWatch/";
     private String urlCloud = "https://cloud.znsdkj.com:8443/sportWatch/";
-    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -713,8 +713,6 @@ public class HttpMessgeUtil {
                 }
             }else if (response.getCode() == 401&& id!=UPDOWN_LOG){
                 tokenTimeOut();
-            }else if (response.getCode() == 6001){
-                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -736,8 +734,6 @@ public class HttpMessgeUtil {
                 }
             }else if (response.getCode() == 401){
                 tokenTimeOut();
-            }else if (response.getCode() == 6001){
-                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -831,11 +827,8 @@ public class HttpMessgeUtil {
                 for (SportData sportData:response.getData().getSportDataList()){
                     saveDataUtil.saveSportData(sportData);
                 }
-                LoadDataUtil.newInstance().initCalendarPoint();
             }else if (response.getCode() == 401){
                 tokenTimeOut();
-            }else if (response.getCode() == 6001){
-                deviceOut();
             }else {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
@@ -901,14 +894,5 @@ public class HttpMessgeUtil {
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intentmain);
-    }
-
-    private void deviceOut(){
-        SaveDataUtil.newInstance(mContext).clearDB();
-        ProgressHudModel.newInstance().diss();
-        MainService.getInstance().stopConnect();
-        MathUitl.showToast(mContext,mContext.getString(R.string.deviceOut));
-        ((MyApplication)mContext.getApplicationContext()).getUserInfo().setDeviceCode(null);
-        mContext.getSharedPreferences(FILE,MODE_PRIVATE).edit().putString("deviceCode",null).commit();
     }
 }

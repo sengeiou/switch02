@@ -48,6 +48,7 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().hide();
         setContentView(R.layout.activity_heart_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(3);
         initView();
         initEvent();
         initPager();
@@ -151,8 +152,8 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
                     intent.putExtra("time",reportDate);
                     intent.putExtra("value",reportDataBean.getValue());
                     intent.putExtra("value1",reportDataBean.getDrawDataBeans().size());
-                    intent.putExtra("value2",reportDataBean.getValue1()+45);
-                    intent.putExtra("value3",reportDataBean.getValue2()+45);
+                    intent.putExtra("value2",reportDataBean.getValue1()+40);
+                    intent.putExtra("value3",reportDataBean.getValue2()+40);
                 }else{
                     intent.putExtra("flag",2);
                     intent.putExtra("time",reportDate);

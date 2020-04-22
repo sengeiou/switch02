@@ -70,11 +70,17 @@ public class HeartWeekFragment extends BaseFragment implements View.OnClickListe
         reportView.addData(reportDataBean.getDrawDataBeans());
 
         if (reportDataBean.getValue()!=0)
-            averageTv.setText(reportDataBean.getValue()+45+"");
+            averageTv.setText(reportDataBean.getValue()+40+"");
+        else
+            averageTv.setText("--");
         if (reportDataBean.getValue1()!=0)
-            maxTv.setText(reportDataBean.getValue1()+45+"");
+            maxTv.setText(reportDataBean.getValue1()+40+"");
+        else
+            maxTv.setText("--");
         if (reportDataBean.getValue2()!=0)
-            minTv.setText(reportDataBean.getValue2()+45+"");
+            minTv.setText(reportDataBean.getValue2()+40+"");
+        else
+            minTv.setText("--");
 
         if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
@@ -115,14 +121,14 @@ public class HeartWeekFragment extends BaseFragment implements View.OnClickListe
                 if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((HeartReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
                     initData();
                     updateView();
                 }
 
                 break;
             case R.id.leftIv:
-                ((HeartReportActivity)getActivity()).reportDate-=7*24*60*60;
+                ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
                 initData();
                 updateView();
                 break;

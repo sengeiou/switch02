@@ -80,7 +80,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
         //初始化文件存储
-        FileUtil.getInstance().initFile(getExternalFilesDir(null).getPath());
+        FileUtil.getInstance().initFile();
 
         //注册网络回调
         HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(this);
@@ -100,10 +100,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
-        if (token==null){//未登录
-            startState = 1;
-        }else {//已登录
-            startState = 0;
+        if (token!=null){//已登录
             HttpMessgeUtil.getInstance(this).setToken(token);
             new Thread(new Runnable() {
                 @Override
@@ -123,6 +120,71 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             }).start();
 
         }
+
+
+
+        registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                mFinalCount++;
+                //如果mFinalCount ==1，说明是从后台到前台
+                Log.e("onActivityStarted", mFinalCount + "");
+                if (mFinalCount == 1) {
+                    //说明从后台回到了前台
+                    Log.i("SZIP******", " 返回到了 前台");
+                    if(sharedPreferences==null)
+                        sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+                    //判断登录状态
+                    String token = sharedPreferences.getString("token",null);
+                    if (token==null){//未登录
+                        startState = 1;
+                    }else {//已登录
+                        startState = 0;
+                    }
+                }
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                mFinalCount--;
+                //如果mFinalCount ==0，说明是前台到后台
+
+                Log.i("onActivityStopped", mFinalCount + "");
+                if (mFinalCount == 0) {
+                    //说明从前台回到了后台
+                    Log.i("SZIP******", " 切换到了 后台");
+                }
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
+
+
+
+
 
         String packageName = getPackageName();
         String strListener = Settings.Secure.getString(this.getContentResolver(),

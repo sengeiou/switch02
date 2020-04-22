@@ -38,7 +38,7 @@ public class FileUtil {
         return mInstance;
     }
 
-    public void initFile(String pathStr){
+    public void initFile(){
 //        this.path = pathStr+"/shgame";
         this.path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/";
         if (getExternalStorageState().equals(MEDIA_MOUNTED))

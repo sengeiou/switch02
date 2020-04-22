@@ -50,6 +50,7 @@ public class StepReportActivity extends BaseActivity implements View.OnClickList
         getSupportActionBar().hide();
         setContentView(R.layout.activity_step_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(1);
         initView();
         initEvent();
         initPager();

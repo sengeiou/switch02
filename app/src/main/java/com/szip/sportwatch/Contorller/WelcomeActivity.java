@@ -83,9 +83,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                     || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED){
+                    || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED
+            ||checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS},
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+                                Manifest.permission.ACCESS_FINE_LOCATION},
                         sportWatchCode);
             }else {
                 initBLE();
@@ -169,9 +171,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             int code2= grantResults[2];
             int code3= grantResults[3];
             int code4= grantResults[4];
+            int code5= grantResults[5];
             if (code == PackageManager.PERMISSION_GRANTED&&code1 == PackageManager.PERMISSION_GRANTED
                     &&code2 == PackageManager.PERMISSION_GRANTED&&code3 == PackageManager.PERMISSION_GRANTED
-                    &&code4 == PackageManager.PERMISSION_GRANTED){
+                    &&code4 == PackageManager.PERMISSION_GRANTED&&code5 == PackageManager.PERMISSION_GRANTED){
                 initBLE();
                 if (!isNotificationListenerActived()) {
                     showNotifiListnerPrompt();

@@ -67,8 +67,6 @@ public class SaveDataUtil {
                                         .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null) {//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,
-                                            "yyyy-MM-dd")),0);
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
@@ -107,8 +105,6 @@ public class SaveDataUtil {
                                         .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,
-                                            "yyyy-MM-dd")),0);
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
@@ -167,8 +163,6 @@ public class SaveDataUtil {
                                         .where(SleepData_Table.time.is(sleepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,
-                                            "yyyy-MM-dd")),1);
                                     sleepData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     sqlData.deepTime = sleepData.deepTime;
@@ -204,8 +198,6 @@ public class SaveDataUtil {
                                         .where(SleepData_Table.time.is(sleepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,
-                                            "yyyy-MM-dd")),1);
                                     sleepData.save();
 
                                 } else {//不为null则代表数据库存在，进行更新
@@ -244,8 +236,6 @@ public class SaveDataUtil {
                                         .where(HeartData_Table.time.is(heartData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,
-                                            "yyyy-MM-dd")),2);
                                     heartData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     if (isAdd){
@@ -302,8 +292,6 @@ public class SaveDataUtil {
                                         .where(BloodPressureData_Table.time.is(bloodPressureData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,
-                                            "yyyy-MM-dd")),3);
                                     bloodPressureData.save();
                                 }
                             }
@@ -336,8 +324,6 @@ public class SaveDataUtil {
                                         .where(BloodOxygenData_Table.time.is(bloodOxygenData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,
-                                            "yyyy-MM-dd")),4);
                                     bloodOxygenData.save();
                                 }
                             }
@@ -370,8 +356,6 @@ public class SaveDataUtil {
                                         .where(EcgData_Table.time.is(ecgData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,
-                                            "yyyy-MM-dd")),5);
                                     ecgData.save();
                                 }
                             }
@@ -399,8 +383,6 @@ public class SaveDataUtil {
                 .where(SportData_Table.time.is(sportData.time))
                 .querySingle();
         if (sqlData == null){//为null则代表数据库没有保存
-            CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,
-                    "yyyy-MM-dd")),6);
             sportData.save();
             Log.d("SZIP******","sport数据保存成功 time = "+sportData.time+" ;distance = "+sportData.distance+" ;caloria = "+sportData.calorie+
                     " ;speed = "+sportData.speed+" ;sportTime = "+sportData.sportTime+" type = "+sportData.type);

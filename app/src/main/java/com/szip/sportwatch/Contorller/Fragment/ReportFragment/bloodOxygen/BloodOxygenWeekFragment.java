@@ -108,13 +108,13 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
                 if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodOxygenReportActivity)getActivity()).reportDate+=7*24*60*60;
+                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
                     initData();
                     updateView();
                 }
                 break;
             case R.id.leftIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate-=7*24*60*60;
+                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
                 initData();
                 updateView();
                 break;

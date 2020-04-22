@@ -95,7 +95,7 @@
             app:x_value="true"
             app:x_value_num="12"
             app:y_value="true"
-            app:maxVelue="75"
+            app:maxVelue="100"
             app:y_value_num="5"
             app:bar_width="12dp" />
 
