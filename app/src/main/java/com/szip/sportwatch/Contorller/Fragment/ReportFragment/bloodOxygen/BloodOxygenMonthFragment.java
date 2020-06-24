@@ -112,15 +112,13 @@ public class BloodOxygenMonthFragment extends BaseFragment implements View.OnCli
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
                 ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

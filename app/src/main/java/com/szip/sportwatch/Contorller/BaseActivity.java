@@ -8,11 +8,13 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
+import com.szip.sportwatch.Util.ScreenCapture;
 
 import java.io.File;
 import java.util.HashMap;
@@ -30,7 +32,17 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
     }
 
-    protected void shareShow(String str){
+//    protected void screenshot(View view) {
+//        // TODO Auto-generated method stub
+//        String filePath = ScreenCapture.getBitmap
+//                (this, view);
+//        shareShow(filePath);
+//
+//    }
+
+    protected void shareShow(View view){
+        String str = ScreenCapture.getBitmap
+                (this, view);
         deleteStr = str;
         OnekeyShare oks = new OnekeyShare();
 
@@ -63,25 +75,22 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
             // TODO 分享成功后的操作或者提示
-            showToast(getString(R.string.shareSuccess));
+//            showToast(getString(R.string.shareSuccess));
             FileUtil.getInstance().deleteFile(deleteStr);
-            finish();
         }
 
         @Override
         public void onError(Platform platform, int i, Throwable throwable) {
             // TODO 失败，打印throwable为错误码
-            showToast(getString(R.string.shareFail));
+//            showToast(getString(R.string.shareFail));
             FileUtil.getInstance().deleteFile(deleteStr);
-            finish();
         }
 
         @Override
         public void onCancel(Platform platform, int i) {
             // TODO 分享取消操作
-            showToast(getString(R.string.shareCancel));
+//            showToast(getString(R.string.shareCancel));
             FileUtil.getInstance().deleteFile(deleteStr);
-            finish();
         }
     };
 

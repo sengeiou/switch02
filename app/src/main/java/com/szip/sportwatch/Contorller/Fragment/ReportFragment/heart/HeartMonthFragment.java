@@ -117,15 +117,13 @@ public class HeartMonthFragment extends BaseFragment implements View.OnClickList
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
                 ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

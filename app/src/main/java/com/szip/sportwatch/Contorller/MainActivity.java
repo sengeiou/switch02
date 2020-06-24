@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +24,8 @@ import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Contorller.Fragment.HealthyFragment;
 import com.szip.sportwatch.Contorller.Fragment.MineFragment;
 import com.szip.sportwatch.Contorller.Fragment.SportFragment;
+import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
@@ -30,6 +33,10 @@ import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.HostTabView;
 import com.szip.sportwatch.View.MyToastView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +83,7 @@ public class MainActivity extends BaseActivity{
         initAnimation();
         initTabData();
         initHost();
+        mTableItemList.get(1).setView(app.getSportVisiable());
     }
 
     private void initBLE() {
@@ -115,6 +123,13 @@ public class MainActivity extends BaseActivity{
                 }
             }
         }
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -130,6 +145,11 @@ public class MainActivity extends BaseActivity{
         finish();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateSport(UpdateSportView updateSportView){
+        mTableItemList.get(1).setView(app.getSportVisiable());
+    }
+
     /**
      * 初始化标签
      * */
@@ -141,12 +161,13 @@ public class MainActivity extends BaseActivity{
         mTableItemList.add(new HostTabView(R.mipmap.tab_icon_my,R.mipmap.tab_icon_my_pre,R.string.mine, MineFragment.class,this));
     }
 
+    FragmentTabHost fragmentTabHost;
     /**
      * 初始化选项卡视图
      * */
     private void initHost() {
         //实例化FragmentTabHost对象
-        FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
+        fragmentTabHost = findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
 
         //去掉分割线
@@ -257,4 +278,5 @@ public class MainActivity extends BaseActivity{
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

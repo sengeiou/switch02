@@ -20,12 +20,14 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CalendarPicker;
+import com.szip.sportwatch.View.MyAlerDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SportDataListActivity extends BaseActivity implements View.OnClickListener {
@@ -66,10 +68,11 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
 
     private void initData() {
         if (MainService.getInstance().getConnectState()==3){
-            ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),10000);
+            ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
             EXCDController.getInstance().writeForSportIndex();
         }else {
             dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+            Collections.sort(dataList);
         }
 
     }
@@ -93,11 +96,32 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SportDataListActivity.this,SportTrackActivity.class);
                 intent.putExtra("time",dataList.get(position).time);
-                intent.putExtra("distance",dataList.get(position).distance);
-                intent.putExtra("speed",dataList.get(position).speed);
-                intent.putExtra("calorie",dataList.get(position).calorie);
                 intent.putExtra("sportTime",dataList.get(position).sportTime);
+                intent.putExtra("distance",dataList.get(position).distance);
+                intent.putExtra("calorie",dataList.get(position).calorie);
+                intent.putExtra("speed",dataList.get(position).speed);
+                intent.putExtra("type",dataList.get(position).type);
+                intent.putExtra("heart",dataList.get(position).heart);
+                intent.putExtra("stride",dataList.get(position).stride);
                 startActivity(intent);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.delete),
+                        null, null, false, new MyAlerDialog.AlerDialogOnclickListener() {
+                            @Override
+                            public void onDialogTouch(boolean flag) {
+                                if (flag){
+                                    LoadDataUtil.newInstance().removeSportData(dataList.get(position));
+                                    dataList.remove(position);
+                                    sportDataAdapter.setList(dataList);
+                                }
+                            }
+                        },SportDataListActivity.this);
+                return true;
             }
         });
 
@@ -108,6 +132,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
     public void updateReport(UpdateReport updateReport){
         ProgressHudModel.newInstance().diss();
         dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+        Collections.sort(dataList);
         updateView();
     }
 
@@ -132,6 +157,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
                                 }else {
                                     reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
                                     dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                                    Collections.sort(dataList);
                                     updateView();
                                 }
 

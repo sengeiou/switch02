@@ -20,49 +20,14 @@ import java.util.List;
 
 public class CalendarUtil {
 
-    private static List<LocalDate> stepPointList = new ArrayList<>();//计步有数据的日期
-    private static List<LocalDate> sleepPointList = new ArrayList<>();//睡眠有数据的日期
-    private static List<LocalDate> heartPointList = new ArrayList<>();//心率有数据的日期
-    private static List<LocalDate> bloodPressurePointList = new ArrayList<>();//血压有数据的日期
-    private static List<LocalDate> bloodOxygenPointList = new ArrayList<>();//血氧有数据的日期
-    private static List<LocalDate> ecgPointList = new ArrayList<>();//心电有数据的日期
-    private static List<LocalDate> sportPointList = new ArrayList<>();//计步有数据的日期
+    private static List<LocalDate> dataList = new ArrayList<>();
 
-    public static void setPointList(List<LocalDate> stepPointList1,List<LocalDate> sleepPointList1,List<LocalDate> heartPointList1,
-                             List<LocalDate> bloodPressurePointList1,List<LocalDate> bloodOxygenPointList1,List<LocalDate> ecgPointList1,
-                             List<LocalDate> sportPointList1){
-        if(stepPointList1.size()!=0)
-            stepPointList = stepPointList1;
-        if(sleepPointList1.size()!=0)
-            sleepPointList = sleepPointList1;
-        if(heartPointList1.size()!=0)
-            heartPointList = heartPointList1;
-        if(bloodPressurePointList1.size()!=0)
-            bloodPressurePointList = bloodPressurePointList1;
-        if(bloodOxygenPointList1.size()!=0)
-            bloodOxygenPointList = bloodOxygenPointList1;
-        if(ecgPointList1.size()!=0)
-            ecgPointList = ecgPointList1;
-        if(sportPointList1.size()!=0)
-            sportPointList = sportPointList1;
+    public static void setPointList(List<LocalDate> dataList1){
+        dataList = dataList1;
     }
 
-    public static List<LocalDate> getPointList(int flag){
-        if (flag == 0){
-            return stepPointList;
-        }else if (flag == 1){
-            return sleepPointList;
-        }else if (flag == 2){
-            return heartPointList;
-        }else if (flag == 3){
-            return bloodPressurePointList;
-        }else if (flag == 4){
-            return bloodOxygenPointList;
-        }else if (flag == 5){
-            return ecgPointList;
-        }else{
-            return sportPointList;
-        }
+    public static List<LocalDate> getPointList(){
+        return dataList;
     }
 
     /**

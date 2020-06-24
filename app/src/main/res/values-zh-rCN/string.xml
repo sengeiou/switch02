@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iSmarport</string>
+    <string name="app_name">艾跑特</string>
 
     <!--登录页面/找回密码页面/注册页面-->
-    <string name="logo">欢迎来到iSmarport</string>
+    <string name="logo">欢迎来到艾跑特</string>
     <string name="user">账号</string>
     <string name="phoneOrEmail">请输入您的电话/邮箱</string>
     <string name="password">密码</string>
@@ -23,8 +23,90 @@
     <string name="reset">重置密码</string>
     <string name="registerTitle">注册</string>
     <string name="next">下一步</string>
-    <string name="privacy">同意《<a href="https://cloud.znsdkj.com:8443/sportWatch/comm/statement?project=sportWatch">隐私条款</a>》</string>
-    <string name="checkPrivacy">未同意《隐私条款》</string>
+    <string name="privacy">同意《<u>用户协议与隐私条款</u>》</string>
+    <string name="privacy1">用户协议与隐私条款</string>
+    <string name="privacy2">我司非常重视用户的隐私和个人信息保护。您在使用我司的产品/服务时，我司可能会收集和使用您的相关信息。我司希望通过《隐私协议》以下称“本政策”，向您说明深圳市智能时代科技有限公司以下称“我司”，在您使用我司的产品/服务时如何收集、使用、保存这些信息。\n\n希望您在使用我司的产品/服务前仔细阅读并确认您已经充分理解本政策所写明的内容。\n\n当我司要将您的个人信息用于本政策未载明的其他用途时，或基于特定目的收集而来的信息用于其他目的时，会通知您做出勾选的形式事先征求您的同意。
+
+\n\n请您注意，您在使用我司的产品/服务时所提供的所有个人信息，除非您删除或者通过系统设置拒绝我司收集，否则将在您使用我司的产品/服务期间持续授权我司使用。在您注销账号时，我司将停止使用并删除您的个人信息。
+
+
+
+\n\n\n\n一、您授权我司收集的个人信息范围：
+
+\n\n个人信息是指以电子或者其他方式记录的能够单独或者与其他信息结合识别特定自然人身份或者反映特定自然人活动情况的各种信息。
+\n本政策中涉及得个人信息包括：基本信息（包括个人姓名、生日、性别、个人电话号码、电子邮箱）；网络身份标识信息（包括系统账号、IP地址、邮箱地址）；通讯录；个人常用设备信息；个人位置信息；个人健康信息。
+
+
+
+\n\n\n\n二、我司可能将在向您提供服务的过程中所收集的个人信息用于以下用途：
+
+\n\n（1）向您提供产品所拥有的服务；
+
+\n\n（2）在我司提供服务时，用于身份验证、客户服务、安全防范、诈骗监测、存档和备份用途，确保我司向您提供的产品和服务的安全性；
+
+\n\n（3）帮助我司设计新服务，改善我司的现有服务状况；
+
+\n\n（4）使我司更加了解您如何接入和使用我司的服务，从而针对性地回应您的个性化需求，例如语言设定、位置设定、个性化的帮助和指示，或对您和其他用户做出其他方面的回应；
+
+\n\n（5）软件认证或管理软件升级；
+
+\n\n（6）让您参与有关我司产品以及服务的调查。
+
+\n\n为了让您有更好的体验、改善我司的服务或您同意的其他用途，在符合相关法律法规的前提下，我司可能将通过某一项服务所收集的信息，以汇集信息或者个性化的方式，用于我司的其他服务。例如，在您使用我司的一项服务时所收集的信息，可能在另一服务中用于向您提供特定内容，或向您展示与您相关的、非普遍推送的信息。如果我司在相关服务中提供了相应的选项，您也可以授权我司将该服务所提供和存储的信息用于我司的其他服务。
+
+
+
+\n\n\n\n三、我司不会与我司以外的任何公司、组织和个人共享您的个人信息，但以下情况除外：
+
+\n\n（1）事先获得您明确的同意与授权；
+
+\n\n（2）根据适用的法律法规、法律程序的要求、强制性的行政或司法要求所必需的情况下进行提供；
+
+\n\n（3）在法律允许的范围内，为维护我司、我司的关联方或合作伙伴、社会公众利益、财产或安全免遭损害而有必要提供；
+
+\n\n（4）只有共享您的信息，才能实现我司的产品/服务的核心功能或提供您需要的服务；
+
+\n\n（5）应您需求为您处理您与他人的纠纷或争议；
+
+\n\n（6）符合与您签署的相关协议或其他的法律文件约定所提供；
+
+\n\n（7）基于符合法律法规的社会公共利益而使用。
+
+
+
+\n\n\n\n四、如何共同保护和保存您的个人信息
+
+\n\n（1）我司非常注重个人信息安全，并采取一切合理可行数据安全技术措施，保护您的个人信息；
+
+\n\n（2）互联网环境并非百分百安全，我司将尽力确保或担保您发送给我司的任何信息的安全性。如果我司的物理、技术或管理防护设施遭到破坏，导致信息被非授权访问、公开披露、篡改、或毁坏，导致您的合法权益受损，我司将承担相应的法律责任。
+
+\n\n（3）如果您对我司的个人信息保护有任何的疑问，可通过我司的官网上的联系方式联系我司。如果您发现自己的个人信息泄密，尤其是您的个人信息发生泄露，请您立即联系我司，以便我司采取相应措施。
+
+
+
+\n\n\n\n五、未成年人使用我司的服务
+\n我司鼓励父母或者监护人知道未满18岁的未成年人使用我司的产品。我司建议未成年人鼓励他们的父母或者监护人阅读本政策，并建议未成年人在提交个人信息之前寻求父母或者监护人的同意和指导。
+
+
+
+\n\n\n\n六、隐私政策的适用范围
+
+\n\n（1）除某些特定服务外，我司所有的服务均适用本政策。这些特定的服务将使用特定的隐私政策。针对某些特定服务的特定隐私政策，将更具体的说明我司在该等服务中如何使用您的信息。该特定服务的隐私政策构成本政策的一部分。如相关特定服务的隐私政策与本政策有不一致之处，以特定服务的隐私政策为主。
+
+\n\n（2）请您注意本政策不适用以下情况：
+
+\n\n1） 通过我司的服务而接入的第三方服务（包括所有第三方网站）收集的信息；
+
+\n\n2） 通过在我司服务中进行广告服务的其他公司或机构所收集的信息；
+
+\n\n3） 如果您使用的是iphone或者ipad等苹果公司的设备，为了计算您的运动数据，经过您的授权，我司将从苹果公司的Healthkit接受并向其发送您的运动数据。我司将从Healthkit读取您的身高、体重和性别数据，同时您在艾跑特 APP生成的步数、步行+跑步距离、活动能量、骑行距离和睡眠分析数据将写入苹果公司的Healthkit。任何通过Healthkit而获得的数据，将不会共享或销售给任何一家第三方公司，我司也不会将从Healthkit获取的信息用于广告、市场等商业用途。
+
+
+
+\n\n\n\n七、变更
+
+\n\n我司可能实时修订本政策的条款，该等修订构成本政策的一部分。如果该等修订造成您在本政策下权利的实质减少，我司将在修订生效前通过在主页上显著位置提示或向您发送电子邮件或以其他方式通知您。在该种情况下，若您继续使用我司的服务，即表示同意受经修订的本政策的约束。</string>
+    <string name="checkPrivacy">未同意《用户协议与隐私条款》</string>
     <string name="setPassword">设置密码</string>
     <string name="china">中国</string>
     <string name="vistor">访客登录</string>
@@ -41,6 +123,7 @@
     <string name="heart">心率</string>
     <string name="blood">血压</string>
     <string name="bloodo">血氧</string>
+    <string name="animal">体温</string>
     <string name="ecg">心电</string>
     <string name="check">查看</string>
     <string name="perfect">优</string>
@@ -48,6 +131,7 @@
     <string name="bad">差</string>
     <string name="quick">过快</string>
     <string name="normal">正常</string>
+    <string name="hot">发热</string>
     <string name="slow">过缓</string>
     <string name="higher">偏高</string>
     <string name="flat">偏低</string>
@@ -66,12 +150,26 @@
     <!--运动界面-->
     <string name="best">户外跑最佳记录</string>
     <string name="history">历史运动记录</string>
-    <string name="track">运动轨迹</string>
+    <string name="track">运动详情</string>
     <string name="notrack">无运动轨迹</string>
     <string name="speed">配速</string>
     <string name="kcal">消耗(kcal)</string>
     <string name="time">时长</string>
-
+    <string name="heart_rate">心率(Bpm)</string>
+    <string name="stride">步频(Steps/s)</string>
+    <string name="distance">里程(</string>
+    <string name="speedData">平均配速</string>
+    <string name="kcalData">运动消耗</string>
+    <string name="timeData">运动时长</string>
+    <string name="heart_rateData">平均心率</string>
+    <string name="strideData">平均步频</string>
+    <string name="distanceData">里程</string>
+    <string name="basket">篮球</string>
+    <string name="football">足球</string>
+    <string name="pingpong">乒乓球</string>
+    <string name="mountain">登山</string>
+    <string name="bike">骑行</string>
+    <string name="run">跑步</string>
 
     <!--我的页面-->
     <string name="device">设备</string>
@@ -90,6 +188,7 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
     <string name="tip">提示</string>
+    <string name="delete">确定要删除这条运动数据吗？</string>
     <string name="unbind">确定要解除绑定吗？</string>
     <string name="logoutTip">确定要退出登录吗？</string>
     <string name="sendOK">发送成功</string>
@@ -117,6 +216,11 @@
 
     <!--关于界面-->
     <string name="version">当前版本</string>
+    <string name="feedback">意见反馈</string>
+    <string name="feedback_hint">您的反馈/问题</string>
+    <string name="tooLong">您输入的文本太长了</string>
+    <string name="empty">意见不能为空</string>
+    <string name="send_success">提交成功</string>
 
     <!--单位制式界面-->
     <string name="measureUnit">度量单位</string>
@@ -129,6 +233,7 @@
     <string name="heartReport">心率报告</string>
     <string name="bloodPressureReport">血压报告</string>
     <string name="bloodOxygenReport">血氧报告</string>
+    <string name="animalHeatReport">体温报告</string>
     <string name="ecgReport">心电报告</string>
     <string name="day">日</string>
     <string name="week">周</string>
@@ -158,6 +263,8 @@
     <string name="averageDBP">平均舒张压</string>
     <string name="dbp">舒张压</string>
     <string name="averageSao">平均血氧</string>
+    <string name="averageTemp">平均温度</string>
+    <string name="maxTemp">最高温度</string>
     <string name="passRate">达标率</string>
     <string name="ecgTip">该检测仅从参考，不能作为医疗诊断凭证</string>
     <string name="noData">无报告</string>
@@ -170,6 +277,7 @@
     <string name="picture">头像</string>
     <string name="userName">昵称</string>
     <string name="enterUserName">请输入您的昵称</string>
+    <string name="nameLong">昵称不能超过12个字符</string>
     <string name="sex">性别</string>
     <string name="male">男</string>
     <string name="female">女</string>
@@ -192,7 +300,7 @@
     <string name="passwordUnSame">两次输入密码不一致</string>
     <string name="saved">保存成功</string>
     <string name="notificationlistener_prompt_title">启用通知</string>
-    <string name="notificationlistener_prompt_content">iSmarport需要转发应用通知到远程智能设备。按\"确定\"键进入通知页面激活。</string>
+    <string name="notificationlistener_prompt_content">艾跑特需要转发应用通知到远程智能设备。按\"确定\"键进入通知页面激活。</string>
     <string name="tokenTimeout">登录已经过期，请重新登录</string>
     <string name="lostDevice">设备未连接</string>
     <string name="permissionErrorForCamare">权限没通过，无法打开拍照功能</string>
@@ -201,7 +309,7 @@
     <string name="shareFailForPermission">分享失败,相关权限没通过</string>
     <string name="permissionErrorForSMS">权限没通过，无法打开短信通知功能</string>
     <string name="loading">加载中...</string>
-    <string name="privacyTip">您是否已经认真阅读隐私协议，并同意注册成为我司的新用户？\n当您点击"确定"即表示你已经同意该协议的条款。\n用户隐私政策主要包括以下内容:\n1.个人资料(头像、昵称、身高、体重、运动数据等)的收集，保存和分享。\n2.设备权限(位置，通讯录，相机等)的使用</string>
+    <string name="privacyTip">在您使用我们的产品之前，请先认真阅读并充分理解相关用户隐私协议。\n当您点击"确定"即表示你已经同意该协议的条款。\n用户隐私政策主要包括以下内容:\n1.个人资料(头像、昵称、身高、体重、运动数据等)的收集，保存和分享。\n2.设备权限(位置，通讯录，相机等)的使用</string>
     <string name="crop_pic_failed">截取图像失败，请选择jpg,png格式图片！</string>
     <string name="deviceOut">未绑定设备</string>
     <string name="visiter">游客模式不支持此功能</string>

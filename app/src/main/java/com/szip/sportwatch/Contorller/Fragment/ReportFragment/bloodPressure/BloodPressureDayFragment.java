@@ -96,7 +96,7 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
         reportScorllView = getView().findViewById(R.id.reportView);
         reportScorllView.setOnPageViewScorllAble(this);
         listView = getView().findViewById(R.id.dataList);
-        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),getContext());
+        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),0,getContext());
         listView.setAdapter(adapter);
     }
 
@@ -120,14 +120,12 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
                 ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

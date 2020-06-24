@@ -21,7 +21,7 @@ public class ScreenCapture {
 	 * @param Activity activity,int x,int y,int width,int height
 	 * @return filePath 文件路径
 	 * */
-	public static String  getBitmap(Activity activity,LinearLayout layout){
+	public static String  getBitmap(Activity activity,View layout){
 		//SYSTEM_UI_FLAG_FULLSCREEN表示全屏的意思，也就是会将状态栏隐藏
 		//设置系统UI元素的可见性
 		layout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
@@ -31,6 +31,7 @@ public class ScreenCapture {
 		layout.buildDrawingCache();
 		//拿到绘图缓存
 		Bitmap bitmap = layout.getDrawingCache();
+		bitmap = Bitmap.createBitmap(bitmap, 0,MathUitl.dipToPx(60,activity),layout.getWidth(),layout.getHeight()-MathUitl.dipToPx(60,activity));
 		String filePath = null;
 		try {
 			// 获取内置SD卡路径

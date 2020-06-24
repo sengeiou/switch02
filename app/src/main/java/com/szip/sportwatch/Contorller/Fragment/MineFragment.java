@@ -127,6 +127,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 stateTv.setText(getString(R.string.connected));
             }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
                     MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_FAIL){
+                stateTv.setText(getString(R.string.disConnect));
                 WearableManager.getInstance().connect();
             }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTING){
                 deviceTv.setText("");
@@ -192,7 +193,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==1){
                     try {
-                        LoadDataUtil.newInstance().clearCalendarPoint();
                         HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
                         String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
                         HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
@@ -451,7 +451,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                                             e.printStackTrace();
                                         }
                                     }
-                                    LoadDataUtil.newInstance().clearCalendarPoint();
                                     if (sharedPreferencesp==null)
                                         sharedPreferencesp = getActivity().getSharedPreferences(FILE,MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferencesp.edit();

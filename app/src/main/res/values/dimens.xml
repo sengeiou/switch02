@@ -49,9 +49,9 @@
 
     <!--运动页面的缩放及字体大小-->
     <dimen name="sport_margin_parallel">15dp</dimen>
-    <dimen name="sport_text_size_normal">25sp</dimen>
+    <dimen name="sport_text_size_normal">18sp</dimen>
     <dimen name="sport_text_size_big">40sp</dimen>
-    <dimen name="sport_text_size_small">15sp</dimen>
+    <dimen name="sport_text_size_small">12sp</dimen>
 
     <dimen name="tab_weight">300dp</dimen>
 

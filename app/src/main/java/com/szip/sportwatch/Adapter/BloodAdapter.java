@@ -22,9 +22,10 @@ public class BloodAdapter extends BaseAdapter{
 
     private ArrayList<DrawDataBean> drawDataBeans;
     private Context mContext;
-
-    public BloodAdapter(ArrayList<DrawDataBean> drawDataBeans, Context mContext) {
+    private int type;
+    public BloodAdapter(ArrayList<DrawDataBean> drawDataBeans,int type, Context mContext) {
         this.drawDataBeans = drawDataBeans;
+        this.type = type;
         this.mContext = mContext;
     }
 
@@ -71,13 +72,16 @@ public class BloodAdapter extends BaseAdapter{
             holder.itemLl.setVisibility(View.GONE);
             holder.itemLl1.setVisibility(View.VISIBLE);
             holder.timeTv.setText(DateUtil.getStringDateFromSecond(drawDataBeans.get(position).getTime(),"HH:mm"));
-            if (drawDataBeans.get(position).getValue1()!=0){//血压
+            if (type == 0){//血压
                 holder.dataTv.setText(String.format("%d/%d", drawDataBeans.get(position).getValue()+45,
                         drawDataBeans.get(position).getValue1()+45));
                 holder.unitTv.setText("mmHg");
-            }else {//血氧
+            }else if (type == 1){//血氧
                 holder.dataTv.setText(drawDataBeans.get(position).getValue()+70+"%");
                 holder.unitTv.setText("SaO2");
+            }else {
+                holder.dataTv.setText(String.format("%.1f",(drawDataBeans.get(position).getValue()+340)/10f));
+                holder.unitTv.setText("℃");
             }
         }
 

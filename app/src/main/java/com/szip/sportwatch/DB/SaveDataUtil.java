@@ -9,6 +9,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
@@ -255,9 +257,11 @@ public class SaveDataUtil {
                                         sqlData.heartArray = heartBuffer.toString().substring(1);
                                         sqlData.update();
                                     }else {
-                                        sqlData.averageHeart = heartData.averageHeart;
-                                        sqlData.heartArray = heartData.heartArray;
-                                        sqlData.update();
+                                        if (sqlData.heartArray.length()<heartData.heartArray.length()){
+                                            sqlData.averageHeart = heartData.averageHeart;
+                                            sqlData.heartArray = heartData.heartArray;
+                                            sqlData.update();
+                                        }
                                     }
 
                                 }
@@ -343,6 +347,38 @@ public class SaveDataUtil {
     }
 
     /**
+     * 批量保存体温
+     * */
+    public void saveAnimalHeatDataListData(List<AnimalHeatData> animalHeatDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<AnimalHeatData>() {
+                            @Override
+                            public void processModel(AnimalHeatData animalHeatData, DatabaseWrapper wrapper) {
+                                AnimalHeatData sqlData = SQLite.select()
+                                        .from(AnimalHeatData.class)
+                                        .where(AnimalHeatData_Table.time.is(animalHeatData.time))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    animalHeatData.save();
+                                }
+                            }
+                        }).addAll(animalHeatDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","体温数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
+    /**
      * 批量保存ecg
      * */
     public void saveEcgDataListData(List<EcgData> ecgDataList){
@@ -370,6 +406,37 @@ public class SaveDataUtil {
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","ECG数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
+    /**
+     * 批量保存sport
+     * */
+    public void saveSportDataListData(List<SportData> sportDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<SportData>() {
+                            @Override
+                            public void processModel(SportData sportData, DatabaseWrapper wrapper) {
+                                SportData sqlData = SQLite.select()
+                                        .from(SportData.class)
+                                        .where(SportData_Table.time.is(sportData.time))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    sportData.save();
+                                }
+                            }
+                        }).addAll(sportDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","多运动数据保存成功");
             }
         }).build().execute();
     }
@@ -412,6 +479,9 @@ public class SaveDataUtil {
                 .execute();
         SQLite.delete()
                 .from(SportData.class)
+                .execute();
+        SQLite.delete()
+                .from(AnimalHeatData.class)
                 .execute();
     }
 }

@@ -219,34 +219,27 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 } else if (verifyCodeEt.getText().toString().equals("")){
                     showToast(getString(R.string.enterVerification));
                 } else{
-                    MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.privacyTip), getString(R.string.confirm),
-                            getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
-                                @Override
-                                public void onDialogTouch(boolean flag) {
-                                    try {
-                                        if (!MathUitl.isNumeric(userEt.getText().toString())){//邮箱
-                                            if (MathUitl.isEmail(userEt.getText().toString())){
-                                                ProgressHudModel.newInstance().show(RegisterActivity.this,
-                                                        getString(R.string.waitting),getString(R.string.httpError),10000);
-                                                HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),
-                                                        verifyCodeEt.getText().toString());
-                                                isPhone = false;
-                                            }
-                                            else
-                                                showToast(getString(R.string.enterRightEmail));
-                                        }else {//电话
-                                            ProgressHudModel.newInstance().show(RegisterActivity.this,
-                                                    getString(R.string.waitting),getString(R.string.httpError),10000);
-                                            HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
-                                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString());
-                                            isPhone = true;
-                                        }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },this);
-
+                    try {
+                        if (!MathUitl.isNumeric(userEt.getText().toString())){//邮箱
+                            if (MathUitl.isEmail(userEt.getText().toString())){
+                                ProgressHudModel.newInstance().show(RegisterActivity.this,
+                                        getString(R.string.waitting),getString(R.string.httpError),10000);
+                                HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),
+                                        verifyCodeEt.getText().toString());
+                                isPhone = false;
+                            }
+                            else
+                                showToast(getString(R.string.enterRightEmail));
+                        }else {//电话
+                            ProgressHudModel.newInstance().show(RegisterActivity.this,
+                                    getString(R.string.waitting),getString(R.string.httpError),10000);
+                            HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
+                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString());
+                            isPhone = true;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }

@@ -11,13 +11,17 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
+import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
 import com.szip.sportwatch.Service.MainService;
@@ -26,9 +30,16 @@ import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.TopExceptionHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+
+import androidx.annotation.ArrayRes;
 
 
 /**
@@ -59,6 +70,11 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     public static MyApplication getInstance(){
         return mInstance;
     }
+
+    private ArrayList<WeatherBean.Condition> weatherModel;
+    private String city;
+
+    private String deviceNum;
 
     @Override
     public void onCreate() {
@@ -298,5 +314,66 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     public int getUpdownTime() {
         return updownTime;
+    }
+
+    public ArrayList<WeatherBean.Condition> getWeatherModel() {
+        if (weatherModel==null){
+            String weather = sharedPreferences.getString("weatherList",null);
+            if (weather == null)
+                return null;
+            else {
+                Gson gson = new Gson();
+                ArrayList<WeatherBean.Condition> bean = gson.fromJson(weather, new TypeToken<ArrayList<WeatherBean.Condition>>(){}.getType());
+                return bean;
+            }
+        }else
+            return weatherModel;
+    }
+
+    public String getCity() {
+        if (city==null){
+            String city1 = sharedPreferences.getString("city",null);
+            return city1;
+        }
+        return city;
+    }
+
+    public void setWeatherModel(WeatherBean weatherBean) {
+        try {
+            Gson gson=new Gson();
+            this.weatherModel = weatherBean.getData().getForecasts();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            JSONArray array = null;
+            array = new JSONArray(gson.toJson(weatherModel));
+            Log.d("SZIP******", "weather = "+array.toString());
+            editor.putString("weatherList",array.toString());
+            editor.putString("city",weatherBean.getData().getLocation().getCity());
+            editor.commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDeviceNum(String deviceNum) {
+        this.deviceNum = deviceNum;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("deviceNum",deviceNum);
+        editor.commit();
+    }
+
+
+
+    public boolean getSportVisiable(){
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return true;
+        }
+
+        if (deviceNum.equals("249")||deviceNum.equals("242")){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

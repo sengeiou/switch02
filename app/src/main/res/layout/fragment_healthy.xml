@@ -54,12 +54,55 @@
                             android:layout_height="50dp"
                             android:src="@mipmap/my_head_male_36"/>
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/whetherIv"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:src="@mipmap/cp_icon_empty"/>-->
+                        <LinearLayout
+                            android:id="@+id/weatherLl"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="5dp">
+
+                                <TextView
+                                    android:id="@+id/tempTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="17sp"
+                                    android:layout_gravity="right"/>
+
+                                <TextView
+                                    android:id="@+id/conditionTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:layout_marginTop="2dp"
+                                    android:ellipsize="marquee"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    android:singleLine="true" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/weatherIv"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@mipmap/weather_duoyun"/>
+
+                        </LinearLayout>
+
+
+
+
 
                     </RelativeLayout>
 
@@ -490,6 +533,79 @@
 
                     <TextView
                         android:id="@+id/bloodOStateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/animalHeatRl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/health_icon_tw"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image5">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/animal"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/animalHeatDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--"/>
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/animalHeatPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color2"
+                            app:color2="@color/color3"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/animalHeatStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

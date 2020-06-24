@@ -105,15 +105,13 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
                 ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

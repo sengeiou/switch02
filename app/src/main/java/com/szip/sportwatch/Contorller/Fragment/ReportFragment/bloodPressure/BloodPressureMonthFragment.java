@@ -63,8 +63,12 @@ public class BloodPressureMonthFragment extends BaseFragment implements View.OnC
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0)
             averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        else
+            averageSbpTv.setText("--mmHg");
         if (reportDataBean.getValue1()!=0)
             averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        else
+            averageDbpTv.setText("--mmHg");
         if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodPressureReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -104,14 +108,12 @@ public class BloodPressureMonthFragment extends BaseFragment implements View.OnC
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
                 ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

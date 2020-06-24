@@ -29,6 +29,7 @@ import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
+import com.szip.sportwatch.View.MyAlerDialog;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -75,20 +76,71 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         isFirst = sharedPreferences.getBoolean("isFirst",true);
         app.setUserInfo(MathUitl.loadInfoData(sharedPreferences));
 
-        /**
-         * 获取权限·
-         * */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
-                    || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED
-            ||checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
-                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
-                                Manifest.permission.ACCESS_FINE_LOCATION},
-                        sportWatchCode);
+        if (isFirst){
+            MyAlerDialog.getSingle().showAlerDialogWithPrivacy(getString(R.string.privacy1), getString(R.string.privacyTip), null, null, false,
+                    new MyAlerDialog.AlerDialogOnclickListener() {
+                        @Override
+                        public void onDialogTouch(boolean flag) {
+                            if (flag){
+                                sharedPreferences.edit().putBoolean("isFirst",false).commit();
+                                /**
+                                 * 获取权限·
+                                 * */
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                                    if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
+                                            || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+                                            || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+                                            || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
+                                            || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED
+                                            ||checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
+                                        requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
+                                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+                                                        Manifest.permission.ACCESS_FINE_LOCATION},
+                                                sportWatchCode);
+                                    }else {
+                                        initBLE();
+                                        if (!isNotificationListenerActived()) {
+                                            showNotifiListnerPrompt();
+                                        }else {
+                                            initData();
+                                        }
+                                    }
+                                }else {
+                                    initBLE();
+                                    if (!isNotificationListenerActived()) {
+                                        showNotifiListnerPrompt();
+                                    }else {
+                                        initData();
+                                    }
+                                }
+                            }else{
+                                finish();
+                            }
+                        }
+                    },this);
+        }else {
+            /**
+             * 获取权限·
+             * */
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED
+                        || checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+                        || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+                        || checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED
+                        || checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED
+                        ||checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
+                    requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CONTACTS,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+                                    Manifest.permission.ACCESS_FINE_LOCATION},
+                            sportWatchCode);
+                }else {
+                    initBLE();
+                    if (!isNotificationListenerActived()) {
+                        showNotifiListnerPrompt();
+                    }else {
+                        initData();
+                    }
+                }
             }else {
                 initBLE();
                 if (!isNotificationListenerActived()) {
@@ -97,14 +149,9 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     initData();
                 }
             }
-        }else {
-            initBLE();
-            if (!isNotificationListenerActived()) {
-                showNotifiListnerPrompt();
-            }else {
-                initData();
-            }
         }
+
+
     }
 
     @Override
@@ -212,7 +259,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                 Thread.sleep(2000);
                 time = time -1;
             }
-            if(isFirst){
                 //TODO 此处放引导页
                 if (app.getStartState() == 0){//已登录
                     Intent in = new Intent();
@@ -256,7 +302,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     startActivity(in);
                     finish();
                 }
-            }
 //            else{
 //                if (app.getStartState() == 0){//已登录
 //                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定

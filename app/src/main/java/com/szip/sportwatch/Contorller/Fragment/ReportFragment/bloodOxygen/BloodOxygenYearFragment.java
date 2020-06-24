@@ -32,6 +32,7 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
     private ReportView reportView;
     private TextView averageTv,reachTv;
     private ReportDataBean reportDataBean;
+    private int month;
 
     @Override
     protected int getLayoutId() {
@@ -44,6 +45,7 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
         initData();
         initView();
         updateView();
+        month = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     @Override
@@ -101,17 +103,24 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rightIv:
-                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+            case R.id.rightIv:{
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
+                if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
-                    updateView();
+                    calendar.add(Calendar.MONTH,1);
+                    ((BloodOxygenReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    EventBus.getDefault().post(new UpdateReport());
                 }
+            }
                 break;
             case R.id.leftIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
-                updateView();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
+                calendar.add(Calendar.MONTH,-1);
+                ((BloodOxygenReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

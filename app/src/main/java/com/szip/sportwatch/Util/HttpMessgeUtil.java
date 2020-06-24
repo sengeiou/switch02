@@ -20,6 +20,7 @@ import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
@@ -39,8 +40,6 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String urlTest = "https://test.znsdkj.com:8443/sportWatch/";
-    private String urlCloud = "https://cloud.znsdkj.com:8443/sportWatch/";
     private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
@@ -50,11 +49,7 @@ public class HttpMessgeUtil {
 
     private HttpCallbackWithBase httpCallbackWithBase;
     private HttpCallbackWithLogin httpCallbackWithLogin;
-//    private HttpCallbackWithUpdata httpCallbackWithUpdata;
-//    private HttpCallbackWithReport httpCallbackWithReport;
     private HttpCallbackWithUserInfo httpCallbackWithUserInfo;
-//    private HttpCallbackWithAddClock httpCallbackWithAddClock;
-//    private HttpCallbackWithClockData httpCallbackWithClockData;
 
     private int GET_VERIFICATION = 100;
     public static int UPDOWN_LOG = 101;
@@ -85,13 +80,6 @@ public class HttpMessgeUtil {
             language = "en-US";
         }
         time = DateUtil.getGMTWithString();
-    }
-
-    public void setUrl(boolean isTest){
-        if (isTest)
-            url = urlTest;
-        else
-            url = urlCloud;
     }
 
     public void setToken(String token){
@@ -257,22 +245,21 @@ public class HttpMessgeUtil {
 
 
 
-//    /**
-//     * 发送意见反馈接口
-//     * */
-//    private void _postSendFeedback(String content,int id)throws IOException{
-//        String url = this.url+"comm/feedback";
-//        OkHttpUtils
-//                .fpost()
-//                .url(url)
-//                .id(id)
-//                .addHeader("Time-Diff",time)
-//                .addHeader("token",token)
-//                .addHeader("Accept-Language",language)
-//                .addParams("content",content)
-//                .build()
-//                .execute(baseApiGenericsCallback);
-//    }
+    /**
+     * 发送意见反馈接口
+     * */
+    private void _postSendFeedback(String content)throws IOException{
+        String url = this.url+"user/uploadFeedback";
+        OkHttpUtils
+                .jpost()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addParams("content",content)
+                .build()
+                .execute(baseApiGenericsCallback);
+    }
 
 //    /**
 //     * 获取固件升级
@@ -510,6 +497,24 @@ public class HttpMessgeUtil {
     }
 
     /**
+     * 天气预报
+     * */
+    private void _getWeather(String lat,String lon,GenericsCallback<WeatherBean> callback)throws IOException{
+        String url = this.url+"comm/weather";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addParams("lat",lat)
+                .addParams("lon",lon)
+                .build()
+                .execute(callback);
+    }
+
+
+    /**
      * 解绑设备
      * */
     private void _getUnbindDevice()throws IOException{
@@ -690,9 +695,13 @@ public class HttpMessgeUtil {
 //
 //
 //
-//    public void postSendFeedback(String content,int id)throws IOException{
-//        _postSendFeedback(content,id);
-//    }
+    public void postSendFeedback(String content)throws IOException{
+        _postSendFeedback(content);
+    }
+
+    public void getWeather(String lat,String lon,GenericsCallback<WeatherBean> callback)throws IOException{
+        _getWeather(lat,lon,callback);
+    }
 
     /**
      * 接口回调
@@ -824,9 +833,14 @@ public class HttpMessgeUtil {
                 if (response.getData().getEcgDataList().size()!=0)
                     saveDataUtil.saveEcgDataListData(response.getData().getEcgDataList());
 
-                for (SportData sportData:response.getData().getSportDataList()){
-                    saveDataUtil.saveSportData(sportData);
-                }
+                if (response.getData().getAnimalHeatDataList().size()!=0)
+                    saveDataUtil.saveAnimalHeatDataListData(response.getData().getAnimalHeatDataList());
+
+                if (response.getData().getSportDataList().size()!=0)
+                    saveDataUtil.saveSportDataListData(response.getData().getSportDataList());
+//                for (SportData sportData:response.getData().getSportDataList()){
+//                    saveDataUtil.saveSportData(sportData);
+//                }
             }else if (response.getCode() == 401){
                 tokenTimeOut();
             }else {
@@ -888,6 +902,7 @@ public class HttpMessgeUtil {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isLogin",false);
         editor.putBoolean("isBind",false);
+        editor.putString("token",null);
         editor.commit();
         SaveDataUtil.newInstance(mContext).clearDB();
         MainService.getInstance().stopConnect();

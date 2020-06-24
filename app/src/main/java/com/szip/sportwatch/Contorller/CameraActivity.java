@@ -45,6 +45,9 @@ public class CameraActivity extends BaseActivity {
     private MediaPlayer mediaPlayer;
     private int angle;
     private SensorManager sm = null;
+
+    private boolean cameraAble = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,29 +117,39 @@ public class CameraActivity extends BaseActivity {
             if (flag == 0)
                 finish();
             else {
-                mCamera.autoFocus(new Camera.AutoFocusCallback() { //自动聚焦
-                    @Override
-                    public void onAutoFocus(boolean success, Camera camera) {
-                        // 从Camera捕获图片
-                        mCamera.takePicture(null, null, mPicture);
-                        final AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                        final int volume = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
-                        am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
-                        if (mediaPlayer==null){
-                            mediaPlayer = MediaPlayer.create(CameraActivity.this, R.raw.camera);
-                            mediaPlayer.start();
-                            mediaPlayer.setVolume(0.5f,0.5f);
-                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                @Override
-                                public void onCompletion(MediaPlayer mp) {
-                                    am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
-                                    mediaPlayer = null;
-                                }
-                            });
+                if (cameraAble){
+                    cameraAble = false;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            cameraAble = true;
                         }
+                    },1000);
+                    mCamera.autoFocus(new Camera.AutoFocusCallback() { //自动聚焦
+                        @Override
+                        public void onAutoFocus(boolean success, Camera camera) {
+                            // 从Camera捕获图片
+                            mCamera.takePicture(null, null, mPicture);
+                            final AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                            final int volume = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
+                            am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
+                            if (mediaPlayer==null){
+                                mediaPlayer = MediaPlayer.create(CameraActivity.this, R.raw.camera);
+                                mediaPlayer.start();
+                                mediaPlayer.setVolume(0.5f,0.5f);
+                                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
+                                        mediaPlayer = null;
+                                    }
+                                });
+                            }
 
-                    }
-                });
+                        }
+                    });
+                }
+
             }
         }
     };

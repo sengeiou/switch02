@@ -113,14 +113,12 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((StepReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
                 ((StepReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

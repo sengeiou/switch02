@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
+import com.szip.sportwatch.Contorller.HeartReportActivity;
+import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.DrawDataBean;
@@ -35,7 +37,7 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
     private ReportDataBean reportDataBean;
     private TextView allStepTv,reachTv;
     private MyApplication app;
-
+    private int month;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_step_year;
@@ -48,6 +50,7 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
         initData();
         initView();
         updateView();
+        month = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     @Override
@@ -104,17 +107,24 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rightIv:
-                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+            case R.id.rightIv:{
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
+                if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
-                    updateView();
+                    calendar.add(Calendar.MONTH,1);
+                    ((StepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    EventBus.getDefault().post(new UpdateReport());
                 }
+            }
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
-                updateView();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
+                calendar.add(Calendar.MONTH,-1);
+                ((StepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

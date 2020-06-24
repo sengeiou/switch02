@@ -69,7 +69,9 @@
                     android:layout_toRightOf="@+id/device"
                     android:layout_toLeftOf="@+id/deviceNameTv"
                     android:layout_marginRight="10dp"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/deviceNameTv"
@@ -79,7 +81,7 @@
                     android:textColor="@color/blue"
                     android:layout_toLeftOf="@id/arrow"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/item_margin_model_right"/>
+                    android:layout_marginRight="@dimen/item_margin_model_right" />
 
                 <ImageView
                     android:id="@+id/arrow"

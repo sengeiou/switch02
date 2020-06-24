@@ -249,7 +249,7 @@ public class ShareActivity extends BaseActivity {
         String filePath = ScreenCapture.getBitmap
                 (ShareActivity.this, layout);
         isFirst = false;
-        shareShow(filePath);
+//        shareShow(filePath);
 //        Intent intent = new Intent();
 //        intent.putExtra("filePath", filePath);
 //        setResult(101, intent);

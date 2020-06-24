@@ -105,6 +105,27 @@ public class ViewUtil{
     }
 
     /**
+     * 计算温度游标位置
+     * */
+    public void setAnimalHeatView(int animalHeat,View textView,View healthyProgressView){
+        if (animalHeat==0){
+            ((TextView)textView).setText("--");
+            ((HealthyProgressView)healthyProgressView).setRadio(0);
+            return;
+        }
+        if (animalHeat<=373){
+            ((TextView)textView).setText(context.getString(R.string.normal));
+            ((TextView)textView).setTextColor(context.getResources().getColor(R.color.goodT));
+            textView.setBackground(context.getResources().getDrawable(R.drawable.bg_healthy_good));
+        }else {
+            ((TextView)textView).setText(context.getString(R.string.hot));
+            ((TextView)textView).setTextColor(context.getResources().getColor(R.color.badT));
+            textView.setBackground(context.getResources().getDrawable(R.drawable.bg_healthy_bad));
+        }
+        ((HealthyProgressView)healthyProgressView).setRadio((animalHeat-323)/100f);
+    }
+
+    /**
      * 判断睡眠质量
      * */
     public void setSleepView(int sleep, View textView){

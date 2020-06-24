@@ -20,6 +20,7 @@ import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.DB.SaveDataUtil;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
 import com.szip.sportwatch.DB.dbModel.EcgData;
@@ -29,6 +30,7 @@ import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
+import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
@@ -118,6 +120,8 @@ public class MainService extends Service {
                 EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
                 EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
                 EXCDController.getInstance().writeForCheckVersion();
+                EXCDController.getInstance().writeForUpdateWeather(((MyApplication)getApplicationContext()).getWeatherModel(),
+                        ((MyApplication)getApplicationContext()).getCity());
             }else if (newState == WearableManager.STATE_CONNECT_LOST){
                 if (errorTimes<3){
                     errorTimes++;
@@ -164,10 +168,10 @@ public class MainService extends Service {
     private ReviceDataCallback reviceDataCallback = new ReviceDataCallback() {
         @Override
         public void checkVersion(boolean stepNum, boolean deltaStepNum, boolean sleepNum, boolean deltaSleepNum,
-                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg) {
+                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum) {
             Log.d("SZIP******","收到心跳包step = "+stepNum+" ;stepD = "+deltaStepNum+" ;sleep = "+sleepNum+
                     " ;sleepD = "+deltaSleepNum+" ;heart = "+heart+ " ;bloodPressure = "+bloodPressure+
-                    " ;bloodOxygen = "+heart+" ;ecg = "+ecg);
+                    " ;bloodOxygen = "+heart+" ;ecg = "+ecg+" ;animalHeat = "+animalHeat);
             if (stepNum)
                 EXCDController.getInstance().writeForGetDaySteps();
             if (deltaStepNum)
@@ -184,6 +188,11 @@ public class MainService extends Service {
                 EXCDController.getInstance().writeForGetBloodOxygen();
             if (ecg)
                 EXCDController.getInstance().writeForGetEcg();
+            if (animalHeat)
+                EXCDController.getInstance().writeForGetAnimalHeat();
+
+            ((MyApplication)getApplicationContext()).setDeviceNum(deviceNum);
+            EventBus.getDefault().post(new UpdateSportView());
         }
 
         @Override
@@ -191,11 +200,11 @@ public class MainService extends Service {
             Log.d("SZIP******","收到计步数据条数 = "+stepsForday.length);
             ArrayList<StepData> dataArrayList = new ArrayList<>();
             for (int i =0;i<stepsForday.length;i++){
-                String stepDatas[] = stepsForday[i].split("\\|");
-                long time = DateUtil.getTimeScopeForDay(stepDatas[0],"yyyy-MM-dd");
-                int steps = Integer.valueOf(stepDatas[1]);
-                int distance = Integer.valueOf(stepDatas[2]);
-                int calorie = Integer.valueOf(stepDatas[3]);
+                String datas[] = stepsForday[i].split("\\|");
+                long time = DateUtil.getTimeScopeForDay(datas[0],"yyyy-MM-dd");
+                int steps = Integer.valueOf(datas[1]);
+                int distance = Integer.valueOf(datas[2]);
+                int calorie = Integer.valueOf(datas[3]);
                 Log.d("SZIP******","计步数据 = "+"time = "+time+" ;steps = "+steps+" ;distance = "+distance+" ;calorie = "+calorie);
                 dataArrayList.add(new StepData(time,steps,distance,calorie,null));
             }
@@ -234,10 +243,10 @@ public class MainService extends Service {
             Log.d("SZIP******","收到睡眠数据条数 = "+sleepForday.length);
             ArrayList<SleepData> dataArrayList = new ArrayList<>();
             for (int i =0;i<sleepForday.length;i++){
-                String sleepDatas[] = sleepForday[i].split("\\|");
-                long time = DateUtil.getTimeScopeForDay(sleepDatas[0],"yyyy-MM-dd")+24*60*60;
-                int deepTime = DateUtil.getMinue(sleepDatas[1]);
-                int lightTime = DateUtil.getMinue(sleepDatas[2]);
+                String datas[] = sleepForday[i].split("\\|");
+                long time = DateUtil.getTimeScopeForDay(datas[0],"yyyy-MM-dd")+24*60*60;
+                int deepTime = DateUtil.getMinue(datas[1]);
+                int lightTime = DateUtil.getMinue(datas[2]);
                 Log.d("SZIP******","睡眠数据 = "+"time = "+time+" ;deep = "+deepTime+" ;light = "+lightTime);
                 dataArrayList.add(new SleepData(time,deepTime,lightTime,null));
             }
@@ -305,10 +314,10 @@ public class MainService extends Service {
             Log.d("SZIP******","收到血压数据条数 = "+bloodPressure.length);
             ArrayList<BloodPressureData> dataArrayList = new ArrayList<>();
             for (int i =0;i<bloodPressure.length;i++){
-                String stepDatas[] = bloodPressure[i].split("\\|");
-                long time = DateUtil.getTimeScope(stepDatas[0],"yyyy-MM-dd HH:mm:ss");
-                int sbp = Integer.valueOf(stepDatas[1]);
-                int dbp = Integer.valueOf(stepDatas[2]);
+                String datas[] = bloodPressure[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int sbp = Integer.valueOf(datas[1]);
+                int dbp = Integer.valueOf(datas[2]);
                 Log.d("SZIP******","血压数据 = "+"time = "+time+" ;sbp = "+sbp+" ;dbp = "+dbp);
                 dataArrayList.add(new BloodPressureData(time,sbp,dbp));
             }
@@ -320,13 +329,27 @@ public class MainService extends Service {
             Log.d("SZIP******","收到血氧数据条数 = "+bloodOxygen.length);
             ArrayList<BloodOxygenData> dataArrayList = new ArrayList<>();
             for (int i =0;i<bloodOxygen.length;i++){
-                String stepDatas[] = bloodOxygen[i].split("\\|");
-                long time = DateUtil.getTimeScope(stepDatas[0],"yyyy-MM-dd HH:mm:ss");
-                int data = Integer.valueOf(stepDatas[1]);
-                Log.d("SZIP******","血压数据 = "+"time = "+time+" ;oxygen = "+data);
+                String datas[] = bloodOxygen[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int data = Integer.valueOf(datas[1]);
+                Log.d("SZIP******","血氧数据 = "+"time = "+time+" ;oxygen = "+data);
                 dataArrayList.add(new BloodOxygenData(time,data));
             }
             SaveDataUtil.newInstance(mSevice).saveBloodOxygenDataListData(dataArrayList);
+        }
+
+        @Override
+        public void getAnimalHeat(String[] animalHeat) {
+            Log.d("SZIP******","收到体温数据条数 = "+animalHeat.length);
+            ArrayList<AnimalHeatData> dataArrayList = new ArrayList<>();
+            for (int i =0;i<animalHeat.length;i++){
+                String datas[] = animalHeat[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int data = Integer.valueOf(datas[1])*10+Integer.valueOf(datas[2]);
+                Log.d("SZIP******","体温数据 = "+"time = "+time+" ;animalHeat = "+data);
+                dataArrayList.add(new AnimalHeatData(time,data));
+            }
+            SaveDataUtil.newInstance(mSevice).saveAnimalHeatDataListData(dataArrayList);
         }
 
         @Override
@@ -334,10 +357,10 @@ public class MainService extends Service {
             Log.d("SZIP******","收到ecg数据条数 = "+ecg.length);
             ArrayList<EcgData> dataArrayList = new ArrayList<>();
             for (int i =0;i<ecg.length;i++){
-                String ecgDatas[] = ecg[i].split("\\|");
-                long time = DateUtil.getTimeScope(ecgDatas[0]+" "+ecgDatas[1],"yyyy-MM-dd HH:mm:ss");
-                Log.d("SZIP******","ecg数据 = "+"time = "+time+" ;heart = "+ecgDatas[2]);
-                dataArrayList.add(new EcgData(time,ecgDatas[2]));
+                String datas[] = ecg[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0]+" "+datas[1],"yyyy-MM-dd HH:mm:ss");
+                Log.d("SZIP******","ecg数据 = "+"time = "+time+" ;heart = "+datas[2]);
+                dataArrayList.add(new EcgData(time,datas[2]));
             }
             SaveDataUtil.newInstance(mSevice).saveEcgDataListData(dataArrayList);
         }
@@ -350,7 +373,9 @@ public class MainService extends Service {
             int distance = Integer.valueOf(sport[3]);
             int calorie = Integer.valueOf(sport[4]);
             int speed = Integer.valueOf(sport[5]);
-            SportData sportData = new SportData(time,sportTime,distance,calorie,speed,type);
+            int heart = Integer.valueOf(sport[10]);
+            int stride = Integer.valueOf(sport[7]);
+            SportData sportData = new SportData(time,sportTime,distance,calorie,speed,type,heart,stride);
             SaveDataUtil.newInstance(mSevice).saveSportData(sportData);
         }
 

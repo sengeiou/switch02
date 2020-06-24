@@ -34,7 +34,7 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     private ReportView reportView;
     private TextView averageSbpTv,averageDbpTv;
     private ReportDataBean reportDataBean;
-
+    private int month;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_blood_pressure_year;
@@ -46,6 +46,7 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
         initData();
         initView();
         updateView();
+        month = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     @Override
@@ -70,8 +71,12 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0)
             averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        else
+            averageSbpTv.setText("--mmHg");
         if (reportDataBean.getValue1()!=0)
             averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        else
+            averageDbpTv.setText("--mmHg");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
@@ -103,17 +108,24 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rightIv:
-                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+            case R.id.rightIv:{
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
+                if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                    updateView();
+                    calendar.add(Calendar.MONTH,1);
+                    ((BloodPressureReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    EventBus.getDefault().post(new UpdateReport());
                 }
+            }
                 break;
             case R.id.leftIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
-                updateView();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
+                calendar.add(Calendar.MONTH,-1);
+                ((BloodPressureReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

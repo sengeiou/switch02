@@ -89,7 +89,7 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
         reportScorllView = getView().findViewById(R.id.reportView);
         reportScorllView.setOnPageViewScorllAble(this);
         listView = getView().findViewById(R.id.dataList);
-        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),getContext());
+        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),1,getContext());
         listView.setAdapter(adapter);
     }
 
@@ -117,14 +117,12 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
                 ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

@@ -100,7 +100,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         countryTv = findViewById(R.id.countryTv);
 
         checkBox = findViewById(R.id.checkbox);
-        ((TextView)findViewById(R.id.privacyTv)).setMovementMethod(LinkMovementMethod.getInstance());
+        (findViewById(R.id.privacyTv)).setOnClickListener(this);
 
         if (sharedPreferencesp==null)
             sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
@@ -226,6 +226,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (touchTimes == 10){
 
                 }
+                break;
+            case R.id.privacyTv:
+                startActivity(new Intent(LoginActivity.this, PrivacyActivity.class));
                 break;
         }
     }

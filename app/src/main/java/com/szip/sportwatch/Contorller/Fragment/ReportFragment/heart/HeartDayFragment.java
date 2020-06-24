@@ -108,15 +108,13 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
                     showToast(getString(R.string.tomorrow));
                 else{
                     ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
-                    initData();
-                    updateView();
+                    EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
                 ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

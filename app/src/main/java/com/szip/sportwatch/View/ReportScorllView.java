@@ -299,11 +299,6 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-//        PointF tup = new PointF(e.getX(), e.getY());
-//        mSelected = clickWhere(tup);
-//        if(mListener != null) {
-//            mListener.onItemClick(mSelected);
-//        }
         invalidate();
         return true;
     }
@@ -321,8 +316,8 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         upPlace = e2.getX();
-        mScroller
-                .fling((int)e2.getX(), (int)e2.getY(), (int)velocityX/2, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
+        mScroller.fling((int)e2.getX(), (int)e2.getY(), (int)velocityX/2,
+                0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
         return true;
     }
 
@@ -335,14 +330,12 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
     }
 
     protected boolean judgeSliding(float tempSlided){
-        mSliding += tempSlided;
         if(data_num>7) {
+            mSliding += tempSlided;
             if (mSliding <= -(data_num-7)*(mInterval+mBarWidth)){//划到最右端了
-                Log.d("SZIP******","满");
                 if (onPageViewScorllAble!=null)
                     onPageViewScorllAble.onScroll(true);
             }else {
-                Log.d("SZIP******","没满");
                 if (onPageViewScorllAble!=null)
                     onPageViewScorllAble.onScroll(false);
             }
@@ -357,7 +350,6 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
                 return true;
             }
         }
-
         return false;
     }
 }

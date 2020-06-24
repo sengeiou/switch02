@@ -123,6 +123,8 @@ public class ReportTableView extends View {
                 yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
             else if (flag == 5)
                 yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
+            else if (flag == 6)
+                yMsg[i] = String.format("%d",((maxValue/yValueNum)*(i+1)+340)/10);
             else
                 yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
         }

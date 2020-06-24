@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 def dbflow_version = "4.2.4"
 android {
+    signingConfigs {
+        szp {
+            storeFile file('E:\\keyStore\\szip.keystore')
+            storePassword 'damibao123'
+            keyAlias = 'key'
+            keyPassword 'damibao123'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
@@ -16,12 +24,14 @@ android {
         applicationId "com.szip.sportwatch"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.01"
+        versionCode 10
+        versionName "1.08"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.szp
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.szp
             postprocessing {
                 removeUnusedCode false
                 removeUnusedResources false
@@ -29,6 +39,9 @@ android {
                 optimizeCode false
                 proguardFile 'proguard-rules.pro'
             }
+        }
+        debug {
+            signingConfig signingConfigs.szp
         }
     }
 }

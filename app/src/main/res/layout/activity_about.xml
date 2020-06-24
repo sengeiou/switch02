@@ -42,7 +42,7 @@
             android:textSize="22sp"
             android:textColor="@color/rayblue"
             android:textStyle="bold"
-            android:text="iSmarport"/>
+            android:text="@string/app_name"/>
 
         <RelativeLayout
             android:id="@+id/userNameRl"
@@ -78,6 +78,52 @@
 
 
 
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/privacyRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_item_normal"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/privacy1"
+                android:textColor="@color/rayblue"
+                android:textSize="@dimen/item_text_size"
+                android:layout_centerVertical="true"
+                android:padding="13dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/feedbackRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_item_normal"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/feedback"
+                android:textColor="@color/rayblue"
+                android:textSize="@dimen/item_text_size"
+                android:layout_centerVertical="true"
+                android:padding="13dp"/>
 
         </RelativeLayout>
 

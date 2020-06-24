@@ -30,7 +30,7 @@ import androidx.core.content.FileProvider;
 public class SportFragment extends BaseFragment implements View.OnClickListener{
 
     private CircularImageView pictureIv;
-    private TextView userNameTv,distanceTv,speedTv,calorieTv,sportTimeTv;
+    private TextView userNameTv,distanceTv,speedTv,calorieTv,sportTimeTv,heartTv,strideTv,distanceTv1;
 
     private MyApplication app;
 
@@ -66,6 +66,9 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         speedTv = getView().findViewById(R.id.speedTv);
         calorieTv = getView().findViewById(R.id.calorieTv);
         sportTimeTv = getView().findViewById(R.id.sportTimeTv);
+        heartTv = getView().findViewById(R.id.heartTv);
+        strideTv = getView().findViewById(R.id.strideTv);
+        distanceTv1 = getView().findViewById(R.id.distanceTv1);
     }
 
     /**
@@ -75,16 +78,21 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         SportData sportData = LoadDataUtil.newInstance().getBestSportData();
 
         if (app.getUserInfo().getUnit().equals("metric")){
-            distanceTv.setText(String.format("%.1f",sportData.distance/10f));
+            distanceTv1.setText(String.format("%.1f",sportData.distance/1f));
+            distanceTv.setText(String.format("%.1f",sportData.distance/1f));
             ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+            ((TextView)getView().findViewById(R.id.deistanceUnitTv)).setText(getString(R.string.distance)+"m)");
         } else{
-            distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(sportData.distance/10)));
+            distanceTv1.setText(String.format("%.2f", MathUitl.metric2Miles(sportData.distance)));
+            distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(sportData.distance)));
             ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+            ((TextView)getView().findViewById(R.id.deistanceUnitTv)).setText(getString(R.string.distance)+"Mi)");
         }
         speedTv.setText(String.format("%02d'%02d''",sportData.speed/60,sportData.speed%60));
         calorieTv.setText(sportData.calorie+"");
         sportTimeTv.setText(String.format("%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
-
+        heartTv.setText(sportData.heart+"");
+        strideTv.setText(sportData.stride+"");
 
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);

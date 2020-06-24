@@ -15,7 +15,9 @@ import com.szip.sportwatch.Contorller.CameraActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
+import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
 
@@ -114,10 +116,13 @@ public class EXCDController extends Controller {
                 String bloodPressure = commands[15];
                 String bloodOxygen = commands[16];
                 String ecg = commands[22];
+                String animalHeat = null;
+                if(commands.length>23)
+                    animalHeat = commands[23];
                 if (reviceDataCallback!=null)
                     reviceDataCallback.checkVersion(!step[0].equals("0"),!step[1].equals("0"),
                             !sleep[0].equals("0"),!sleep[1].equals("0"),!heart.equals("0"),
-                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"));
+                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"),(animalHeat==null)?false:!animalHeat.endsWith("0"),commands[17]);
             }else if (commands[1].equals("10")){//同步计步数据
                 if (commands.length>2){//有数据
                     String datas[] = new String[commands.length-2];
@@ -137,8 +142,9 @@ public class EXCDController extends Controller {
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<steps.size();i++){
-                           str.append(steps.get(i).substring(commands[0].length()+commands[1].length()+commands[2].length()+
-                           commands[3].length()+4));
+                            String strs[] = steps.get(i).split(",");
+                            str.append(steps.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+                                    strs[3].length()+4));
                         }
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getSteps(str.toString().split(","));
@@ -165,8 +171,9 @@ public class EXCDController extends Controller {
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<sleeps.size();i++){
-                            str.append(sleeps.get(i).substring(commands[0].length()+commands[1].length()+commands[2].length()+
-                                    commands[3].length()+4));
+                            String strs[] = sleeps.get(i).split(",");
+                            str.append(sleeps.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+                                    strs[3].length()+4));
                         }
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getSleep(str.toString().split(","));
@@ -203,8 +210,9 @@ public class EXCDController extends Controller {
                     if (commands[3].equals(commands[4])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<sports.size();i++){
-                            str.append(sports.get(i).substring(commands[0].length()+commands[1].length()+commands[2].length()+
-                                    commands[3].length()+commands[4].length()+5));
+                            String strs[] = sports.get(i).split(",");
+                            str.append(sports.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+                                    strs[3].length()+strs[4].length()+5));
                         }
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getSport(str.toString().split(","));
@@ -237,8 +245,9 @@ public class EXCDController extends Controller {
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<ecgs.size();i++){
-                            str.append(ecgs.get(i).substring(commands[0].length()+commands[1].length()+commands[2].length()+
-                                    commands[3].length()+5));
+                            String strs[] = ecgs.get(i).split(",");
+                            str.append(ecgs.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+                                    strs[3].length()+5));
                         }
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getEcg(str.toString().split("#"));
@@ -262,13 +271,21 @@ public class EXCDController extends Controller {
                         reviceDataCallback.getBloodOxygen(datas);
                     writeForRET("GET,"+commands[1]);
                 }
+            }else if (commands[1].equals("80")){//接受血氧数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getAnimalHeat(datas);
+                    writeForRET("GET,"+commands[1]);
+                }
             }
         }else if (commands[0].contains("SET")){//SET指令
             if (commands[1].equals("14")){//操作相机指令
                 if (((MyApplication)mContext.getApplicationContext()).isCamerable())
                 if (commands[2].equals("1")){//打开相机
                     Intent intent1=new Intent(mContext, CameraActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent1);
                 }else if (commands[2].equals("0")){//关闭相机
                     if (onCameraListener!=null)
@@ -435,6 +452,18 @@ public class EXCDController extends Controller {
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
 
+    //获取体温数据
+    public void writeForGetAnimalHeat(){
+        String str = "GET,80";
+        byte[] datas = new byte[0];
+        try {
+            datas = str.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        this.send(cmdHead+"0 0 6 ",datas,true,false,0);
+    }
+
     //设置时间
     public void writeForSetDate(){
         int gmt = DateUtil.getGMT();
@@ -513,6 +542,45 @@ public class EXCDController extends Controller {
             e.printStackTrace();
         }
         this.send(cmdHead+"0 0 8 ",datas,true,false,0);
+    }
+
+    //同步天气
+    public void writeForUpdateWeather(ArrayList<WeatherBean.Condition> weatherModel,String city){
+
+        String str;
+        if (weatherModel!=null){
+            str = "WEATHER;"+city+";0,"+DateUtil.getStringDateFromSecond
+                    (Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd")+","+((int)weatherModel.get(0).getLow())+
+                    ","+((int)weatherModel.get(0).getHigh())+","+weatherModel.get(0).getCode()+"|1,"+DateUtil.getStringDateFromSecond
+                    (Calendar.getInstance().getTimeInMillis()/1000+24*60*60,"yyyy-MM-dd")+","+((int)weatherModel.get(1).getLow())+
+                    ","+((int)weatherModel.get(1).getHigh())+","+weatherModel.get(1).getCode()+"|2,"+DateUtil.getStringDateFromSecond
+                    (Calendar.getInstance().getTimeInMillis()/1000+24*60*60*2,"yyyy-MM-dd")+","+((int)weatherModel.get(2).getLow())+
+                    ","+((int)weatherModel.get(2).getHigh())+","+weatherModel.get(2).getCode();
+
+            byte[] datas = new byte[0];
+//        try {
+            datas = str.getBytes();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        for (int i = 0; i < datas.length; i++) {
+//            // 将每个字符转换成ASCII码
+//            datas.append(Integer.toHexString(bGBK[i] & 0xff) + " ");
+//        }
+            Log.d("SZIP******","DATA = "+new String(datas));
+            this.send(cmdHead+String.format("0 0 %d ",datas.length),datas,true,false,0);
+        }
+    }
+
+    private   String getCnASCII(String cnStr) {
+        StringBuffer strBuf = new StringBuffer();
+        // 将字符串转换成字节序列
+        byte[] bGBK = cnStr.getBytes();
+        for (int i = 0; i < bGBK.length; i++) {
+            // 将每个字符转换成ASCII码
+            strBuf.append(Integer.toHexString(bGBK[i] & 0xff) + " ");
+        }
+        return strBuf.toString();
     }
 
     //回复指令

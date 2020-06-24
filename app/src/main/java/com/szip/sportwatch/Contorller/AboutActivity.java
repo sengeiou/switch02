@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Contorller;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,18 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.privacyRl).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AboutActivity.this, PrivacyActivity.class));
+            }
+        });
+        findViewById(R.id.feedbackRl).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AboutActivity.this, FeedbackActivity.class));
             }
         });
     }

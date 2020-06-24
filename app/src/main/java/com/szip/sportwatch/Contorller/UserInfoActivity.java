@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
@@ -58,12 +59,15 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import okhttp3.Call;
+
+import static com.szip.sportwatch.MyApplication.FILE;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
@@ -135,7 +139,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
 
         //性别选择器
-        window = new CharacterPickerWindow(UserInfoActivity.this,getString(R.string.height));
+        window = new CharacterPickerWindow(UserInfoActivity.this,getString(R.string.sex));
         final List<String> sexList =new ArrayList<>(Arrays.asList(getString(R.string.female),getString(R.string.male)));
         //初始化选项数据
         window.getPickerView().setPicker(sexList);
@@ -342,7 +346,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                         null, null,false, new MyAlerDialog.AlerDialogEditOnclickListener() {
                             @Override
                             public void onDialogEditTouch(String edit1) {
-                                userNameTv.setText(edit1);
+                                if (edit1.length()<=12){
+                                    userNameTv.setText(edit1);
+                                }else {
+                                    showToast(getString(R.string.nameLong));
+                                }
+
                             }
                         },mContext);
                 break;
@@ -442,9 +451,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
 
     private void takePhoto(){
-        photoName = getExternalFilesDir(null).getPath()+"/shgame/" + Calendar.getInstance().getTimeInMillis() + ".png";
-        File file = new File(photoName);
 
+        photoName = getExternalFilesDir(null).getPath()+"/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
+        File file = new File(photoName);
+        Log.d("IMAGE******","photoName = "+photoName);
         Uri photoURI = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             photoURI = FileProvider.getUriForFile(this,"com.szip.sportwatch.fileprovider", file);
@@ -467,6 +477,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             if (code == PackageManager.PERMISSION_GRANTED){
                 takePhoto();
             }else {
+
                 showToast(getString(R.string.permissionErrorForCamare));
             }
         }
@@ -481,6 +492,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             case IMAGE_CAPTURE:{// 相机
                 Log.d("IMAGE******","拍照回调");
                 File file = new File(photoName);
+                Log.d("IMAGE******","photoName = "+photoName);
                 if (file.exists()) {
                     Uri uri;
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -510,17 +522,18 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
                             @Override
                             public void onResponse(AvatarBean response, int id) {
-                                //上传头像
-                                if (data!=null){
-                                    Uri resultUri = UCrop.getOutput(data);
-                                    pictureIv.setImageURI(resultUri);
-                                    app.getUserInfo().setAvatar(response.getData().getUrl());
-                                    MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
+                                if (response.getCode()==200){
+                                    //上传头像
+                                    if (data!=null){
+                                        Uri resultUri = UCrop.getOutput(data);
+                                        pictureIv.setImageURI(resultUri);
+                                        app.getUserInfo().setAvatar(response.getData().getUrl());
+                                        MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
+                                    }
+                                    //裁剪成功之后，删掉之前拍的照片
+                                    new File(photoName).delete();
+                                    new File(fileName).delete();
                                 }
-                                //裁剪成功之后，删掉之前拍的照片
-                                new File(photoName).delete();
-                                new File(fileName).delete();
-
                             }
                         });
                     } catch (IOException e) {
@@ -529,9 +542,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 }
             }
                 break;
-
         }
-
     }
 
     /**
@@ -548,7 +559,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             else
                 path = uri;
             //临时用一个名字用来保存裁剪后的图片
-            fileName = getExternalFilesDir(null).getPath()+"/shgame/file/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
+            Log.d("IMAGE******","开始裁切");
+            fileName = getExternalFilesDir(null).getPath()+"/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
             File file = new File(fileName);
             file.getParentFile().mkdirs();
             Uri target = Uri.fromFile(file);

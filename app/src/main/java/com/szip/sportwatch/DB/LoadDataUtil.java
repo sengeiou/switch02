@@ -3,8 +3,11 @@ package com.szip.sportwatch.DB;
 import android.util.Log;
 
 import com.necer.utils.CalendarUtil;
+import com.raizlabs.android.dbflow.sql.SqlUtils;
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
@@ -155,13 +158,6 @@ public class LoadDataUtil {
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        long startTime = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
-
-        List<StepData> list = SQLite.select()
-                .from(StepData.class)
-                .where(StepData_Table.time.lessThanOrEq(time),
-                        StepData_Table.time.greaterThanOrEq(startTime))
-                .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
@@ -170,10 +166,13 @@ public class LoadDataUtil {
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            List<StepData> list = SQLite.select()
+                    .from(StepData.class)
+                    .where(StepData_Table.time.lessThanOrEq(endMonth),
+                            StepData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
             for (int j = 0;j<list.size();j++){
-                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
-                    stepSum+=list.get(j).steps;
-                }
+                stepSum+=list.get(j).steps;
             }
             drawData.add(new DrawDataBean(stepSum,0,0));
         }
@@ -198,6 +197,7 @@ public class LoadDataUtil {
         if (sleepData!=null){
             reportDataBean = new ReportDataBean();
             if (sleepData.dataForHour!=null){
+                Log.d("SZIP******","sleep = "+sleepData.dataForHour);
                 String sleepStr[] = sleepData.dataForHour.split(",");
                 ArrayList<DrawDataBean> drawData = new ArrayList<>();
                 for (int i = 1;i<sleepStr.length;i++){
@@ -272,31 +272,25 @@ public class LoadDataUtil {
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        long startTime = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
-
-        List<SleepData> list = SQLite.select()
-                .from(SleepData.class)
-                .where(SleepData_Table.time.lessThanOrEq(time),
-                        SleepData_Table.time.greaterThanOrEq(startTime))
-                .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
         for (int i = 0;i<12;i++){
             int deepSleep = 0;
             int lightSleep = 0;
-            int sum = 0;
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            List<SleepData> list = SQLite.select()
+                    .from(SleepData.class)
+                    .where(SleepData_Table.time.lessThanOrEq(endMonth),
+                            SleepData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
             for (int j = 0;j<list.size();j++){
-                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
-                    deepSleep+=list.get(j).deepTime;
-                    lightSleep+=list.get(j).lightTime;
-                    sum++;
-                }
+                deepSleep+=list.get(j).deepTime;
+                lightSleep+=list.get(j).lightTime;
             }
-            drawData.add(new DrawDataBean(sum==0?0:(deepSleep+lightSleep)/sum,sum==0?0:lightSleep/sum,0));
+            drawData.add(new DrawDataBean((deepSleep+lightSleep),lightSleep,0));
         }
         reportDataBean.setDrawDataBeans(drawData);
         reportDataBean.setValue(getSum(drawData)[0]);
@@ -309,6 +303,7 @@ public class LoadDataUtil {
      * 取心率日报告
      * */
     public ReportDataBean getHeartWithDay(long time){
+        Log.d("SZIP******","获取心率报告");
         //绘图数据-40传入控件
         ReportDataBean reportDataBean = null;
 
@@ -323,8 +318,9 @@ public class LoadDataUtil {
             String heartArray[] = sqlData.heartArray.split(",");
             for (int i = 0;i<heartArray.length;i++){
                 if (Integer.valueOf(heartArray[i])!=0)
-                drawData.add(new DrawDataBean(Integer.valueOf(heartArray[i])-40<7?7:(Integer.valueOf(heartArray[i])-40),0,0));
+                drawData.add(new DrawDataBean(Integer.valueOf(heartArray[i])-40<0?0:(Integer.valueOf(heartArray[i])-40),0,0));
             }
+            Log.d("SZIP******","heart = "+sqlData.heartArray);
             reportDataBean.setDrawDataBeans(drawData);
             reportDataBean.setValue(sqlData.averageHeart);
             int data[];
@@ -397,13 +393,6 @@ public class LoadDataUtil {
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        long startTime = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
-
-        List<HeartData> list = SQLite.select()
-                .from(HeartData.class)
-                .where(HeartData_Table.time.lessThanOrEq(time),
-                        HeartData_Table.time.greaterThanOrEq(startTime))
-                .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
@@ -413,13 +402,15 @@ public class LoadDataUtil {
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
-//            Log.d("SZIP******","START = "+startMonth+" ;endMonth = "+endMonth);
+            List<HeartData> list = SQLite.select()
+                    .from(HeartData.class)
+                    .where(HeartData_Table.time.lessThanOrEq(endMonth),
+                            HeartData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
             for (int j = 0;j<list.size();j++){
                 Log.d("SZIP******","time = "+ DateUtil.getStringDateFromSecond(list.get(j).time,"yyyy-MM-dd"));
-                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
                     heartSum+=list.get(j).averageHeart;
                     sum++;
-                }
             }
             drawData.add(new DrawDataBean(sum==0?0:heartSum/sum-40,0,0));
         }
@@ -563,11 +554,7 @@ public class LoadDataUtil {
         calendar.set(Calendar.MILLISECOND,0);
         long startTime = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
 
-        List<BloodPressureData> list = SQLite.select()
-                .from(BloodPressureData.class)
-                .where(BloodPressureData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodPressureData_Table.time.greaterThanOrEq(startTime))
-                .queryList();
+
 
         ReportDataBean reportDataBean = new ReportDataBean();
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
@@ -578,12 +565,17 @@ public class LoadDataUtil {
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            List<BloodPressureData> list = SQLite.select()
+                    .from(BloodPressureData.class)
+                    .where(BloodPressureData_Table.time.lessThanOrEq(endMonth),
+                            BloodPressureData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
             for (int j = 0;j<list.size();j++){
-                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
+
                     sbp+=list.get(j).sbpDate;
                     dbp+=list.get(j).dbpDate;
                     sum++;
-                }
+
             }
             drawData.add(new DrawDataBean(sum==0?0:sbp/sum-45,sum==0?0:dbp/sum-45,0));
         }
@@ -714,13 +706,6 @@ public class LoadDataUtil {
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        long startTime = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
-
-        List<BloodOxygenData> list = SQLite.select()
-                .from(BloodOxygenData.class)
-                .where(BloodOxygenData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodOxygenData_Table.time.greaterThanOrEq(startTime))
-                .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
@@ -730,11 +715,16 @@ public class LoadDataUtil {
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            List<BloodOxygenData> list = SQLite.select()
+                    .from(BloodOxygenData.class)
+                    .where(BloodOxygenData_Table.time.lessThanOrEq(endMonth),
+                            BloodOxygenData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
             for (int j = 0;j<list.size();j++){
-                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
+
                     value+=list.get(j).bloodOxygenData;
                     sum++;
-                }
+
             }
             drawData.add(new DrawDataBean(sum==0?0:value/sum-70,0,0));
         }
@@ -744,6 +734,154 @@ public class LoadDataUtil {
         reportDataBean.setValue1(getReach(drawData,24));
         return reportDataBean;
     }
+
+
+    /**
+     * 取体温日报告
+     * */
+    public ReportDataBean getAnimalHeatWithDay(long time){
+        //绘图数据-70传入控件
+        ReportDataBean reportDataBean = new ReportDataBean();
+        ArrayList<DrawDataBean> drawData = new ArrayList<>();
+        List<AnimalHeatData> list = SQLite.select()
+                .from(AnimalHeatData.class)
+                .where(AnimalHeatData_Table.time.lessThan(time+24*60*60-1),
+                        AnimalHeatData_Table.time.greaterThanOrEq(time))
+                .queryList();
+        for (int i = 0;i<list.size();i++){
+            drawData.add(new DrawDataBean(list.get(i).tempData -340, 0,list.get(i).time));
+        }
+
+        reportDataBean.setDrawDataBeans(drawData);
+        return reportDataBean;
+    }
+
+    /**
+     * 取体温周报告
+     * */
+    public ReportDataBean getAnimalHeatWithWeek(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        calendar.add(Calendar.DAY_OF_WEEK,-6);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        long startTime = calendar.getTimeInMillis()/1000;//月报告的起始天数的第一秒
+
+        List<AnimalHeatData> list = SQLite.select()
+                .from(AnimalHeatData.class)
+                .where(AnimalHeatData_Table.time.lessThanOrEq(time+24*60*60-1),
+                        AnimalHeatData_Table.time.greaterThanOrEq(startTime))
+                .queryList();
+
+        ReportDataBean reportDataBean = new ReportDataBean();
+        ArrayList<DrawDataBean> drawData = new ArrayList<>();
+        for (int i = 0;i<7;i++){
+            int value = 0;
+            int sum = 0;
+            long startMonth = calendar.getTimeInMillis()/1000;//月报告的起始天数的第一秒
+            calendar.add(Calendar.DAY_OF_WEEK,1);
+            long endMonth = calendar.getTimeInMillis()/1000-1;//下一天减一秒就是上一天的最后一秒
+            for (int j = 0;j<list.size();j++){
+                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
+                    value+=list.get(j).tempData;
+                    sum++;
+                }
+            }
+            drawData.add(new DrawDataBean(sum==0?0:value/sum-340,0,0));
+        }
+
+        reportDataBean.setDrawDataBeans(drawData);
+        reportDataBean.setValue(getAverage(drawData)[0]);
+        reportDataBean.setValue1(getMaxMin(drawData)[0]);
+        return reportDataBean;
+    }
+
+    /**
+     * 取体温月报告
+     * */
+    public ReportDataBean getAnimalHeatWithMonth(long time){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        calendar.add(Calendar.DAY_OF_MONTH,-27);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        long startTime = calendar.getTimeInMillis()/1000;//月报告的起始天数的第一秒
+
+        List<AnimalHeatData> list = SQLite.select()
+                .from(AnimalHeatData.class)
+                .where(AnimalHeatData_Table.time.lessThanOrEq(time+24*60*60-1),
+                        AnimalHeatData_Table.time.greaterThanOrEq(startTime))
+                .queryList();
+
+        ReportDataBean reportDataBean = new ReportDataBean();
+        ArrayList<DrawDataBean> drawData = new ArrayList<>();
+        for (int i = 0;i<28;i++){
+            int value = 0;
+            int sum = 0;
+            long startMonth = calendar.getTimeInMillis()/1000;//月报告的起始天数的第一秒
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+            long endMonth = calendar.getTimeInMillis()/1000-1;//下一天减一秒就是上一天的最后一秒
+            for (int j = 0;j<list.size();j++){
+                if (list.get(j).time<=endMonth&&list.get(j).time>=startMonth){
+                    value+=list.get(j).tempData;
+                    sum++;
+                }
+            }
+            drawData.add(new DrawDataBean(sum==0?0:value/sum-340,0,0));
+        }
+
+        reportDataBean.setDrawDataBeans(drawData);
+        reportDataBean.setValue(getAverage(drawData)[0]);
+        reportDataBean.setValue1(getMaxMin(drawData)[0]);
+        return reportDataBean;
+    }
+
+    /**
+     * 取体温年报告
+     * */
+    public ReportDataBean getAnimalHeatWithYear(long time){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        calendar.add(Calendar.MONTH,-11);
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+
+
+        ReportDataBean reportDataBean = new ReportDataBean();
+        ArrayList<DrawDataBean> drawData = new ArrayList<>();
+        for (int i = 0;i<12;i++){
+            int value = 0;
+            int sum = 0;
+            long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
+            calendar.add(Calendar.MONTH,1);
+            long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            List<AnimalHeatData> list = SQLite.select()
+                    .from(AnimalHeatData.class)
+                    .where(AnimalHeatData_Table.time.lessThanOrEq(endMonth),
+                            AnimalHeatData_Table.time.greaterThanOrEq(startMonth))
+                    .queryList();
+            for (int j = 0;j<list.size();j++){
+                value+=list.get(j).tempData;
+                sum++;
+            }
+            drawData.add(new DrawDataBean(sum==0?0:value/sum-340,0,0));
+        }
+
+        reportDataBean.setDrawDataBeans(drawData);
+        reportDataBean.setValue(getAverage(drawData)[0]);
+        reportDataBean.setValue1(getMaxMin(drawData)[0]);
+        return reportDataBean;
+    }
+
 
     /**
      * 取ecg数据
@@ -823,6 +961,16 @@ public class LoadDataUtil {
     }
 
     /**
+     * 删除运动数据
+     * */
+    public void removeSportData(SportData data){
+        SQLite.delete()
+                .from(SportData.class)
+                .where(SportData_Table.id.is(data.id))
+                .execute();
+    }
+
+    /**
      * 取当天最近一次的健康数据
      * */
     public HealthyDataModel getHealthyDataLast(long time){
@@ -858,8 +1006,13 @@ public class LoadDataUtil {
                 .where(HeartData_Table.time.is(time))
                 .querySingle();
         if (heartData!=null){
-            String[] hearts = heartData.getHeartArray().split(",");
-            healthyDataModel.setHeartData(hearts.length==0?0:Integer.valueOf(hearts[hearts.length-1]));
+            if (heartData.getHeartArray().equals("")){
+                healthyDataModel.setHeartData(0);
+            }else {
+                String[] hearts = heartData.getHeartArray().split(",");
+                healthyDataModel.setHeartData(hearts.length==0?0:Integer.valueOf(hearts[hearts.length-1]));
+            }
+
         }
         else
             healthyDataModel.setHeartData(0);
@@ -893,6 +1046,17 @@ public class LoadDataUtil {
         else
             healthyDataModel.setBloodOxygenData(0);
 
+        AnimalHeatData animalHeatData = SQLite.select()
+                .from(AnimalHeatData.class)
+                .where(AnimalHeatData_Table.time.greaterThanOrEq(time),
+                        AnimalHeatData_Table.time.lessThanOrEq(time*24*60*60-1))
+                .orderBy(OrderBy.fromString(AnimalHeatData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (animalHeatData!=null)
+            healthyDataModel.setAnimalHeatData(animalHeatData.tempData);
+        else
+            healthyDataModel.setAnimalHeatData(0);
 
         EcgData ecgData = SQLite.select()
                 .from(EcgData.class)
@@ -921,13 +1085,8 @@ public class LoadDataUtil {
      * 初始化日历中有数据的天数（画黄点）
      * */
     public void initCalendarPoint(int flag){
-        List<LocalDate> stepPointList = new ArrayList<>();
-        List<LocalDate> sleepPointList = new ArrayList<>();
-        List<LocalDate> heartPointList = new ArrayList<>();
-        List<LocalDate> bloodPressurePointList = new ArrayList<>();
-        List<LocalDate> bloodOxygenPointList = new ArrayList<>();
-        List<LocalDate> ecgPointList = new ArrayList<>();
-        List<LocalDate> sportPointList = new ArrayList<>();
+        List<LocalDate> dataList = new ArrayList<>();
+
         List<StepData> stepDataList = new ArrayList<>();
         List<SleepData> sleepDataList = new ArrayList<>();
         List<HeartData> heartDataList = new ArrayList<>();
@@ -935,114 +1094,107 @@ public class LoadDataUtil {
         List<BloodOxygenData> bloodOxygenDataList = new ArrayList<>();
         List<EcgData> ecgDataList = new ArrayList<>();
         List<SportData> sportDataList = new ArrayList<>();
+        List<AnimalHeatData> animalHeatDataList = new ArrayList<>();
         switch (flag){
             case 1:
                 stepDataList = SQLite.select()
                         .from(StepData.class)
                         .queryList();
+                for (StepData stepData:stepDataList){
+                    if (stepData.steps>0)
+                        dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,"yyyy-MM-dd")));
+                }
                 break;
             case 2:
                 sleepDataList = SQLite.select()
                         .from(SleepData.class)
                         .queryList();
+
+                for (SleepData sleepData:sleepDataList){
+                    if ((sleepData.lightTime+sleepData.deepTime)>0)
+                        dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,"yyyy-MM-dd")));
+                }
                 break;
             case 3:
                 heartDataList = SQLite.select()
                         .from(HeartData.class)
                         .queryList();
+                for (HeartData heartData:heartDataList){
+                    if (heartData.averageHeart>0)
+                        dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,"yyyy-MM-dd")));
+                }
                 break;
             case 4:
                 bloodPressureDataList = SQLite.select()
                         .from(BloodPressureData.class)
                         .queryList();
+                for (BloodPressureData bloodPressureData:bloodPressureDataList){
+                    LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,"yyyy-MM-dd"));
+                    if (!dataList.contains(localDate))
+                        dataList.add(localDate);
+                }
                 break;
             case 5:
                 bloodOxygenDataList = SQLite.select()
                         .from(BloodOxygenData.class)
                         .queryList();
+                for (BloodOxygenData bloodOxygenData:bloodOxygenDataList){
+                    LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,"yyyy-MM-dd"));
+                    if (!dataList.contains(localDate))
+                        dataList.add(localDate);
+                }
                 break;
             case 6:
                 ecgDataList = SQLite.select()
                         .from(EcgData.class)
                         .queryList();
+                for (EcgData ecgData:ecgDataList){
+                    LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,"yyyy-MM-dd"));
+                    if (!dataList.contains(localDate))
+                        dataList.add(localDate);
+                }
                 break;
             case 7:
                 sportDataList = SQLite.select()
                         .from(SportData.class)
                         .queryList();
+                for (SportData sportData:sportDataList){
+                    LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,"yyyy-MM-dd"));
+                    if (!dataList.contains(localDate))
+                        dataList.add(localDate);
+                }
+                break;
+            case 8:
+                animalHeatDataList = SQLite.select()
+                        .from(AnimalHeatData.class)
+                        .queryList();
+                for (AnimalHeatData animalHeatData:animalHeatDataList){
+                    LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(animalHeatData.time,"yyyy-MM-dd"));
+                    if (!dataList.contains(localDate))
+                        dataList.add(localDate);
+                }
                 break;
         }
 
-
-        for (StepData stepData:stepDataList){
-            if (stepData.steps>0)
-                stepPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,"yyyy-MM-dd")));
-        }
-
-        for (SleepData sleepData:sleepDataList){
-            if ((sleepData.lightTime+sleepData.deepTime)>0)
-            sleepPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,"yyyy-MM-dd")));
-        }
-
-        for (HeartData heartData:heartDataList){
-            if (heartData.averageHeart>0)
-            heartPointList.add(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,"yyyy-MM-dd")));
-        }
-
-        for (BloodPressureData bloodPressureData:bloodPressureDataList){
-            LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,"yyyy-MM-dd"));
-            if (!bloodPressurePointList.contains(localDate))
-                bloodPressurePointList.add(localDate);
-        }
-
-        for (BloodOxygenData bloodOxygenData:bloodOxygenDataList){
-            LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,"yyyy-MM-dd"));
-            if (!bloodOxygenPointList.contains(localDate))
-                bloodOxygenPointList.add(localDate);
-        }
-
-        for (EcgData ecgData:ecgDataList){
-            LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,"yyyy-MM-dd"));
-            if (!ecgPointList.contains(localDate))
-                ecgPointList.add(localDate);
-        }
-
-        for (SportData sportData:sportDataList){
-            LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,"yyyy-MM-dd"));
-            if (!sportPointList.contains(localDate))
-                sportPointList.add(localDate);
-        }
-
-        CalendarUtil.setPointList(stepPointList,sleepPointList,heartPointList,bloodPressurePointList,bloodOxygenPointList,
-                ecgPointList,sportPointList);
+        CalendarUtil.setPointList(dataList);
     }
 
-    public void clearCalendarPoint(){
-        List<LocalDate> stepPointList = new ArrayList<>();
-        List<LocalDate> sleepPointList = new ArrayList<>();
-        List<LocalDate> heartPointList = new ArrayList<>();
-        List<LocalDate> bloodPressurePointList = new ArrayList<>();
-        List<LocalDate> bloodOxygenPointList = new ArrayList<>();
-        List<LocalDate> ecgPointList = new ArrayList<>();
-        List<LocalDate> sportPointList = new ArrayList<>();
-        CalendarUtil.setPointList(stepPointList,sleepPointList,heartPointList,bloodPressurePointList,bloodOxygenPointList,
-                ecgPointList,sportPointList);
-    }
 
     /**
      * 求最大值最小值
      * */
     private int[] getMaxMin(ArrayList<DrawDataBean> dataBeans){
         int data[] = new int[2];
-        int min = 300,max = 0;
+        int min = 1000,max = 0;
         for (int i=0;i<dataBeans.size();i++){
             if (min>dataBeans.get(i).getValue()&&dataBeans.get(i).getValue()!=0)
                 min = dataBeans.get(i).getValue();
             if (max<dataBeans.get(i).getValue()&&dataBeans.get(i).getValue()!=0)
                 max = dataBeans.get(i).getValue();
+            Log.d("SZIP******","max = "+max+" ;data = "+dataBeans.get(i).getValue());
         }
         data[0] = max;
-        data[1] = min==300?0:min;
+        data[1] = min==1000?0:min;
         return data;
     }
 
@@ -1058,7 +1210,7 @@ public class LoadDataUtil {
             if (dataBeans.get(i).getValue()>=plan)
                 sum++;
         }
-        return sum1==0?0:(int)((float)sum/dataBeans.size()*1000);
+        return sum1==0?0:(int)((float)sum/sum1*1000);
     }
 
 

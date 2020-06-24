@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
+import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.DrawDataBean;
@@ -33,7 +34,7 @@ public class SleepYearFragment extends BaseFragment implements View.OnClickListe
     private ReportView reportView;
     private ReportDataBean reportDataBean;
     private TextView allSleepTv,averageSleepTv;
-
+    private int month;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_sleep_year;
@@ -45,6 +46,7 @@ public class SleepYearFragment extends BaseFragment implements View.OnClickListe
         initData();
         initView();
         updateView();
+        month = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     @Override
@@ -100,18 +102,24 @@ public class SleepYearFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rightIv:
-                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+            case R.id.rightIv:{
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((SleepReportActivity)getActivity()).reportDate*1000);
+                if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
-                    updateView();
+                    calendar.add(Calendar.MONTH,1);
+                    ((SleepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    EventBus.getDefault().post(new UpdateReport());
                 }
-
+            }
                 break;
             case R.id.leftIv:
-                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
-                updateView();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((SleepReportActivity)getActivity()).reportDate*1000);
+                calendar.add(Calendar.MONTH,-1);
+                ((SleepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }
