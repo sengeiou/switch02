@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Service;
 
+import android.app.Activity;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -116,6 +118,29 @@ public class MainService extends Service {
             EventBus.getDefault().post(new ConnectState(newState));
             if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
                 errorTimes = 0;
+                String str = getResources().getConfiguration().locale.getLanguage();
+                if (str.equals("en"))
+                    EXCDController.getInstance().writeForSetLanuage("en_US");
+                else if (str.equals("de"))
+                    EXCDController.getInstance().writeForSetLanuage("de_DE");
+                else if (str.equals("fr"))
+                    EXCDController.getInstance().writeForSetLanuage("fr_FR");
+                else if (str.equals("it"))
+                    EXCDController.getInstance().writeForSetLanuage("it_IT");
+                else if (str.equals("es"))
+                    EXCDController.getInstance().writeForSetLanuage("es_ES");
+                else if (str.equals("pt"))
+                    EXCDController.getInstance().writeForSetLanuage("pt_PT");
+                else if (str.equals("tr"))
+                    EXCDController.getInstance().writeForSetLanuage("tr_TR");
+                else if (str.equals("ru"))
+                    EXCDController.getInstance().writeForSetLanuage("ru_RU");
+                else if (str.equals("ar"))
+                    EXCDController.getInstance().writeForSetLanuage("ar_SA");
+                else if (str.equals("th"))
+                    EXCDController.getInstance().writeForSetLanuage("th_TH");
+                else if (str.equals("zh"))
+                    EXCDController.getInstance().writeForSetLanuage("zh_CN");
                 EXCDController.getInstance().writeForSetDate();
                 EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
                 EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
@@ -208,7 +233,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","计步数据 = "+"time = "+time+" ;steps = "+steps+" ;distance = "+distance+" ;calorie = "+calorie);
                 dataArrayList.add(new StepData(time,steps,distance,calorie,null));
             }
-            SaveDataUtil.newInstance(mSevice).saveStepDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveStepDataListData(dataArrayList);
         }
 
         @Override
@@ -235,7 +260,7 @@ public class MainService extends Service {
             }
             if (list!=null)
                 dataArrayList.add(MathUitl.mathStepDataForDay(list));
-            SaveDataUtil.newInstance(mSevice).saveStepInfoDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveStepInfoDataListData(dataArrayList);
         }
 
         @Override
@@ -250,7 +275,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","睡眠数据 = "+"time = "+time+" ;deep = "+deepTime+" ;light = "+lightTime);
                 dataArrayList.add(new SleepData(time,deepTime,lightTime,null));
             }
-            SaveDataUtil.newInstance(mSevice).saveSleepDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveSleepDataListData(dataArrayList);
         }
 
         @Override
@@ -262,6 +287,7 @@ public class MainService extends Service {
             String sleepDate = null;
             for (int i =0;i<sleep.length;i++){//遍历数组，把不同日期的睡眠数据分开
                 sleepDate = DateUtil.getSleepDate(sleep[i]);//判断这个时间的数据是属于哪天的睡眠
+                Log.d("SZIP******","sleepDate = "+sleepDate);
                 if (list == null){//如果当天的数据为空，则开一个新的数组用来保存这一天的数据
                     list = new ArrayList<>();
                     list.add(sleep[i]);
@@ -270,7 +296,7 @@ public class MainService extends Service {
                     if (sleepDate.equals(date)){//如果是同一天的数据，则加入数组
                         list.add(sleep[i]);
                     }else {//如果不是同一天的数据，则统计当天的数据，并把list置为null,date保存新一天的日期
-                        dataArrayList.add(MathUitl.mathSleepDataForDay(list,sleepDate));
+                        dataArrayList.add(MathUitl.mathSleepDataForDay(list,date));
                         list = new ArrayList<>();
                         list.add(sleep[i]);
                         date = sleepDate;
@@ -278,8 +304,8 @@ public class MainService extends Service {
                 }
             }
             if (list!=null)
-                dataArrayList.add(MathUitl.mathSleepDataForDay(list,sleepDate));
-            SaveDataUtil.newInstance(mSevice).saveSleepInfoDataListData(dataArrayList);
+                dataArrayList.add(MathUitl.mathSleepDataForDay(list,date));
+            SaveDataUtil.newInstance().saveSleepInfoDataListData(dataArrayList);
         }
 
         @Override
@@ -306,7 +332,7 @@ public class MainService extends Service {
             }
             if (list!=null)
                 dataArrayList.add(MathUitl.mathHeartDataForDay(list));
-            SaveDataUtil.newInstance(mSevice).saveHeartDataListData(dataArrayList,true);
+            SaveDataUtil.newInstance().saveHeartDataListData(dataArrayList,true);
         }
 
         @Override
@@ -321,7 +347,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","血压数据 = "+"time = "+time+" ;sbp = "+sbp+" ;dbp = "+dbp);
                 dataArrayList.add(new BloodPressureData(time,sbp,dbp));
             }
-            SaveDataUtil.newInstance(mSevice).saveBloodPressureDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveBloodPressureDataListData(dataArrayList);
         }
 
         @Override
@@ -335,7 +361,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","血氧数据 = "+"time = "+time+" ;oxygen = "+data);
                 dataArrayList.add(new BloodOxygenData(time,data));
             }
-            SaveDataUtil.newInstance(mSevice).saveBloodOxygenDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveBloodOxygenDataListData(dataArrayList);
         }
 
         @Override
@@ -349,7 +375,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","体温数据 = "+"time = "+time+" ;animalHeat = "+data);
                 dataArrayList.add(new AnimalHeatData(time,data));
             }
-            SaveDataUtil.newInstance(mSevice).saveAnimalHeatDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveAnimalHeatDataListData(dataArrayList);
         }
 
         @Override
@@ -362,7 +388,7 @@ public class MainService extends Service {
                 Log.d("SZIP******","ecg数据 = "+"time = "+time+" ;heart = "+datas[2]);
                 dataArrayList.add(new EcgData(time,datas[2]));
             }
-            SaveDataUtil.newInstance(mSevice).saveEcgDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveEcgDataListData(dataArrayList);
         }
 
         @Override
@@ -376,7 +402,7 @@ public class MainService extends Service {
             int heart = Integer.valueOf(sport[10]);
             int stride = Integer.valueOf(sport[7]);
             SportData sportData = new SportData(time,sportTime,distance,calorie,speed,type,heart,stride);
-            SaveDataUtil.newInstance(mSevice).saveSportData(sportData);
+            SaveDataUtil.newInstance().saveSportData(sportData);
         }
 
 
@@ -384,6 +410,7 @@ public class MainService extends Service {
         public void findPhone(int flag) {
             final AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
             if (flag == 1){
+                starVibrate(new long[]{500,500,500});
                 volume  = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
                 am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
                 if (mediaPlayer==null){
@@ -393,6 +420,7 @@ public class MainService extends Service {
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
+                            stopVibrate();
                             am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                             mediaPlayer = null;
                         }
@@ -401,6 +429,7 @@ public class MainService extends Service {
             }else{
                 if (mediaPlayer!=null){
                     mediaPlayer.stop();
+                    stopVibrate();
                     am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                     mediaPlayer = null;
                 }
@@ -505,6 +534,16 @@ public class MainService extends Service {
         stopNotificationService();
     }
 
+    private void starVibrate(long[] pattern) {
+        Vibrator vib = (Vibrator) mSevice.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.vibrate(pattern, 1);
+    }
+
+
+    private void stopVibrate() {
+        Vibrator vib = (Vibrator) mSevice.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.cancel();
+    }
     @Override
     public IBinder onBind(Intent intent) {
         // We don't provide binding, so return null

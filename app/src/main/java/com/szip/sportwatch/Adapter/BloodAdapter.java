@@ -13,6 +13,7 @@ import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/22.
@@ -73,14 +74,14 @@ public class BloodAdapter extends BaseAdapter{
             holder.itemLl1.setVisibility(View.VISIBLE);
             holder.timeTv.setText(DateUtil.getStringDateFromSecond(drawDataBeans.get(position).getTime(),"HH:mm"));
             if (type == 0){//血压
-                holder.dataTv.setText(String.format("%d/%d", drawDataBeans.get(position).getValue()+45,
+                holder.dataTv.setText(String.format(Locale.ENGLISH,"%d/%d", drawDataBeans.get(position).getValue()+45,
                         drawDataBeans.get(position).getValue1()+45));
                 holder.unitTv.setText("mmHg");
             }else if (type == 1){//血氧
                 holder.dataTv.setText(drawDataBeans.get(position).getValue()+70+"%");
                 holder.unitTv.setText("SaO2");
             }else {
-                holder.dataTv.setText(String.format("%.1f",(drawDataBeans.get(position).getValue()+340)/10f));
+                holder.dataTv.setText(String.format(Locale.ENGLISH,"%.1f",(drawDataBeans.get(position).getValue()+340)/10f));
                 holder.unitTv.setText("℃");
             }
         }

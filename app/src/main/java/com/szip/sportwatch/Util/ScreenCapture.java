@@ -1,15 +1,27 @@
 package com.szip.sportwatch.Util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.szip.sportwatch.R;
+
+import static java.lang.System.in;
 
 /**
  * 截屏
@@ -36,7 +48,7 @@ public class ScreenCapture {
 		try {
 			// 获取内置SD卡路径
 
-			String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport";
+			String sdCardPath = activity.getExternalFilesDir(null).getPath();
 			File fileDir = new File(sdCardPath);
 			if (!fileDir.exists()) {
 				fileDir.mkdir();
@@ -59,7 +71,65 @@ public class ScreenCapture {
 	 * @return
 	 */
 	private static  String getCurrentTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss",Locale.ENGLISH);
 		return sdf.format(new java.util.Date());
 	}
+
+	public static byte[] imageToByte(Context context,int id) {
+		byte[]  buffer = new byte[0];
+		try {
+			InputStream in = context.getResources().openRawResource(id);
+			//获取文件的字节数
+			int lenght = in.available();
+			//创建byte数组
+			buffer = new byte[lenght];
+			//将文件中的数据读到byte数组中
+			in.read(buffer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Log.d("BITMAP******",byteToHexString(buffer));
+		return buffer;
+
+	}
+	public static Bitmap getPicFromBytes(byte[] bytes,
+										 BitmapFactory.Options opts) {
+		if (bytes != null)
+			if (opts != null)
+				return BitmapFactory.decodeByteArray(bytes, 0, bytes.length,
+						opts);
+			else
+				return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+		return null;
+	}
+
+
+	private static BitmapFactory.Options getBitmapOption(int inSampleSize){
+		System.gc();
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPurgeable = true;
+		options.inSampleSize = inSampleSize;
+		return options;
+	}
+
+	/**
+	 * byte[]转变为16进制String字符, 每个字节2位, 不足补0
+	 */
+	public static String byteToHexString(byte[] bytes) {
+		String result = null;
+		String hex = null;
+		if (bytes != null && bytes.length > 0) {
+			final StringBuilder stringBuilder = new StringBuilder(bytes.length);
+			for (byte byteChar : bytes) {
+				hex = Integer.toHexString(byteChar & 0xFF);
+				if (hex.length() == 1) {
+					hex = '0' + hex;
+				}
+				stringBuilder.append(","+hex.toUpperCase());
+			}
+			result = stringBuilder.toString();
+		}
+		return result.substring(1);
+	}
+
 }

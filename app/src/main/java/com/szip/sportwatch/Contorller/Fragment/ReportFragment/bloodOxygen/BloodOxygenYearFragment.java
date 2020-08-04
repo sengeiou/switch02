@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -71,7 +72,7 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
         if (reportDataBean.getValue()!=0)
             averageTv.setText(reportDataBean.getValue()+70+"%");
         if (reportDataBean.getValue()!=0)
-            reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+            reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);

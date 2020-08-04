@@ -15,18 +15,23 @@ import com.szip.sportwatch.Contorller.CameraActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class EXCDController extends Controller {
 
@@ -119,10 +124,11 @@ public class EXCDController extends Controller {
                 String animalHeat = null;
                 if(commands.length>23)
                     animalHeat = commands[23];
+                Log.d("SZIP******","animal = "+animalHeat);
                 if (reviceDataCallback!=null)
                     reviceDataCallback.checkVersion(!step[0].equals("0"),!step[1].equals("0"),
                             !sleep[0].equals("0"),!sleep[1].equals("0"),!heart.equals("0"),
-                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"),(animalHeat==null)?false:!animalHeat.endsWith("0"),commands[17]);
+                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"),(animalHeat==null)?false:!animalHeat.equals("0"),commands[17]);
             }else if (commands[1].equals("10")){//同步计步数据
                 if (commands.length>2){//有数据
                     String datas[] = new String[commands.length-2];
@@ -279,6 +285,8 @@ public class EXCDController extends Controller {
                         reviceDataCallback.getAnimalHeat(datas);
                     writeForRET("GET,"+commands[1]);
                 }
+            }else if (commands[1].equals("81")){//初始化缓存完毕
+                EventBus.getDefault().post(new UpdateView("3"));
             }
         }else if (commands[0].contains("SET")){//SET指令
             if (commands[1].equals("14")){//操作相机指令
@@ -319,8 +327,11 @@ public class EXCDController extends Controller {
                 }else
                     writeForRET("SET,"+commands[1]+",1");
             }
-        }else if (commands[0].contains("SEND")){//SEND指令
 
+        }else if (commands[0].contains("RET")){//RET指令
+            if(commands[2].equals("81")){
+                EventBus.getDefault().post(new UpdateView(commands[3]));
+            }
         }
     }
 
@@ -341,6 +352,20 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 5 ",datas,true,false,0);
     }
+
+    //同步语言
+    public void writeForSetLanuage(String lanuage){
+        String str = "SET,44,"+lanuage;
+        Log.d("lanuage******","str = "+str);
+        byte[] datas = new byte[0];
+        try {
+            datas = str.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        this.send(cmdHead+"0 0 12 ",datas,true,false,0);
+    }
+
     //日均计步数据
     public void writeForGetDaySteps(){
         String str = "GET,10";
@@ -409,7 +434,7 @@ public class EXCDController extends Controller {
     }
     //获取运动数据
     public void writeForGetSportData(int index){
-        String str = String.format("GET,18,%d",index);
+        String str = String.format(Locale.ENGLISH,"GET,18,%d",index);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -467,14 +492,15 @@ public class EXCDController extends Controller {
     //设置时间
     public void writeForSetDate(){
         int gmt = DateUtil.getGMT();
-        String str = "SET,45,1|"+(gmt>0?"+":"-")+String.format("%04.1f|%d",Math.abs(gmt)/60f, Calendar.getInstance().getTimeInMillis()/1000);
+        String str = "SET,45,1|"+(gmt>0?"+":"-")+String.format(Locale.ENGLISH,"%04.1f|%d",Math.abs(gmt)/60f, Calendar.getInstance().getTimeInMillis()/1000);
+        Log.d("SZIP******","DATA STR = "+str);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.send(cmdHead+String.format("0 0 %d ",str.length()),datas,true,false,0);
+        this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",str.length()),datas,true,false,0);
     }
 
     public void writeForSetUnit(UserInfo info){
@@ -490,21 +516,32 @@ public class EXCDController extends Controller {
 
     //设置个人信息
     public void writeForSetInfo(UserInfo info){
-        String height = info.getHeight();
-        if (height!=null)
-            height = height.substring(0,height.length()-2);
-        String weight = info.getWeight();
-        if (weight!=null)
-            weight = weight.substring(0,weight.length()-2);
-        String str = "SET,10,"+String.format("%d|%d|",info.getStepsPlan(),info.getSex())+
-                (height==null?"100":height)+"|"+(weight==null?"100":weight);
+        int height = 0;
+        if (info.getHeight()!=null){
+            height = Integer.valueOf(info.getHeight().substring(0,info.getHeight().length()-2));
+            if(info.getHeight().indexOf("cm")<0){
+                height = MathUitl.british2Metric(height);
+            }
+        }
+
+        int weight = 0;
+        if (info.getWeight()!=null){
+            weight = Integer.valueOf(info.getWeight().substring(0,info.getWeight().length()-2));
+            if(info.getWeight().indexOf("kg")<0){
+                weight = MathUitl.british2MetricWeight(weight);
+            }
+        }
+
+        String str = "SET,10,"+String.format(Locale.ENGLISH,"%d|%d|%d|%d",info.getStepsPlan(),info.getSex(),height,weight);
+
+        Log.d("SZIP******","STR = "+str);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.send(cmdHead+String.format("0 0 %d ",str.length()),datas,true,false,0);
+        this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",str.length()),datas,true,false,0);
     }
 
     //找手表
@@ -555,21 +592,47 @@ public class EXCDController extends Controller {
                     (Calendar.getInstance().getTimeInMillis()/1000+24*60*60,"yyyy-MM-dd")+","+((int)weatherModel.get(1).getLow())+
                     ","+((int)weatherModel.get(1).getHigh())+","+weatherModel.get(1).getCode()+"|2,"+DateUtil.getStringDateFromSecond
                     (Calendar.getInstance().getTimeInMillis()/1000+24*60*60*2,"yyyy-MM-dd")+","+((int)weatherModel.get(2).getLow())+
-                    ","+((int)weatherModel.get(2).getHigh())+","+weatherModel.get(2).getCode();
+                    ","+((int)weatherModel.get(2).getHigh())+","+weatherModel.get(2).getCode()+"|";
 
-            byte[] datas = new byte[0];
-//        try {
+            byte[] datas;
+
             datas = str.getBytes();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        for (int i = 0; i < datas.length; i++) {
-//            // 将每个字符转换成ASCII码
-//            datas.append(Integer.toHexString(bGBK[i] & 0xff) + " ");
-//        }
+
             Log.d("SZIP******","DATA = "+new String(datas));
-            this.send(cmdHead+String.format("0 0 %d ",datas.length),datas,true,false,0);
+            this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",datas.length),datas,true,false,0);
         }
+    }
+
+     //初始化底层缓存，以便接收图片
+    public void initDialInfo(){
+        String str = "GET,81";
+        byte[] datas = new byte[0];
+        try {
+            datas = str.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        this.send(cmdHead+"0 0 6 ",datas,true,false,0);
+    }
+
+    //发送图片
+    public void writeForSendImage(byte[] image,int index,int num,int clock,int clockStye){
+        String str = String.format("SET,81,%d;%d;%d;%d;%d;",clockStye,clock,image.length,num,index);
+        byte[] datas = new byte[0];
+        try {
+            datas = str.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        byte[] newDatas = new byte[datas.length+image.length+1];
+        System.arraycopy(datas,0,newDatas,0,datas.length);
+        System.arraycopy(image,0,newDatas,datas.length,image.length);
+        newDatas[newDatas.length-1] = 59;
+        Log.d("SZIP******","DATA = "+new String(newDatas));
+        Log.d("SZIP******","date len = "+image.length);
+        this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",newDatas.length),newDatas,true,false,0);
+
     }
 
     private   String getCnASCII(String cnStr) {
@@ -592,6 +655,6 @@ public class EXCDController extends Controller {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.send(cmdHead+String.format("0 0 %d ",str.length()),datas,true,false,0);
+        this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",str.length()),datas,true,false,0);
     }
 }

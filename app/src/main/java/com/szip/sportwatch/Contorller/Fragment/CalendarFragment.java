@@ -32,6 +32,8 @@ import androidx.core.view.ViewCompat;
 
 import org.joda.time.LocalDate;
 
+import java.util.Locale;
+
 
 /**
  * Created by Administrator on 2019/12/31.
@@ -97,7 +99,7 @@ public class CalendarFragment extends AppCompatDialogFragment {
         monthCalendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarChange(BaseCalendar baseCalendar, int year, int month, LocalDate localDate,boolean isTouch) {
-                dateTv.setText(String.format("%d-%02d",year,month));
+                dateTv.setText(String.format(Locale.ENGLISH,"%d-%02d",year,month));
                 if (localDate!=null&&calendarListener!=null&&isTouch){
                     calendarListener.onClickDate(localDate.toString());
                     dismiss();

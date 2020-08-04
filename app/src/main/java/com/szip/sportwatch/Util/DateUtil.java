@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -20,7 +21,7 @@ public class DateUtil {
     public static ArrayList<String> getMonthList() {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            list.add(String.format("%02d", i));
+            list.add(String.format(Locale.ENGLISH,"%02d", i));
         }
         return list;
     }
@@ -51,7 +52,7 @@ public class DateUtil {
         }
 
         for (int i = 1; i <= day; i++) {
-            list.add(String.format("%02d", i));
+            list.add(String.format(Locale.ENGLISH,"%02d", i));
         }
         return list;
 
@@ -61,7 +62,7 @@ public class DateUtil {
     public static ArrayList<String> getYearList() {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i <= Integer.valueOf(getCurrentYear()) - 1930; i++) {
-            list.add(String.format("%4d", i + 1930));
+            list.add(String.format(Locale.ENGLISH,"%4d", i + 1930));
         }
         return list;
     }
@@ -70,7 +71,7 @@ public class DateUtil {
         ArrayList<String> list = new ArrayList<>();
 
         for (int i = 0; i < 179; i++) {
-            list.add(String.format("%d", i + 50));
+            list.add(String.format(Locale.ENGLISH,"%d", i + 50));
         }
 
         return list;
@@ -80,7 +81,7 @@ public class DateUtil {
 
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < 70; i++) {
-            list.add(String.format("%d", i + 20));
+            list.add(String.format(Locale.ENGLISH,"%d", i + 20));
         }
         return list;
     }
@@ -91,7 +92,7 @@ public class DateUtil {
 
 
         for (int i = 0; i < 199; i++) {
-            list1.add(String.format("%d", i + 30));
+            list1.add(String.format(Locale.ENGLISH,"%d", i + 30));
         }
         return list1;
     }
@@ -101,21 +102,21 @@ public class DateUtil {
         ArrayList<String> list2 = new ArrayList<>();
 
         for (int i = 0; i < 437; i++) {
-            list2.add(String.format("%d", 67 + i));
+            list2.add(String.format(Locale.ENGLISH,"%d", 67 + i));
         }
 
         return list2;
     }
 
     public static String getCurrentYear() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy",Locale.ENGLISH);
         Date date = new Date();
         return sdf.format(date);
     }
 
     //出生日期字符串转化成Date对象
     public static Date parse(String strDate) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
         return sdf.parse(strDate);
     }
 
@@ -157,7 +158,7 @@ public class DateUtil {
     public static String getDateToString(int milSecond) {
         long time = ((long) milSecond) * 60 * 60 * 24 * 1000;
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
         return format.format(date);
     }
 
@@ -193,7 +194,7 @@ public class DateUtil {
     public static String getGMTWithString(){
         TimeZone tz = TimeZone.getDefault();
         int offsetMinutes = tz.getOffset(System.currentTimeMillis()) / 60000;
-        return String.format("%d",offsetMinutes);
+        return String.format(Locale.ENGLISH,"%d",offsetMinutes);
     }
 
 
@@ -203,7 +204,7 @@ public class DateUtil {
      * @return 返回这一天0点到24点的时间戳
      * */
     public static long getTimeScopeForDay(String dateStr,String tag){
-        SimpleDateFormat dateFormat = new SimpleDateFormat(tag);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(tag,Locale.ENGLISH);
         Date date = new Date();
         try {
             date = dateFormat.parse(dateStr);
@@ -221,7 +222,7 @@ public class DateUtil {
     }
 
     public static long getTimeScope(String dateStr,String tag){
-        SimpleDateFormat dateFormat = new SimpleDateFormat(tag);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(tag,Locale.ENGLISH);
         Date date = new Date();
         try {
             date = dateFormat.parse(dateStr);
@@ -265,7 +266,7 @@ public class DateUtil {
     public static String getStringDateFromSecond(long milSecond,String formatStyle) {
         long time = milSecond * 1000;
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat(formatStyle);
+        SimpleDateFormat format = new SimpleDateFormat(formatStyle,Locale.ENGLISH);
         return format.format(date);
     }
 
@@ -279,9 +280,8 @@ public class DateUtil {
         String datas[] = data.split("\\|");
         if (getMinue(datas[1])>1320){
             long time = getTimeScopeForDay(datas[0],"yyyy-MM-dd");
-            return getStringDateFromSecond(time+24*60*60,"yyyy-MM-dd");
-        }
-        else {
+            return getStringDateFromSecond(time+24*60*60,"yyyy-M-d");
+        } else {
             return datas[0];
         }
     }

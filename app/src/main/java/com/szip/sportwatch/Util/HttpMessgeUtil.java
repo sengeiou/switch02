@@ -17,6 +17,7 @@ import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
+import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
@@ -74,7 +75,7 @@ public class HttpMessgeUtil {
 
     private HttpMessgeUtil(Context context){
         mContext = context;
-        if (context.getResources().getConfiguration().locale.getCountry().equals("CN")){
+        if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
             language = "zh-CN";
         }else{
             language = "en-US";
@@ -581,6 +582,23 @@ public class HttpMessgeUtil {
                 .execute(reportDataBeanGenericsCallback);
     }
 
+    private void _getDeviceConfig(GenericsCallback<DeviceConfigBean> callback)throws IOException{
+        String url = this.url+"comm/getAppFunctionConfigs";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .build()
+                .execute(callback);
+    }
+
+
+    public void getDeviceConfig(GenericsCallback<DeviceConfigBean> callback)throws IOException{
+        _getDeviceConfig(callback);
+    }
+
     public void postAppCrashLog(String appName,String appVersion,String systemInfo,String stackTrace)throws IOException{
         _postAppCrashLog(appName,appVersion,systemInfo,stackTrace);
     }
@@ -814,7 +832,7 @@ public class HttpMessgeUtil {
         @Override
         public void onResponse(DownloadDataBean response, int id) {
             if (response.getCode() == 200){
-                SaveDataUtil saveDataUtil = SaveDataUtil.newInstance(mContext);
+                SaveDataUtil saveDataUtil = SaveDataUtil.newInstance();
                 if (response.getData().getBloodOxygenData().size()!=0)
                     saveDataUtil.saveBloodOxygenDataListData(response.getData().getBloodOxygenData());
 
@@ -904,7 +922,7 @@ public class HttpMessgeUtil {
         editor.putBoolean("isBind",false);
         editor.putString("token",null);
         editor.commit();
-        SaveDataUtil.newInstance(mContext).clearDB();
+        SaveDataUtil.newInstance().clearDB();
         MainService.getInstance().stopConnect();
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

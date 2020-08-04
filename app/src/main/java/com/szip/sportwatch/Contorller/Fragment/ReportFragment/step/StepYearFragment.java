@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -74,7 +75,7 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
         reportView.setReportDate(((StepReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);

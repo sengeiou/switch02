@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Locale;
+
 /**
  * Created by Administrator on 2019/12/18.
  */
@@ -63,10 +65,10 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
         if (reportDataBean!=null){
             reportView.setSleepState(reportDataBean.getValue(),reportDataBean.getValue1()+reportDataBean.getValue2());
             reportView.addData(reportDataBean.getDrawDataBeans());
-            allSleepTv.setText(String.format("%2dh%02dmin",(reportDataBean.getValue1()+reportDataBean.getValue2())/60,
+            allSleepTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",(reportDataBean.getValue1()+reportDataBean.getValue2())/60,
                     (reportDataBean.getValue1()+reportDataBean.getValue2())%60));
-            deepTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue1()/60,reportDataBean.getValue1()%60));
-            lightTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue2()/60,reportDataBean.getValue2()%60));
+            deepTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",reportDataBean.getValue1()/60,reportDataBean.getValue1()%60));
+            lightTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",reportDataBean.getValue2()/60,reportDataBean.getValue2()%60));
         }else {
             reportView.setSleepState(0,0);
             reportView.addData(null);

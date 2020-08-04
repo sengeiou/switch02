@@ -79,6 +79,26 @@ public class ProgressHudModel {
         handler.postDelayed(run,delayMilis);
     }
 
+    public void showWithPie(final Context mContext, String title,int max,final String error, int delayMilis){
+        progressHUD  = KProgressHUD.create(mContext)
+                .setMaxProgress(max)
+                .setStyle(KProgressHUD.Style.PIE_DETERMINATE)
+                .setLabel(title)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
+        progressHUD.show();
+        this.mContext = mContext;
+        this.error = error;
+        handler.postDelayed(run,delayMilis);
+
+    }
+
+    public void setProgress(int num){
+        if (progressHUD!=null)
+            progressHUD.setProgress(num);
+    }
+
     public void setLabel(String label){
         if (progressHUD!=null)
             progressHUD.setLabel(label);

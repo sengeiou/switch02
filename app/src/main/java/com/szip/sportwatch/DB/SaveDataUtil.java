@@ -23,6 +23,8 @@ import com.szip.sportwatch.DB.dbModel.SleepData;
 import com.szip.sportwatch.DB.dbModel.SleepData_Table;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.SportData_Table;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
@@ -32,6 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.joda.time.LocalDate;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/22.
@@ -39,16 +42,15 @@ import java.util.List;
 
 public class SaveDataUtil {
     private static SaveDataUtil saveDataUtil;
-    private Context mContext;
-    private SaveDataUtil(Context context){
-        mContext = context;
+    private SaveDataUtil(){
+
     }
 
-    public static SaveDataUtil newInstance(Context context){                     // 单例模式，双重锁
+    public static SaveDataUtil newInstance(){                     // 单例模式，双重锁
         if( saveDataUtil == null ){
             synchronized (SaveDataUtil.class){
                 if( saveDataUtil == null ){
-                    saveDataUtil = new SaveDataUtil(context);
+                    saveDataUtil = new SaveDataUtil();
                 }
             }
         }
@@ -127,7 +129,7 @@ public class SaveDataUtil {
                                         StringBuffer stepString = new StringBuffer();
                                         for (int i = 0;i<24;i++){
                                             if (sql[i]+step[i]!=0){
-                                                stepString.append(String.format(",%02d:%d",i,sql[i]+step[i]));
+                                                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,sql[i]+step[i]));
                                             }
                                         }
                                         sqlData.dataForHour = stepString.toString().substring(1);
@@ -182,6 +184,38 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","睡眠数据保存成功");
+            }
+        }).build().execute();
+    }
+
+
+    /**
+     * 批量保存设备配置
+     * */
+    public void saveConfigListData(List<SportWatchAppFunctionConfigDTO> sportWatchAppFunctionConfigDTOS){
+        Log.d("SZIP******","save data = "+sportWatchAppFunctionConfigDTOS.size());
+
+        SQLite.delete()
+        .from(SportWatchAppFunctionConfigDTO.class)
+        .execute();
+
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<SportWatchAppFunctionConfigDTO>() {
+                            @Override
+                            public void processModel(SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO, DatabaseWrapper wrapper) {
+                                Log.d("SZIP******","save sportWatchAppFunctionConfigDTO.appName = "+sportWatchAppFunctionConfigDTO.appName);
+                                sportWatchAppFunctionConfigDTO.save();
+                            }
+                        }).addAll(sportWatchAppFunctionConfigDTOS).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
             }
         }).build().execute();
     }

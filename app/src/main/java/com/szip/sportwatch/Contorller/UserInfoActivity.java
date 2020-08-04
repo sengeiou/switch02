@@ -61,6 +61,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -275,7 +276,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
-                    birthdayTv.setText(String.format("%4d-%02d-%02d",(1930+option1),(option2+1),(option3+1)));
+                    birthdayTv.setText(String.format(Locale.ENGLISH,"%4d-%02d-%02d",(1930+option1),(option2+1),(option3+1)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -342,7 +343,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 selectPhotoDialog();
                 break;
             case R.id.userNameRl:
-                MyAlerDialog.getSingle().showAlerDialogWithEdit(getString(R.string.userName), userInfo.getUserName(), getString(R.string.enterUserName),
+                MyAlerDialog.getSingle().showAlerDialogWithEdit(getString(R.string.userName), userNameTv.getText().toString(), getString(R.string.enterUserName),
                         null, null,false, new MyAlerDialog.AlerDialogEditOnclickListener() {
                             @Override
                             public void onDialogEditTouch(String edit1) {

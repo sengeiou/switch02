@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@mipmap/my_head_male_52"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:is_circular="true"/>
 
             <TextView
                 android:id="@+id/userNameTv"

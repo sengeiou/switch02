@@ -6,40 +6,40 @@ import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
+import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
+import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
-import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
-import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.TopExceptionHandler;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import androidx.annotation.ArrayRes;
+import okhttp3.Call;
 
 
 /**
@@ -102,7 +102,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(this);
 
         //初始化不推送的应用
-        initIgnoreList();
+
 
         /**
          * 拿去本地缓存的数据
@@ -113,6 +113,13 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         updownTime = sharedPreferences.getInt("updownTime",3600);
 
         camerable = sharedPreferences.getBoolean("camera",false);
+
+        if (sharedPreferences.getBoolean("first",true)){
+            initIgnoreList();
+            sharedPreferences.edit().putBoolean("first",false).commit();
+        }
+
+
 
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
@@ -370,10 +377,37 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 return true;
         }
 
-        if (deviceNum.equals("249")||deviceNum.equals("242")){
-            return false;
-        }else {
-            return true;
+        return LoadDataUtil.newInstance().getSportConfig(Integer.valueOf(deviceNum));
+    }
+
+    public boolean isCirlce(){
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return true;
+        }
+
+        return LoadDataUtil.newInstance().getDialConfig(Integer.valueOf(deviceNum));
+    }
+
+    public void getDeviceConfig(){
+        try {
+            HttpMessgeUtil.getInstance(this).getDeviceConfig(new GenericsCallback<DeviceConfigBean>(new JsonGenericsSerializator()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+
+                @Override
+                public void onResponse(DeviceConfigBean response, int id) {
+                    if (response.getCode()==200){
+                        SaveDataUtil.newInstance().saveConfigListData(response.getData());
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
 }

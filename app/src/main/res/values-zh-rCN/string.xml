@@ -180,6 +180,17 @@
     <string name="blePhone">蓝牙通话</string>
     <string name="blePhoto">蓝牙拍照</string>
     <string name="unit">单位制式</string>
+    <string name="face">切换表盘</string>
+    <string name="myDail">我的表盘</string>
+    <string name="seeDail">表盘预览</string>
+    <string name="diyDail">自定义</string>
+    <string name="diyDailing">更换中...</string>
+    <string name="diyDailOK">更换成功</string>
+    <string name="diyDailError">更换失败,请重试</string>
+    <string name="upDownBackground">请上传一张背景图片</string>
+    <string name="chooseClock">请选择一个时钟样式</string>
+    <string name="clock">时钟样式</string>
+    <string name="background">上传背景</string>
     <string name="about">关于</string>
     <string name="logout">退出登录</string>
     <string name="me">我的</string>
@@ -313,6 +324,7 @@
     <string name="crop_pic_failed">截取图像失败，请选择jpg,png格式图片！</string>
     <string name="deviceOut">未绑定设备</string>
     <string name="visiter">游客模式不支持此功能</string>
+    <string name="chooseJpg">请选择jpg格式的图片</string>
 
     <!--分享界面-->
     <string name="planOK">今日目标已达成</string>

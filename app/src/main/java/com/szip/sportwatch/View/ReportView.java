@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -277,10 +278,10 @@ public class ReportView extends View {
             if (maxDraw == 2){
                 RectF[] rectFS = getRectSleep();
                 for (int i = 0; i< rectFS.length; i++){
-                    if (datas1[i] == 1)
-                        rectPaint.setColor(color2);
-                    else
+                    if (datas1[i] == 2)
                         rectPaint.setColor(color1);
+                    else
+                        rectPaint.setColor(color2);
                     canvas.drawRect(rectFS[i], rectPaint);
                 }
             }else {
@@ -315,9 +316,9 @@ public class ReportView extends View {
                         canvas.drawBitmap(arrow,mSrcRect,mDestRect,mPointPaint);
                         String str;
                         if (flag == 1)
-                            str = String.format("%d", datas1[i]);
+                            str = String.format(Locale.ENGLISH,"%d", datas1[i]);
                         else
-                            str = String.format("%dh%dm", datas1[i]/60,datas1[i]%60);
+                            str = String.format(Locale.ENGLISH,"%dh%dm", datas1[i]/60,datas1[i]%60);
                         float w = textXPaint.measureText(str, 0, str.length());
                         canvas.drawText(str, mDestRect.centerX()-w/2, mDestRect.top-pad2, textXPaint);
                     }
@@ -358,7 +359,7 @@ public class ReportView extends View {
             float x = start;
             float width = datas2[i]/(float)sleepTime*tableWidth;
             start = x+width;
-            float top =  tableHeight-(tableHeight- textHeight)/2*datas1[i];
+            float top =  tableHeight-(tableHeight- textHeight)/2*(datas1[i]==0?1:datas1[i]);
             rectFS[i] = new RectF(x, top, x+width, tableHeight-pad5);
         }
 
@@ -382,6 +383,9 @@ public class ReportView extends View {
                     top = datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
                             height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
                             height- textHeight- pad10-datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
+                if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+                    top+=pad15;
+                }
                 rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
             }
 
@@ -433,19 +437,19 @@ public class ReportView extends View {
         }else {
             for (int i = 0;i<yValueNum;i++){
                 if(flag == 1)
-                    yMsg[i] = String.format("%dk",(maxValue/yValueNum)*(i+1)/1000);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%dk",(maxValue/yValueNum)*(i+1)/1000);
                 else if (flag == 2)
-                    yMsg[i] = String.format("%dh",(maxValue/yValueNum)*(i+1)/60);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%dh",(maxValue/yValueNum)*(i+1)/60);
                 else if (flag == 3)
-                    yMsg[i] = i == yValueNum-1?maxDraw+40+"":String.format("%d",(maxValue/yValueNum)*(i+1)+40);
+                    yMsg[i] = i == yValueNum-1?maxDraw+40+"":String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+40);
                 else if (flag == 4)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+45);
                 else if (flag == 5)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+70);
                 else if (flag == 6)
-                    yMsg[i] = String.format("%d",((maxValue/yValueNum)*(i+1)+340)/10);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",((maxValue/yValueNum)*(i+1)+340)/10);
                 else
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1));
             }
         }
 
@@ -489,7 +493,7 @@ public class ReportView extends View {
             if (reportDate== DateUtil.getTimeOfToday())
                 xMsg[6] = getContext().getResources().getString(R.string.today);
         }else if (xValueNum == 5){//月的横坐标
-            SimpleDateFormat format = new SimpleDateFormat("MM.dd");
+            SimpleDateFormat format = new SimpleDateFormat("MM.dd",Locale.ENGLISH);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(reportDate*1000);
             long time = calendar.getTimeInMillis()/1000;
@@ -509,7 +513,7 @@ public class ReportView extends View {
             if (reportDate== DateUtil.getTimeOfToday())
                 xMsg[4] = getContext().getResources().getString(R.string.today);
         }else if (xValueNum == 12){//年的横坐标
-            SimpleDateFormat format = new SimpleDateFormat("MM");
+            SimpleDateFormat format = new SimpleDateFormat("MM",Locale.ENGLISH);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(reportDate*1000);
             for (int i = 11;i>=0;i--){
@@ -525,9 +529,9 @@ public class ReportView extends View {
             xMsg[2] = "18pm";
         }else if (xValueNum == 2){
             xMsg = new String[2];
-            xMsg[0] = String.format("%02d:%02d",sleepStartTime/60,sleepStartTime%60);
+            xMsg[0] = String.format(Locale.ENGLISH,"%02d:%02d",sleepStartTime/60,sleepStartTime%60);
             int time = (sleepStartTime+sleepTime)>24*60?(sleepStartTime+sleepTime)%(24*60):sleepStartTime+sleepTime;
-            xMsg[1] = String.format("%02d:%02d",time/60,time%60);
+            xMsg[1] = String.format(Locale.ENGLISH,"%02d:%02d",time/60,time%60);
         }
         return xMsg;
     }

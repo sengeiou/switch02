@@ -11,6 +11,7 @@ import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.WH_ECGView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class EcgDataActivity extends BaseActivity{
 
@@ -64,11 +65,11 @@ public class EcgDataActivity extends BaseActivity{
         nameTv = findViewById(R.id.nameTv);
         nameTv.setText(nameStr);
         averageTv = findViewById(R.id.averageTv);
-        averageTv.setText(String.format("%dBpm",average));
+        averageTv.setText(String.format(Locale.ENGLISH,"%dBpm",average));
         maxTv = findViewById(R.id.maxTv);
         maxTv.setText(String.format("%dBpm",max));
         minTv = findViewById(R.id.minTv);
-        minTv.setText(String.format("%dBpm",min));
+        minTv.setText(String.format(Locale.ENGLISH,"%dBpm",min));
         timeTv = findViewById(R.id.timeTv);
         timeTv.setText(DateUtil.getStringDateFromSecond(time,"MM/dd HH:mm:ss"));
     }

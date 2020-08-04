@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -65,8 +66,8 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     private void updateView() {
         reportView.setReportDate(((SleepReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        allSleepTv.setText(String.format("%.1fh",reportDataBean.getValue()/60f));
-        averageSleepTv.setText(String.format("%.1fh",reportDataBean.getValue1()/60f));
+        allSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue()/60f));
+        averageSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue1()/60f));
         if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((SleepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+

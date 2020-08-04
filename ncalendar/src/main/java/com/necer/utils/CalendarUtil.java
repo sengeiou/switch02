@@ -52,7 +52,7 @@ public class CalendarUtil {
         int a = (int) Math.round(alpha * 255);
         String hex = Integer.toHexString(a).toUpperCase();
         if (hex.length() == 1) hex = "0" + hex;
-        String hexCode = "#" + hex + String.format("%06X", Integer.valueOf(16777215 & color));
+        String hexCode = "#" + hex + String.format(Locale.ENGLISH,"%06X", Integer.valueOf(16777215 & color));
         int newColor;
         try {
             newColor = Color.parseColor(hexCode);

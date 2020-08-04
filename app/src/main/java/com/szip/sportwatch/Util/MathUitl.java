@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -46,10 +47,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -372,6 +379,23 @@ public class MathUitl {
     }
 
     /**
+     * 英制转公制
+     * */
+    public static int british2Metric(int height){
+        float data = (height / 0.3937008f);
+        return (int)data+(data-(int)data>0.44444?1:0);
+    }
+
+    /**
+     * 英制转公制
+     * */
+    public static int british2MetricWeight(int weight){
+        float data;
+        data = (weight / 2.2046226f);
+        return (int)data+(data-(int)data>0.44444?1:0);
+    }
+
+    /**
      * 公制转英制
      * */
     public static int metric2British(int height){
@@ -405,7 +429,7 @@ public class MathUitl {
     public static ArrayList<String> getStepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
         for (int i = 8;i<=40;i++){
-            list.add(String.format("%d",i*500));
+            list.add(String.format(Locale.ENGLISH,"%d",i*500));
         }
         return list;
     }
@@ -413,7 +437,7 @@ public class MathUitl {
     public static ArrayList<String> getSleepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
         for (int i = 300;i<=900;i+=30){
-            list.add(String.format("%.1f",(float)i/60));
+            list.add(String.format(Locale.ENGLISH,"%.1f",(float)i/60));
         }
         return list;
     }
@@ -434,7 +458,7 @@ public class MathUitl {
         StringBuffer stepString = new StringBuffer();
         for (int i = 0;i<hour.length;i++){
             if (hour[i]!=0){
-                stepString.append(String.format(",%02d:%d",i,hour[i]));
+                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,hour[i]));
             }
         }
         String step = stepString.toString();
@@ -455,12 +479,13 @@ public class MathUitl {
             data = sleeps.get(i).split("\\|");
             if (i == 0){//第一条数据，代表睡眠起始时间
                 sleepString.append(data[1]);//初始化startTime
-                sleepString.append(String.format(",%d:",DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
-                        -DateUtil.getMinue(data[1]))+data[2]);
-            }else {
-                sleepString.append(String.format(",%d:",DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
-                        -DateUtil.getMinue(data[1]))+data[2]);
             }
+            int time = (DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
+                    -DateUtil.getMinue(data[1]));
+            if (time<0)
+                time+=1440;
+            sleepString.append(String.format(Locale.ENGLISH,",%d:",time)+data[2]);
+
         }
         Log.d("SZIP******","详情睡眠数据 = "+"time = "+DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")+"str = "+sleepString.toString());
         return new SleepData(DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd"),0,0,
@@ -661,7 +686,6 @@ public class MathUitl {
         String uuid = "";
         SharedPreferences mShare = context.getSharedPreferences(FILE,MODE_PRIVATE);
         uuid = mShare.getString("uuid", null);
-
         if(uuid==null){
             uuid = UUID.randomUUID().toString();
             mShare.edit().putString("uuid",uuid).commit();
@@ -674,7 +698,6 @@ public class MathUitl {
         editor.putLong("lastTime",Calendar.getInstance().getTimeInMillis()/1000);
         Log.d("SZIP******","lastTime = "+Calendar.getInstance().getTimeInMillis()/1000);
         editor.commit();
-
     }
 
     public static SharedPreferences.Editor saveInfoData(Context context, UserInfo info){
@@ -712,5 +735,24 @@ public class MathUitl {
         info.setPhoneNumber(sharedPreferences.getString("phoneNumber",null));
         info.setEmail(sharedPreferences.getString("email",null));
         return info;
+    }
+
+    public static int getClockStyle(int num){
+        switch (num){
+            case 2:
+            case 7:
+                return 0;
+            default:
+                return 1;
+        }
+    }
+
+    public static boolean isJpgFile(Uri file){
+        if (file==null||file.getPath()==null)
+            return false;
+        if (file.getPath().indexOf(".png")>=0||file.getPath().indexOf(".PNG")>=0)
+            return false;
+        else
+            return true;
     }
 }

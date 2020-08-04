@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ReportScorllView extends View implements GestureDetector.OnGestureListener{
 
-    private int width,height;//本页面宽，高
+    private int width = 0,height = 0;//本页面宽，高
     private float valueWidth,valueHeight;//绘制数据区域宽高
 
     private float textWidth = 0, textHeight = 0;//文字宽高
@@ -268,6 +268,8 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
      * 添加数据
      * */
     public void addData(List<DrawDataBean> list){
+        this.mSliding = 0;
+
         data_num = list.size();
         datasTop = new int[data_num];
         datasBottom = new int[data_num];
@@ -279,6 +281,10 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
             if (datasTop[i]> maxValue)
                 maxValue = datasTop[i];
         }
+        if (width!=0&&data_num>7){
+            mSliding = -(data_num-7)*(mInterval+mBarWidth);
+        }
+
         postInvalidate();
     }
 

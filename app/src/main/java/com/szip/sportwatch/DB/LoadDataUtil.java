@@ -20,6 +20,8 @@ import com.szip.sportwatch.DB.dbModel.SleepData;
 import com.szip.sportwatch.DB.dbModel.SleepData_Table;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.SportData_Table;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.DrawDataBean;
@@ -1179,6 +1181,40 @@ public class LoadDataUtil {
         CalendarUtil.setPointList(dataList);
     }
 
+
+    public boolean getSportConfig(int deviceNum){
+
+        SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
+                .from(SportWatchAppFunctionConfigDTO.class)
+                .where(SportWatchAppFunctionConfigDTO_Table.identifier.is(deviceNum))
+                .querySingle();
+
+        return sportWatchAppFunctionConfigDTO==null?false:sportWatchAppFunctionConfigDTO.getMultiSport()==1;
+
+    }
+
+    public ArrayList<String> getBleNameConfig(){
+        List<SportWatchAppFunctionConfigDTO> sportWatchAppFunctionConfigDTOs = SQLite.select()
+                .from(SportWatchAppFunctionConfigDTO.class)
+                .queryList();
+        Log.d("SZIP******","load data = "+sportWatchAppFunctionConfigDTOs.size());
+
+        ArrayList<String> datas = new ArrayList<>();
+        for (SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO:sportWatchAppFunctionConfigDTOs){
+            Log.d("SZIP******","load sportWatchAppFunctionConfigDTO.appName = "+sportWatchAppFunctionConfigDTO.appName);
+            datas.add(sportWatchAppFunctionConfigDTO.appName);
+        }
+        return datas;
+    }
+
+    public boolean getDialConfig(int deviceNum){
+        SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
+                .from(SportWatchAppFunctionConfigDTO.class)
+                .where(SportWatchAppFunctionConfigDTO_Table.identifier.is(deviceNum))
+                .querySingle();
+
+        return sportWatchAppFunctionConfigDTO==null?false:sportWatchAppFunctionConfigDTO.getScreenType()==0;
+    }
 
     /**
      * 求最大值最小值

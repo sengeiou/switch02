@@ -79,8 +79,6 @@ public class DeviceAdapter extends BaseAdapter{
         if (list.get(position).getAddress()!=null)
             holder.addressTv.setText(list.get(position).getAddress());
 
-
-
         return convertView;
     }
 

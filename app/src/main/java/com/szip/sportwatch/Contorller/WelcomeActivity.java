@@ -75,7 +75,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
         isFirst = sharedPreferences.getBoolean("isFirst",true);
         app.setUserInfo(MathUitl.loadInfoData(sharedPreferences));
-
+        app.getDeviceConfig();
         if (isFirst){
             MyAlerDialog.getSingle().showAlerDialogWithPrivacy(getString(R.string.privacy1), getString(R.string.privacyTip), null, null, false,
                     new MyAlerDialog.AlerDialogOnclickListener() {

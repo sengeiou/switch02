@@ -31,6 +31,7 @@ import com.szip.sportwatch.Contorller.LoginActivity;
 import com.szip.sportwatch.Contorller.MainActivity;
 import com.szip.sportwatch.Contorller.NotificationAppListActivity;
 import com.szip.sportwatch.Contorller.SeachingActivity;
+import com.szip.sportwatch.Contorller.SelectDialActivity;
 import com.szip.sportwatch.Contorller.UnitSelectActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -60,6 +61,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -161,7 +163,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 app.getUserInfo().setDeviceCode(null);
                 MainService.getInstance().stopConnect();
                 MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();
-                SaveDataUtil.newInstance(getContext()).clearDB();
+                SaveDataUtil.newInstance().clearDB();
                 getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
             }else
                 stateTv.setText(getString(R.string.disConnect));
@@ -206,7 +208,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                             ProgressHudModel.newInstance().diss();
                             app.getUserInfo().setDeviceCode(null);
                             MainService.getInstance().stopConnect();
-                            SaveDataUtil.newInstance(getContext()).clearDB();
+                            SaveDataUtil.newInstance().clearDB();
                             getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
                         }
 
@@ -331,6 +333,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         getView().findViewById(R.id.blePhoneLl).setOnClickListener(this);
         getView().findViewById(R.id.unitLl).setOnClickListener(this);
         getView().findViewById(R.id.aboutLl).setOnClickListener(this);
+        getView().findViewById(R.id.faceLl).setOnClickListener(this);
         getView().findViewById(R.id.logoutLl).setOnClickListener(this);
         blePhotoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -359,7 +362,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private void initData() {
         userNameTv.setText(userInfo.getUserName());
         stepPlanTv.setText(userInfo.getStepsPlan()+"");
-        sleepPlanTv.setText(String.format("%.1fh",userInfo.getSleepPlan()/60f));
+        sleepPlanTv.setText(String.format(Locale.ENGLISH,"%.1fh",userInfo.getSleepPlan()/60f));
 
 
         if (app.getUserInfo().getAvatar()!=null)
@@ -437,6 +440,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             case R.id.aboutLl:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
+            case R.id.faceLl:
+                if(MainService.getInstance().getConnectState()!=3)
+                    showToast(getString(R.string.lostDevice));
+                else{
+                    startActivity(new Intent(getActivity(), SelectDialActivity.class));
+                }
+                break;
             case R.id.logoutLl:
                 MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.logoutTip), null, null,
                         false, new MyAlerDialog.AlerDialogOnclickListener() {
@@ -456,7 +466,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                                     SharedPreferences.Editor editor = sharedPreferencesp.edit();
                                     editor.putString("token",null);
                                     editor.commit();
-                                    SaveDataUtil.newInstance(getContext()).clearDB();
+                                    SaveDataUtil.newInstance().clearDB();
                                     Intent intent = new Intent();
                                     intent.setClass(getActivity(),LoginActivity.class);
                                     startActivity(intent);
@@ -481,7 +491,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             }
         }else if (id == SLEEPFLAG){
             ProgressHudModel.newInstance().diss();
-            sleepPlanTv.setText(String.format("%.1fh",sleepPlan/60f));
+            sleepPlanTv.setText(String.format(Locale.ENGLISH,"%.1fh",sleepPlan/60f));
             app.getUserInfo().setSleepPlan(sleepPlan);
         }
         MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();

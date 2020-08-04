@@ -24,21 +24,15 @@ android {
         applicationId "com.szip.sportwatch"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10
-        versionName "1.08"
+        versionCode 14
+        versionName "1.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.szp
     }
     buildTypes {
         release {
             signingConfig signingConfigs.szp
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFile 'proguard-rules.pro'
-            }
+
         }
         debug {
             signingConfig signingConfigs.szp

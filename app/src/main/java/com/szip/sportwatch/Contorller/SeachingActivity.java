@@ -24,6 +24,7 @@ import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Adapter.DeviceAdapter;
+import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.MyApplication;
@@ -35,6 +36,7 @@ import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.MyAlerDialog;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,8 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
     private RotateAnimation rotateRight = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
             0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
+
+    private ArrayList<String> deviceConfig;
 
     private ImageView searchIv;
     private ListView listView;
@@ -136,6 +140,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
     private void initData() {
         mHandler = new Handler();
         WearableManager.getInstance().registerWearableListener(mWearableListener);
+        deviceConfig = LoadDataUtil.newInstance().getBleNameConfig();
     }
 
     /**
@@ -241,8 +246,10 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onDeviceScan(final BluetoothDevice device) {
-            if (device.getName()!=null&&(device.getName().indexOf("L7")>=0||device.getName().indexOf("iSmarport")>=0
-            ||device.getName().indexOf("T50Pro")>=0)) {
+            Log.d("SZIP******","devive name = "+device.getName()+
+                    " ;device config = "+deviceConfig.contains(device.getName()));
+            if (device.getName()!=null&&deviceConfig.contains(device.getName().replace("_LE",""))) {
+                Log.d("SZIP******","ADD");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

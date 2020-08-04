@@ -403,9 +403,17 @@ public class NotificationDataManager {
                                             notificationData);
                                     NotificationSyncList.getInstance().saveSyncList();
                                 }
-                                if (notificationData.getTextList()==null){
+                                if (notificationData.getTextList()==null||Arrays.toString(notificationData.getTextList()).equals("[]")){
+                                    String[] str1 = new String[]{"",""};
                                     String[] str = notificationData.getTickerText().split(":");
-                                    notificationData.setTextList(str);
+                                    if (notificationData.getTickerText().equals(""))
+                                        return;
+                                    if (str.length>=2){
+                                        notificationData.setTextList(str);
+                                    } else {
+                                        str1[1] = str[0];
+                                        notificationData.setTextList(str1);
+                                    }
                                 }
                                 Log.d(TAG, "SendNotficationThread mThreadNotfication = "
                                         + notificationData);

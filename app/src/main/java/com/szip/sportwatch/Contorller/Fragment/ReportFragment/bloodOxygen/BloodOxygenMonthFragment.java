@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -71,7 +72,7 @@ public class BloodOxygenMonthFragment extends BaseFragment implements View.OnCli
         if (reportDataBean.getValue()!=0)
             averageTv.setText(reportDataBean.getValue()+70+"%");
         if (reportDataBean.getValue()!=0)
-            reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+            reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         if (DateUtil.getTimeOfToday()==((BloodOxygenReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodOxygenReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+

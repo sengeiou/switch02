@@ -117,7 +117,7 @@ We recommend that minors encourage their parents or guardians to read this polic
 
     <!--健康页面 Health Page-->
     <string name="planStep">Target Steps%d</string>
-    <string name="sleep">Sleep Monitor</string>
+    <string name="sleep">Sleep</string>
     <string name="heart">Heart Rate</string>
     <string name="blood">Blood Pressure</string>
     <string name="bloodo">Blood Oxygen</string>
@@ -135,7 +135,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="flat">Low</string>
     <string name="head">Here Is HeadView</string>
     <string name="pull_to_refresh">Pull Down To Refresh</string>
-    <string name="release_to_refresh">Refresh Immediately After Release</string>
+    <string name="release_to_refresh">Refresh After Release</string>
     <string name="refreshing">Refreshing...</string>
     <string name="refresh_succeed">Refresh Successful</string>
     <string name="refresh_fail">Refresh Failed</string>
@@ -178,6 +178,17 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="blePhone">Bluetooth Call</string>
     <string name="blePhoto">Bluetooth Camera</string>
     <string name="unit">Unit</string>
+    <string name="face">Dial</string>
+    <string name="myDail">My Dial</string>
+    <string name="seeDail">Preview</string>
+    <string name="diyDail">DIY</string>
+    <string name="diyDailing">Updating...</string>
+    <string name="diyDailOK">Update Success</string>
+    <string name="diyDailError">Update Fail,Please try again</string>
+    <string name="upDownBackground">Please upload a background picture</string>
+    <string name="chooseClock">Please select a clock style</string>
+    <string name="clock">Clock Style</string>
+    <string name="background">Upload Pictures</string>
     <string name="about">About</string>
     <string name="logout">Sign out</string>
     <string name="me">Mine</string>
@@ -307,6 +318,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG/PNG Format Picture!</string>
     <string name="deviceOut">Unbound device</string>
     <string name="visiter">This feature is not supported in the visitor mode</string>
+    <string name="chooseJpg">Please choose an image in JPG format</string>
 
 
     <!--分享界面 Sharing Interface-->

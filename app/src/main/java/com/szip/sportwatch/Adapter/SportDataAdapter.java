@@ -18,6 +18,7 @@ import com.szip.sportwatch.Util.MathUitl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SportDataAdapter extends BaseAdapter {
 
@@ -72,7 +73,7 @@ public class SportDataAdapter extends BaseAdapter {
 
         holder.timeTv.setText(DateUtil.getStringDateFromSecond(list.get(position).time,"MM/dd HH:mm:ss"));
 
-        holder.sportTimeTv.setText(String.format("%02d:%02d:%02d",list.get(position).sportTime/3600,
+        holder.sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",list.get(position).sportTime/3600,
                 list.get(position).sportTime%3600/60,list.get(position).sportTime%3600%60));
 
         switch (list.get(position).type){
@@ -86,10 +87,10 @@ public class SportDataAdapter extends BaseAdapter {
             case 3:{//室内跑步
                 holder.typeIv.setImageResource(R.mipmap.sport_list_icon_type);
                 if (((MyApplication)mContext.getApplicationContext()).getUserInfo().getUnit().equals("metric")){
-                    holder.distanceTv.setText(String.format("%.1f",list.get(position).distance/1f));
+                    holder.distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",list.get(position).distance/1f));
                     holder.unitTv.setText("m");
                 } else{
-                    holder.distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(list.get(position).distance)));
+                    holder.distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(list.get(position).distance)));
                     holder.unitTv.setText("Mi");
                 }
                 holder.calorieUnitTv.setVisibility(View.VISIBLE);
@@ -101,10 +102,10 @@ public class SportDataAdapter extends BaseAdapter {
             case 4:{//登山
                 holder.typeIv.setImageResource(R.mipmap.sport_list_icon_type_mountain);
                 if (((MyApplication)mContext.getApplicationContext()).getUserInfo().getUnit().equals("metric")){
-                    holder.distanceTv.setText(String.format("%.1f",list.get(position).distance/1f));
+                    holder.distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",list.get(position).distance/1f));
                     holder.unitTv.setText("m");
                 } else{
-                    holder.distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(list.get(position).distance)));
+                    holder.distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(list.get(position).distance)));
                     holder.unitTv.setText("Mi");
                 }
                 holder.calorieUnitTv.setVisibility(View.VISIBLE);

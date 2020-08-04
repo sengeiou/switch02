@@ -69,4 +69,10 @@
         <attr name="awv_scaleX" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="CircularImageView">
+        <attr name="is_circular" format="boolean"/>
+        <attr name="is_allRadius" format="boolean"/>
+        <attr name="radius" format="dimension"/>
+    </declare-styleable>
+
 </resources>

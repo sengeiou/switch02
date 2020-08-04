@@ -40,16 +40,23 @@ public class FileUtil {
 
     public void initFile(){
 //        this.path = pathStr+"/shgame";
-        this.path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/";
-        if (getExternalStorageState().equals(MEDIA_MOUNTED))
+
+        if (getExternalStorageState().equals(MEDIA_MOUNTED)){
+            this.path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+
+                    "/Camera/";
             isSdCard = true;
-        else
+        }
+        else{
             isSdCard = false;
+        }
+
 
 
         if (isSdCard){
             File file = new File(path);
             if (!file.exists()){
+                this.path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/";
+                file = new File(path);
                 file.mkdir();
                 Log.d("SZIP******","创建文件夹成功"+path);
             }else {

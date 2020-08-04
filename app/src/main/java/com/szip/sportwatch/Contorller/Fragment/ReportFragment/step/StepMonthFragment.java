@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -70,7 +71,7 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
         reportView.setReportDate(((StepReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((StepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+

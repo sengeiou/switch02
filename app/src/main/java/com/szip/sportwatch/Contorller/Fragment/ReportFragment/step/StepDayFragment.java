@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -69,12 +70,12 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     private void updateView() {
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        kcalTv.setText(String.format("%.1f",reportDataBean.getValue2()/10f));
+        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue2()/10f));
         if (((MyApplication)getActivity().getApplicationContext()).getUserInfo().getUnit().equals("metric")){
-            distanceTv.setText(String.format("%.1f",reportDataBean.getValue1()/10f));
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue1()/10f));
             ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
         } else{
-            distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(reportDataBean.getValue1()/10)));
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(reportDataBean.getValue1()/10)));
             ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
         }
         if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)

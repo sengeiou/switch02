@@ -20,6 +20,8 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
+import java.util.Locale;
+
 public class SportTrackActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -93,13 +95,13 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
             case 3:{//室内跑步
                 typeTv.setText(getString(R.string.run));
                 if (app.getUserInfo().getUnit().equals("metric")){
-                    distanceTv.setText(String.format("%.1f",distance/10f));
+                    distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",distance/10f));
                     ((TextView)findViewById(R.id.unitTv)).setText("m");
                 } else{
-                    distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(distance/10)));
+                    distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(distance/10)));
                     ((TextView)findViewById(R.id.unitTv)).setText("Mi");
                 }
-                speedTv.setText(String.format("%02d'%02d''",speed/60,speed%60));
+                speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",speed/60,speed%60));
                 strideTv.setText(stride+"");
                 bgIv.setImageResource(R.mipmap.sport_bg_run);
                 typeIv.setImageResource(R.mipmap.sport_pic_run);
@@ -108,13 +110,13 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
             case 4:{//登山
                 typeTv.setText(getString(R.string.mountain));
                 if (app.getUserInfo().getUnit().equals("metric")){
-                    distanceTv.setText(String.format("%.1f",distance/10f));
+                    distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",distance/10f));
                     ((TextView)findViewById(R.id.unitTv)).setText("m");
                 } else{
-                    distanceTv.setText(String.format("%.2f", MathUitl.metric2Miles(distance/10)));
+                    distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(distance/10)));
                     ((TextView)findViewById(R.id.unitTv)).setText("Mi");
                 }
-                speedTv.setText(String.format("%02d'%02d''",speed/60,speed%60));
+                speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",speed/60,speed%60));
                 strideTv.setText(stride+"");
                 bgIv.setImageResource(R.mipmap.sport_bg_mountain);
                 typeIv.setImageResource(R.mipmap.sport_pic_mountain);
@@ -187,7 +189,7 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
         }
 
         calorieTv.setText(calorie+"");
-        sportTimeTv.setText(String.format("%02d:%02d:%02d",sportTime/3600, sportTime%3600/60,sportTime%3600%60));
+        sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportTime/3600, sportTime%3600/60,sportTime%3600%60));
         heartTv.setText(heart+"");
     }
 
