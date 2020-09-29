@@ -20,14 +20,15 @@ import com.necer.utils.Attrs;
 public class WeekBar extends AppCompatTextView {
 
 
-    public String[] days = {"日", "一", "二", "三", "四", "五", "六"};
+    public String[] days;
 
     private int type;//一周的第一天是周几
     private TextPaint textPaint;
 
     public WeekBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
+        days = new String[]{context.getString(R.string.sun1),context.getString(R.string.mon1),context.getString(R.string.tues1)
+        ,context.getString(R.string.wed1),context.getString(R.string.thus1),context.getString(R.string.fri1),context.getString(R.string.sta1)};
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.NCalendar);
         type = ta.getInt(R.styleable.NCalendar_firstDayOfWeek, Attrs.SUNDAY);
         ta.recycle();

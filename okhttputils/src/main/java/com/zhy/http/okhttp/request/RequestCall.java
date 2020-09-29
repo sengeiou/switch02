@@ -82,7 +82,6 @@ public class RequestCall
     public void execute(Callback callback)
     {
         buildCall(callback);
-
         if (callback != null)
         {
             callback.onBefore(request, getOkHttpRequest().getId());

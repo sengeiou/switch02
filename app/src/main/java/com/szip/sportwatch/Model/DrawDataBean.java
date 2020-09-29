@@ -5,20 +5,20 @@ package com.szip.sportwatch.Model;
  * Created by Administrator on 2019/12/20.
  */
 
-public class DrawDataBean {
+public class DrawDataBean implements Comparable<DrawDataBean>{
     private int value,value1,value2;//总数据和分段数据，如果不需要分段则value2 = 0
     private long time;//时间戳
 
-    public DrawDataBean(int value, int value2, long time) {
+    public DrawDataBean(int value, int value1, long time) {
         this.value = value;
-        this.value1 = value2;
+        this.value1 = value1;
         this.time = time;
     }
 
-    public DrawDataBean(int value, int value2, int value3,long time) {
+    public DrawDataBean(int value, int value1, int value2,long time) {
         this.value = value;
-        this.value1 = value2;
-        this.value2 = value3;
+        this.value1 = value1;
+        this.value2 = value2;
         this.time = time;
     }
 
@@ -40,5 +40,10 @@ public class DrawDataBean {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public int compareTo(DrawDataBean o) {
+        return (int)(o.time-this.time);
     }
 }

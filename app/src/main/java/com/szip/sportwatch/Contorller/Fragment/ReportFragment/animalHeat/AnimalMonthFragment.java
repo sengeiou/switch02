@@ -80,9 +80,9 @@ public class AnimalMonthFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
-        averageTv = getView().findViewById(R.id.averageTv);
+        averageTv = getView().findViewById(R.id.averageTv1);
         reachTv = getView().findViewById(R.id.reachTv);
     }
 

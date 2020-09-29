@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">艾跑特</string>
+
+    <!--Halaman daftar masuk / halaman pemulihan sandi / halaman pendaftaran-->
+    <string name="logo">Selamat datang di Everett</string>
+    <string name="user">nomor rekening</string>
+    <string name="phoneOrEmail">Silakan masukkan telepon / email Anda</string>
+    <string name="password">sandi</string>
+    <string name="enterPassword">Silakan masukkan kata sandi 6-20 digit</string>
+    <string name="confirmPassword">Konfirmasi kata sandi</string>
+    <string name="enterPasswordAgain">Silakan masukkan sandi lagi</string>
+    <string name="forget"><u>Lupakan kata sandinya</u></string>
+    <string name="register"><u>register</u></string>
+    <string name="login">Daftar masuk</string>
+    <string name="country">Negara / Daerah</string>
+    <string name="choseCountry">Silakan pilih negara / wilayah</string>
+    <string name="send">Kirim kode verifikasi</string>
+    <string name="verification">Kode Verifikasi</string>
+    <string name="enterVerification">Silakan masukkan kode verifikasi</string>
+    <string name="newPassword">Kata sandi baru</string>
+    <string name="enterNewPassword">Silakan masukkan kata sandi baru</string>
+    <string name="reset">reset kata sandi</string>
+    <string name="registerTitle">register</string>
+    <string name="next">langkah berikutnya</string>
+    <string name="privacy">setuju!《<u>Kesepakatan pengguna dan klausul privasi</u>》</string>
+    <string name="privacy1">Kesepakatan pengguna dan klausul privasi</string>
+    <string name="privacy2">Perusahaan kami memberikan kepentingan besar untuk melindungi privasi pengguna dan informasi pribadi.Ketika Anda menggunakan produk / layanan kami, kami dapat mengumpulkan dan menggunakan informasi relevantmu.Melalui perjanjian privasi (di sebelumnya disebut "kebijakan ini"), kami berharap untuk menjelaskan kepada Anda bagaimana Shenzhen intelligent times Technology Co., Ltd. (di sebelumnya disebut "perusahaan kami") dapat mengumpulkan, menggunakan dan menyimpan informasi ini ketika Anda menggunakan produk / layanan kami.\n\nKami berharap Anda dapat membaca dan mengkonfirmasi bahwa Anda telah sepenuhnya memahami isi kebijakan ini sebelum menggunakan produk / layanan kami.\n\nKetika perusahaan kami ingin menggunakan informasi pribadi Anda untuk tujuan lain yang tidak dinyatakan dalam kebijakan ini, atau ketika informasi yang dikumpulkan untuk tujuan khusus digunakan untuk tujuan lain, kami akan memberitahu Anda untuk membuat cek dan meminta persetujuan Anda secara awal.
+\n\nSilakan perhatikan bahwa semua informasi pribadi yang diberikan oleh Anda ketika menggunakan produk / layanan kami akan terus diijinkan untuk digunakan selama Anda menggunakan produk / layanan kami kecuali Anda menghapus mereka atau menolak koleksi kami melalui pengaturan sistem.Ketika Anda membatalkan akun Anda, kami akan berhenti menggunakan dan menghapus informasi pribadi Anda.
+\n\n\n\n一、Skop informasi pribadi yang kau ijinkan untuk mengumpulkan adalah seperti ini:
+\n\nInformasi pribadi merujuk kepada semua jenis informasi yang direkam dengan cara elektronik atau cara lain, yang dapat mengidentifikasi identitas seseorang fisik spesifik atau merefleksikan aktivitas seseorang fisik spesifik sendirian atau dalam kombinasi dengan informasi lain.
+\nInformasi pribadi yang terlibat dalam kebijakan ini termasuk: informasi dasar (termasuk nama pribadi, ulang tahun, jenis, nomor telepon pribadi, alamat email); informasi identitas jaringan (termasuk nomor rekening sistem, alamat IP, alamat email); buku alamat; informasi peralatan umum pribadi; informasi lokasi pribadi; informasi kesehatan pribadi.
+\n\n\n\n二、Kami dapat menggunakan informasi pribadi yang dikumpulkan dalam perjalanan menyediakan layanan untuk tujuan berikut:
+\n\n（1）Untuk menyediakan layanan yang dimiliki produk-produk;
+\n\n（2）Ketika kami menyediakan layanan, itu digunakan untuk otentikasi, layanan pelanggan, pencegahan keamanan, pengawasan penipuan, arsip dan cadangan untuk memastikan keamanan produk dan layanan kami untuk Anda;
+\n\n（3）Bantu kami merancang layanan baru dan memperbaiki layanan kita yang ada;
+\n\n（4）Beritahu kami lebih banyak tentang bagaimana Anda mengakses dan menggunakan layanan kami, untuk merespon kebutuhan pribadi Anda, seperti pengaturan bahasa, pengaturan lokasi, bantuan pribadi dan instruksi, atau respon lainnya kepada Anda dan pengguna lain;
+\n\n（5）sertifikasi perangkat lunak atau pemutakhiran perangkat lunak manajemen;
+\n\n（6）Biarkan Anda berpartisipasi dalam penyelidikan produk dan layanan kami.
+\n\nUntuk membiarkan Anda memiliki pengalaman yang lebih baik, meningkatkan layanan kami atau tujuan lain Anda setuju, di bawah premis untuk mematuhi undang-undang dan peraturan relevanti, perusahaan kami dapat menggunakan informasi yang dikumpulkan melalui layanan tertentu untuk layanan lain perusahaan kami dalam cara koleksi informasi atau personalisasi.Contohnya, informasi yang dikumpulkan ketika Anda menggunakan salah satu layanan kami mungkin digunakan dalam layanan lain untuk menyediakan konten spesifik atau untuk menunjukkan informasi yang biasanya tidak didorong.Jika perusahaan kami menyediakan pilihan yang sesuai dalam layanan relevan, Anda juga dapat mengijinkan kami untuk menggunakan informasi yang disediakan dan disimpan dalam layanan untuk layanan lain perusahaan kami.
+\n\n\n\n三、Kami tidak akan berbagi informasi pribadi Anda dengan perusahaan, organisasi atau individu lain selain perusahaan kami, kecuali situasi berikut:
+\n\n（1）Dapatkan persetujuan eksplisit Anda dan otorisasi di depan;
+\n\n（2）Dipersediakan sesuai dengan hukum dan peraturan yang berlaku, prosedur hukum, keperluan administratif atau hukum yang wajib;
+\n\n（3）Sejauh yang diizinkan oleh hukum, diperlukan untuk melindungi perusahaan kita, pihak atau mitra kita yang berhubungan, kepentingan publik, properti atau keselamatan dari kerusakan;
+\n\n（4）Hanya dengan berbagi informasi Anda dapat kami menyadari fungsi inti produk / layanan kami atau menyediakan layanan yang Anda butuhkan;
+\n\n（5）Jalankan perselisihan antara kalian dan orang lain sesuai dengan kebutuhan kalian.
+\n\n（6）Berdasarkan perjanjian relevan atau dokumen hukum lainnya yang ditandatangani dengan Anda;
+\n\n（7）Berdasarkan kepentingan sosial dan publik sesuai dengan hukum dan peraturan.
+\n\n\n\n四、Bagaimana melindungi dan menyimpan informasi pribadimu bersama-sama
+\n\n（1）Perusahaan kami memberikan kepentingan besar kepada keamanan informasi pribadi, dan mengambil semua tindakan teknis keamanan data yang masuk akal dan mungkin untuk melindungi informasi pribadi Anda;
+\n\n（2）Lingkungan Internet tidak 100% aman. kita akan berusaha yang terbaik untuk memastikan atau menjamin keamanan informasi apapun yang Anda kirim kepada kami.Jika fasilitas perlindungan fisik, teknis atau manajemen kita rusak, yang menyebabkan akses tidak diizinkan, penjelasan publik, penyelesaian, atau kehancuran informasi, yang menyebabkan kerusakan hak dan kepentingan sah Anda, kami akan menanggung tanggung jawab hukum yang sama.
+\n\n（3）Jika Anda memiliki pertanyaan tentang perlindungan informasi pribadi kami, Anda dapat menghubungi kami melalui informasi kontak di situs resmi kami.Jika Anda menemukan bahwa informasi pribadi Anda bocor, terutama informasi pribadi Anda, silakan menghubungi kami segera sehingga kami dapat mengambil tindakan yang sesuai.
+\n\n\n\n五、Kecil menggunakan layanan kita
+\nKami mendorong orang tua atau pengawal untuk tahu bahwa anak muda di bawah 18 tahun menggunakan produk kami.Kami merekomendasikan anak muda mendorong orang tua atau pengawal mereka untuk membaca kebijakan ini dan anak muda mencari persetujuan dan petunjuk dari orang tua atau pengawal mereka sebelum menyerahkan informasi pribadi.
+\n\n\n\n六、Skop kebijakan privasi
+\n\n（1）Kecuali beberapa layanan spesifik, kebijakan ini berlaku untuk semua layanan kita.Layanan spesifik ini akan menggunakan kebijakan privasi spesifik.Polisi privasi spesifik untuk layanan tertentu akan menjelaskan lebih spesifik bagaimana kami menggunakan informasi Anda dalam layanan tersebut.Polisi privasi untuk layanan khusus itu membentuk bagian dari kebijakan ini.Jika ada ketidakkonsistensi antara kebijakan privasi untuk layanan spesifik dan kebijakan ini, kebijakan privasi untuk layanan spesifik akan menang.
+\n\n（2）Silakan perhatikan bahwa kebijakan ini t
+\n\n1）Informasi yang dikumpulkan dari layanan pihak ketiga (termasuk semua situs-situs pihak ketiga) yang diakses melalui layanan kita;
+\n\n2）Informasi yang dikumpulkan melalui perusahaan atau institusi lain yang menyediakan layanan iklan dalam layanan kita;
+\n\n3） Jika Anda menggunakan perangkat Apple seperti iPhone atau iPad, untuk menghitung data gerakan Anda, dengan otorisasi Anda, kami akan menerima dan mengirim data gerakan Anda dari kit kesehatan Apple.Perusahaan kami akan membaca data ketinggian, berat badan dan jenis Anda dari kit kesehatan sementara, jumlah langkah, berjalan + jarak berjalan, energi aktivitas, jarak naik dan data analisis tidur yang dihasilkan oleh Anda dalam aplikasi Everett akan ditulis dalam kit kesehatan Apple.Data apapun yang diperoleh melalui kit kesehatan tidak akan dibagi atau dijual kepada perusahaan pihak ketiga apapun, dan perusahaan kami tidak akan menggunakan informasi yang diperoleh dari kit kesehatan untuk iklan, pemasaran dan tujuan komersial lainnya.
+\n\n\n\n七、perubahan
+\n\nKita bisa mengubah syarat kebijakan ini dalam waktu nyata, yang merupakan bagian dari kebijakan ini.Jika amandemen seperti itu menghasilkan pengurangan besar hak Anda di bawah kebijakan ini, kami akan memberitahu Anda dengan jelas di halaman depan atau dengan email atau lain sebelum amandemen mengambil efek.Dalam kasus seperti itu, jika Anda terus menggunakan layanan kami, Anda setuju untuk terikat oleh kebijakan yang diubah.</string>
+    <string name="checkPrivacy">Tidak setuju《Kesepakatan pengguna dan klausul privasi》</string>
+    <string name="setPassword">Tetapkan sandi</string>
+    <string name="china">Cina</string>
+    <string name="vistor">Login pengunjung</string>
+    <!--homepage-->
+    <string name="healthy">sehat</string>
+    <string name="sport">gerakan</string>
+    <string name="mine">saya</string>
+    <string name="touchAgain">Tekan lagi untuk keluar dari program</string>
+
+    <!--Halaman kesehatan-->
+    <string name="planStep">Langkah sasaran%d</string>
+    <string name="sleep">tidur</string>
+    <string name="heart">detak jantung</string>
+    <string name="blood">tekanan darah</string>
+    <string name="bloodo">oksigen darah</string>
+    <string name="animal">suhu</string>
+    <string name="ecg">ECG</string>
+    <string name="check">lihat</string>
+    <string name="perfect">bagus</string>
+    <string name="good">bagus</string>
+    <string name="bad">perbedaan</string>
+    <string name="quick">Terlalu cepat</string>
+    <string name="normal">normal</string>
+    <string name="hot">demam</string>
+    <string name="slow">Terlalu lambat</string>
+    <string name="higher">Di sisi tinggi</string>
+    <string name="flat">Di sisi rendah</string>
+    <string name="head">Ini adalah pandangan utama</string>
+    <string name="pull_to_refresh">Turunkan segar</string>
+    <string name="release_to_refresh">Lepaskan segar sekarang</string>
+    <string name="refreshing">Membarui</string>
+    <string name="refresh_succeed">Pembaruan berhasil</string>
+    <string name="refresh_fail">refresh gagal</string>
+    <string name="pullup_to_load">Tarik untuk memuat lebih</string>
+    <string name="release_to_load">Lepaskan muatan sekarang</string>
+    <string name="load_succeed">Memuatkan berhasil</string>
+    <string name="load_fail">Memuatkan gagal</string>
+
+
+    <!--Antaramuka gerakan-->
+    <string name="best">Rekaman terbaik di luar</string>
+    <string name="history">Catatan pergerakan sejarah</string>
+    <string name="track">Detail olahraga</string>
+    <string name="notrack">Tidak ada trajektori</string>
+    <string name="speed">Langkah</string>
+    <string name="kcal">Konsum</string>
+    <string name="time">Durasi</string>
+    <string name="heart_rate">Kadar jantung (BPM)</string>
+    <string name="stride">Frekuensi langkah (langkah/s)</string>
+    <string name="distance">mileage(</string>
+    <string name="speedData">Kecepatan rata-rata</string>
+    <string name="kcalData">Latihan konsumsi</string>
+    <string name="timeData">Durasi latihan</string>
+    <string name="heart_rateData">Rata jantung rata</string>
+    <string name="strideData">Frekuensi langkah rata-rata</string>
+    <string name="distanceData">mileage</string>
+    <string name="basket">Basket</string>
+    <string name="football">Football</string>
+    <string name="pingpong">Table Tennis</string>
+    <string name="mountain">Mountaineering</string>
+    <string name="bike">Riding</string>
+    <string name="run">lari</string>
+    <string name="walk">berjalan kaki</string>
+    <string name="treadmill">Treadmill</string>
+    <string name="runWithout">Jalan di luar</string>
+    <string name="marathon">maraton</string>
+    <string name="sufing">surfing</string>
+    <string name="shudu">kecepatan</string>
+    <string name="averageShudu">kecepatan rata-rata</string>
+    <string name="boat">baris</string>
+    <string name="altitude">ketinggian</string>
+    <string name="avarageAltitude">Tinggi rata-rata</string>
+    <string name="climb">Rock Climbing</string>
+    <string name="skii">skiing</string>
+    <string name="golf">golf</string>
+    <!--Halaman saya-->
+    <string name="device">peralatan</string>
+    <string name="stepPlan">Target langkah</string>
+    <string name="sleepPlan">Mata tidur</string>
+    <string name="find">Mencari jam tangan</string>
+    <string name="notification">Notifikasi aplikasi</string>
+    <string name="blePhone">Panggilan Bluetooth</string>
+    <string name="blePhoto">Gambar Bluetooth</string>
+    <string name="unit">Sistem Unit</string>
+    <string name="face">Tukar panggilan</string>
+    <string name="myDail">Teleponku</string>
+    <string name="seeDail">Prapapar Panggilan</string>
+    <string name="diyDail">suai</string>
+    <string name="diyDailing">Mengubah</string>
+    <string name="diyDailOK">Ganti berhasil</string>
+    <string name="diyDailError">Ganti gagal, silakan coba lagi</string>
+    <string name="upDownBackground">Silakan mengunggah gambar latar belakang</string>
+    <string name="chooseClock">Silakan pilih gaya jam</string>
+    <string name="clock">Gaya jam</string>
+    <string name="background">Memuat latar belakang</string>
+    <string name="about">tentang</string>
+    <string name="logout">Daftar keluar</string>
+    <string name="me">saya</string>
+    <string name="set">mengatur</string>
+    <string name="other">lain</string>
+    <string name="cancel">batalkan</string>
+    <string name="confirm">menentukan</string>
+    <string name="tip">Tip</string>
+    <string name="delete">Anda yakin ingin menghapus data gerakan ini?</string>
+    <string name="unbind">Apakah Anda yakin Anda ingin melepaskan ikatan?</string>
+    <string name="logoutTip">Kau yakin ingin keluar?</string>
+    <string name="sendOK">Dikirim dengan sukses</string>
+    <string name="searchDevice">Perangkat pencarian</string>
+    <string name="noDevice">Tidak ditemukan perangkat</string>
+    <string name="connected">Tersambung</string>
+    <string name="disConnect">Tidak terhubung</string>
+    <string name="connectting">pada koneksi</string>
+    <string name="connect">Perangkat terhubung, silakan coba lagi nanti</string>
+    <string name="syceError">Jika jam tidak terhubung, data akan disenkronisasi ke jam lain kali dia terhubung</string>
+    <string name="unBind">Peranti tukar</string>
+    <string name="unline">Matikan</string>
+    <string name="line">Sambungkan jam tangan</string>
+    <string name="addDevice">Tambah perangkat</string>
+    <string name="unbindSoon">Tolong lepaskan perangkatnya dulu</string>
+    <string name="lineError">Silakan matikan dan menyalakan Bluetooth dari ponsel atau memulai ulang jam</string>
+    <string name="tipUnit">Perhatian: Tinggi dan berat akan ditetapkan kembali ketika sistem unit ditukar</string>
+
+
+    <!--Antaramuka panggilan Bluetooth-->
+    <string name="step1">1.Bluetooth pasangan antara jam tangan dan ponsel</string>
+    <string name="step2">2.Tidak cocok</string>
+    <string name="str1">1)Masukkan fungsi Bluetooth dalam pengawasan\n2)Cari perangkat Bluetooth - pilih nama Bluetooth\n3)Berpasang dengan ponsel dapat membuat panggilan Bluetooth dengan jam tangan</string>
+    <string name="str2">1)Pergi ke pengaturan sistem - Bluetooth - perangkat berpasangan
+\n2)Cari perangkatnya, masukkan dan klik "tidak dihapus" untuk membatalkan hubungan pasangan.
+\n\nPerhatian: setelah hubungan pasangan dihapus, jam tangan tidak dapat menggunakan fungsi panggilan Bluetooth</string>
+
+    <!--Tentang antarmuka-->
+    <string name="version">versi saat ini</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_hint">Balas balik / pertanyaan Anda</string>
+    <string name="tooLong">Teks yang Anda masukkan terlalu panjang</string>
+    <string name="empty">Opisi tidak bisa kosong</string>
+    <string name="send_success">Dikirim dengan sukses</string>
+
+    <!--Antaramuka sistem unit
+
+-->
+    <string name="measureUnit">Unit pengukuran</string>
+    <string name="metric">Sistem metrik</string>
+    <string name="british">Sistem Inggris</string>
+
+    <!--Laporan halaman-->
+    <string name="stepReport">Laporan Langkah</string>
+    <string name="sleepReport">Laporan Tidur</string>
+    <string name="heartReport">Laporan detak jantung</string>
+    <string name="bloodPressureReport">Laporan tekanan darah</string>
+    <string name="bloodOxygenReport">Laporan oksigen darah</string>
+    <string name="animalHeatReport">Laporan Suhu</string>
+    <string name="ecgReport">Laporan ECG</string>
+    <string name="day">hari</string>
+    <string name="week">minggu</string>
+    <string name="sun">Minggu</string>
+    <string name="mon">Senin</string>
+    <string name="tues">Selasa</string>
+    <string name="wed">Rabu</string>
+    <string name="thus">Kamis</string>
+    <string name="fri">Jumat</string>
+    <string name="sta">Sabtu</string>
+    <string name="today">hari ini</string>
+    <string name="month">bulan</string>
+    <string name="year">tahun</string>
+    <string name="allStep">Total langkah</string>
+    <string name="averageStep">Langkah rata-rata</string>
+    <string name="allSleep">Total waktu tidur</string>
+    <string name="averageSleep">Waktu tidur rata-rata</string>
+    <string name="light">Tidur ringan</string>
+    <string name="deep">Tidur dalam</string>
+    <string name="lightTable">rendah</string>
+    <string name="deepTable">dalam</string>
+    <string name="averageHeart">Rata jantung rata</string>
+    <string name="minHeart">Kadar jantung minimum</string>
+    <string name="maxHeart">Kadar jantung maksimum</string>
+    <string name="averageSBP">Tekanan darah sistolik rata</string>
+    <string name="sbp">tekanan sistolik</string>
+    <string name="averageDBP">Tekanan darah diastolik rata</string>
+    <string name="dbp">tekanan diastolik</string>
+    <string name="averageSao">Maksudnya oksigen darah</string>
+    <string name="averageTemp">suhu rata-rata</string>
+    <string name="maxTemp">suhu maksimum</string>
+    <string name="passRate">Tingkat persetujuan</string>
+    <string name="ecgTip">Tingkat persetujuan</string>
+    <string name="noData">Tidak ada laporan</string>
+    <string name="tomorrow">Masa depan belum datang</string>
+
+
+
+    <!--Halaman informasi pengguna-->
+    <string name="userInfo">Informasi pengguna</string>
+    <string name="picture">portret kepala</string>
+    <string name="userName">Nama panggilan?</string>
+    <string name="enterUserName">Masukkan gelaran</string>
+    <string name="nameLong">Nama panggilan tidak dapat melebihi 12 karakter</string>
+    <string name="sex">Gender</string>
+    <string name="male">laki-laki</string>
+    <string name="female">wanita</string>
+    <string name="height">tinggi</string>
+    <string name="weight">berat</string>
+    <string name="birthday">ulang tahun</string>
+    <string name="album">album</string>
+    <string name="camera">foto</string>
+
+
+
+
+    <!--Bahasa cadangan-->
+    <string name="tokenTimeOut">Daftar masuk habis, silakan daftar masuk lagi</string>
+    <string name="enterRightEmail">Silakan masukkan format email yang benar</string>
+    <string name="httpError">Waktu kehabisan respon jaringan, silakan periksa koneksi jaringan
+
+</string>
+    <string name="logging">Daftar masuk</string>
+    <string name="waitting">Tunggu sebentar...</string>
+    <string name="resetSuccess">Reset kata sandi berhasil
+
+</string>
+    <string name="passwordUnSame">Dua kata sandi tidak konsisten</string>
+    <string name="saved">Disimpan dengan sukses</string>
+    <string name="notificationlistener_prompt_title">Aktifkan pemberitahuan</string>
+    <string name="notificationlistener_prompt_content">Everett perlu mengirim notifikasi aplikasi ke perangkat cerdas jauh.Tekan "OK" untuk memasukkan halaman pemberitahuan.</string>
+    <string name="tokenTimeout">Rekaman sudah habis. Silakan log masuk lagi</string>
+    <string name="lostDevice">perangkat tidak terhubung</string>
+    <string name="permissionErrorForCamare">Permisi gagal, tidak dapat membuka foto mengambil fungsi</string>
+    <string name="findPermission">Jika izin tidak lulus, daftar perangkat tidak dapat dicari</string>
+    <string name="applyPermission">Otoritas aplikasi</string>
+    <string name="shareFailForPermission">Gagal berbagi. Keizinan berkaitan gagal</string>
+    <string name="permissionErrorForSMS">Permisi gagal, tidak dapat membuka fungsi pemberitahuan SMS</string>
+    <string name="loading">Memuatkan</string>
+    <string name="privacyTip">Sebelum Anda menggunakan produk kami, silakan membaca dan memahami kesepakatan privasi pengguna yang relevan.
+\nKetika Anda klik "OK", Anda setuju dengan syarat kesepakatan.
+\nPolisi privasi pengguna terutama mengandung isi berikut:\n1.Kumpulkan, simpan dan berbagi data pribadi (avatar, gelaran, tinggi, berat badan, data latihan, dll.).\n2.Gunakan izin perangkat (lokasi, buku alamat, kamera, dll.)</string>
+    <string name="crop_pic_failed">Gagal menangkap gambar, silakan pilih gambar format JPG!</string>
+    <string name="deviceOut">Perangkat tidak terikat</string>
+    <string name="visiter">Mode turis tidak mendukung fitur ini</string>
+    <string name="chooseJpg">Silakan pilih gambar dalam format JPG</string>
+
+    <!--Bahagian antaramuka-->
+    <string name="planOK">Tujuan hari ini telah dicapai</string>
+    <string name="planNO">Tujuan hari ini tidak dicapai</string>
+    <string name="planStepShare">Langkah sasaran: %dsteps</string>
+    <string name="distanceShare">Jarak berjalan: %.1fKm</string>
+    <string name="calurieShare">Kalori dimakan: %.1fKcal</string>
+
+    <string name="planSleep">Durasi sasaran: %.1fh</string>
+    <string name="deepSleepShare">Panjang tidur dalam:%02dh%02dmin</string>
+    <string name="lightSleepShare">Panjang tidur ringan: %02dh%02dmin</string>
+
+    <string name="testTimes">Ukuran hari ini:%d</string>
+    <string name="maxHeartShare">Kadar jantung maksimum: %dbpm</string>
+    <string name="minHeartShare">Denyut jantung minimum: %dbpm</string>
+
+    <string name="bloodOxygenData">Ketepuan oksigen darah</string>
+    <string name="testValue">Hasil ujian:</string>
+    <string name="passTimeData">Tingkat lewat: %.1f%%</string>
+
+    <string name="bloodPressureData">Tekanan darah sistolik/diastolik rata</string>
+    <string name="shareSuccess">Bagi sukses</string>
+    <string name="shareCancel">Batalkan pembagian</string>
+    <string name="shareFail">Gagal berbagi</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">Memuatkan</string>
+    <string name="progress_dialog_message">Tunggu sebentar.&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <string name="operate_error">Failed</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

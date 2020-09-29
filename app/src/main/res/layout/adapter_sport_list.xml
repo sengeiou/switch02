@@ -10,13 +10,10 @@
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="67dp"
             android:orientation="horizontal"
             android:background="@drawable/bg_mine_item"
             android:layout_gravity="center_vertical">
-
-
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -26,7 +23,7 @@
                 android:layout_centerVertical="true">
 
                 <TextView
-                    android:id="@+id/distanceTv"
+                    android:id="@+id/dataTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="28sp"
@@ -91,7 +88,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/calorieIv"
+                        android:id="@+id/buttonFirstIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/sport_list_icon_kcal"
@@ -100,7 +97,7 @@
 
 
                     <TextView
-                        android:id="@+id/calorieTv"
+                        android:id="@+id/buttonFirstTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
@@ -111,7 +108,7 @@
 
 
                     <TextView
-                        android:id="@+id/calorieUnitTv"
+                        android:id="@+id/buttonFirstUnitTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="kcal"
@@ -120,6 +117,7 @@
                         android:textColor="@color/rayblue1"/>
 
                     <ImageView
+                        android:id="@+id/buttonSecondIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/sport_list_icon_time"
@@ -127,7 +125,7 @@
                         android:layout_marginRight="5dp"/>
 
                     <TextView
-                        android:id="@+id/sportTimeTv"
+                        android:id="@+id/buttonSecondTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
@@ -135,6 +133,15 @@
                         android:text="00:03:14"
                         android:textStyle="bold"
                         />
+
+                    <TextView
+                        android:id="@+id/buttonSecondUnitTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kcal"
+                        android:textSize="12sp"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/rayblue1"/>
 
                 </LinearLayout>
 

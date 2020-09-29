@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iSmarport</string>
+
+    <!--Страница авторизации/Получить страницу пароля/Страница регистрации-->
+    <string name="logo">Добро пожаловать в iSmarport</string>
+    <string name="user">учетная запись</string>
+    <string name="phoneOrEmail">Пожалуйста, введите свой номер телефона / адрес электронной почты</string>
+    <string name="password">пароль</string>
+    <string name="enterPassword">Пожалуйста, введите пароль из 6-20 цифр</string>
+    <string name="confirmPassword">Подтвердите Пароль</string>
+    <string name="enterPasswordAgain">Пожалуйста, введите еще раз ваш пароль</string>
+    <string name="forget"><u>Забыли пароль</u></string>
+    <string name="register"><u>регистр</u></string>
+    <string name="login">Авторизоваться</string>
+    <string name="country">Страна / регион</string>
+    <string name="choseCountry">Пожалуйста, выберите страну / регион</string>
+    <string name="send">послать</string>
+    <string name="verification">Код подтверждения</string>
+    <string name="enterVerification">Пожалуйста, введите код подтверждения</string>
+    <string name="newPassword">Новый пароль</string>
+    <string name="enterNewPassword">Пожалуйста, введите новый пароль</string>
+    <string name="reset">Сброс пароля</string>
+    <string name="registerTitle">регистр</string>
+    <string name="next">Следующий шаг</string>
+    <string name="privacy">Согласен《<u>Пользовательское соглашение и Политика конфиденциальности</u>》</string>
+    <string name="privacy1">Пользовательское соглашение и Политика конфиденциальности</string>
+    <string name="privacy2">Мы придаем большое значение конфиденциальности наших пользователей и защите личной информации. Когда вы пользуетесь нашими продуктами и услугами, мы можем собирать и использовать информацию о вас. Наша компания надеется с помощью Agreement Соглашения о конфиденциальности》, далее именуемого «Политика», объяснить вам, как и когда наша компания собирает, использует и сохраняет эту информацию.。\n\nМы надеемся, что вы внимательно прочитали и подтвердили, что полностью понимаете содержание этой политики, прежде чем использовать наши продукты и услуги.。\n\nВаша личная информация никогда не будет использоваться без вашего согласия для целей, не указанных в этой политике。
+
+\n\nОбратите внимание, что вся личная информация, которую вы предоставляете при использовании наших продуктов и услуг, мы уполномочены собирать, если вы не удалите или не разрешите наш сбор с помощью системных настроек. Когда вы удалите свою учетную запись, наша компания перестанет использовать и удалит вашу личную информацию.
+
+\n\n\n\n一、Ниже приводится личная информация, которую вы разрешаете нам собирать.
+
+\n\nЛичная информация относится ко всем видам информации, записанной в электронном виде или другими способами, которые могут идентифицировать человека или отражать деятельность человека, либо отдельно, либо в сочетании с другой информацией.。
+\nЛичная информация, используемая в этой политике, включает в себя: основную информацию (включая личное имя, дату рождения, пол, личный номер телефона, адрес электронной почты); идентификационная информация о сети (включая системную учетную запись, IP-адрес и адрес электронной почты); контакты; информация о личном общем оборудовании; информация о личном местонахождении; личная информация о здоровье。
+
+
+
+\n\n\n\n二、Наша компания может использовать личную информацию, собранную в процессе предоставления вам услуг, для следующих целей:
+\n\n（1）Чтобы предоставить вам услуги, принадлежащие продукту
+
+\n\n（2）Когда наша компания предоставляет услуги, они используются для проверки личности, обслуживания клиентов, предотвращения безопасности, мониторинга мошенничества, архивирования и резервного копирования, чтобы обеспечить безопасность продуктов и услуг, предоставляемых вам нашей компанией.
+\n\n（3）Помогите нам разработать новые услуги и улучшить существующие.；
+
+\n\n（4）Сделайте так, чтобы наша компания знала больше о том, как вы получаете доступ и используете наши услуги, чтобы реагировать на ваши персональные потребности, такие как языковые настройки, настройки местоположения, персонализированная помощь и инструкции, или чтобы вы и другие пользователи отвечали другим образом
+\n\n（5）Сертификация программного обеспечения или обновление программного обеспечения для управления
+
+\n\n（6）Позвольте вам участвовать в опросах о наших продуктах и ​​услугах
+\n\nЧтобы вы могли лучше взаимодействовать, улучшать наши услуги или другие способы использования, с которыми вы соглашаетесь, при условии соблюдения соответствующих законов и постановлений, наша компания может использовать информацию, собранную с помощью службы, для сбора информации или персонализации способа для других услуги нашей компании. Например, информация, собранная при использовании вами одной из наших служб, может быть использована для предоставления вам определенного контента в другой службе или для демонстрации вам необобщенной информации о вас. Если наша компания предоставляет соответствующие возможности в связанных услугах, вы также можете разрешить нам использовать информацию, предоставленную и хранимую этой службой, для других наших услуг.
+
+
+
+\n\n\n\n三、Наша компания не будет передавать вашу личную информацию никаким компаниям, организациям и частным лицам, кроме нашей компании, за исключением следующих случаев
+
+\n\n（1）С вашего явного согласия и предварительного разрешения
+
+\n\n（2）Предоставляется в соответствии с применимыми законами и постановлениями, юридическими процедурами, обязательными административными или судебными требованиями
+
+\n\n（3）В той степени, в которой это разрешено законом, необходимо обеспечить защиту нашей компании, наших аффилированных лиц или партнеров, общественных интересов, собственности или безопасности от ущерба.
+
+\n\n（4）Только предоставив вашу информацию, мы сможем реализовать основные функции наших продуктов и услуг или предоставить необходимые вам услуги.
+\n\n（5）Для разрешения вашего спора или споров с другими по вашему запросу
+
+\n\n（6Предоставляется в соответствии с соответствующим соглашением с вами или другими юридическими документами
+\n\n（7）Для использования в общественных интересах в соответствии с законами и постановлениями
+
+
+
+\n\n\n\n四、Как мы совместно защищаем и храним вашу личную информацию
+
+\n\n（1）Мы придаем большое значение безопасности личной информации и принимаем все разумные и возможные технические меры безопасности данных для защиты вашей личной информации.
+\n\n（2）Хотя никакая Интернет-среда не является на 100% безопасной, мы делаем все возможное, чтобы гарантировать и гарантировать безопасность любой информации, которую вы нам отправляете. Если наши физические, технические или управленческие средства защиты повреждены, что привело к несанкционированному доступу, публичному раскрытию, подделке или уничтожению информации, что привело к ущербу для ваших законных прав и интересов, наша компания будет нести соответствующую юридическую ответственность.
+
+\n\n（3）Если у вас есть какие-либо вопросы о защите вашей личной информации, вы можете связаться с нами, используя контактную информацию на нашем официальном сайте. Если вы обнаружите, что произошла утечка вашей личной информации, особенно вашей личной информации, немедленно свяжитесь с нами, чтобы мы могли принять соответствующие меры.
+
+
+
+\n\n\n\n五、Использование наших услуг несовершеннолетними
+\nМы рекомендуем несовершеннолетним поощрять своих родителей или опекунов к ознакомлению с этой политикой и рекомендуем несовершеннолетним запрашивать согласие и руководство своих родителей или опекунов перед отправкой личной информации.
+
+
+
+
+\n\n\n\n六、Область применения политики конфиденциальности
+\n\n（1）Эта политика применяется ко всем нашим услугам, за исключением некоторых конкретных услуг. Эти конкретные службы будут использовать особые политики конфиденциальности. В конкретных политиках конфиденциальности для определенных служб будет более конкретно описано, как мы используем вашу информацию в этих службах. Политика конфиденциальности для этой конкретной услуги является частью этой политики. Если есть какое-либо несоответствие между политикой конфиденциальности соответствующей конкретной службы и этой политикой, политика конфиденциальности конкретной службы имеет преимущественную силу.
+
+\n\n（2）Обратите внимание, что эта политика не распространяется на
+
+\n\n1） Информация, собранная сторонними службами (включая все сторонние веб-сайты), доступ к которой осуществляется через наши службы
+\n\n2）Информация, собираемая другими компаниями или агентствами, которые предоставляют рекламные услуги в наших сервисах.
+
+\n\n3） Если вы используете устройство Apple, такое как iPhone или iPad, для расчета данных о тренировках с вашего разрешения мы получим и отправим данные о ваших тренировках из Apple Healthkit. Наша компания считывает данные о вашем росте, весе и поле из Healthkit. В то же время ваши шаги, расстояние ходьбы + бег, активная энергия, расстояние во время езды и данные анализа сна, сгенерированные приложением iSmarport, будут записаны в Apple Healthkit. Любые данные, полученные с помощью Healthkit, не будут переданы или проданы какой-либо сторонней компании, и наша компания не будет использовать информацию, полученную от Healthkit, в коммерческих целях, таких как реклама и маркетинг.
+
+
+
+\n\n\n\n七、Обновить
+\n\nМы можем обновлять или изменять условия этой политики, и такие поправки являются частью этой политики. Если такие поправки приведут к существенному ограничению ваших прав в соответствии с этой политикой, до того, как поправки вступят в силу, мы уведомим вас через заметное место на главной странице, по электронной почте или иным образом. В этом случае, если вы продолжите пользоваться нашими услугами, вы соглашаетесь соблюдать эту измененную политику.</string>
+    <string name="checkPrivacy">Подтвердите, что вы прочитали Пользовательское соглашение и Политику конфиденциальности</string>
+    <string name="setPassword">Установка пароля</string>
+    <string name="china">Китай</string>
+    <string name="vistor">Посетители для входа</string>
+
+    <!--Главная страница-->
+    <string name="healthy">Здоровый</string>
+    <string name="sport">Спорт</string>
+    <string name="mine">Моя</string>
+    <string name="touchAgain">Нажмите еще раз, чтобы выйти из программы</string>
+
+    <!--Здоровая страница-->
+    <string name="planStep">Целевые шаги%d</string>
+    <string name="sleep">Спать</string>
+    <string name="heart">Частота сердцебиения</string>
+    <string name="blood">Артериальное давление</string>
+    <string name="bloodo">Кислород крови</string>
+    <string name="animal">Температура</string>
+    <string name="ecg">ЭКГ</string>
+    <string name="check">Посмотреть</string>
+    <string name="perfect">Отлично</string>
+    <string name="good">Хорошо</string>
+    <string name="bad">Плохой</string>
+    <string name="quick">Быстрый</string>
+    <string name="normal">Нормальный</string>
+    <string name="hot">Высокая температура</string>
+    <string name="slow">Медленный</string>
+    <string name="higher">Высокая</string>
+    <string name="flat">Низкий</string>
+    <string name="head">Вот вид с головы</string>
+    <string name="pull_to_refresh">Потяните вниз, чтобы обновить</string>
+    <string name="release_to_refresh">Обновить после выпуска</string>
+    <string name="refreshing">Обновление ...</string>
+    <string name="refresh_succeed">Обновить успешно</string>
+    <string name="refresh_fail">Не удалось обновит</string>
+    <string name="pullup_to_load">Потяните вверх, чтобы загрузить больше</string>
+    <string name="release_to_load">Загрузка сразу после выпуска</string>
+    <string name="load_succeed">Успешно загружено</string>
+    <string name="load_fail">Ошибка загрузки</string>
+
+
+    <!--Виды спорта-->
+    <string name="best">Личный рекорд по бегу на открытом воздухе</string>
+    <string name="history">Историческая запись движения</string>
+    <string name="track">Информация о спорте</string>
+    <string name="notrack">Нет траектории</string>
+    <string name="speed">Скорость</string>
+    <string name="kcal">Потреблено (ккал))</string>
+    <string name="time">Время</string>
+    <string name="heart_rate">Частота пульса (уд / мин)(Bpm)</string>
+    <string name="stride">Шаг (шагов / с)</string>
+    <string name="distance">Расстояние(</string>
+    <string name="speedData">Средняя скорость</string>
+    <string name="kcalData">Спорт Потребление</string>
+    <string name="timeData">Время спорта</string>
+    <string name="heart_rateData">Средняя частота пульса</string>
+    <string name="strideData">Средний шаг</string>
+    <string name="distanceData">Расстояние</string>
+    <string name="basket">Баскетбол</string>
+    <string name="football">Футбол</string>
+    <string name="pingpong">Настольный теннис</string>
+    <string name="mountain">Гора</string>
+    <string name="bike">Езда на велосипеде</string>
+    <string name="run">Бегать</string>
+    <string name="walk">пешком</string>
+    <string name="treadmill"> беговая дорожка</string>
+    <string name="runWithout"> бег на открытом воздухе</string>
+    <string name="marathon"> марафон</string>
+    <string name="sufing"> серфинг </string>
+    <string name="shudu"> скорость</string>
+    <string name="averageShudu"> средняя скорость</string>
+    <string name="boat"> гребля </string>
+    <string name="altitude">высота</string>
+    <string name="avarageAltitude"> средняя высота</string>
+    <string name="climb"> скалолазание</string>
+    <string name="skii">лыжи </string>
+    <string name="golf">гольф</string>
+    <!-- моя страница -->
+    <string name="device">Устройство</string>
+    <string name="stepPlan">Шаг Цель</string>
+    <string name="sleepPlan">Цель сна</string>
+    <string name="find">Поиск часов</string>
+    <string name="notification">Уведомление о приложении</string>
+    <string name="blePhone">Звонок по Bluetooth</string>
+    <string name="blePhoto">Bluetooth камера</string>
+    <string name="unit">Ед. изм</string>
+    <string name="face">Набирать номер</string>
+    <string name="myDail">Мой циферблат</string>
+    <string name="seeDail">Предварительный просмотр</string>
+    <string name="diyDail"> моя страница</string>
+    <string name="diyDailing">Обновление ...</string>
+    <string name="diyDailOK">Обновление выполнено успешно</string>
+    <string name="diyDailError">Обновление не удалось; пожалуйста, попробуйте снова</string>
+    <string name="upDownBackground">Загрузите фоновое изображение</string>
+    <string name="chooseClock">Пожалуйста, выберите стиль часов</string>
+    <string name="clock">Стиль часов</string>
+    <string name="background">Загрузить изображения</string>
+    <string name="about">Около</string>
+    <string name="logout">выход</string>
+    <string name="me"> мой</string>
+    <string name="set">Настройка</string>
+    <string name="other">Другой</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="tip">Наконечник</string>
+    <string name="delete">Вы уверены, что хотите удалить эти данные?</string>
+    <string name="unbind">Вы уверены, что хотите отвязать？</string>
+    <string name="logoutTip">Вы действительно хотите выйти?</string>
+    <string name="sendOK">Успешно отправлено</string>
+    <string name="searchDevice">Поиск на устройстве</string>
+    <string name="noDevice">Устройство не найдено</string>
+    <string name="connected">Связано</string>
+    <string name="disConnect">Не подключен</string>
+    <string name="connectting">Подключение</string>
+    <string name="connect">Устройство подключается, повторите попытку позже</string>
+    <string name="syceError">Часы не подключены ， Данные будут синхронизированы с часами при следующем подключении</string>
+    <string name="unBind">Заменить устройство</string>
+    <string name="unline">Отключить</string>
+    <string name="line">Подключите часы</string>
+    <string name="addDevice">Добавить устройство</string>
+    <string name="unbindSoon">Пожалуйста, сначала отключите устройство</string>
+    <string name="lineError">Подключение много раз прерывалось. Пожалуйста, перезапустите bluetooth мобильного устройства или перезапустите часы</string>
+    <string name="tipUnit">Совет: высота и вес устройства будут сброшены.</string>
+
+
+    <!--Интерфейс вызова Bluetooth-->
+    <string name="step1">1.Сопряжение часов с мобильным телефоном</string>
+    <string name="step2">2.Несовпадение</string>
+    <string name="str1">1)Введите функцию Bluetooth в часы\n2)Поиск устройств Bluetooth - выберите имя телефона Bluetooth\n3)Подключитесь к телефону, чтобы звонить по Bluetooth с помощью часов</string>
+    <string name="str2">1)Войдите в Системные настройки - Bluetooth-устройство, подключенное к устройству, найдите устройство, нажмите Enter, нажмите «Unpair», Unpair Successful。Примечание: Watch не могут использовать функцию вызова Bluetooth после разрыва пары.\n2)чтобы найти устройство, нажмите кнопку "отменить комбинацию" 
+
+
+
+ разблокирование спаривания 。\n\n Примечание: после разблокирования спаривания часы не могут использовать функцию Bluetooth </string>
+
+    <!--Около-->
+    <string name="version">Текущая версия</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="feedback_hint"> Ваш отзыв</string>
+    <string name="tooLong">Слишком длинный ввод</string>
+    <string name="empty">Поле не может быть пустым</string>
+    <string name="send_success">Отправлено успешно</string>
+
+    <!--Интерфейс системы блока-->
+    <string name="measureUnit">Единица измерения</string>
+    <string name="metric">Метрическая</string>
+    <string name="british">Имперский</string>
+
+    <!--Страница отчета-->
+    <string name="stepReport">Отчет по шагу</string>
+    <string name="sleepReport">Отчет о сне</string>
+    <string name="heartReport">Отчет о частоте пульса</string>
+    <string name="bloodPressureReport">Отчет об артериальном давлении</string>
+    <string name="bloodOxygenReport">Отчет о кислороде крови</string>
+    <string name="animalHeatReport">Отчет о температуре</string>
+    <string name="ecgReport">Отчет ЭКГ</string>
+    <string name="day">День</string>
+    <string name="week">Неделя</string>
+    <string name="sun">Тайм-аут сетевого ответа, проверьте сетевое соединение</string>
+    <string name="mon">понедельник</string>
+    <string name="tues">вторник</string>
+    <string name="wed">Среда</string>
+    <string name="thus">Четверг</string>
+    <string name="fri">Пятница</string>
+    <string name="sta">Суббота</string>
+    <string name="today">Cегодня</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+    <string name="allStep">Всего шагов</string>
+    <string name="averageStep">Средние шаги</string>
+    <string name="allSleep">Общее время сна</string>
+    <string name="averageSleep">Среднее время сна</string>
+    <string name="light">Легкий сон</string>
+    <string name="deep">Глубокий сон</string>
+    <string name="lightTable">Свет</string>
+    <string name="deepTable"> Глубокий</string>
+    <string name="averageHeart">Средняя частота пульса</string>
+    <string name="minHeart">Мин. Частота сердцебиения</string>
+    <string name="maxHeart">Максимум. Частота сердцебиения</string>
+    <string name="averageSBP">Среднее систолическое давление</string>
+    <string name="sbp">Систолическое давление</string>
+    <string name="averageDBP">Среднее диастолическое давление</string>
+    <string name="dbp">Диастолическое давление</string>
+    <string name="averageSao">Средний кислород в крови</string>
+    <string name="averageTemp">Средняя температура</string>
+    <string name="maxTemp">Макс Темп</string>
+    <string name="passRate">Скорость соответствия</string>
+    <string name="ecgTip">Измерения приведены только для справки, а не в качестве медицинской справки.</string>
+    <string name="noData">Нет отчета</string>
+    <string name="tomorrow">Доступно в будущем</string>
+
+
+
+    <!--Страница информации о пользователе-->
+    <string name="userInfo">Информация о пользователе</string>
+    <string name="picture"> голова </string>
+    <string name="userName">Ник</string>
+    <string name="enterUserName">Пожалуйста, введите свой ник</string>
+    <string name="nameLong">Имя не может превышать 12 символов.</string>
+    <string name="sex">Пол</string>
+    <string name="male">мужчина</string>
+    <string name="female">женский</string>
+    <string name="height">Рост</string>
+    <string name="weight">Вес</string>
+    <string name="birthday">День рождения</string>
+    <string name="album">Фотоальбом</string>
+    <string name="camera">Камера</string>
+
+
+
+
+    <!--подсказка-->
+    <string name="tokenTimeOut">Срок действия входа истек, пожалуйста, войдите снова</string>
+    <string name="enterRightEmail">Пожалуйста, введите правильный формат электронной почты</string>
+    <string name="httpError">Тайм-аут сетевого ответа, проверьте сетевое соединение</string>
+    <string name="logging">Происходит вход в систему...</string>
+    <string name="waitting">Пожалуйста, подождите...</string>
+    <string name="resetSuccess">Сброс пароля выполнен успешно</string>
+    <string name="passwordUnSame">Дважды введите неверный пароль</string>
+    <string name="saved">Успешно сохранено</string>
+    <string name="notificationlistener_prompt_title">Включить уведомления</string>
+    <string name="notificationlistener_prompt_content">iSmarport необходимо пересылать уведомления приложений на удаленные интеллектуальные устройства。Нажмите \ "Подтвердить \", введите страницу уведомлений для активации。</string>
+    <string name="tokenTimeout">Срок действия входа истек ， Пожалуйста, войдите снова</string>
+    <string name="lostDevice">Устройство не подключено</string>
+    <string name="permissionErrorForCamare">Ошибка разрешения, не удается включить функцию камеры</string>
+    <string name="findPermission">Ошибка разрешения, невозможно выполнить поиск в списке устройств</string>
+    <string name="applyPermission">Запрос на доступ</string>
+    <string name="shareFailForPermission">Ошибка общего доступа, сбой связанных разрешений</string>
+    <string name="permissionErrorForSMS">Ошибка разрешения, невозможно включить SMS-уведомления</string>
+    <string name="loading">Загружается ...</string>
+    <string name="privacyTip">Вы ясно прочитали Соглашение о конфиденциальности? Вы согласились зарегистрироваться в качестве нового пользователя нашей компании? Нажимая «Подтвердить», вы соглашаетесь с условиями соглашения.。\nПолитика конфиденциальности пользователя в основном включает следующее: 1. Личную информацию (фото профиля Псевдоним 、 Рост 、 Вес 、 Спортивные данные и т. Д.). Сбор, сохранение и обмен 2. Разрешения для устройств (Местоположение ， Список контактов ， Камера и т. Д.).</string>
+    <string name="crop_pic_failed">Не удалось выполнить захват изображения, выберите изображение в формате JPG / PNG!</string>
+    <string name="deviceOut">Несвязанное устройство</string>
+    <string name="visiter">Эта функция не поддерживается в режиме посетителя.</string>
+    <string name="chooseJpg"> Выберите рисунок в формате jpg </string>
+
+    <!--Общий интерфейс-->
+    <string name="planOK">Сегодняшняя цель достигнута</string>
+    <string name="planNO">Сегодняшняя цель не достигнута</string>
+    <string name="planStepShare">Целевые шаги: %dsteps</string>
+    <string name="distanceShare">Расстояние пешком: %.1fKm</string>
+    <string name="calurieShare">Сожженные калории: %.1fKcal</string>
+
+    <string name="planSleep">Целевая продолжительность: %.1fh</string>
+    <string name="deepSleepShare">Глубокий сон: %02dh%02dmin</string>
+    <string name="lightSleepShare">Легкий сон: %02dh%02dmin</string>
+
+    <string name="testTimes">Время измерения: %d</string>
+    <string name="maxHeartShare">Максимальная частота пульса: %dbpm</string>
+    <string name="minHeartShare">Мин. Частота пульса: %dbpm</string>
+
+    <string name="bloodOxygenData">Насыщение крови кислородом</string>
+    <string name="testValue">Результаты теста:</string>
+    <string name="passTimeData">Скорость прохождения: %.1f%%</string>
+
+    <string name="bloodPressureData">Среднее систолическое давление / диастолическое давление</string>
+    <string name="shareSuccess">Делиться успехом</string>
+    <string name="shareCancel">Отменить публикацию</string>
+    <string name="shareFail">Поделиться не удалось</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">Загрузка</string>
+    <string name="progress_dialog_message">Пожалуйста, подождите&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <string name="operate_error">Failed</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

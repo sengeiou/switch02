@@ -1,6 +1,8 @@
 
 package com.szip.sportwatch.BLE;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -57,7 +60,6 @@ public class EXCDController extends Controller {
     private ArrayList<String> sports;
 
     private OnCameraListener onCameraListener;
-
 
 
     private EXCDController() {
@@ -115,6 +117,7 @@ public class EXCDController extends Controller {
 
         if (commands[0].contains("GET")){//GET指令
             if (commands[1].equals("0")){//心跳包
+                MyApplication.getInstance().setBtMac(commands[13]);
                 String step[] = commands[5].split("\\|");
                 String sleep[] = commands[6].split("\\|");
                 String heart = commands[7];
@@ -336,8 +339,6 @@ public class EXCDController extends Controller {
     }
 
 
-
-
     /**
      * 应用指令集
      * */
@@ -516,7 +517,7 @@ public class EXCDController extends Controller {
 
     //设置个人信息
     public void writeForSetInfo(UserInfo info){
-        int height = 0;
+        int height = 60;
         if (info.getHeight()!=null){
             height = Integer.valueOf(info.getHeight().substring(0,info.getHeight().length()-2));
             if(info.getHeight().indexOf("cm")<0){
@@ -524,7 +525,7 @@ public class EXCDController extends Controller {
             }
         }
 
-        int weight = 0;
+        int weight = 170;
         if (info.getWeight()!=null){
             weight = Integer.valueOf(info.getWeight().substring(0,info.getWeight().length()-2));
             if(info.getWeight().indexOf("kg")<0){

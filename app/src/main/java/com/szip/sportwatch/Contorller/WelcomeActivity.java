@@ -68,6 +68,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         setContentView(R.layout.activity_welcome);
 
         app = (MyApplication)getApplicationContext();
+
         /**
          * 拿去本地缓存的数据
          * */

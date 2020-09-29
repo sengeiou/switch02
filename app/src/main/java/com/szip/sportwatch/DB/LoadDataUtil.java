@@ -6,6 +6,7 @@ import com.necer.utils.CalendarUtil;
 import com.raizlabs.android.dbflow.sql.SqlUtils;
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
@@ -14,6 +15,8 @@ import com.szip.sportwatch.DB.dbModel.BloodPressureData;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData_Table;
 import com.szip.sportwatch.DB.dbModel.EcgData;
 import com.szip.sportwatch.DB.dbModel.EcgData_Table;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig_Table;
 import com.szip.sportwatch.DB.dbModel.HeartData;
 import com.szip.sportwatch.DB.dbModel.HeartData_Table;
 import com.szip.sportwatch.DB.dbModel.SleepData;
@@ -27,6 +30,7 @@ import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.Model.ReportDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
 
 import org.joda.time.LocalDate;
@@ -64,7 +68,7 @@ public class LoadDataUtil {
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
         StepData sqlData = SQLite.select()
                 .from(StepData.class)
-                .where(StepData_Table.time.is(time))
+                .where(StepData_Table.time.is(time),StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
         if (sqlData!=null){
             int sql[] = new int[24];
@@ -111,7 +115,7 @@ public class LoadDataUtil {
         for (int i = 0;i<7;i++){
             StepData sqlData = SQLite.select()
                     .from(StepData.class)
-                    .where(StepData_Table.time.is(time-(6-i)*24*60*60))
+                    .where(StepData_Table.time.is(time-(6-i)*24*60*60),StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.steps,0,0));
@@ -134,7 +138,7 @@ public class LoadDataUtil {
         for (int i = 0;i<28;i++){
             StepData sqlData = SQLite.select()
                     .from(StepData.class)
-                    .where(StepData_Table.time.is(time-(27-i)*24*60*60))
+                    .where(StepData_Table.time.is(time-(27-i)*24*60*60),StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.steps,0,0));
@@ -171,7 +175,8 @@ public class LoadDataUtil {
             List<StepData> list = SQLite.select()
                     .from(StepData.class)
                     .where(StepData_Table.time.lessThanOrEq(endMonth),
-                            StepData_Table.time.greaterThanOrEq(startMonth))
+                            StepData_Table.time.greaterThanOrEq(startMonth),
+                            StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
                 stepSum+=list.get(j).steps;
@@ -193,7 +198,8 @@ public class LoadDataUtil {
 
         SleepData sleepData = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.is(time))
+                .where(SleepData_Table.time.is(time),
+                        SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
 
         if (sleepData!=null){
@@ -225,7 +231,8 @@ public class LoadDataUtil {
         for (int i = 0;i<7;i++){
             SleepData sqlData = SQLite.select()
                     .from(SleepData.class)
-                    .where(SleepData_Table.time.is(time-(6-i)*24*60*60))
+                    .where(SleepData_Table.time.is(time-(6-i)*24*60*60),
+                            SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.deepTime+sqlData.lightTime,sqlData.lightTime,0));
@@ -248,7 +255,8 @@ public class LoadDataUtil {
         for (int i = 0;i<28;i++){
             SleepData sqlData = SQLite.select()
                     .from(SleepData.class)
-                    .where(SleepData_Table.time.is(time-(27-i)*24*60*60))
+                    .where(SleepData_Table.time.is(time-(27-i)*24*60*60),
+                            SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.deepTime+sqlData.lightTime,sqlData.lightTime,0));
@@ -286,7 +294,8 @@ public class LoadDataUtil {
             List<SleepData> list = SQLite.select()
                     .from(SleepData.class)
                     .where(SleepData_Table.time.lessThanOrEq(endMonth),
-                            SleepData_Table.time.greaterThanOrEq(startMonth))
+                            SleepData_Table.time.greaterThanOrEq(startMonth),
+                            SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
                 deepSleep+=list.get(j).deepTime;
@@ -311,7 +320,8 @@ public class LoadDataUtil {
 
         HeartData sqlData = SQLite.select()
                 .from(HeartData.class)
-                .where(HeartData_Table.time.is(time))
+                .where(HeartData_Table.time.is(time),
+                        HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
 
         if (sqlData!=null){
@@ -342,7 +352,8 @@ public class LoadDataUtil {
         for (int i = 0;i<7;i++){
             HeartData sqlData = SQLite.select()
                     .from(HeartData.class)
-                    .where(HeartData_Table.time.is(time-(6-i)*24*60*60))
+                    .where(HeartData_Table.time.is(time-(6-i)*24*60*60),
+                            HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.averageHeart-40,0,0));
@@ -367,7 +378,8 @@ public class LoadDataUtil {
         for (int i = 0;i<28;i++){
             HeartData sqlData = SQLite.select()
                     .from(HeartData.class)
-                    .where(HeartData_Table.time.is(time-(27-i)*24*60*60))
+                    .where(HeartData_Table.time.is(time-(27-i)*24*60*60),
+                            HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .querySingle();
             if (sqlData!=null)
                 drawData.add(new DrawDataBean(sqlData.averageHeart-40,0,0));
@@ -407,7 +419,8 @@ public class LoadDataUtil {
             List<HeartData> list = SQLite.select()
                     .from(HeartData.class)
                     .where(HeartData_Table.time.lessThanOrEq(endMonth),
-                            HeartData_Table.time.greaterThanOrEq(startMonth))
+                            HeartData_Table.time.greaterThanOrEq(startMonth),
+                            HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
                 Log.d("SZIP******","time = "+ DateUtil.getStringDateFromSecond(list.get(j).time,"yyyy-MM-dd"));
@@ -438,7 +451,9 @@ public class LoadDataUtil {
         List<BloodPressureData> list = SQLite.select()
                 .from(BloodPressureData.class)
                 .where(BloodPressureData_Table.time.lessThan(time+24*60*60-1),
-                        BloodPressureData_Table.time.greaterThanOrEq(time))
+                        BloodPressureData_Table.time.greaterThanOrEq(time),
+                        BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+//                .orderBy(OrderBy.fromString(BloodPressureData_Table.time+OrderBy.DESCENDING))
                 .queryList();
         for (int i = 0;i<list.size();i++){
             Log.d("SZIP******","SBP = "+list.get(i).sbpDate+" ;DBP = "+list.get(i).dbpDate);
@@ -466,7 +481,8 @@ public class LoadDataUtil {
         List<BloodPressureData> list = SQLite.select()
                 .from(BloodPressureData.class)
                 .where(BloodPressureData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodPressureData_Table.time.greaterThanOrEq(startTime))
+                        BloodPressureData_Table.time.greaterThanOrEq(startTime),
+                        BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -512,7 +528,8 @@ public class LoadDataUtil {
         List<BloodPressureData> list = SQLite.select()
                 .from(BloodPressureData.class)
                 .where(BloodPressureData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodPressureData_Table.time.greaterThanOrEq(startTime))
+                        BloodPressureData_Table.time.greaterThanOrEq(startTime),
+                        BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -570,7 +587,8 @@ public class LoadDataUtil {
             List<BloodPressureData> list = SQLite.select()
                     .from(BloodPressureData.class)
                     .where(BloodPressureData_Table.time.lessThanOrEq(endMonth),
-                            BloodPressureData_Table.time.greaterThanOrEq(startMonth))
+                            BloodPressureData_Table.time.greaterThanOrEq(startMonth),
+                            BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
 
@@ -600,7 +618,9 @@ public class LoadDataUtil {
         List<BloodOxygenData> list = SQLite.select()
                 .from(BloodOxygenData.class)
                 .where(BloodOxygenData_Table.time.lessThan(time+24*60*60-1),
-                        BloodOxygenData_Table.time.greaterThanOrEq(time))
+                        BloodOxygenData_Table.time.greaterThanOrEq(time),
+                        BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+//                .orderBy(OrderBy.fromString(BloodPressureData_Table.time+OrderBy.DESCENDING))
                 .queryList();
         for (int i = 0;i<list.size();i++){
             drawData.add(new DrawDataBean(list.get(i).bloodOxygenData -70, 0,list.get(i).time));
@@ -626,7 +646,8 @@ public class LoadDataUtil {
         List<BloodOxygenData> list = SQLite.select()
                 .from(BloodOxygenData.class)
                 .where(BloodOxygenData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodOxygenData_Table.time.greaterThanOrEq(startTime))
+                        BloodOxygenData_Table.time.greaterThanOrEq(startTime),
+                        BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -669,7 +690,8 @@ public class LoadDataUtil {
         List<BloodOxygenData> list = SQLite.select()
                 .from(BloodOxygenData.class)
                 .where(BloodOxygenData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        BloodOxygenData_Table.time.greaterThanOrEq(startTime))
+                        BloodOxygenData_Table.time.greaterThanOrEq(startTime),
+                        BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -720,7 +742,8 @@ public class LoadDataUtil {
             List<BloodOxygenData> list = SQLite.select()
                     .from(BloodOxygenData.class)
                     .where(BloodOxygenData_Table.time.lessThanOrEq(endMonth),
-                            BloodOxygenData_Table.time.greaterThanOrEq(startMonth))
+                            BloodOxygenData_Table.time.greaterThanOrEq(startMonth),
+                            BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
 
@@ -748,7 +771,9 @@ public class LoadDataUtil {
         List<AnimalHeatData> list = SQLite.select()
                 .from(AnimalHeatData.class)
                 .where(AnimalHeatData_Table.time.lessThan(time+24*60*60-1),
-                        AnimalHeatData_Table.time.greaterThanOrEq(time))
+                        AnimalHeatData_Table.time.greaterThanOrEq(time),
+                        AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+//                .orderBy(OrderBy.fromString(AnimalHeatData_Table.time+OrderBy.DESCENDING))
                 .queryList();
         for (int i = 0;i<list.size();i++){
             drawData.add(new DrawDataBean(list.get(i).tempData -340, 0,list.get(i).time));
@@ -774,7 +799,8 @@ public class LoadDataUtil {
         List<AnimalHeatData> list = SQLite.select()
                 .from(AnimalHeatData.class)
                 .where(AnimalHeatData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        AnimalHeatData_Table.time.greaterThanOrEq(startTime))
+                        AnimalHeatData_Table.time.greaterThanOrEq(startTime),
+                        AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -817,7 +843,8 @@ public class LoadDataUtil {
         List<AnimalHeatData> list = SQLite.select()
                 .from(AnimalHeatData.class)
                 .where(AnimalHeatData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        AnimalHeatData_Table.time.greaterThanOrEq(startTime))
+                        AnimalHeatData_Table.time.greaterThanOrEq(startTime),
+                        AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         ReportDataBean reportDataBean = new ReportDataBean();
@@ -869,7 +896,8 @@ public class LoadDataUtil {
             List<AnimalHeatData> list = SQLite.select()
                     .from(AnimalHeatData.class)
                     .where(AnimalHeatData_Table.time.lessThanOrEq(endMonth),
-                            AnimalHeatData_Table.time.greaterThanOrEq(startMonth))
+                            AnimalHeatData_Table.time.greaterThanOrEq(startMonth),
+                            AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                     .queryList();
             for (int j = 0;j<list.size();j++){
                 value+=list.get(j).tempData;
@@ -904,7 +932,9 @@ public class LoadDataUtil {
         List<EcgData> list = SQLite.select()
                 .from(EcgData.class)
                 .where(EcgData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        EcgData_Table.time.greaterThanOrEq(startTime))
+                        EcgData_Table.time.greaterThanOrEq(startTime),
+                        EcgData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                .orderBy(OrderBy.fromString(EcgData_Table.time+OrderBy.DESCENDING))
                 .queryList();
         for (int i = 0;i<list.size();i++){
             String heartArray[] = list.get(i).heart.split(",");
@@ -938,10 +968,13 @@ public class LoadDataUtil {
         ArrayList<DrawDataBean> drawData = new ArrayList<>();
 
 
+        Log.d("SZIP******","LOADID = "+MyApplication.getInstance().getUserInfo().getBindId());
+
         List<SportData> list = SQLite.select()
                 .from(SportData.class)
                 .where(SportData_Table.time.lessThanOrEq(time+24*60*60-1),
-                        SportData_Table.time.greaterThanOrEq(startTime))
+                        SportData_Table.time.greaterThanOrEq(startTime),
+                        SportData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .queryList();
 
         return list;
@@ -954,6 +987,7 @@ public class LoadDataUtil {
 
         SportData sportData = SQLite.select()
                 .from(SportData.class)
+                .where(SportData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .orderBy(OrderBy.fromString(SportData_Table.distance+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
@@ -980,7 +1014,8 @@ public class LoadDataUtil {
 
         StepData stepData = SQLite.select()
                 .from(StepData.class)
-                .where(StepData_Table.time.is(time))
+                .where(StepData_Table.time.is(time),
+                        StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
         if (stepData!=null){
             healthyDataModel.setStepsData(stepData.steps);
@@ -995,7 +1030,8 @@ public class LoadDataUtil {
 
         SleepData sleepData = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.is(time))
+                .where(SleepData_Table.time.is(time),
+                        SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
         if (sleepData!=null){
             healthyDataModel.setLightSleepData(sleepData.lightTime);
@@ -1005,7 +1041,8 @@ public class LoadDataUtil {
 
         HeartData heartData = SQLite.select()
                 .from(HeartData.class)
-                .where(HeartData_Table.time.is(time))
+                .where(HeartData_Table.time.is(time),
+                        HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .querySingle();
         if (heartData!=null){
             if (heartData.getHeartArray().equals("")){
@@ -1023,7 +1060,8 @@ public class LoadDataUtil {
         BloodPressureData bloodPressureData = SQLite.select()
                 .from(BloodPressureData.class)
                 .where(BloodPressureData_Table.time.greaterThanOrEq(time),
-                        BloodPressureData_Table.time.lessThanOrEq(time*24*60*60-1))
+                        BloodPressureData_Table.time.lessThanOrEq(time*24*60*60-1),
+                        BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .orderBy(OrderBy.fromString(BloodPressureData_Table.time+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
@@ -1039,7 +1077,8 @@ public class LoadDataUtil {
         BloodOxygenData bloodOxygenData = SQLite.select()
                 .from(BloodOxygenData.class)
                 .where(BloodOxygenData_Table.time.greaterThanOrEq(time),
-                        BloodOxygenData_Table.time.lessThanOrEq(time*24*60*60-1))
+                        BloodOxygenData_Table.time.lessThanOrEq(time*24*60*60-1),
+                        BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .orderBy(OrderBy.fromString(BloodOxygenData_Table.time+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
@@ -1051,7 +1090,8 @@ public class LoadDataUtil {
         AnimalHeatData animalHeatData = SQLite.select()
                 .from(AnimalHeatData.class)
                 .where(AnimalHeatData_Table.time.greaterThanOrEq(time),
-                        AnimalHeatData_Table.time.lessThanOrEq(time*24*60*60-1))
+                        AnimalHeatData_Table.time.lessThanOrEq(time*24*60*60-1),
+                        AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .orderBy(OrderBy.fromString(AnimalHeatData_Table.time+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
@@ -1063,7 +1103,8 @@ public class LoadDataUtil {
         EcgData ecgData = SQLite.select()
                 .from(EcgData.class)
                 .where(EcgData_Table.time.greaterThanOrEq(time),
-                        EcgData_Table.time.lessThanOrEq(time*24*60*60-1))
+                        EcgData_Table.time.lessThanOrEq(time*24*60*60-1),
+                        EcgData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                 .orderBy(OrderBy.fromString(EcgData_Table.time+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
@@ -1101,6 +1142,7 @@ public class LoadDataUtil {
             case 1:
                 stepDataList = SQLite.select()
                         .from(StepData.class)
+                        .where(StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (StepData stepData:stepDataList){
                     if (stepData.steps>0)
@@ -1110,6 +1152,7 @@ public class LoadDataUtil {
             case 2:
                 sleepDataList = SQLite.select()
                         .from(SleepData.class)
+                        .where(SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
 
                 for (SleepData sleepData:sleepDataList){
@@ -1120,6 +1163,7 @@ public class LoadDataUtil {
             case 3:
                 heartDataList = SQLite.select()
                         .from(HeartData.class)
+                        .where(HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (HeartData heartData:heartDataList){
                     if (heartData.averageHeart>0)
@@ -1129,6 +1173,7 @@ public class LoadDataUtil {
             case 4:
                 bloodPressureDataList = SQLite.select()
                         .from(BloodPressureData.class)
+                        .where(BloodPressureData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (BloodPressureData bloodPressureData:bloodPressureDataList){
                     LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,"yyyy-MM-dd"));
@@ -1139,6 +1184,7 @@ public class LoadDataUtil {
             case 5:
                 bloodOxygenDataList = SQLite.select()
                         .from(BloodOxygenData.class)
+                        .where(BloodOxygenData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (BloodOxygenData bloodOxygenData:bloodOxygenDataList){
                     LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,"yyyy-MM-dd"));
@@ -1149,6 +1195,7 @@ public class LoadDataUtil {
             case 6:
                 ecgDataList = SQLite.select()
                         .from(EcgData.class)
+                        .where(EcgData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (EcgData ecgData:ecgDataList){
                     LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,"yyyy-MM-dd"));
@@ -1159,6 +1206,7 @@ public class LoadDataUtil {
             case 7:
                 sportDataList = SQLite.select()
                         .from(SportData.class)
+                        .where(SportData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (SportData sportData:sportDataList){
                     LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,"yyyy-MM-dd"));
@@ -1169,6 +1217,7 @@ public class LoadDataUtil {
             case 8:
                 animalHeatDataList = SQLite.select()
                         .from(AnimalHeatData.class)
+                        .where(AnimalHeatData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                         .queryList();
                 for (AnimalHeatData animalHeatData:animalHeatDataList){
                     LocalDate localDate = new LocalDate(DateUtil.getStringDateFromSecond(animalHeatData.time,"yyyy-MM-dd"));
@@ -1182,6 +1231,9 @@ public class LoadDataUtil {
     }
 
 
+    /**
+     * 判断是否支持运动
+     * */
     public boolean getSportConfig(int deviceNum){
 
         SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
@@ -1193,20 +1245,33 @@ public class LoadDataUtil {
 
     }
 
+    public HealthyConfig getConfig(int deviceNum){
+        Log.d("SZIP******","获取ID = "+deviceNum);
+        HealthyConfig config = SQLite.select()
+                .from(HealthyConfig.class)
+                .where(HealthyConfig_Table.identifier.is(deviceNum))
+                .querySingle();
+        Log.d("SZIP******","获取ID = "+config);
+        return config;
+    }
+
+    /**
+     * 获取支持的蓝牙名
+     * */
     public ArrayList<String> getBleNameConfig(){
         List<SportWatchAppFunctionConfigDTO> sportWatchAppFunctionConfigDTOs = SQLite.select()
                 .from(SportWatchAppFunctionConfigDTO.class)
                 .queryList();
-        Log.d("SZIP******","load data = "+sportWatchAppFunctionConfigDTOs.size());
-
         ArrayList<String> datas = new ArrayList<>();
         for (SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO:sportWatchAppFunctionConfigDTOs){
-            Log.d("SZIP******","load sportWatchAppFunctionConfigDTO.appName = "+sportWatchAppFunctionConfigDTO.appName);
             datas.add(sportWatchAppFunctionConfigDTO.appName);
         }
         return datas;
     }
 
+    /**
+     * 判断圆屏方屏
+     * */
     public boolean getDialConfig(int deviceNum){
         SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
                 .from(SportWatchAppFunctionConfigDTO.class)
@@ -1214,6 +1279,18 @@ public class LoadDataUtil {
                 .querySingle();
 
         return sportWatchAppFunctionConfigDTO==null?false:sportWatchAppFunctionConfigDTO.getScreenType()==0;
+    }
+
+    /**
+     * 判断是否支持mtk蓝牙库
+     * */
+    public boolean getBleConfig(String deviceName){
+        SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
+                .from(SportWatchAppFunctionConfigDTO.class)
+                .where(SportWatchAppFunctionConfigDTO_Table.appName.is(deviceName))
+                .querySingle();
+
+        return sportWatchAppFunctionConfigDTO==null?true:sportWatchAppFunctionConfigDTO.getUseMtkConnect()==1;
     }
 
     /**

@@ -5,7 +5,9 @@ import android.os.Message;
 import android.util.Log;
 
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.View.PullToRefreshLayout;
 
@@ -16,8 +18,11 @@ public class MyListener implements PullToRefreshLayout.OnRefreshListener
 	@Override
 	public void onRefresh(final PullToRefreshLayout pullToRefreshLayout)
 	{
-		if (WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED) {
-			EXCDController.getInstance().writeForCheckVersion();
+		if (MainService.getInstance().getState()==WearableManager.STATE_CONNECTED) {
+			if (MyApplication.getInstance().isMtk())
+				EXCDController.getInstance().writeForCheckVersion();
+			else
+				BleClient.getInstance().writeForGetDeviceState();
 			// 下拉刷新操作
 			new Handler()
 			{

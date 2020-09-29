@@ -176,7 +176,8 @@
                 android:text="@string/next"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_button_corner"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:textAllCaps="false"/>
 
         </RelativeLayout>
 

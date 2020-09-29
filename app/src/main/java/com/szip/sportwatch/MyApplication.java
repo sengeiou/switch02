@@ -16,6 +16,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
@@ -76,6 +77,24 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     private String deviceNum;
 
+    private boolean isMtk = true;
+
+    private String BtMac;
+
+    public String getBtMac() {
+        return BtMac;
+    }
+
+    public void setBtMac(String btMac) {
+        if (BtMac==null||!btMac.split(":")[0].equals(BtMac.split(":")[0])){
+            String[] buff = btMac.split(":");
+            BtMac = String.format("%02X:%02X:%02X:%02X:%02X:%02X",Integer.valueOf(buff[0],16),Integer.valueOf(buff[1],16),
+                    Integer.valueOf(buff[2],16),Integer.valueOf(buff[3],16),Integer.valueOf(buff[4],16)
+                    ,Integer.valueOf(buff[5],16));
+            Log.d("SZIP******","MAC = "+BtMac);
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -109,6 +128,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
          * */
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+        isMtk = sharedPreferences.getBoolean("bleConfig",true);
         //获取上次退出之后剩余的倒计时上传时间
         updownTime = sharedPreferences.getInt("updownTime",3600);
 
@@ -118,8 +138,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             initIgnoreList();
             sharedPreferences.edit().putBoolean("first",false).commit();
         }
-
-
 
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
@@ -132,7 +150,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                         try {
                             Log.d("SZIP******","GET USER1");
                             HttpMessgeUtil.getInstance(MyApplication.this).getForGetInfo();
-                            Thread.sleep(2000);
+                            Thread.sleep(60000);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }catch (InterruptedException e) {
@@ -143,8 +161,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             }).start();
 
         }
-
-
 
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
@@ -204,9 +220,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
             }
         });
-
-
-
 
 
         String packageName = getPackageName();
@@ -368,7 +381,16 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         editor.commit();
     }
 
-
+    public String getDeviceNum() {
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return "0";
+            else
+                return deviceNum;
+        }else
+            return deviceNum;
+    }
 
     public boolean getSportVisiable(){
         if (deviceNum==null){
@@ -401,7 +423,13 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 @Override
                 public void onResponse(DeviceConfigBean response, int id) {
                     if (response.getCode()==200){
+                        ArrayList<HealthyConfig> data = new ArrayList<>();
                         SaveDataUtil.newInstance().saveConfigListData(response.getData());
+                        for (SportWatchAppFunctionConfigDTO configDTO:response.getData()){
+                            configDTO.getHealthMonitorConfig().identifier = configDTO.identifier;
+                            data.add(configDTO.getHealthMonitorConfig());
+                        }
+                        SaveDataUtil.newInstance().saveHealthyConfigListData(data);
                     }
                 }
             });
@@ -410,4 +438,12 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         }
     }
 
+    public void setMtk(String deviceName) {
+        isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
+        sharedPreferences.edit().putBoolean("bleConfig",isMtk).commit();
+    }
+
+    public boolean isMtk() {
+        return isMtk;
+    }
 }

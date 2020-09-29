@@ -24,6 +24,9 @@ public class BloodOxygenData extends BaseModel implements Comparable<BloodOxygen
     @Column
     public int bloodOxygenData;
 
+    @Column
+    public String deviceCode;
+
     public BloodOxygenData(long time, int bloodOxygenData) {
         this.time = time;
         this.bloodOxygenData = bloodOxygenData;

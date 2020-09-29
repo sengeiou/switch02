@@ -6,6 +6,8 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.szip.sportwatch.DB.AppDatabase;
 
+import java.util.ArrayList;
+
 /**
  * @Author JoeChou
  * @Date 2020/6/18 11:41
@@ -100,6 +102,12 @@ public class SportWatchAppFunctionConfigDTO extends BaseModel {
     @Column
     public byte useMtkConnect;
 
+
+    private HealthyConfig healthMonitorConfig;
+
+    public HealthyConfig getHealthMonitorConfig() {
+        return healthMonitorConfig;
+    }
 
     public String getAppName() {
         return this.appName;

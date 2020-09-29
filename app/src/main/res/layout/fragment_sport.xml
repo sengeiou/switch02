@@ -97,7 +97,7 @@
                     android:src="@mipmap/sport_icon_type"/>
 
                 <TextView
-                    android:id="@+id/distanceTv"
+                    android:id="@+id/dataTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -185,7 +185,7 @@
                     android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/calorieTv"
+                    android:id="@+id/buttonFirstTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sport_text_size_normal"
@@ -224,7 +224,7 @@
                     android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/sportTimeTv"
+                    android:id="@+id/buttonSecondTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sport_text_size_normal"

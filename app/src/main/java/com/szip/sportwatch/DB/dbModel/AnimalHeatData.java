@@ -20,6 +20,9 @@ public class AnimalHeatData extends BaseModel implements Comparable<AnimalHeatDa
     @Column
     public int tempData;
 
+    @Column
+    public String deviceCode;
+
     public AnimalHeatData(long time, int tempData) {
         this.time = time;
         this.tempData = tempData;

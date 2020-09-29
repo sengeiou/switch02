@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,20 +49,22 @@ public class DIYActivity extends BaseActivity {
 
     private int[] clock_r = new int[]{R.mipmap.diy_preview_1_1,R.mipmap.diy_preview_2_1,R.mipmap.diy_preview_3_1,R.mipmap.diy_preview_4_1,
             R.mipmap.diy_preview_5_1,R.mipmap.diy_preview_6_1,R.mipmap.diy_preview_7_1,R.mipmap.diy_preview_9_1,
-            R.mipmap.diy_preview_10_1,R.mipmap.diy_preview_11_1,R.mipmap.diy_preview_13_1,R.mipmap.diy_preview_14_1};
+            R.mipmap.diy_preview_10_1,R.mipmap.diy_preview_11_1,R.mipmap.diy_preview_13_1,R.mipmap.diy_preview_14_1,R.mipmap.diy_28};
 
     private int[] clock_c = new int[]{R.mipmap.diy_preview_c_1_1,R.mipmap.diy_preview_c_2_1,R.mipmap.diy_preview_c_3_1,
             R.mipmap.diy_preview_c_4_1, R.mipmap.diy_preview_c_5_1,R.mipmap.diy_preview_c_6_1, R.mipmap.diy_preview_c_7_1,
             R.mipmap.diy_preview_c_8_1,R.mipmap.diy_preview_c_9_1, R.mipmap.diy_preview_c_10_1, R.mipmap.diy_preview_c_11_1,
             R.mipmap.diy_preview_c_12_1,R.mipmap.diy_preview_c_13_1};
 
-    private int[] clock_num_r = new int[]{1,2,3,5,7,8,9,10,12,14,11,13};
+    private int[] clock_num_r = new int[]{1,2,3,5,7,8,9,10,12,14,11,13,28};
     private int[] clock_num_c = new int[]{15,25,11,17,18,19,20,21,22,23,24,26,27};
 
     private CircularImageView backgroundIv_c;
     private ImageView clockIv,backgroundIv_r;
     private boolean isCircle = false;
     private int pos = -1;
+
+    private boolean isSendPic = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +129,7 @@ public class DIYActivity extends BaseActivity {
                     return;
                 }
                 ProgressHudModel.newInstance().show(DIYActivity.this,getString(R.string.loading),
-                        getString(R.string.connect_error),3000);
+                        getString(R.string.connect_error),10000);
                 EXCDController.getInstance().initDialInfo();
             }
         });
@@ -148,18 +151,18 @@ public class DIYActivity extends BaseActivity {
         backgroundIv_r = findViewById(R.id.backgroundIv_r);
         clockIv = findViewById(R.id.clockIv);
     }
-
+    String[] proj = { MediaStore.Images.Media.DATA };
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == UCrop.RESULT_ERROR){
             showToast(getString(R.string.crop_pic_failed));
+            return;
         }
         switch (requestCode){
             case 1:{
                 if (data==null||data.getData()==null)
                     return;
-                if(MathUitl.isJpgFile(data.getData())){
-                    Log.d("IMAGE******","相册回调");
+                if(MathUitl.isJpgFile(getContentResolver().query(data.getData(), proj, null, null, null))){
                     startPhotoZoom(data.getData());
                 }else {
                     showToast(getString(R.string.chooseJpg));
@@ -168,7 +171,6 @@ public class DIYActivity extends BaseActivity {
             }
             break;
             case  UCrop.REQUEST_CROP:{
-                Log.d("IMAGE******","裁剪回调");
                 if (data!=null){
                     resultUri = UCrop.getOutput(data);
                     if (isCircle) {
@@ -188,6 +190,9 @@ public class DIYActivity extends BaseActivity {
      * @param uri
      */
     private void startPhotoZoom(Uri uri) {
+        if (findViewById(R.id.bottomRl).getVisibility()==View.GONE){
+            findViewById(R.id.bottomRl).setVisibility(View.VISIBLE);
+        }
         try {
             tmpFile = null;
             Uri path;
@@ -223,57 +228,60 @@ public class DIYActivity extends BaseActivity {
             progress++;
             ProgressHudModel.newInstance().setProgress(progress);
         }else if (updateView.getState().equals("1")){//完成
+            isSendPic = false;
+            progress = 0;
             ProgressHudModel.newInstance().diss();
             showToast(getString(R.string.diyDailOK));
-            setResult(100);
-            finish();
         }else if (updateView.getState().equals("2")){//失败
+            isSendPic = false;
+            progress = 0;
             showToast(getString(R.string.diyDailError));
         }else {
-
-            ProgressHudModel.newInstance().diss();
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            FileInputStream fis;
-            try {
-                fis = new FileInputStream(new File(resultUri.getPath()));
-                byte[] buf = new byte[1024];
-                int n;
-                while (-1 != (n = fis.read(buf)))
-                    baos.write(buf, 0, n);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            byte[] datas = baos.toByteArray();
-
-
-            int num = datas.length/PAGENUM;
-            num = datas.length%PAGENUM==0?num:num+1;
-
-            ProgressHudModel.newInstance().showWithPie(DIYActivity.this,getString(R.string.diyDailing),num+7,
-                    getString(R.string.diyDailError),5*60*1000);
-
-            if (datas.length<=PAGENUM){
-                EXCDController.getInstance().writeForSendImage(datas,1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
-                        MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
-            }else {
-                byte[] newDatas;
-                for (int i=0;i<datas.length;i+=PAGENUM){
-                    int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
-                    newDatas = new byte[len];
-                    System.arraycopy(datas,i,newDatas,0,len);
-                    EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
-                            MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
+            if(!isSendPic){
+                isSendPic = true;
+                ProgressHudModel.newInstance().diss();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                FileInputStream fis;
+                try {
+                    fis = new FileInputStream(new File(resultUri.getPath()));
+                    byte[] buf = new byte[1024];
+                    int n;
+                    while (-1 != (n = fis.read(buf)))
+                        baos.write(buf, 0, n);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }
-            for (int i=0;i<7;i++){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress++;
-                        ProgressHudModel.newInstance().setProgress(progress);
+                byte[] datas = baos.toByteArray();
+
+
+                int num = datas.length/PAGENUM;
+                num = datas.length%PAGENUM==0?num:num+1;
+
+                ProgressHudModel.newInstance().showWithPie(DIYActivity.this,getString(R.string.diyDailing),num+7,
+                        getString(R.string.diyDailError),5*60*1000);
+
+                if (datas.length<=PAGENUM){
+                    EXCDController.getInstance().writeForSendImage(datas,1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
+                            MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
+                }else {
+                    byte[] newDatas;
+                    for (int i=0;i<datas.length;i+=PAGENUM){
+                        int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
+                        newDatas = new byte[len];
+                        System.arraycopy(datas,i,newDatas,0,len);
+                        EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
+                                MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
                     }
-                },5000*(i+1));
+                }
+                for (int i=0;i<7;i++){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progress++;
+                            ProgressHudModel.newInstance().setProgress(progress);
+                        }
+                    },5000*(i+1));
+                }
             }
         }
     }

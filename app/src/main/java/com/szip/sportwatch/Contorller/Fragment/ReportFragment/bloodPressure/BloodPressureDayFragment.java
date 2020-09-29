@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -74,7 +75,9 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
 
     private void updateView() {
         reportScorllView.addData(reportDataBean.getDrawDataBeans());
-        adapter.setDrawDataBeans(reportDataBean.getDrawDataBeans());
+        ArrayList<DrawDataBean> list = reportDataBean.getDrawDataBeans();
+        Collections.sort(list);
+        adapter.setDrawDataBeans(list);
         if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else

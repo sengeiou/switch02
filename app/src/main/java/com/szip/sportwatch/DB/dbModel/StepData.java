@@ -33,6 +33,9 @@ public class StepData extends BaseModel implements Comparable<StepData>{
     @Column
     public String dataForHour;
 
+    @Column
+    public String deviceCode;
+
     public long getTime() {
         return time;
     }

@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
-import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -19,10 +16,6 @@ import com.szip.sportwatch.View.ReportView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -96,9 +89,9 @@ public class HeartMonthFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
-        averageTv = getView().findViewById(R.id.averageTv);
+        averageTv = getView().findViewById(R.id.averageTv1);
         maxTv = getView().findViewById(R.id.maxTv);
         minTv = getView().findViewById(R.id.minTv);
     }

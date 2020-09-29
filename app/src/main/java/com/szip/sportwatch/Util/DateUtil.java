@@ -221,6 +221,21 @@ public class DateUtil {
         return calendar.getTimeInMillis()/1000;
     }
 
+    /**
+     * 获取当前日期00点的时间戳
+     * @param dateStr 日期
+     * @return 返回这一天0点到24点的时间戳
+     * */
+    public static long getTimeScopeForDay(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        return calendar.getTimeInMillis()/1000;
+    }
+
     public static long getTimeScope(String dateStr,String tag){
         SimpleDateFormat dateFormat = new SimpleDateFormat(tag,Locale.ENGLISH);
         Date date = new Date();
@@ -278,12 +293,53 @@ public class DateUtil {
      */
     public static String getSleepDate(String data) {
         String datas[] = data.split("\\|");
-        if (getMinue(datas[1])>1320){
+        if (getMinue(datas[1])>1260){
             long time = getTimeScopeForDay(datas[0],"yyyy-MM-dd");
             return getStringDateFromSecond(time+24*60*60,"yyyy-M-d");
         } else {
             return datas[0];
         }
+    }
+
+
+    /**
+     * byte[]转变为16进制String字符, 每个字节2位, 不足补0
+     */
+    public static String byteToHexString(byte[] bytes) {
+        String result = null;
+        String hex = null;
+        if (bytes != null && bytes.length > 0) {
+            final StringBuilder stringBuilder = new StringBuilder(bytes.length);
+            for (byte byteChar : bytes) {
+                hex = Integer.toHexString(byteChar & 0xFF);
+                if (hex.length() == 1) {
+                    hex = '0' + hex;
+                }
+                stringBuilder.append(hex.toUpperCase());
+            }
+            result = stringBuilder.toString();
+        }
+        return result;
+    }
+
+    public static int[] getNowDate() {
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        TimeZone timeZone = TimeZone.getDefault();
+        String timeZoneId = timeZone.getDisplayName(false, TimeZone.SHORT);
+        String date = mFormat.format(new Date(System.currentTimeMillis()));
+        String[] dateArray = date.split("-");
+        String timeZoneDisplay = timeZoneId.substring(3, timeZoneId.length());
+        int[] time = new int[dateArray.length + 1];
+        for (int i = 0; i <= dateArray.length; i++) {
+            if (i == dateArray.length) {
+                time[i] = Integer.valueOf("8");
+            } else {
+                time[i] = Integer.valueOf(dateArray[i]);
+            }
+        }
+
+        return time;
+
     }
 
 }

@@ -436,7 +436,7 @@ public class MathUitl {
 
     public static ArrayList<String> getSleepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
-        for (int i = 300;i<=900;i+=30){
+        for (int i = 300;i<=720;i+=30){
             list.add(String.format(Locale.ENGLISH,"%.1f",(float)i/60));
         }
         return list;
@@ -502,11 +502,11 @@ public class MathUitl {
         String data[];
         for (int i = 0;i<hearts.size();i++){
             data = hearts.get(i).split("\\|");
-//            if (Integer.valueOf(data[1])!=0){
+            if (!Integer.valueOf(data[1]).equals("0")){
                 heart+=Integer.valueOf(data[1]);
                 sum++;
                 heartStr.append(","+data[1]);
-//            }
+            }
         }
         Log.d("SZIP******","心率数据 = "+"time = "+DateUtil.getTimeScopeForDay(hearts.get(0).split(" ")[0],"yyyy-MM-dd")
                 +"heart = "+(sum==0?0:heart/sum)+" ;heartStr = "+heartStr.toString().substring(1));
@@ -716,6 +716,7 @@ public class MathUitl {
         editor.putInt("id",info.getId());
         editor.putString("deviceCode",info.getDeviceCode());
         editor.putString("avatar",info.getAvatar());
+        editor.putString("bindId",info.getBindId());
         return editor;
     }
 
@@ -734,6 +735,7 @@ public class MathUitl {
         info.setAvatar(sharedPreferences.getString("avatar",null));
         info.setPhoneNumber(sharedPreferences.getString("phoneNumber",null));
         info.setEmail(sharedPreferences.getString("email",null));
+        info.setBindId(sharedPreferences.getString("bindId",null));
         return info;
     }
 
@@ -741,18 +743,47 @@ public class MathUitl {
         switch (num){
             case 2:
             case 7:
+            case 16:
+            case 21:
+            case 22:
+            case 25:
+            case 26:
                 return 0;
             default:
                 return 1;
         }
     }
 
-    public static boolean isJpgFile(Uri file){
-        if (file==null||file.getPath()==null)
-            return false;
-        if (file.getPath().indexOf(".png")>=0||file.getPath().indexOf(".PNG")>=0)
-            return false;
-        else
-            return true;
+    public static boolean isJpgFile(Cursor cursor){
+        String res = null;
+
+        if(cursor.moveToFirst()){;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        Log.d("SZIP******","res = "+res);
+//        if (res.indexOf(".png")>=0||res.indexOf(".PNG")>=0||res.indexOf(".gif")>=0)
+//            return false;
+//        else
+//            return true;
+        try {
+            FileInputStream bin = new FileInputStream(new File(res));
+            int b[] = new int[4];
+            b[0] = bin.read();
+            b[1] = bin.read();
+            bin.skip(bin.available() - 2);
+            b[2] = bin.read();
+            b[3] = bin.read();
+            bin.close();
+            return b[0] == 255;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

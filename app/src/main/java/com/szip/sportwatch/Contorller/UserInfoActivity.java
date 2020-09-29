@@ -591,7 +591,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         app.getUserInfo().setHeight(heightTv.getText().toString()==""?null:heightTv.getText().toString());
         app.getUserInfo().setWeight(weightTv.getText().toString()==""?null:weightTv.getText().toString());
         MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
-        if (MainService.getInstance().getConnectState()!=3){
+        if (MainService.getInstance().getState()!=3){
             showToast(getString(R.string.syceError));
         }else {
             EXCDController.getInstance().writeForSetInfo(app.getUserInfo());

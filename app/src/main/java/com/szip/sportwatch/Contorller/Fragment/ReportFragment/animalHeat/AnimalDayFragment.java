@@ -11,6 +11,7 @@ import com.szip.sportwatch.Contorller.AnimalHeatActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.OnPageViewScorllAble;
+import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -20,6 +21,9 @@ import com.szip.sportwatch.View.ReportScorllView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class AnimalDayFragment extends BaseFragment implements View.OnClickListener, OnPageViewScorllAble {
 
@@ -64,7 +68,9 @@ public class AnimalDayFragment extends BaseFragment implements View.OnClickListe
 
     private void updateView() {
         reportScorllView.addData(reportDataBean.getDrawDataBeans());
-        adapter.setDrawDataBeans(reportDataBean.getDrawDataBeans());
+        ArrayList<DrawDataBean> list = reportDataBean.getDrawDataBeans();
+        Collections.sort(list);
+        adapter.setDrawDataBeans(list);
         if (DateUtil.getTimeOfToday()==((AnimalHeatActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else

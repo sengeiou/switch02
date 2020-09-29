@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iSmarport</string>
+
+
+    <string name = "logo"> iSmarport\'a Hoş Geldiniz </string>
+    <string name = "user"> hesap numarası </string>
+    <string name = "phoneOrEmail"> lütfen telefonunuzu / e-postanızı girin </string>
+    <string name = "password"> şifre </string>
+    <string name = "enterPassword"> Lütfen 6-20 haneli bir şifre girin </string>
+    <string name = "confirmPassword"> şifreyi onayla </string>
+    <string name = "enterPasswordAgain"> Lütfen şifreyi tekrar girin </string>
+    <string name = "forget"> <u> Şifremi unuttum </u> </string>
+    <string name = "register"> <u> kayıt </u> </string>
+    <string name = "login"> giriş </string>
+    <string name = "country"> ülke / bölge </string>
+    <string name = "choseCountry"> Lütfen bir ülke / bölge seçin </string>
+    <string name = "send"> doğrulama kodunu gönder </string>
+    <string name = "verification"> Doğrulama kodu </string>
+    <string name = "enterVerification"> Lütfen doğrulama kodunu girin </string>
+    <string name = "newPassword"> yeni şifre </string>
+    <string name = "enterNewPassword"> lütfen yeni bir şifre girin </string>
+    <string name = "reset"> şifreyi sıfırla </string>
+    <string name = "registerTitle"> kayıt </string>
+    <string name = "next"> Sonraki adım </string>
+    <string name="privacy">Katılıyorum《<u>Kullanıcı Sözleşmesi ve Gizlilik Politikası</u>》</string>
+    <string name="privacy1">Kullanıcı Sözleşmesi ve Gizlilik Politikası</string>
+    <string name="privacy2">Şirketimiz, kullanıcıların gizliliğine ve kişisel bilgilerin korunmasına büyük önem vermektedir. Ürünlerimizi / hizmetlerimizi kullandığınızda, şirketimiz ilgili bilgilerinizi toplayabilir ve kullanabilir.Firmamız geçmeyi umuyor《Gizlilik sözleşmesi》Bundan sonra "bu politika" olarak anılacaktır，Shenzhen Smart Times Technology Co., Ltd.\'nin bundan böyle "şirketimiz" olarak anılacağını size açıklayın，Ürünlerimizi / hizmetlerimizi kullandığınızda bu bilgiler nasıl toplanır, kullanılır ve kaydedilir.\n\nÜrünlerimizi / hizmetlerimizi kullanmadan önce dikkatlice okumanızı ve bu politikanın içeriğini tam olarak anladığınızı onayladığınızı umuyoruz.\n\nŞirketimiz kişisel bilgilerinizi bu politikada belirtilmeyen şeyler için kullanmak istediğinde
+Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka amaçlarla kullanıldığında, önceden bir kontrol yaparak onayınızı istemeniz için bilgilendirileceksiniz.
+
+\n\nÜrünlerimizi / hizmetlerimizi kullandığınızda sağladığınız tüm kişisel bilgilerin, sistem ayarları aracılığıyla toplamamızı silmediğiniz veya reddetmediğiniz sürece, ürünlerimizi / hizmetlerimizi kullanımınız sırasında kullanımımıza izin vermeye devam edeceğinizi lütfen unutmayın.Hesabınızı iptal ettiğinizde, şirketimiz kişisel bilgilerinizi kullanmayı bırakacak ve silecektir.
+
+
+
+\n\n\n\n一、Şirketimize toplama yetkisi verdiğiniz kişisel bilgilerin kapsamı：
+
+\n\n个Kişisel bilgiler, tek başına veya diğer bilgilerle birlikte belirli bir gerçek kişiyi tanımlayabilen veya belirli bir gerçek kişinin faaliyetlerini yansıtan elektronik veya başka şekillerde kaydedilen çeşitli bilgileri ifade eder.
+\nBu politikaya dahil olan kişisel bilgiler şunları içerir: temel bilgiler (kişisel ad, doğum günü, cinsiyet, kişisel telefon numarası, e-posta adresi dahil)；Ağ kimlik bilgileri (sistem hesabı, IP adresi, e-posta adresi dahil); adres defteri; kişisel ekipman bilgileri; kişisel konum bilgileri; kişisel sağlık bilgileri.
+
+
+
+\n\n\n\n二、Şirketimiz size hizmet sunma sürecinde toplanan kişisel bilgileri aşağıdaki amaçlarla kullanabilir.：
+
+\n\n（1）Ürünün sahip olduğu hizmetleri size sunmak；
+
+\n\n（2）Şirketimiz hizmet verirken size sağladığımız ürün ve hizmetlerin güvenliğini sağlamak için kimlik doğrulama, müşteri hizmetleri, güvenlik önleme, dolandırıcılık takibi, arşivleme ve yedekleme amacıyla kullanılmaktadır.；
+
+\n\n（3）Şirketimizin yeni hizmetler tasarlamasına ve mevcut hizmet durumumuzu iyileştirmesine yardımcı olun；
+
+\n\n（4）Dil ayarları, konum ayarları, kişiselleştirilmiş yardım ve talimatlar gibi kişisel ihtiyaçlarınıza veya size ve diğer kullanıcılara yanıt vermek için hizmetlerimizi nasıl kullandığınızı ve kullandığınızı şirketimizin daha iyi anlamasını sağlayın Diğer yanıtlar；
+
+\n\n（5）Yazılım sertifikası veya yönetim yazılımı yükseltmesi；
+
+\n\n（6）Ürünlerimiz ve hizmetlerimizle ilgili anketlere katılmanıza izin verin.
+
+\n\nDaha iyi bir deneyim yaşamanıza, hizmetlerimizi iyileştirmenize veya kabul ettiğiniz diğer amaçlara ve ilgili yasa ve düzenlemelere tabi olmanıza izin vermek için şirketimiz, bilgileri toplamak veya kişiselleştirmek için belirli bir hizmet aracılığıyla bilgi toplayabilir. Yöntem firmamızın diğer hizmetlerinde kullanılmaktadır. Örneğin, hizmetlerimizden birini kullandığınızda toplanan bilgiler, size belirli bir içerik sağlamak veya size evrensel olmayan ilgili, ilgili bilgileri göstermek için başka bir hizmette kullanılabilir. Şirketimiz ilgili hizmetlerde karşılık gelen seçenekleri sunarsa, şirketimize hizmet tarafından sağlanan ve saklanan bilgileri şirketimizin diğer hizmetleri için de kullanma yetkisi verebilirsiniz.
+
+
+
+\n\n\n\n三、Şirketimiz aşağıdaki haller dışında kişisel bilgilerinizi şirketimiz dışında hiçbir şirket, kuruluş veya kişi ile paylaşmayacaktır.：
+
+\n\n（1）Önceden açık onayınızı ve yetkinizi alın；
+
+\n\n（2）Yürürlükteki yasa ve yönetmeliklere, yasal prosedürlere, zorunlu idari veya adli gerekliliklere uygun olarak sağlayın；
+
+\n\n（3）Yasaların izin verdiği kapsam dahilinde, şirketimizi, iştiraklerimizi veya ortaklarımızı, kamu menfaatini, mülkünü veya güvenliğini zarardan korumak;
+
+\n\n（4）Yalnızca bilgilerinizi paylaşarak ürünlerimizin / hizmetlerimizin temel işlevlerini gerçekleştirebilir veya ihtiyacınız olan hizmetleri sağlayabiliriz;
+
+\n\n（5）İhtiyaçlarınıza göre sizinle diğerleri arasındaki anlaşmazlıkları veya anlaşmazlıkları ele almak;
+
+\n\n（6）Sizinle imzalanan ilgili sözleşmeye veya diğer yasal belgelere uygun olarak sağlanır;
+
+\n\n（7）Kanun ve yönetmeliklere uygun olarak kamu yararı esas alınarak kullanılır.
+
+
+
+\n\n\n\n四、Kişisel bilgilerinizi birlikte nasıl koruyabilir ve kaydedebilirsiniz
+
+\n\n（1）Şirketimiz, kişisel bilgilerin güvenliğine büyük önem vermekte ve kişisel bilgilerinizi korumak için makul ve uygulanabilir tüm veri güvenliği teknik önlemlerini almaktadır.
+
+\n\n（2）İnternet ortamı% 100 güvenli değildir Şirketimiz, gönderdiğiniz her türlü bilginin güvenliğini sağlamak veya garanti etmek için elimizden gelenin en iyisini yapacaktır. Şirketimizin fiziksel, teknik veya yönetim koruma tesislerinin hasar görmesi ve bilginin yetkisiz erişime, kamuya ifşa edilmesine, tahrif edilmesine veya yok edilmesine neden olarak yasal haklarınıza zarar vermesi durumunda, şirketimiz ilgili yasal sorumluluğu üstlenecektir.
+
+\n\n（3）Şirketimizin kişisel bilgilerinin korunmasına ilişkin herhangi bir sorunuz varsa, resmi web sitemizdeki iletişim bilgileri aracılığıyla şirketimizle iletişime geçebilirsiniz. Kişisel bilgilerinizin sızdırıldığını fark ederseniz, özellikle kişisel bilgilerinizin sızdırılması durumunda, lütfen hemen bizimle iletişime geçin, böylece gerekli önlemleri alabilelim.
+
+
+
+\n\n\n\n五、Küçükler hizmetlerimizi kullanıyor
+\nŞirketimiz, ebeveynleri veya velileri, ürünlerimizi 18 yaşın altındaki küçüklerin kullandığını bilmeye teşvik eder. Şirketimiz, reşit olmayanların ebeveynlerini veya vasilerini bu politikayı okumaya teşvik etmelerini ve reşit olmayanların kişisel bilgilerini göndermeden önce ebeveynlerinin veya velilerinin rızasını ve rehberliğini almalarını önermektedir.
+
+
+\n\n\n\n六、Gizlilik politikasının kapsamı
+
+\n\n（1）Belirli belirli hizmetler haricinde, tüm hizmetlerimiz bu politika için geçerlidir. Bu belirli hizmetler, belirli gizlilik politikaları kullanacaktır. Belirli belirli hizmetler için özel gizlilik politikaları, şirketimizin bu tür hizmetlerde bilgilerinizi nasıl kullandığını daha ayrıntılı olarak açıklayacaktır. Bu özel hizmetin gizlilik politikası bu politikanın bir parçasını oluşturur. Belirli bir hizmetin gizlilik politikası bu politikayla tutarsızsa, belirli hizmetin gizlilik politikası geçerli olacaktır.
+
+\n\n（2）Lütfen bu politikanın aşağıdaki durumlar için geçerli olmadığını unutmayın:
+
+\n\n1） Hizmetlerimiz aracılığıyla erişilen üçüncü taraf hizmetleri (tüm üçüncü taraf web siteleri dahil) tarafından toplanan bilgiler;
+
+\n\n2） Hizmetlerimizde reklam hizmetleri sağlayan diğer şirketler veya kuruluşlar aracılığıyla toplanan bilgiler;
+
+\n\n3） Egzersiz verilerinizi hesaplamak için iphone veya ipad gibi bir Apple cihazı kullanıyorsanız, yetkilendirmenizin ardından şirketimiz egzersiz verilerinizi alacak ve Apple'ın Sağlık Kitine gönderecektir. Şirketimiz Healthkit'ten boy, kilo ve cinsiyet verilerinizi okuyacaktır.Aynı zamanda Uygulamanızın ürettiği adım sayısı, yürüme + koşu mesafesi, aktivite enerjisi, bisiklet mesafesi ve uyku analizi verileri Apple'ın Healthkit'e yazılacaktır. Healthkit aracılığıyla elde edilen hiçbir veri paylaşılmayacak veya herhangi bir üçüncü şahıs şirkete satılmayacaktır ve şirketimiz Healthkit'ten elde edilen bilgileri reklam ve pazarlama gibi ticari amaçlarla kullanmayacaktır.
+
+
+\n\n\n\n七、değişiklik
+
+\n\nŞirketimiz bu politikanın şartlarını derhal revize edebilir ve bu revizyonlar bu politikanın bir parçasını oluşturur. Bu tür değişiklikler, bu politika kapsamındaki haklarınızın önemli ölçüde azaltılmasına neden olursa, şirketimiz sizi ana sayfada öne çıkan bir konum aracılığıyla bilgilendirecek veya değişiklik yürürlüğe girmeden önce size bir e-posta veya başka bir yol gönderecektir. Bu durumda, hizmetlerimizi kullanmaya devam ederseniz, bu gözden geçirilmiş politikaya bağlı kalmayı kabul edersiniz.</string>
+    <string name="checkPrivacy">Respiratory《Kullanıcı Sözleşmesi ve Gizlilik Politikası》</string>
+    <string name="setPassword">şifreyi belirle</string>
+    <string name = "china"> Çin </string>
+    <string name = "vistor"> Ziyaretçi girişi </string>
+
+    <!--Anasayfa-->
+    <string name = "healthy"> sağlık </string>
+    <string name = "sport"> spor </string>
+    <string name = "mine"> Benim </string>
+    <string name = "touchAgain"> programdan çıkmak için tekrar basın </string>
+
+
+    <string name = "planStep"> hedef adım sayısı% d </string>
+    <string name = "sleep"> uyku </string>
+    <string name = "heart"> kalp atış hızı </string>
+    <string name = "blood"> kan basıncı </string>
+    <string name = "bloodo"> kan oksijen </string>
+    <string name = "animal"> vücut ısısı </string>
+    <string name = "ecg"> EKG </string>
+    <string name = "check"> görüntüle </string>
+    <string name = "perfect"> mükemmel </string>
+    <string name = "good"> iyi </string>
+    <string name = "bad"> fark </string>
+    <string name = "quick"> çok hızlı </string>
+    <string name = "normal"> normal </string>
+    <string name = "hot"> ateş </string>
+    <string name = "slow"> çok yavaş </string>
+    <string name = "higher"> yüksek taraf </string>
+    <string name = "flat"> düşük </string>
+    <string name = "head"> bu HeadView </string>
+    <string name = "pull_to_refresh"> yenilemek için aşağı çekin </string>
+    <string name = "release_to_refresh"> serbest bırak hemen yenile </string>
+    <string name = "refreshing"> yenileniyor ... </string>
+    <string name = "refresh_succeed"> başarıyla yenileyin </string>
+    <string name = "refresh_fail"> yenileme başarısız oldu </string>
+    <string name = "pullup_to_load"> daha fazla yüklemek için yukarı çekin </string>
+    <string name = "release_to_load"> serbest bırak hemen yükle </string>
+    <string name = "load_succeed"> başarıyla yüklendi </string>
+    <string name = "load_fail"> yükleme hatası </string>
+
+
+
+    <string name = "best"> Dış mekan koşusu için en iyi rekor </string>
+    <string name = "history"> Spor kayıtlarının geçmişi </string>
+    <string name = "track"> spor ayrıntıları </string>
+    <string name = "notrack"> hareket izi yok </string>
+    <string name = "speed"> hız </string>
+    <string name = "kcal"> tüketim (kcal) </string>
+    <string name = "time"> süre </string>
+    <string name = "heart_rate"> Nabız (Bpm) </string>
+    <string name = "stride"> Adım frekansı (Adımlar / lar) </string>
+    <string name = "distance"> kilometre (</string>
+    <string name = "speedData"> ortalama hız </string>
+    <string name = "kcalData"> spor tüketimi </string>
+    <string name = "timeData"> egzersiz süresi </string>
+    <string name = "heart_rateData"> ortalama nabız </string>
+    <string name = "strideData"> ortalama adım frekansı </string>
+    <string name = "distanceData"> kilometre </string>
+    <string name = "basket"> Basketbol </string>
+    <string name = "football"> Futbol </string>
+    <string name = "pingpong"> ping pong </string>
+    <string name = "mountain"> dağcılık </string>
+    <string name = "bike"> binicilik </string>
+    <string name = "run"> çalışıyor </string>
+    <string name = "walk"> yaya </string>
+    <string name = "treadmill"> koşu bandı </string>
+    <string name = "runWithout"> açık havada koşu </string>
+    <string name = "marathon"> Maraton </string>
+    <string name = "sufing"> sörf </string>
+    <string name = "shudu"> hız </string>
+    <string name = "averageShudu"> ortalama hız </string>
+    <string name = "boat"> tekne gezintisi </string>
+    <string name = "altitude"> rakım </string>
+    <string name = "avarageAltitude"> ortalama rakım </string>
+    <string name = "climb"> Kaya tırmanışı </string>
+    <string name = "skii"> Kayak </string>
+    <string name = "golf"> Golf </string>
+
+    <string name = "device"> ekipman </string>
+    <string name = "stepPlan"> adım sayma hedefi </string>
+    <string name = "sleepPlan"> uyku hedefi </string>
+    <string name = "find"> bir saat aramak </string>
+    <string name = "notification"> uygulama bildirimi </string>
+    <string name = "blePhone"> Bluetooth çağrısı </string>
+    <string name = "blePhoto"> Bluetooth kamera </string>
+    <string name = "unit"> Birim sistemi </string>
+    <string name = "face"> çevirmeyi değiştir </string>
+    <string name = "myDail"> Numaram </string>
+    <string name = "seeDail"> arama önizlemesi </string>
+    <string name = "diyDail"> özel </string>
+    <string name = "diyDailing"> Değiştiriliyor ... </string>
+    <string name = "diyDailOK"> başarılı değiştirme </string>
+    <string name = "diyDailError"> değiştirme başarısız, lütfen tekrar deneyin </string>
+    <string name = "upDownBackground"> ​​Lütfen bir arka plan resmi yükleyin </string>
+    <string name = "chooseClock"> Lütfen bir saat stili seçin </string>
+    <string name = "clock"> saat stili </string>
+    <string name = "background"> ​​arka plan yükle </string>
+    <string name = "about"> Hakkında </string>
+    <string name = "logout"> çıkış yap </string>
+    <string name = "me"> Benim </string>
+    <string name = "set"> set </string>
+    <string name = "other"> diğer </string>
+    <string name = "cancel"> iptal </string>
+    <string name = "confirm"> Tamam </string>
+    <string name = "tip"> bilgi istemi </string>
+    <string name = "delete"> Bu alıştırma verilerini silmek istediğinizden emin misiniz? </string>
+    <string name = "unbind"> Bağlamayı kaldırmak istediğinizden emin misiniz? </string>
+    <string name = "logoutTip"> Çıkış yapmak istediğinizden emin misiniz? </string>
+    <string name = "sendOK"> başarıyla gönderildi </string>
+    <string name = "searchDevice"> arama cihazı </string>
+    <string name = "noDevice"> Cihaz bulunamadı </string>
+    <string name = "connected"> bağlandı </string>
+    <string name = "disConnect"> bağlı değil </string>
+    <string name = "connectting"> bağlanıyor </string>
+    <string name = "connect"> Cihaz bağlanıyor, lütfen daha sonra tekrar deneyin </string>
+    <string name = "syceError"> Saat bağlı değil ve bir sonraki sefer bağlandığında veriler saatle senkronize edilecek </string>
+    <string name = "unBind"> ekipmanı değiştir </string>
+    <string name = "unline"> bağlantıyı kes </string>
+    <string name = "line"> Saate bağlanın </string>
+    <string name = "addDevice"> cihaz ekle </string>
+    <string name = "unbindSoon"> Lütfen önce ekipmanın bağlantısını kesin </string>
+    <string name = "lineError"> Birçok kez bağlantı kurulamadı, lütfen telefonun Bluetooth\'unu kapatıp açın veya saati yeniden başlatın </string>
+    <string name = "tipUnit"> Not: Birim sistemi değiştirildikten sonra boy ve ağırlık sıfırlanacaktır. </string>
+
+
+    <string name = "step1"> 1. Saat ve cep telefonu arasında Bluetooth eşleştirmesi </string>
+    <string name = "step2"> 2. Eşleşen ilişkiyi kaldırın </string>
+    <string name="str1">1)Saate Bluetooth işlevini girin \ n2) Bluetooth cihazlarını arayın - telefonun Bluetooth adını seçin \ n3) Telefonla eşleştirdikten sonra, Bluetooth aramaları yapmak için saati kullanabilirsiniz</string>
+    <string name="str2">1)Sistem Ayarları-Bluetooth-Eşleştirilmiş Cihazlara girin \ n2) Cihazı bulun, eşleşmeyi kaldırmak için girin ve "Eşleşmeyi Kaldır" seçeneğini tıklayın. \ n \ nNot: Saat, eşleştirme kaldırıldıktan sonra Bluetooth çağrı işlevini kullanamaz</string>
+
+
+    <string name = "version"> mevcut sürüm </string>
+    <string name = "feedback"> Geri Bildirim </string>
+    <string name = "feedback_hint"> geri bildiriminiz / sorunuz </string>
+    <string name = "tooLong"> Girdiğiniz metin çok uzun </string>
+    <string name = "empty"> Yorumlar boş olamaz </string>
+    <string name = "send_success"> başarıyla gönderildi </string>
+
+
+    <string name = "measureUnit"> Ölçü birimi </string>
+    <string name = "metric"> Metrik sistem </string>
+    <string name = "british"> İngiliz sistemi </string>
+
+
+    <string name = "stepReport"> Adım raporu </string>
+    <string name = "sleepReport"> uyku raporu </string>
+    <string name = "heartReport"> Kalp atış hızı raporu </string>
+    <string name = "bloodPressureReport"> kan basıncı raporu </string>
+    <string name = "bloodOxygenReport"> kan oksijen raporu </string>
+    <string name = "animalHeatReport"> vücut sıcaklığı raporu </string>
+    <string name = "ecgReport"> EKG raporu </string>
+    <string name = "day"> Gün </string>
+    <string name = "week"> hafta </string>
+    <string name = "sun"> Pazar </string>
+    <string name = "mon"> Pazartesi </string>
+    <string name = "tues"> Salı </string>
+    <string name = "wed"> Çarşamba </string>
+    <string name = "thus"> Perşembe </string>
+    <string name = "fri"> Cuma </string>
+    <string name = "sta"> Cumartesi </string>
+    <string name = "today"> bugün </string>
+    <string name = "month"> ay </string>
+    <string name = "year"> yıl </string>
+    <string name = "allStep"> toplam adım sayısı </string>
+    <string name = "averageStep"> ortalama adım sayısı </string>
+    <string name = "allSleep"> toplam uyku süresi </string>
+    <string name = "averageSleep"> ortalama uyku süresi </string>
+    <string name = "light"> hafif uyku </string>
+    <string name = "deep"> Derin uyku </string>
+    <string name = "lightTable"> sığ </string>
+    <string name = "deepTable"> derin </string>
+    <string name = "averageHeart"> ortalama nabız </string>
+    <string name = "minHeart"> minimum kalp atış hızı </string>
+    <string name = "maxHeart"> maksimum kalp atış hızı </string>
+    <string name = "averageSBP"> ortalama sistolik kan basıncı </string>
+    <string name = "sbp"> sistolik kan basıncı </string>
+    <string name = "averageDBP"> ortalama diyastolik kan basıncı </string>
+    <string name = "dbp"> diyastolik kan basıncı </string>
+    <string name = "averageSao"> ortalama kan oksijeni </string>
+    <string name = "averageTemp"> ortalama sıcaklık </string>
+    <string name = "maxTemp"> maksimum sıcaklık </string>
+    <string name = "passRate"> uygunluk oranı </string>
+    <string name = "ecgTip"> Test yalnızca referans içindir ve tıbbi teşhis sertifikası olarak kullanılamaz </string>
+    <string name = "noData"> Rapor yok </string>
+    <string name = "tomorrow"> Gelecek henüz gelmedi </string>
+
+
+
+
+    <string name = "userInfo"> kullanıcı bilgileri </string>
+    <string name = "picture"> Avatar </string>
+    <string name = "userName"> takma ad </string>
+    <string name = "enterUserName"> lütfen takma adınızı girin </string>
+    <string name = "nameLong"> takma ad 12 karakteri aşamaz </string>
+    <string name = "sex"> cinsiyet </string>
+    <string name = "male"> Erkek </string>
+    <string name = "female"> kadın </string>
+    <string name = "height"> yükseklik </string>
+    <string name = "weight"> ağırlık </string>
+    <string name = "birthday"> doğum günü </string>
+    <string name = "album"> Albüm </string>
+    <string name = "camera"> fotoğraf çek </string>
+
+
+
+
+
+    <string name = "tokenTimeOut"> giriş süresi doldu, lütfen tekrar giriş yapın </string>
+    <string name = "enterRightEmail"> Lütfen doğru posta kutusu biçimini girin </string>
+    <string name = "httpError"> Ağ yanıtı zaman aşımına uğradı, lütfen ağ bağlantısı durumunu kontrol edin </string>
+    <string name = "logging"> Giriş yapılıyor ... </string>
+    <string name = "waitting"> Lütfen bekleyin ... </string>
+    <string name = "resetSuccess"> şifreyi başarıyla sıfırlayın </string>
+    <string name = "passwordUnSame"> iki giriş şifresi tutarsız </string>
+    <string name = "saved"> başarıyla kaydedildi </string>
+    <string name = "notificationlistener_prompt_title"> bildirimi etkinleştir </string>
+    <string name = "notificationlistener_prompt_content"> Aiprint\'in uygulama bildirimlerini uzak akıllı cihazlara iletmesi gerekir. Etkinleştirmek üzere bildirim sayfasına girmek için \ "Tamam \" a basın. </string>
+    <string name = "tokenTimeout"> girişin süresi doldu, lütfen tekrar giriş yapın </string>
+    <string name = "lostDevice"> Cihaz bağlı değil </string>
+    <string name = "permissionErrorForCamare"> izni başarısız oldu, kamera işlevi açılamadı </string>
+    <string name = "findPermission"> İzin geçilmezse, cihaz listesi aranmayacaktır. </string>
+    <string name = "applyPermission"> izin için başvur </string>
+    <string name = "shareFailForPermission"> Paylaşım başarısız oldu, ilgili izinler başarısız oldu </string>
+    <string name = "permissionErrorForSMS"> izin başarısız oldu, SMS bildirim işlevi açılamıyor </string>
+    <string name = "loading"> yükleniyor ... </string>
+    <string name = "privacyTip"> Ürünlerimizi kullanmadan önce, lütfen ilgili kullanıcı gizlilik sözleşmelerini dikkatlice okuyun ve tam olarak anlayın. \ n "Tamam" ı tıkladığınızda, anlaşmanın şartlarını kabul etmiş olursunuz. \ nKullanıcı gizlilik politikası esas olarak aşağıdaki içeriği içerir: \ n1. Kişisel bilgilerin (avatar, takma ad, boy, kilo, egzersiz verileri vb.) toplanması, depolanması ve paylaşılması. \ n2. Cihaz izinlerinin kullanımı (konum, adres defteri, kamera vb.) </string>
+    <string name = "crop_pic_failed"> resmi engelleyemedi, lütfen jpg formatındaki resmi seçin! </string>
+    <string name = "deviceOut"> bağlı olmayan cihaz </string>
+    <string name = "visiter"> Turist modu bu özelliği desteklemiyor </string>
+    <string name = "chooseJpg"> Lütfen resimleri jpg biçiminde seçin </string>
+
+    <string name = "planOK"> Bugünün hedefine ulaşıldı </string>
+    <string name = "planNO"> Bugünün hedefine ulaşılmadı </string>
+    <string name = "planStepShare"> hedef adımlar:% dsteps </string>
+    <string name = "distanceShare"> yürüme mesafesi:% .1fKm </string>
+    <string name = "calurieShare"> Yakılan kalori:% .1fKcal </string>
+
+    <string name = "planSleep"> hedef süre:% .1fh </string>
+    <string name = "deepSleepShare"> Derin uyku süresi:% 02dh% 02dmin </string>
+    <string name = "lightSleepShare"> Hafif uyku süresi:% 02dh% 02ddak </string>
+
+    <string name = "testTimes"> Bugünün ölçüm numarası:% d </string>
+    <string name = "maxHeartShare"> Maksimum kalp atış hızı:% dbpm </string>
+    <string name = "minHeartShare"> minimum kalp atış hızı:% dbpm </string>
+
+    <string name = "bloodOxygenData"> kan oksijen doygunluğu </string>
+    <string name = "testValue"> test sonuçları: </string>
+    <string name = "passTimeData"> geçiş oranı:% .1f %% </string>
+
+    <string name = "bloodPressureData"> ortalama sistolik / diyastolik kan basıncı </string>
+    <string name = "shareSuccess"> başarıyla paylaşıldı </string>
+    <string name = "shareCancel"> Paylaşımı iptal et </string>
+    <string name = "shareFail"> Paylaşım başarısız oldu </string>
+
+    <!-- Tara ve Bağlan -->
+    <string name="connect_error">Bağlantı Hatası</string>
+
+
+    <!-- uygulama listesi ve uygulama mağazası -->
+    <string name="launchfail">Yükleme Başarısız Oldu</string>
+
+    <!-- Aktivite Ayarlama -->
+    <string name="sms_preference_title">SMS hizmeti</string>
+    <string name="call_preference_title">Arama servisi</string>
+    <string name="progress_dialog_title">Yükleniyor</string>
+    <string name="progress_dialog_message">Lütfen bekle&#8230;</string>
+
+    <!-- Bildirim Etkinliği Seçin -->
+    <string name="personal_apps_title">Kişisel uygulama</string>
+    <string name="system_apps_title">Sistem uygulaması</string>
+
+
+    <!-- Hizmet -->
+    <string name="missed_call">Cevapsız çağrı</string>
+    <string name="accessibility_description">Erişilebilirlik ayarınızda aktif bildirim hizmeti. Bu, BT bildiriminin uygulama bildirimini uzak cihaza göndermesine olanak tanır.</string>
+    <string name="batterylow">Düşük pil</string>
+    <string name="pleaseconnectcharger">Pil zayıflıyor, lütfen şarj cihazını takın, Kapasite</string>
+
+    <string name="operate_error">Başarısız oldu</string>
+
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

@@ -27,6 +27,9 @@ public class BloodPressureData extends BaseModel implements Comparable<BloodPres
     @Column
     public int dbpDate;
 
+    @Column
+    public String deviceCode;
+
     public long getTime() {
         return time;
     }

@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,7 +23,6 @@ import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Contorller.Fragment.HealthyFragment;
 import com.szip.sportwatch.Contorller.Fragment.MineFragment;
 import com.szip.sportwatch.Contorller.Fragment.SportFragment;
-import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
@@ -38,7 +36,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,10 +87,10 @@ public class MainActivity extends BaseActivity{
         if (app.getUserInfo().getDeviceCode()!=null){//已绑定
             //连接设备
             Log.d("SZIP******","state = "+WearableManager.getInstance().getConnectState());
-            if (WearableManager.getInstance().getConnectState()==0){
-                MainService.getInstance().setRestartBle(true);
+            if (MainService.getInstance().getState()==0){
+                MainService.getInstance().setConnectAble(true);
                 WearableManager.getInstance().scanDevice(true);
-            }else if (WearableManager.getInstance().getConnectState() == 5){
+            }else if (MainService.getInstance().getState() == 1||MainService.getInstance().getState() == 5){
                 BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
                 BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
                 BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());

@@ -68,6 +68,7 @@ public class ReportView extends View {
 
     private int sleepStartTime = 1320;
     private int sleepTime = 480;
+    private int tableTime = 480;
 
     private float marginTop;//图表区域高的缩进量
 
@@ -295,8 +296,10 @@ public class ReportView extends View {
                     } else{
                         rectPaint.setColor(color1);
                         canvas.drawRoundRect(rectFS[i],mBarWidth/2,mBarWidth/2, rectPaint);//画第一段柱状图
+                        Log.d("SZIP******","DATA1 = "+datas1[i]+" ;top = "+rectFS[i].top);
                         if (datas2[i]!=0){//如果存在第二段柱状图，画第二段柱状图
                             rectPaint.setColor(color2);
+                            Log.d("SZIP******","DATA2 = "+datas2[i]+" ;top = "+rectFSBottom[i].top);
                             canvas.drawRoundRect(rectFSBottom[i],mBarWidth/2,mBarWidth/2, rectPaint);
                         }
                         if (datas2[i]!=0&&(rectFSBottom[i].top-rectFS[i].top)>=mBarWidth/2){//如果第一段数据比第二段数据高超过半个圆角，则补上直角
@@ -357,7 +360,7 @@ public class ReportView extends View {
         float start = yTextWidth;
         for (int i = 0; i< datas1.length; i++){
             float x = start;
-            float width = datas2[i]/(float)sleepTime*tableWidth;
+            float width = datas2[i]/(float)tableTime*tableWidth;
             start = x+width;
             float top =  tableHeight-(tableHeight- textHeight)/2*(datas1[i]==0?1:datas1[i]);
             rectFS[i] = new RectF(x, top, x+width, tableHeight-pad5);
@@ -420,6 +423,9 @@ public class ReportView extends View {
             top = datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
                     height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
                     height- textHeight- pad10-datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
+            if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+                top+=pad15;
+            }
             rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
         }
 
@@ -497,14 +503,11 @@ public class ReportView extends View {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(reportDate*1000);
             long time = calendar.getTimeInMillis()/1000;
-            Log.d("SZIP******","time = "+time);
             for (int i =0;i<5;i++){
                 if (i==0){
-                    Log.d("SZIP******","time = "+(time-27*24*60*60));
                     Date date = new Date((time-27*24*60*60)*1000);
                     xMsg[i] = format.format(date);
                 }else {
-                    Log.d("SZIP******","time = "+(time-(4-i)*7*24*60*60));
                     Date date = new Date((time-(4-i)*7*24*60*60)*1000);
                     xMsg[i] = format.format(date);
                 }
@@ -543,9 +546,10 @@ public class ReportView extends View {
     /**
      * 设置睡眠起始时间
      * */
-    public void setSleepState(int sleepStartTime,int sleepTime){
+    public void setSleepState(int sleepStartTime,int sleepTime,int tableTime){
         this.sleepStartTime = sleepStartTime;
         this.sleepTime = sleepTime;
+        this.tableTime = tableTime;
     }
 
     /**

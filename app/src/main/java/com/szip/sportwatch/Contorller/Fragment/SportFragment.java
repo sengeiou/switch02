@@ -1,12 +1,8 @@
 package com.szip.sportwatch.Contorller.Fragment;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,10 +15,7 @@ import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.View.CircularImageView;
 
-import java.io.File;
 import java.util.Locale;
-
-import androidx.core.content.FileProvider;
 
 /**
  * Created by Administrator on 2019/12/1.
@@ -63,10 +56,10 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
     private void initView() {
         pictureIv = getView().findViewById(R.id.pictureIv);
         userNameTv = getView().findViewById(R.id.userNameTv);
-        distanceTv = getView().findViewById(R.id.distanceTv);
+        distanceTv = getView().findViewById(R.id.dataTv);
         speedTv = getView().findViewById(R.id.speedTv);
-        calorieTv = getView().findViewById(R.id.calorieTv);
-        sportTimeTv = getView().findViewById(R.id.sportTimeTv);
+        calorieTv = getView().findViewById(R.id.buttonFirstTv);
+        sportTimeTv = getView().findViewById(R.id.buttonSecondTv);
         heartTv = getView().findViewById(R.id.heartTv);
         strideTv = getView().findViewById(R.id.strideTv);
         distanceTv1 = getView().findViewById(R.id.distanceTv1);

@@ -7,17 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
@@ -33,8 +30,8 @@ import com.szip.sportwatch.Contorller.NotificationAppListActivity;
 import com.szip.sportwatch.Contorller.SeachingActivity;
 import com.szip.sportwatch.Contorller.SelectDialActivity;
 import com.szip.sportwatch.Contorller.UnitSelectActivity;
+import com.szip.sportwatch.Contorller.UpdateFirmwareActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
-import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
@@ -56,7 +53,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +61,6 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -124,14 +119,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             deviceTv.setText("");
             stateTv.setText(getString(R.string.addDevice));
         } else {
-            if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTED){
+            if (MainService.getInstance().getState() == WearableManager.STATE_CONNECTED){
                 deviceTv.setText(userInfo.getDeviceCode());
                 stateTv.setText(getString(R.string.connected));
-            }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_LOST||
-                    MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECT_FAIL){
+            }else if (MainService.getInstance().getState() == WearableManager.STATE_CONNECT_LOST||
+                    MainService.getInstance().getState() == WearableManager.STATE_CONNECT_FAIL){
                 stateTv.setText(getString(R.string.disConnect));
-                WearableManager.getInstance().connect();
-            }else if (MainService.getInstance().getConnectState() == WearableManager.STATE_CONNECTING){
+            }else if (MainService.getInstance().getState() == WearableManager.STATE_CONNECTING){
                 deviceTv.setText("");
                 stateTv.setText(getString(R.string.connectting));
             }else {
@@ -163,7 +157,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 app.getUserInfo().setDeviceCode(null);
                 MainService.getInstance().stopConnect();
                 MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();
-                SaveDataUtil.newInstance().clearDB();
+//                SaveDataUtil.newInstance().clearDB();
                 getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
             }else
                 stateTv.setText(getString(R.string.disConnect));
@@ -178,7 +172,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
      * 初始化下拉菜单
      * */
     private void initSelectPopup() {
-        if(WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTED){
+        if(MainService.getInstance().getState()== WearableManager.STATE_CONNECTED){
             ItemValue= new ArrayList<>(Arrays.asList(getString(R.string.unline),getString(R.string.unBind)));
         }else {
             ItemValue= new ArrayList<>(Arrays.asList(getString(R.string.line),getString(R.string.unBind)));
@@ -200,7 +194,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                         HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
                         ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
                                 ,3000);
-                        if (WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){
+                        if (MainService.getInstance().getState()==WearableManager.STATE_CONNECTED){
                             unbind = true;
                             MainService.getInstance().stopConnect();
                         }else {
@@ -208,7 +202,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                             ProgressHudModel.newInstance().diss();
                             app.getUserInfo().setDeviceCode(null);
                             MainService.getInstance().stopConnect();
-                            SaveDataUtil.newInstance().clearDB();
+//                            SaveDataUtil.newInstance().clearDB();
                             getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
                         }
 
@@ -218,7 +212,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                     }
                 }else {
                     unbind = false;
-                    if (WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTED){
+                    if (MainService.getInstance().getState()== WearableManager.STATE_CONNECTED){
                         MainService.getInstance().stopConnect();
                     }else {
                         MainService.getInstance().startConnect();
@@ -404,7 +398,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 if (app.getUserInfo().getDeviceCode()==null){
                     startActivity(new Intent(getContext(),SeachingActivity.class));
                 }else {
-                    if (WearableManager.getInstance().getConnectState()== WearableManager.STATE_CONNECTING){
+                    if (MainService.getInstance().getState()== WearableManager.STATE_CONNECTING){
                         showToast(getString(R.string.connectting));
                     }else {
                         initSelectPopup();
@@ -424,7 +418,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 startActivity(new Intent(getActivity(), NotificationAppListActivity.class));
                 break;
             case R.id.findLl:
-                if(MainService.getInstance().getConnectState()!=3)
+                if(MainService.getInstance().getState()!=3)
                     showToast(getString(R.string.lostDevice));
                 else{
                     ((MainActivity)getActivity()).showMyToast(getString(R.string.sendOK));
@@ -432,7 +426,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 }
                 break;
             case R.id.blePhoneLl:
-                startActivity(new Intent(getActivity(), BluetoochCallActivity.class));
+                startActivity(new Intent(getActivity(), UpdateFirmwareActivity.class));
                 break;
             case R.id.unitLl:
                 startActivity(new Intent(getActivity(), UnitSelectActivity.class));
@@ -441,7 +435,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
             case R.id.faceLl:
-                if(MainService.getInstance().getConnectState()!=3)
+                if(MainService.getInstance().getState()!=3)
                     showToast(getString(R.string.lostDevice));
                 else{
                     startActivity(new Intent(getActivity(), SelectDialActivity.class));
@@ -466,7 +460,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                                     SharedPreferences.Editor editor = sharedPreferencesp.edit();
                                     editor.putString("token",null);
                                     editor.commit();
-                                    SaveDataUtil.newInstance().clearDB();
+//                                    SaveDataUtil.newInstance().clearDB();
                                     Intent intent = new Intent();
                                     intent.setClass(getActivity(),LoginActivity.class);
                                     startActivity(intent);
@@ -484,7 +478,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             ProgressHudModel.newInstance().diss();
             stepPlanTv.setText(stepPlan+"");
             app.getUserInfo().setStepsPlan(stepPlan);
-            if (MainService.getInstance().getConnectState()!=3){
+            if (MainService.getInstance().getState()!=3){
                 showToast(getString(R.string.syceError));
             }else {
                 EXCDController.getInstance().writeForSetInfo(app.getUserInfo());

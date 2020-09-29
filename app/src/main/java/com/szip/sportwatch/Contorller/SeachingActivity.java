@@ -18,22 +18,24 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Adapter.DeviceAdapter;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
+import com.szip.sportwatch.Model.HttpBean.BindBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.MyAlerDialog;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,9 +43,10 @@ import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import okhttp3.Call;
 
 
-public class SeachingActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase {
+public class SeachingActivity extends BaseActivity implements View.OnClickListener {
 
     private RotateAnimation rotateRight = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
             0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -127,13 +130,11 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(null);
         WearableManager.getInstance().unregisterWearableListener(mWearableListener);
     }
 
@@ -198,7 +199,42 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                 ProgressHudModel.newInstance().show(SeachingActivity.this,getString(R.string.waitting)
                         ,getString(R.string.httpError),3000);
                 try {
-                    HttpMessgeUtil.getInstance(SeachingActivity.this).getBindDevice(device.getAddress());
+                    HttpMessgeUtil.getInstance(SeachingActivity.this).getBindDevice(device.getAddress(), new GenericsCallback<BindBean>(new JsonGenericsSerializator()) {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+
+                        }
+
+                        @Override
+                        public void onResponse(BindBean response, int id) {
+                            //停止蓝牙扫描
+                            searchDevice(false);
+                            BluetoothDevice device = deviceAdapter.getDevice(selectPos);
+                            //缓存蓝牙mac地址
+                            MyApplication app = (MyApplication) getApplicationContext();
+                            app.getUserInfo().setDeviceCode(device.getAddress());
+                            app.setUserInfo(app.getUserInfo());
+                            ProgressHudModel.newInstance().diss();
+
+                            app.getUserInfo().setBindId(response.getData().getBindId());
+                            MathUitl.saveInfoData(SeachingActivity.this,app.getUserInfo()).commit();
+
+                            //启动后台自动连接线程
+                            app.setMtk(device.getName());
+                            WearableManager.getInstance().setRemoteDevice(device);
+                            MainService.getInstance().startConnect();
+
+                            if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
+                                //获取云端数据
+                                try {
+                                    HttpMessgeUtil.getInstance(SeachingActivity.this).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            finish();
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -246,10 +282,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onDeviceScan(final BluetoothDevice device) {
-            Log.d("SZIP******","devive name = "+device.getName()+
-                    " ;device config = "+deviceConfig.contains(device.getName()));
             if (device.getName()!=null&&deviceConfig.contains(device.getName().replace("_LE",""))) {
-                Log.d("SZIP******","ADD");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -264,40 +297,6 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
         public void onModeSwitch(int newMode) {
         }
     };
-
-    @Override
-    public void onCallback(BaseApi baseApi, int id) {
-        try {
-            HttpMessgeUtil.getInstance(SeachingActivity.this).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+""
-                    ,30+"");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //停止蓝牙扫描
-        searchDevice(false);
-        BluetoothDevice device = deviceAdapter.getDevice(selectPos);
-
-        //缓存蓝牙mac地址
-        MyApplication app = (MyApplication) getApplicationContext();
-        app.getUserInfo().setDeviceCode(device.getAddress());
-        app.setUserInfo(app.getUserInfo());
-        ProgressHudModel.newInstance().diss();
-
-        //启动后台自动连接线程
-        WearableManager.getInstance().setRemoteDevice(device);
-        MainService.getInstance().startConnect();
-
-        if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
-            //获取云端数据
-            try {
-                HttpMessgeUtil.getInstance(SeachingActivity.this).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        finish();
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

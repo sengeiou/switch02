@@ -16,6 +16,7 @@ import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
+import com.szip.sportwatch.Model.HttpBean.BindBean;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
 import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
@@ -41,7 +42,7 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
+    private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -77,6 +78,8 @@ public class HttpMessgeUtil {
         mContext = context;
         if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
             language = "zh-CN";
+        }else if (context.getResources().getConfiguration().locale.getLanguage().equals("es")){
+            language = "es-ES";
         }else{
             language = "en-US";
         }
@@ -91,30 +94,13 @@ public class HttpMessgeUtil {
         this.httpCallbackWithBase = httpCallbackWithBase;
     }
 
-
     public void setHttpCallbackWithLogin(HttpCallbackWithLogin httpCallbackWithLogin) {
         this.httpCallbackWithLogin = httpCallbackWithLogin;
     }
 
-//    public void setHttpCallbackWithUpdata(HttpCallbackWithUpdata httpCallbackWithUpdata) {
-//        this.httpCallbackWithUpdata = httpCallbackWithUpdata;
-//    }
-//
-//    public void setHttpCallbackWithReport(HttpCallbackWithReport httpCallbackWithReport) {
-//        this.httpCallbackWithReport = httpCallbackWithReport;
-//    }
-
     public void setHttpCallbackWithUserInfo(HttpCallbackWithUserInfo httpCallbackWithUserInfo) {
         this.httpCallbackWithUserInfo = httpCallbackWithUserInfo;
     }
-
-//    public void setHttpCallbackWithAddClock(HttpCallbackWithAddClock httpCallbackWithAddClock) {
-//        this.httpCallbackWithAddClock = httpCallbackWithAddClock;
-//    }
-//
-//    public void setHttpCallbackWithClockData(HttpCallbackWithClockData httpCallbackWithClockData) {
-//        this.httpCallbackWithClockData = httpCallbackWithClockData;
-//    }
 
     /**
      * 注册接口
@@ -484,7 +470,7 @@ public class HttpMessgeUtil {
     /**
      * 绑定设备
      * */
-    private void _getBindDevice(String deviceCode)throws IOException{
+    private void _getBindDevice(String deviceCode, GenericsCallback<BindBean> callback)throws IOException{
         String url = this.url+"device/bindDevice";
         OkHttpUtils
                 .get()
@@ -494,7 +480,7 @@ public class HttpMessgeUtil {
                 .addHeader("Accept-Language",language)
                 .addParams("deviceCode",deviceCode)
                 .build()
-                .execute(baseApiGenericsCallback);
+                .execute(callback);
     }
 
     /**
@@ -673,8 +659,8 @@ public class HttpMessgeUtil {
 //        _postForChangePassword(currentPassword,newPassword,id);
 //    }
 //
-    public void getBindDevice(String deviceCode)throws IOException{
-        _getBindDevice(deviceCode);
+    public void getBindDevice(String deviceCode,GenericsCallback<BindBean> callback)throws IOException{
+        _getBindDevice(deviceCode,callback);
     }
 
     public void getUnbindDevice()throws IOException{
@@ -922,7 +908,7 @@ public class HttpMessgeUtil {
         editor.putBoolean("isBind",false);
         editor.putString("token",null);
         editor.commit();
-        SaveDataUtil.newInstance().clearDB();
+//        SaveDataUtil.newInstance().clearDB();
         MainService.getInstance().stopConnect();
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

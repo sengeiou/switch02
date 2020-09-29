@@ -26,7 +26,8 @@
         android:roundIcon="@mipmap/sport_map_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Contorller.DIYActivity"></activity>
+        <activity android:name=".Contorller.UpdateFirmwareActivity"></activity>
+        <activity android:name=".Contorller.DIYActivity" />
         <activity android:name=".Contorller.SelectDialActivity" />
         <activity android:name=".Contorller.AnimalHeatActivity" />
         <activity android:name=".Contorller.FeedbackActivity" />

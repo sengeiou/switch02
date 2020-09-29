@@ -213,7 +213,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/login"
                     android:textColor="@color/white"
-                    android:background="@drawable/bg_button_corner"/>
+                    android:background="@drawable/bg_button_corner"
+                    android:textAllCaps="false"/>
 
 
                 <LinearLayout

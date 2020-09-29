@@ -10,7 +10,6 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.WH_ECGView;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class EcgDataActivity extends BaseActivity{
@@ -64,7 +63,7 @@ public class EcgDataActivity extends BaseActivity{
 
         nameTv = findViewById(R.id.nameTv);
         nameTv.setText(nameStr);
-        averageTv = findViewById(R.id.averageTv);
+        averageTv = findViewById(R.id.averageTv1);
         averageTv.setText(String.format(Locale.ENGLISH,"%dBpm",average));
         maxTv = findViewById(R.id.maxTv);
         maxTv.setText(String.format("%dBpm",max));

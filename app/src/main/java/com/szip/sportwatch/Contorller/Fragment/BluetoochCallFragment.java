@@ -45,7 +45,7 @@ public class BluetoochCallFragment extends BaseFragment{
             if (getResources().getConfiguration().locale.getCountry().equals("CN")){
                 imageView.setImageResource(R.mipmap.my_call_step1);
             }else{
-                imageView.setImageResource(R.mipmap.my_call_step1_2);
+                imageView.setImageResource(R.mipmap.my_call_step1_en);
             }
         }else {
             text.setText(getString(R.string.step2));
@@ -53,7 +53,7 @@ public class BluetoochCallFragment extends BaseFragment{
             if (getResources().getConfiguration().locale.getCountry().equals("CN")){
                 imageView.setImageResource(R.mipmap.my_call_step2);
             }else{
-                imageView.setImageResource(R.mipmap.my_call_step2_2);
+                imageView.setImageResource(R.mipmap.my_call_step2_en);
             }
 
         }

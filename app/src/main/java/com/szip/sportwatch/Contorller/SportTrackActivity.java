@@ -1,11 +1,7 @@
 package com.szip.sportwatch.Contorller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BasketballFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BikeFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BoatFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.ClimbFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.FootballFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.GolfFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.MarathonFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.MountainFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.OnfootFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.PingpangFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.RunFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SkiiFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SurfingFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.TreadmillFragment;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
@@ -22,20 +33,18 @@ import com.szip.sportwatch.Util.StatusBarCompat;
 
 import java.util.Locale;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 public class SportTrackActivity extends BaseActivity implements View.OnClickListener {
 
+    /**
+     * Fragment操作相关
+     * */
+    private FragmentManager fm;
+    private FragmentTransaction transaction;
 
-    private ImageView pictureIv,bgIv,typeIv;
-    private TextView nameTv,timeTv,distanceTv,speedTv,calorieTv,sportTimeTv,typeTv,heartTv,strideTv;
-    private MyApplication app;
-    private long time;
-    private int sportTime;
-    private int distance;
-    private int calorie;
-    private int speed;
-    private int type;
-    private int heart;
-    private int stride;
+    private SportData sportData;
 
 
     @Override
@@ -43,15 +52,7 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sport_track);
-        app = (MyApplication) getApplicationContext();
-        time = getIntent().getLongExtra("time",0);
-        sportTime = getIntent().getIntExtra("sportTime",0);
-        distance = getIntent().getIntExtra("distance",0);
-        calorie = getIntent().getIntExtra("calorie",0);
-        speed = getIntent().getIntExtra("speed",0);
-        type = getIntent().getIntExtra("type",0);
-        heart = getIntent().getIntExtra("heart",0);
-        stride = getIntent().getIntExtra("stride",0);
+        sportData = (SportData) getIntent().getBundleExtra("data").getSerializable("sport");
         initView();
         initEvent();
     }
@@ -61,136 +62,57 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
-        pictureIv = findViewById(R.id.pictureIv);
-        nameTv = findViewById(R.id.nameTv);
-        timeTv = findViewById(R.id.timeTv);
-        distanceTv = findViewById(R.id.distanceTv);
-        speedTv = findViewById(R.id.speedTv);
-        calorieTv = findViewById(R.id.calorieTv);
-        typeTv = findViewById(R.id.typeTv);
-        heartTv = findViewById(R.id.heartTv);
-        strideTv = findViewById(R.id.strideTv);
-        bgIv = findViewById(R.id.bgIv);
-        sportTimeTv = findViewById(R.id.sportTimeTv);
-        typeIv = findViewById(R.id.typeIv);
-
-
-
-        if (app.getUserInfo().getAvatar()!=null)
-            Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
-        else
-            pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
-
-        nameTv.setText(app.getUserInfo().getUserName());
-        timeTv.setText(DateUtil.getStringDateFromSecond(time,"MM/dd HH:mm:ss"));
-
-        switch (type){
-            case 1:{//走路
-            }
-            break;
-            case 2://跑步
-            case 5:
+        BaseFragment fragment = null;
+        switch (sportData.type){
+            case 1:
+                fragment = new OnfootFragment(sportData);
+                break;
+            case 2:
             case 6:
-            case 7:
-            case 3:{//室内跑步
-                typeTv.setText(getString(R.string.run));
-                if (app.getUserInfo().getUnit().equals("metric")){
-                    distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",distance/10f));
-                    ((TextView)findViewById(R.id.unitTv)).setText("m");
-                } else{
-                    distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(distance/10)));
-                    ((TextView)findViewById(R.id.unitTv)).setText("Mi");
-                }
-                speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",speed/60,speed%60));
-                strideTv.setText(stride+"");
-                bgIv.setImageResource(R.mipmap.sport_bg_run);
-                typeIv.setImageResource(R.mipmap.sport_pic_run);
-            }
-            break;
-            case 4:{//登山
-                typeTv.setText(getString(R.string.mountain));
-                if (app.getUserInfo().getUnit().equals("metric")){
-                    distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",distance/10f));
-                    ((TextView)findViewById(R.id.unitTv)).setText("m");
-                } else{
-                    distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(distance/10)));
-                    ((TextView)findViewById(R.id.unitTv)).setText("Mi");
-                }
-                speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",speed/60,speed%60));
-                strideTv.setText(stride+"");
-                bgIv.setImageResource(R.mipmap.sport_bg_mountain);
-                typeIv.setImageResource(R.mipmap.sport_pic_mountain);
-            }
-            break;
-            case 8:{//跳绳
-
-            }
-            break;
-            case 9:{//羽毛球
-
-            }
-            break;
-            case 10:{//篮球
-                typeTv.setText(getString(R.string.basket));
-                findViewById(R.id.distanceRl).setVisibility(View.GONE);
-                findViewById(R.id.strideRl).setVisibility(View.GONE);
-                findViewById(R.id.speedRl).setVisibility(View.GONE);
-                bgIv.setImageResource(R.mipmap.sport_bg_basketball);
-                typeIv.setImageResource(R.mipmap.sport_pic_basketball);
-            }
-            break;
-            case 11:{//骑行
-                typeTv.setText(getString(R.string.bike));
-                findViewById(R.id.distanceRl).setVisibility(View.GONE);
-                findViewById(R.id.strideRl).setVisibility(View.GONE);
-                findViewById(R.id.speedRl).setVisibility(View.GONE);
-                bgIv.setImageResource(R.mipmap.sport_bg_bike);
-                typeIv.setImageResource(R.mipmap.sport_pic_bike);
-            }
-            break;
-            case 12:{//滑冰
-
-            }
-            break;
-            case 13:{//健身房
-
-            }
-            break;
-            case 14:{//瑜伽
-
-            }
-            break;
-            case 15:{//网球
-
-            }
-            break;
-            case 16:{//乒乓球
-                typeTv.setText(getString(R.string.pingpong));
-                findViewById(R.id.distanceRl).setVisibility(View.GONE);
-                findViewById(R.id.strideRl).setVisibility(View.GONE);
-                findViewById(R.id.speedRl).setVisibility(View.GONE);
-                bgIv.setImageResource(R.mipmap.sport_bg_pingpang);
-                typeIv.setImageResource(R.mipmap.sport_pic_pingpang);
-            }
-            break;
-            case 17:{//足球
-                typeTv.setText(getString(R.string.football));
-                findViewById(R.id.distanceRl).setVisibility(View.GONE);
-                findViewById(R.id.strideRl).setVisibility(View.GONE);
-                findViewById(R.id.speedRl).setVisibility(View.GONE);
-                bgIv.setImageResource(R.mipmap.sport_bg_football);
-                typeIv.setImageResource(R.mipmap.sport_pic_football);
-            }
-            break;
-            case 18:{//游泳
-
-            }
-            break;
+                fragment = new RunFragment(sportData);
+                break;
+            case 3:
+                fragment = new TreadmillFragment(sportData);
+                break;
+            case 4:
+                fragment = new MountainFragment(sportData);
+                break;
+            case 5:
+                fragment = new MarathonFragment(sportData);
+                break;
+            case 10:
+                fragment = new BasketballFragment();
+                break;
+            case 11:
+                fragment = new BikeFragment(sportData);
+                break;
+            case 12:
+                fragment = new SkiiFragment(sportData);
+                break;
+            case 16:
+                fragment = new PingpangFragment();
+                break;
+            case 17:
+                fragment = new FootballFragment();
+                break;
+            case 19:
+                fragment = new ClimbFragment(sportData);
+                break;
+            case 20:
+                fragment = new BoatFragment(sportData);
+                break;
+            case 21:
+                fragment = new GolfFragment(sportData);
+                break;
+            case 22:
+                fragment = new SurfingFragment(sportData);
+                break;
         }
+        fm = getSupportFragmentManager();
+        transaction =  fm.beginTransaction();
+        transaction.replace(R.id.fragment,fragment);
+        transaction.commit();
 
-        calorieTv.setText(calorie+"");
-        sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportTime/3600, sportTime%3600/60,sportTime%3600%60));
-        heartTv.setText(heart+"");
     }
 
     private void initEvent() {

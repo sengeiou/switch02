@@ -9,11 +9,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Adapter.SportDataAdapter;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
@@ -67,13 +69,23 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initData() {
-        if (MainService.getInstance().getConnectState()==3){
-            ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
-            EXCDController.getInstance().writeForSportIndex();
+        if (MyApplication.getInstance().isMtk()){
+            if (MainService.getInstance().getState()==3){
+                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
+                EXCDController.getInstance().writeForSportIndex();
+            }else {
+                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                Collections.sort(dataList);
+            }
         }else {
-            dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
-            Collections.sort(dataList);
+            if (BleClient.getInstance().isSync()){
+                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
+            }else {
+                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                Collections.sort(dataList);
+            }
         }
+
 
     }
 
@@ -95,14 +107,9 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SportDataListActivity.this,SportTrackActivity.class);
-                intent.putExtra("time",dataList.get(position).time);
-                intent.putExtra("sportTime",dataList.get(position).sportTime);
-                intent.putExtra("distance",dataList.get(position).distance);
-                intent.putExtra("calorie",dataList.get(position).calorie);
-                intent.putExtra("speed",dataList.get(position).speed);
-                intent.putExtra("type",dataList.get(position).type);
-                intent.putExtra("heart",dataList.get(position).heart);
-                intent.putExtra("stride",dataList.get(position).stride);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("sport",dataList.get(position));
+                intent.putExtra("data",bundle);
                 startActivity(intent);
             }
         });

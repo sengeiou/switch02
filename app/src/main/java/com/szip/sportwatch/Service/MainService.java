@@ -1,6 +1,5 @@
 package com.szip.sportwatch.Service;
 
-import android.app.Activity;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -8,8 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Vibrator;
@@ -21,6 +18,7 @@ import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
@@ -39,7 +37,6 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Notification.AppList;
-import com.szip.sportwatch.Notification.CallService;
 import com.szip.sportwatch.Notification.NotificationReceiver;
 import com.szip.sportwatch.Notification.NotificationService;
 import com.szip.sportwatch.Notification.SmsService;
@@ -74,87 +71,88 @@ public class MainService extends Service {
 
     private boolean mIsSmsServiceActive = false;
 
-    private boolean mIsCallServiceActive = false;
 
     // Register and unregister SMS service dynamically
     private SmsService mSmsService = null;
 
     private SystemNotificationService mSystemNotificationService = null;
 
-    // Register and unregister call service dynamically
-    private CallService mCallService = null;
 
     private NotificationService mNotificationService = null;
 
-    private Thread connectThread;
+    private Thread heartThread;//心跳包线程
+    private Thread connectThread;//回连线程
     private boolean isThreadRun = true;
-    private int connectState = WearableManager.getInstance().STATE_CONNECT_FAIL;
-
-    private Thread updownDataThread;//上传数据的线程
 
     private MediaPlayer mediaPlayer;
 
     private int errorTimes = 0;//用于统计连接失败次数，如果连接失败次数太多，则提示用户重启手表
 
-    private boolean restartBle = false;//蓝牙重启
+    private boolean connectAble = false;//判断是否需要连接
 
+
+    private MyApplication app;
 
     private int volume = 0;
 
-    public int getConnectState() {
-        return connectState;
+
+
+    public int getState() {
+        return app.isMtk()?WearableManager.getInstance().getConnectState(): BleClient.getInstance().getConnectState();
     }
 
-    public void setRestartBle(boolean restartBle) {
-        this.restartBle = restartBle;
+    public void setConnectAble(boolean connectAble) {
+        this.connectAble = connectAble;
     }
 
     private WearableListener mWearableListener = new WearableListener() {
 
         @Override
         public void onConnectChange(int oldState, int newState) {
-            Log.d("SZIP******","STATE = "+newState);
-            connectState = newState;
-            EventBus.getDefault().post(new ConnectState(newState));
-            if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
-                errorTimes = 0;
-                String str = getResources().getConfiguration().locale.getLanguage();
-                if (str.equals("en"))
-                    EXCDController.getInstance().writeForSetLanuage("en_US");
-                else if (str.equals("de"))
-                    EXCDController.getInstance().writeForSetLanuage("de_DE");
-                else if (str.equals("fr"))
-                    EXCDController.getInstance().writeForSetLanuage("fr_FR");
-                else if (str.equals("it"))
-                    EXCDController.getInstance().writeForSetLanuage("it_IT");
-                else if (str.equals("es"))
-                    EXCDController.getInstance().writeForSetLanuage("es_ES");
-                else if (str.equals("pt"))
-                    EXCDController.getInstance().writeForSetLanuage("pt_PT");
-                else if (str.equals("tr"))
-                    EXCDController.getInstance().writeForSetLanuage("tr_TR");
-                else if (str.equals("ru"))
-                    EXCDController.getInstance().writeForSetLanuage("ru_RU");
-                else if (str.equals("ar"))
-                    EXCDController.getInstance().writeForSetLanuage("ar_SA");
-                else if (str.equals("th"))
-                    EXCDController.getInstance().writeForSetLanuage("th_TH");
-                else if (str.equals("zh"))
-                    EXCDController.getInstance().writeForSetLanuage("zh_CN");
-                EXCDController.getInstance().writeForSetDate();
-                EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
-                EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
-                EXCDController.getInstance().writeForCheckVersion();
-                EXCDController.getInstance().writeForUpdateWeather(((MyApplication)getApplicationContext()).getWeatherModel(),
-                        ((MyApplication)getApplicationContext()).getCity());
-            }else if (newState == WearableManager.STATE_CONNECT_LOST){
-                if (errorTimes<3){
-                    errorTimes++;
-                } else{
+            if (app.isMtk()){
+                Log.d("SZIP******","STATE = "+newState);
+                EventBus.getDefault().post(new ConnectState(newState));
+                if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
+                    startThread();//使能线程
                     errorTimes = 0;
-                    Looper.prepare();
-                    Toast.makeText(mSevice,getString(R.string.lineError),Toast.LENGTH_SHORT).show();
-                    Looper.loop();
+                    String str = getResources().getConfiguration().locale.getLanguage();
+                    if (str.equals("en"))
+                        EXCDController.getInstance().writeForSetLanuage("en_US");
+                    else if (str.equals("de"))
+                        EXCDController.getInstance().writeForSetLanuage("de_DE");
+                    else if (str.equals("fr"))
+                        EXCDController.getInstance().writeForSetLanuage("fr_FR");
+                    else if (str.equals("it"))
+                        EXCDController.getInstance().writeForSetLanuage("it_IT");
+                    else if (str.equals("es"))
+                        EXCDController.getInstance().writeForSetLanuage("es_ES");
+                    else if (str.equals("pt"))
+                        EXCDController.getInstance().writeForSetLanuage("pt_PT");
+                    else if (str.equals("tr"))
+                        EXCDController.getInstance().writeForSetLanuage("tr_TR");
+                    else if (str.equals("ru"))
+                        EXCDController.getInstance().writeForSetLanuage("ru_RU");
+                    else if (str.equals("ar"))
+                        EXCDController.getInstance().writeForSetLanuage("ar_SA");
+                    else if (str.equals("th"))
+                        EXCDController.getInstance().writeForSetLanuage("th_TH");
+                    else if (str.equals("zh"))
+                        EXCDController.getInstance().writeForSetLanuage("zh_CN");
+                    EXCDController.getInstance().writeForSetDate();
+                    EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+                    EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+                    EXCDController.getInstance().writeForCheckVersion();
+                    EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),
+                            app.getCity());
+                }else if (newState == WearableManager.STATE_CONNECT_LOST){
+                    if (errorTimes<3){
+                        errorTimes++;
+                    } else{
+                        errorTimes = 0;
+//                        Looper.prepare();
+//                        Toast.makeText(mSevice,getString(R.string.lineError),Toast.LENGTH_SHORT).show();
+//                        Looper.loop();
+                    }
                 }
             }
         }
@@ -166,16 +164,13 @@ public class MainService extends Service {
 
         @Override
         public void onDeviceScan(BluetoothDevice device) {
-            if (restartBle){
-                if (device.getAddress().equals(((MyApplication)getApplication()).getUserInfo().getDeviceCode())){
-                    restartBle = false;
+            if (connectAble){
+                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
+                    connectAble = false;
                     Log.d("SZIP******","正在搜索="+device.getAddress());
                     WearableManager.getInstance().scanDevice(false);
                     WearableManager.getInstance().setRemoteDevice(device);
-                    if (connectThread==null)
-                        startConnect();
-                    else
-                        WearableManager.getInstance().connect();
+                    startConnect();
                 }
             }
         }
@@ -216,8 +211,11 @@ public class MainService extends Service {
             if (animalHeat)
                 EXCDController.getInstance().writeForGetAnimalHeat();
 
-            ((MyApplication)getApplicationContext()).setDeviceNum(deviceNum);
-            EventBus.getDefault().post(new UpdateSportView());
+            if(app.getDeviceNum()!=deviceNum){
+                app.setDeviceNum(deviceNum);
+                EventBus.getDefault().post(new UpdateSportView());
+            }
+
         }
 
         @Override
@@ -287,7 +285,6 @@ public class MainService extends Service {
             String sleepDate = null;
             for (int i =0;i<sleep.length;i++){//遍历数组，把不同日期的睡眠数据分开
                 sleepDate = DateUtil.getSleepDate(sleep[i]);//判断这个时间的数据是属于哪天的睡眠
-                Log.d("SZIP******","sleepDate = "+sleepDate);
                 if (list == null){//如果当天的数据为空，则开一个新的数组用来保存这一天的数据
                     list = new ArrayList<>();
                     list.add(sleep[i]);
@@ -450,7 +447,7 @@ public class MainService extends Service {
         super.onCreate();
         Log.d("SZIP******","service start");
         mSevice = this;
-
+        app = MyApplication.getInstance();
         mIsMainServiceActive = true;
         Map<Object, Object> applist = AppList.getInstance().getAppList();
         if (applist.size() == 0) {
@@ -480,40 +477,84 @@ public class MainService extends Service {
     }
 
     public void startConnect(){
-        if ((WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_FAIL||
-                WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_LOST ||
-                WearableManager.getInstance().getConnectState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
-            //如果没有连接，则连接
-            Log.d("SZIP******","连接设备");
-            WearableManager.getInstance().connect();
-        }
-        isThreadRun = true;
-        connectThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isThreadRun){
-                    if (WearableManager.getInstance().getRemoteDevice()!=null&&
-                            WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
-                            Log.d("SZIP******","发送心跳包");
-                            EXCDController.getInstance().writeForCheckVersion();
-                    }
-                    try {
-                        Thread.sleep(10*60*1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        if (!app.isMtk()) {//判断是否使用MTK的库进行蓝牙连接
+            if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                    getState()==WearableManager.STATE_CONNECT_LOST ||
+                    getState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
+                //如果没有连接，则连接
+                Log.d("SZIP******","连接设备BLE");
+                BleClient.getInstance().connect(app.getUserInfo().getDeviceCode());
             }
-        });
-        connectThread.start();
+        }else {
+            if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                    getState()==WearableManager.STATE_CONNECT_LOST ||
+                    getState()==WearableManager.STATE_NONE||
+                    getState()==WearableManager.STATE_LISTEN) ){//如果设备未连接，这连接设备
+                //如果没有连接，则连接
+                Log.d("SZIP******","连接设备MTK");
+                WearableManager.getInstance().connect();
+            }
+        }
     }
 
     public void stopConnect(){
-        WearableManager.getInstance().disconnect();
-        WearableManager.getInstance().setRemoteDevice(null);
+        if (app.isMtk()){
+            WearableManager.getInstance().disconnect();
+            WearableManager.getInstance().setRemoteDevice(null);
+        }else {
+            BleClient.getInstance().disConnect();
+        }
         isThreadRun = false;
     }
 
+
+    private void startThread(){
+        isThreadRun = true;
+//        if (heartThread ==null||!heartThread.isAlive()){//发送获取数据的心跳包
+//            heartThread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    while (isThreadRun){
+//                        if (WearableManager.getInstance().getRemoteDevice()!=null&&
+//                                getState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
+//                            Log.d("SZIP******","发送心跳包");
+//                            EXCDController.getInstance().writeForCheckVersion();
+//                        }
+//                        try {
+//                            Thread.sleep(10*60*1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
+//            heartThread.start();
+//        }
+
+        if(connectThread == null||!connectThread.isAlive()){//断线重连机制
+            connectThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isThreadRun){
+                        if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                                getState()==WearableManager.STATE_CONNECT_LOST ||
+                                getState()==WearableManager.STATE_NONE)){
+                            Log.d("SZIP******","断线重连");
+                            connectAble = true;
+//                            WearableManager.getInstance().connect();
+                            WearableManager.getInstance().scanDevice(true);
+                        }
+                        try {
+                            Thread.sleep(10*1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            connectThread.start();
+        }
+    }
 
     @Override
     public void onDestroy() {

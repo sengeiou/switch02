@@ -124,7 +124,7 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
             app.getUserInfo().setHeight(null);
             app.getUserInfo().setWeight(null);
             MathUitl.saveInfoData(UnitSelectActivity.this,app.getUserInfo()).commit();
-            if (MainService.getInstance().getConnectState()!=3){
+            if (MainService.getInstance().getState()!=3){
                 showToast(getString(R.string.syceError));
             }else {
                 EXCDController.getInstance().writeForSetUnit(app.getUserInfo());

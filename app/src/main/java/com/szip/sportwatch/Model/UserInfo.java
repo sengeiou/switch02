@@ -21,8 +21,18 @@ public class UserInfo {
     private String weight;
     private String blood;
     private String deviceCode;
+    private String bindId;
     private int stepsPlan;
     private int sleepPlan;
+
+
+    public String getBindId() {
+        return bindId;
+    }
+
+    public void setBindId(String bindId) {
+        this.bindId = bindId;
+    }
 
     public String getAreaCode() {
         return areaCode;

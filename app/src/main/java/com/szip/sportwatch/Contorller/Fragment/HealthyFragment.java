@@ -1,6 +1,8 @@
 package com.szip.sportwatch.Contorller.Fragment;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,18 +10,14 @@ import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Contorller.AnimalHeatActivity;
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
@@ -30,19 +28,19 @@ import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Interface.MyListener;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
-import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LocationUtil;
 import com.szip.sportwatch.Util.MathUitl;
-import com.szip.sportwatch.Util.ScreenCapture;
 import com.szip.sportwatch.Util.ViewUtil;
 import com.szip.sportwatch.View.CircularImageView;
 import com.szip.sportwatch.View.ColorArcProgressBar;
@@ -54,13 +52,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.core.content.FileProvider;
 import okhttp3.Call;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -102,6 +98,10 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
 
     private ViewUtil viewUtil;
 
+    private BluetoothAdapter btAdapt;
+
+    private HealthyConfig healthyConfig;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_healthy;
@@ -141,10 +141,35 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        EXCDController.getInstance().writeForCheckVersion();
+        if (app.isMtk())
+            EXCDController.getInstance().writeForCheckVersion();
+        else
+            BleClient.getInstance().writeForGetDeviceState();
         initData();
         if (conditionTv!=null)
             conditionTv.setSelected(true);
+
+
+
+        if (btAdapt == null)
+            btAdapt = BluetoothAdapter.getDefaultAdapter();
+        try {
+            if (app.getBtMac()!=null) {
+                BluetoothDevice btDev = btAdapt.getRemoteDevice(app.getBtMac());
+                Boolean returnValue = false;
+                if (btDev.getBondState() == BluetoothDevice.BOND_NONE) {
+                    //利用反射方法调用BluetoothDevice.createBond(BluetoothDevice remoteDevice);
+                    Method createBondMethod = BluetoothDevice.class
+                            .getMethod("createBond");
+                    Log.d("SZIP******", "开始配对");
+                    returnValue = (Boolean) createBondMethod.invoke(btDev);
+                }
+            }
+        }catch (IllegalArgumentException e){
+            Log.e("SZIP******",e.getMessage());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -156,6 +181,44 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     private void initView() {
         ((PullToRefreshLayout) getView().findViewById(R.id.refresh_view))
                 .setOnRefreshListener(new MyListener());
+        healthyConfig = LoadDataUtil.newInstance().getConfig(Integer.valueOf(app.getDeviceNum()));
+        if (healthyConfig!=null){
+            if(healthyConfig.sleep!=1){
+                getView().findViewById(R.id.sleepRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.sleepRl).setVisibility(View.VISIBLE);
+            }
+
+            if(healthyConfig.heartRate!=1){
+                getView().findViewById(R.id.heartRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.heartRl).setVisibility(View.VISIBLE);
+            }
+
+            if(healthyConfig.bloodPressure!=1){
+                getView().findViewById(R.id.bloodPressureRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.bloodPressureRl).setVisibility(View.VISIBLE);
+            }
+
+            if(healthyConfig.bloodOxygen!=1){
+                getView().findViewById(R.id.bloodOxygenRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.bloodOxygenRl).setVisibility(View.VISIBLE);
+            }
+
+            if(healthyConfig.ecg!=1){
+                getView().findViewById(R.id.ecgRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.ecgRl).setVisibility(View.VISIBLE);
+            }
+
+            if(healthyConfig.temperature!=1){
+                getView().findViewById(R.id.animalHeatRl).setVisibility(View.GONE);
+            }else {
+                getView().findViewById(R.id.animalHeatRl).setVisibility(View.VISIBLE);
+            }
+        }
 
         stepPb = getView().findViewById(R.id.stepPb);
         sleepPv = getView().findViewById(R.id.sleepPv);
@@ -163,7 +226,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         stepRadioTv = getView().findViewById(R.id.stepRadioTv);
         planStepTv = getView().findViewById(R.id.planStepTv);
         stepTv = getView().findViewById(R.id.stepTv);
-        distanceTv = getView().findViewById(R.id.distanceTv);
+        distanceTv = getView().findViewById(R.id.dataTv);
         kcalTv = getView().findViewById(R.id.kcalTv);
 
         sleepDataTv = getView().findViewById(R.id.sleepDataTv);

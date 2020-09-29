@@ -9,7 +9,7 @@
     <string name="enterPassword">Please Enter A 6-20 Digit Password</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="enterPasswordAgain">Please Re-enter Your Password</string>
-    <string name="forget"><u>Forget Password</u></string>
+    <string name="forget"><u>Forgot Password</u></string>
     <string name="register"><u>Register</u></string>
     <string name="login">Log In</string>
     <string name="country">Country/Region</string>
@@ -24,17 +24,17 @@
     <string name="next">Next step</string>
     <string name="privacy">Agree<u>"User Agreement And Privacy Policy"</u></string>
     <string name="privacy1">User Agreement And Privacy Policy</string>
-    <string name="privacy2">\t\t\tWe attach great importance to the privacy of users and the protection of personal information. When you use our products and services, we may collect and use information about you. Our company hopes to through the《Privacy Agreement》hereinafter referred to as "This Policy" to explain to you that Shenzhen Intelligent Age Technology Co., Ltd. hereinafter referred to as "Our Company", how to collect, use and save this information when you use our products / services .
+    <string name="privacy2">\t\t\tWe attach great importance to the privacy of our users and the protection of personal information. When you use our products and services, we may collect and use information about you. Our company hopes to through the 《Privacy Agreement》hereinafter referred to as "The Policy" to explain to you how and when our company collects, uses and saves this information.
 
 \n\n\t\tWe hope that you carefully read and confirm that you fully understand the content of this policy before using our products and services.
 
-\n\n\t\tWhen we use your personal information for other purposes not specified in this policy, or when the information collected for specific purposes is used for other purposes, we will notify you of a checklist to you to tick so that can obtain your consent in advance..
+\n\n\t\tYour personal information will never be used without your consent for purposes not specified in this policy.
 
-\n\n\t\tPlease note that all personal information you provide when you use our products and services, you will authorize us to collect it, unless you delete or reject our collection through system settings, . When you cancel your account, our company will stop using and delete your personal information.
+\n\n\t\tPlease note that all personal information you provide when you use our products and services, we are authorized to collect, unless you delete or do not allow our collection through system settings. When you cancel your account, our company will stop using and delete your personal information.
 
-\n\n1，The scope of personal information you authorize us to collect:
+\n\n1，The following is personal information you authorize us to collect:
 
-\n\n\t\tPersonal information refers to all kinds of information recorded in electronic or other ways that can identify the identity of a specific natural person or reflect the activity of a specific natural person, either alone or in combination with other information.
+\n\n\t\tPersonal information refers to all kinds of information recorded in electronic or other ways that can identify a person or reflect the activity of a person, either alone or in combination with other information.
 The personal information involved in this policy includes: basic information (including personal name birthday, gender, personal phone number, email address); network identity information (including system account, IP address, and email address); contacts; personal common equipment information; personal location information; personal health information.
 
 
@@ -57,11 +57,11 @@ The personal information involved in this policy includes: basic information (in
 
 \n\n3，Our company will not share your personal information with any company, organization and individual other than our company, except in the following cases:
 
-\n\n（1）Get your explicit consent and authorization in advance;
+\n\n（1）With your explicit consent and authorization in advance;
 
 \n\n（2）Provided in accordance with applicable laws and regulations, legal procedures, mandatory administrative or judicial requirements;
 
-\n\n（3） the extent permitted by law, it is necessary to provide for the protection of our company, our affiliates or partners, the public interest, property or safety from damage;
+\n\n（3）To the extent permitted by law, it is necessary to provide for the protection of our company, our affiliates or partners, the public interest, property or safety from damage;
 
 \n\n（4） Only by sharing your information can we achieve the core functions of our products and services or provide the services you need;
 
@@ -69,13 +69,13 @@ The personal information involved in this policy includes: basic information (in
 
 \n\n（6）Provided in accordance with the relevant agreement with you or other legal documents;
 
-\n\n（7） Use in the public interest in compliance with laws and regulations.
+\n\n（7） For use in the public interest in compliance with laws and regulations.
 
-\n\n4，How to jointly protect and store your personal information：
+\n\n4，How we jointly protect and store your personal information:
 
 \n（1）We attach great importance to the security of personal information and take all reasonable and feasible data security technical measures to protect your personal information;
 
-\n（2）The Internet environment is not 100% secure, and we will do our best to ensure or guarantee the security of any information you send to us. If our physical, technical or management protection facilities are damaged, resulting in unauthorized access, public disclosure, tampering, or destruction of information, resulting in damage to your legitimate rights and interests, our company will bear the corresponding legal responsibility.
+\n（2）While no Internet environment is 100% secure, we do our best to ensure and guarantee the security of any information you send to us. If our physical, technical or management protection facilities are damaged, resulting in unauthorized access, public disclosure, tampering, or destruction of information, resulting in damage to your legitimate rights and interests, our company will bear the corresponding legal responsibility.
 
 \n（3）If you have any questions about the protection of your personal information, you can contact us through the contact information on our official website. If you find that your personal information is leaked, especially your personal information has been leaked, please contact us immediately so that we can take corresponding measures.
 
@@ -104,7 +104,7 @@ We recommend that minors encourage their parents or guardians to read this polic
 \n\n7， Update
 
 \n\n\t\tWe may update or amend the terms of this policy, and such amendments form part of this policy. If such amendments cause a substantial reduction in your rights under this policy, before the amendments take effect, we will notify you via a prominent location on the homepage or email you or otherwise. In this case, if you continue to use our services, you agree to be bound by this revised policy.</string>
-    <string name="checkPrivacy">Please Confirm To Read The User Agreement And Privacy Policy</string>
+    <string name="checkPrivacy">Please Confirm You’ve Read The User Agreement And Privacy Policy</string>
     <string name="setPassword">Set Password</string>
     <string name="china">China</string>
     <string name="vistor">Visitors to login</string>
@@ -121,7 +121,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="heart">Heart Rate</string>
     <string name="blood">Blood Pressure</string>
     <string name="bloodo">Blood Oxygen</string>
-    <string name="animal">Temp</string>
+    <string name="animal">Temperature</string>
     <string name="ecg">ECG</string>
     <string name="check">View</string>
     <string name="perfect">Perfect</string>
@@ -146,12 +146,12 @@ We recommend that minors encourage their parents or guardians to read this polic
 
 
     <!--运动界面 Sports-->
-    <string name="best">Best Record For Outdoor Running</string>
+    <string name="best">Personal Record For Outdoor Running</string>
     <string name="history">Historical Movement Record</string>
     <string name="track">Sport Information</string>
     <string name="notrack">No Trajectory</string>
     <string name="speed">Speed</string>
-    <string name="kcal">Consume(kcal)</string>
+    <string name="kcal">Consumed (kcal)</string>
     <string name="time">Time</string>
     <string name="heart_rate">Heart Rate(Bpm)</string>
     <string name="stride">Stride(Steps/s)</string>
@@ -164,17 +164,29 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="distanceData">Distance</string>
     <string name="basket">Basketball</string>
     <string name="football">Football</string>
-    <string name="pingpong">Pingpongball</string>
+    <string name="pingpong">Ping Pong</string>
     <string name="mountain">Mountain</string>
     <string name="bike">Bike</string>
     <string name="run">Run</string>
-
+    <string name="walk">徒步</string>
+    <string name="treadmill">跑步机</string>
+    <string name="runWithout">户外跑</string>
+    <string name="marathon">Marathon</string>
+    <string name="sufing">Sufing</string>
+    <string name="shudu">Speed</string>
+    <string name="averageShudu">Average Speed</string>
+    <string name="boat">Boating</string>
+    <string name="altitude">Altitude</string>
+    <string name="avarageAltitude">Average Altitude</string>
+    <string name="climb">Climb</string>
+    <string name="skii">Skii</string>
+    <string name="golf">Golf</string>
     <!--我的页面 Mine-->
     <string name="device">Device</string>
     <string name="stepPlan">Step Goal</string>
     <string name="sleepPlan">Sleep Target</string>
     <string name="find">Finding Watch</string>
-    <string name="notification">Application Notification</string>
+    <string name="notification">App Notification</string>
     <string name="blePhone">Bluetooth Call</string>
     <string name="blePhoto">Bluetooth Camera</string>
     <string name="unit">Unit</string>
@@ -183,8 +195,8 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="seeDail">Preview</string>
     <string name="diyDail">DIY</string>
     <string name="diyDailing">Updating...</string>
-    <string name="diyDailOK">Update Success</string>
-    <string name="diyDailError">Update Fail,Please try again</string>
+    <string name="diyDailOK">Update Successful</string>
+    <string name="diyDailError">Update failed,please try again</string>
     <string name="upDownBackground">Please upload a background picture</string>
     <string name="chooseClock">Please select a clock style</string>
     <string name="clock">Clock Style</string>
@@ -202,32 +214,32 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="logoutTip">Are You Sure You Want To Log Out？</string>
     <string name="sendOK">Sent Successfully</string>
     <string name="searchDevice">Search Device</string>
-    <string name="noDevice">No Devices Found</string>
+    <string name="noDevice">No Device Found</string>
     <string name="connected">Connected</string>
     <string name="disConnect">Not Connected</string>
-    <string name="connectting">Connectting</string>
+    <string name="connectting">Connecting</string>
     <string name="connect">Device Connecting, Please Try Again Later</string>
     <string name="syceError">Watch Is Not connected，Data Will Be Synced To The Watch The Next Time You Connect</string>
     <string name="unBind">Replace Device</string>
     <string name="unline">Disconnect</string>
     <string name="line">Connect The Watch</string>
     <string name="addDevice">Add Device</string>
-    <string name="unbindSoon">Please unbind the device first</string>
-    <string name="lineError">The connection has failed for many times. Please restart the bluetooth of the mobile phone or restart the watch</string>
-    <string name="tipUnit">Tip:The unit height and weight will be reset</string>
+    <string name="unbindSoon">Please unbind device first</string>
+    <string name="lineError">The connection has failed many times. Please restart the bluetooth of the mobile device or restart the watch</string>
+    <string name="tipUnit">Tip: The unit height and weight will be reset</string>
 
     <!--蓝牙通话界面 Bluetooth Call Interface-->
-    <string name="step1">1.Watch Paire With Mobile Phone</string>
+    <string name="step1">1.Pair watch With Mobile Phone</string>
     <string name="step2">2.Unmatch</string>
-    <string name="str1">1)Enter Bluetooth Function In Watch\n2)Search For Bluetooth Devices-Select Phone Bluetooth name\n3)Pair With Your Phone To Make Bluetooth Call With Your Watch</string>
+    <string name="str1">1)Enter Bluetooth Function In Watch\n2)Search For Bluetooth Devices-Select Phone Bluetooth name\n3)Pair With Your Phone To Make Bluetooth Calls With Your Watch</string>
     <string name="str2">Enter System Setting-Bluetooth-Paired Device, Find Device, Enter Click "Unpair", Unpair Successful。\n\nRemark: Watch Cannot Use Bluetooth Call Function After Unpairing</string>
 
     <!--关于界面 About-->
     <string name="version">Current Version</string>
     <string name="feedback">Feedback</string>
     <string name="feedback_hint">Your feedback/question</string>
-    <string name="tooLong">The input is too long</string>
-    <string name="empty">Feedback cannot be empty</string>
+    <string name="tooLong">Input is too long</string>
+    <string name="empty">Field cannot be empty</string>
     <string name="send_success">Submitted successfully</string>
 
     <!--单位制式界面 Unit System Interface-->
@@ -251,7 +263,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="wed">Wed</string>
     <string name="thus">Thu</string>
     <string name="fri">Fri</string>
-    <string name="sta">Sta</string>
+    <string name="sta">Sat</string>
     <string name="today">Today</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
@@ -264,8 +276,8 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="lightTable">Light</string>
     <string name="deepTable">Deep</string>
     <string name="averageHeart">Average Heart Rate</string>
-    <string name="minHeart">Min Heart Rate</string>
-    <string name="maxHeart">Max Heart Rate</string>
+    <string name="minHeart">Min.Heart Rate</string>
+    <string name="maxHeart">Max.Heart Rate</string>
     <string name="averageSBP">Average Systolic Pressure</string>
     <string name="sbp">Systolic Pressure</string>
     <string name="averageDBP">Average Diastolic Pressure</string>
@@ -274,9 +286,9 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="averageTemp">Average  Temp</string>
     <string name="maxTemp">Max Temp</string>
     <string name="passRate">Compliance Rate</string>
-    <string name="ecgTip">The Measurement Is Only For reference，Not As Medical Certificate</string>
+    <string name="ecgTip">Measurement is only for reference, not as a Medical Certificate</string>
     <string name="noData">No Report</string>
-    <string name="tomorrow">Future is not yet here</string>
+    <string name="tomorrow">Available in the future</string>
 
 
     <!--用户信息页面 User Information Page-->
@@ -305,7 +317,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="passwordUnSame">Enter The Wrong Password Twice</string>
     <string name="saved">Saved successfully</string>
     <string name="notificationlistener_prompt_title">Enable Notifications</string>
-    <string name="notificationlistener_prompt_content">iSmarport Need To Forward Application Notifications To Remote Smart Devices。Pree\"Confirm\"Enter Notification Page To Activate。</string>
+    <string name="notificationlistener_prompt_content">iSmarport Needs To Forward Application Notifications To Remote Smart Devices. Press\"Confirm\"Enter Notification Page To Activate.</string>
     <string name="tokenTimeout">Login Has Expired，Please Login Again</string>
     <string name="lostDevice">Device Is Not Connected</string>
     <string name="permissionErrorForCamare">Permission Failed, Can Not Turn On Camera Function</string>
@@ -314,8 +326,8 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="shareFailForPermission">Share Failed, Related Permissions Failed</string>
     <string name="permissionErrorForSMS">Permission Failed, Unable To Turn On SMS Notifications</string>
     <string name="loading">Loading...</string>
-    <string name="privacyTip">Have You Read The Privacy Agreement Clearly, Are You Agree To Register As A New User Of Our Company？\nWhen You Click"Confirm"Means You Agree To The Terms Of The Agreement。\nThe User Privacy Policy Mainly Includes The Following:\n1.Personal Information(Profile Photo、Nickname、Height、Weight、Sports Data, etc.)Collection, Save And Share。\n2.Device Permissions(Location，Contact List，Camera, etc.) Using</string>
-    <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG/PNG Format Picture!</string>
+    <string name="privacyTip">Have You Read The Privacy Agreement Clearly? Did You Agree To Register As A New User Of Our Company? When You Click "Confirm", You Agree To The Terms Of The Agreement.\nThe User Privacy Policy Mainly Includes The Following:\n1.Personal Information(Profile Photo、Nickname、Height、Weight、Sports Data, etc.)Collection, Save And Share。\n2.Device Permissions(Location，Contact List，Camera, etc.) Using</string>
+    <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG Format Picture!</string>
     <string name="deviceOut">Unbound device</string>
     <string name="visiter">This feature is not supported in the visitor mode</string>
     <string name="chooseJpg">Please choose an image in JPG format</string>
@@ -326,7 +338,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="planNO">Today\'s goal was not reached</string>
     <string name="planStepShare">Target Steps: %dsteps</string>
     <string name="distanceShare">Walking Distance: %.1fKm</string>
-    <string name="calurieShare">Burn Calories: %.1fKcal</string>
+    <string name="calurieShare">Burnt Calories: %.1fKcal</string>
 
     <string name="planSleep">Target Duration: %.1fh</string>
     <string name="deepSleepShare">Deep Sleep: %02dH%02dMin</string>
@@ -345,7 +357,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="shareCancel">Cancel Sharing</string>
     <string name="shareFail">Share Failed</string>
     <!-- Scan & Connect -->
-    <string name="connect_error">Connect Error</string>
+    <string name="connect_error">Connection Error</string>
 
 
     <!-- applist & appstore -->
@@ -364,10 +376,27 @@ We recommend that minors encourage their parents or guardians to read this polic
 
     <!-- Service -->
     <string name="missed_call">Missed Call</string>
-    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows Bluetooth to push application notifications to remote device.</string>
     <string name="batterylow">Battery low</string>
     <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
 
     <string name="operate_error">Failed</string>
 
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
 </resources>

@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
-import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.MyApplication;
@@ -22,10 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/16.
@@ -93,11 +87,11 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allStepTv = getView().findViewById(R.id.allStepTv);
         kcalTv = getView().findViewById(R.id.kcalTv);
-        distanceTv = getView().findViewById(R.id.distanceTv);
+        distanceTv = getView().findViewById(R.id.dataTv);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
