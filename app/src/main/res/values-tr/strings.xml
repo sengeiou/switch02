@@ -80,7 +80,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
 \n\n（1）Şirketimiz, kişisel bilgilerin güvenliğine büyük önem vermekte ve kişisel bilgilerinizi korumak için makul ve uygulanabilir tüm veri güvenliği teknik önlemlerini almaktadır.
 
-\n\n（2）İnternet ortamı% 100 güvenli değildir Şirketimiz, gönderdiğiniz her türlü bilginin güvenliğini sağlamak veya garanti etmek için elimizden gelenin en iyisini yapacaktır. Şirketimizin fiziksel, teknik veya yönetim koruma tesislerinin hasar görmesi ve bilginin yetkisiz erişime, kamuya ifşa edilmesine, tahrif edilmesine veya yok edilmesine neden olarak yasal haklarınıza zarar vermesi durumunda, şirketimiz ilgili yasal sorumluluğu üstlenecektir.
+\n\n（2）İnternet ortamı%100 güvenli değildir Şirketimiz, gönderdiğiniz her türlü bilginin güvenliğini sağlamak veya garanti etmek için elimizden gelenin en iyisini yapacaktır. Şirketimizin fiziksel, teknik veya yönetim koruma tesislerinin hasar görmesi ve bilginin yetkisiz erişime, kamuya ifşa edilmesine, tahrif edilmesine veya yok edilmesine neden olarak yasal haklarınıza zarar vermesi durumunda, şirketimiz ilgili yasal sorumluluğu üstlenecektir.
 
 \n\n（3）Şirketimizin kişisel bilgilerinin korunmasına ilişkin herhangi bir sorunuz varsa, resmi web sitemizdeki iletişim bilgileri aracılığıyla şirketimizle iletişime geçebilirsiniz. Kişisel bilgilerinizin sızdırıldığını fark ederseniz, özellikle kişisel bilgilerinizin sızdırılması durumunda, lütfen hemen bizimle iletişime geçin, böylece gerekli önlemleri alabilelim.
 
@@ -100,7 +100,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
 \n\n2） Hizmetlerimizde reklam hizmetleri sağlayan diğer şirketler veya kuruluşlar aracılığıyla toplanan bilgiler;
 
-\n\n3） Egzersiz verilerinizi hesaplamak için iphone veya ipad gibi bir Apple cihazı kullanıyorsanız, yetkilendirmenizin ardından şirketimiz egzersiz verilerinizi alacak ve Apple'ın Sağlık Kitine gönderecektir. Şirketimiz Healthkit'ten boy, kilo ve cinsiyet verilerinizi okuyacaktır.Aynı zamanda Uygulamanızın ürettiği adım sayısı, yürüme + koşu mesafesi, aktivite enerjisi, bisiklet mesafesi ve uyku analizi verileri Apple'ın Healthkit'e yazılacaktır. Healthkit aracılığıyla elde edilen hiçbir veri paylaşılmayacak veya herhangi bir üçüncü şahıs şirkete satılmayacaktır ve şirketimiz Healthkit'ten elde edilen bilgileri reklam ve pazarlama gibi ticari amaçlarla kullanmayacaktır.
+\n\n3） Egzersiz verilerinizi hesaplamak için iphone veya ipad gibi bir Apple cihazı kullanıyorsanız, yetkilendirmenizin ardından şirketimiz egzersiz verilerinizi alacak ve Apple\'ın Sağlık Kitine gönderecektir. Şirketimiz Healthkit\'ten boy, kilo ve cinsiyet verilerinizi okuyacaktır.Aynı zamanda Uygulamanızın ürettiği adım sayısı, yürüme + koşu mesafesi, aktivite enerjisi, bisiklet mesafesi ve uyku analizi verileri Apple\'ın Healthkit\'e yazılacaktır. Healthkit aracılığıyla elde edilen hiçbir veri paylaşılmayacak veya herhangi bir üçüncü şahıs şirkete satılmayacaktır ve şirketimiz Healthkit\'ten elde edilen bilgileri reklam ve pazarlama gibi ticari amaçlarla kullanmayacaktır.
 
 
 \n\n\n\n七、değişiklik
@@ -118,7 +118,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "touchAgain"> programdan çıkmak için tekrar basın </string>
 
 
-    <string name = "planStep"> hedef adım sayısı% d </string>
+    <string name = "planStep"> hedef adım sayısı%d </string>
     <string name = "sleep"> uyku </string>
     <string name = "heart"> kalp atış hızı </string>
     <string name = "blood"> kan basıncı </string>
@@ -339,21 +339,21 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
     <string name = "planOK"> Bugünün hedefine ulaşıldı </string>
     <string name = "planNO"> Bugünün hedefine ulaşılmadı </string>
-    <string name = "planStepShare"> hedef adımlar:% dsteps </string>
-    <string name = "distanceShare"> yürüme mesafesi:% .1fKm </string>
-    <string name = "calurieShare"> Yakılan kalori:% .1fKcal </string>
+    <string name = "planStepShare"> hedef adımlar:%dsteps </string>
+    <string name = "distanceShare"> yürüme mesafesi:%.1fKm </string>
+    <string name = "calurieShare"> Yakılan kalori:%.1fKcal </string>
 
-    <string name = "planSleep"> hedef süre:% .1fh </string>
-    <string name = "deepSleepShare"> Derin uyku süresi:% 02dh% 02dmin </string>
-    <string name = "lightSleepShare"> Hafif uyku süresi:% 02dh% 02ddak </string>
+    <string name = "planSleep"> hedef süre:%.1fh </string>
+    <string name = "deepSleepShare"> Derin uyku süresi:%02dH%02dMin </string>
+    <string name = "lightSleepShare"> Hafif uyku süresi:%02dH%02dMin </string>
 
-    <string name = "testTimes"> Bugünün ölçüm numarası:% d </string>
-    <string name = "maxHeartShare"> Maksimum kalp atış hızı:% dbpm </string>
-    <string name = "minHeartShare"> minimum kalp atış hızı:% dbpm </string>
+    <string name = "testTimes"> Bugünün ölçüm numarası:%d </string>
+    <string name = "maxHeartShare"> Maksimum kalp atış hızı:%dbpm </string>
+    <string name = "minHeartShare"> minimum kalp atış hızı:%dbpm </string>
 
     <string name = "bloodOxygenData"> kan oksijen doygunluğu </string>
     <string name = "testValue"> test sonuçları: </string>
-    <string name = "passTimeData"> geçiş oranı:% .1f %% </string>
+    <string name = "passTimeData"> geçiş oranı:%.1f%%</string>
 
     <string name = "bloodPressureData"> ortalama sistolik / diyastolik kan basıncı </string>
     <string name = "shareSuccess"> başarıyla paylaşıldı </string>

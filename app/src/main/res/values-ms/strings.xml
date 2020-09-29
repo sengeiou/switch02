@@ -327,7 +327,7 @@
     <string name = "permissionErrorForCamare"> kebenaran gagal, tidak dapat membuka fungsi kamera </string>
     <string name = "findPermission"> Jika kebenaran tidak diluluskan, senarai peranti tidak akan dicari. </string>
     <string name = "applyPermission"> memohon kebenaran </string>
-    <string name = "shareFailForPermission"> Perkongsian gagal, kebenaran berkaitan gagal </ string>
+    <string name = "shareFailForPermission"> Perkongsian gagal, kebenaran berkaitan gagal </string>
     <string name = "permissionErrorForSMS"> kebenaran gagal, tidak dapat membuka fungsi pemberitahuan SMS </string>
     <string name = "loading"> memuat ... </string>
     <string name = "privacyTip"> Sebelum anda menggunakan produk kami, sila baca dengan teliti dan fahami sepenuhnya perjanjian privasi pengguna yang berkaitan. \ nBila anda mengklik "OK", ini bermaksud bahawa anda telah bersetuju dengan syarat-syarat perjanjian. \ n Dasar privasi pengguna terutamanya merangkumi kandungan berikut: \ n1. Pengumpulan, penyimpanan dan perkongsian maklumat peribadi (avatar, nama panggilan, tinggi, berat badan, data latihan, dll.). \ n2. Penggunaan izin perangkat (lokasi, buku alamat, kamera, dll.) </string>
