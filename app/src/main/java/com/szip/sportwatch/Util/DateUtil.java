@@ -3,6 +3,7 @@ package com.szip.sportwatch.Util;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -323,6 +324,7 @@ public class DateUtil {
     }
 
     public static int[] getNowDate() {
+        int gmt = DateUtil.getGMT();
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         TimeZone timeZone = TimeZone.getDefault();
         String timeZoneId = timeZone.getDisplayName(false, TimeZone.SHORT);
@@ -332,7 +334,8 @@ public class DateUtil {
         int[] time = new int[dateArray.length + 1];
         for (int i = 0; i <= dateArray.length; i++) {
             if (i == dateArray.length) {
-                time[i] = Integer.valueOf("8");
+                byte gmtData = (byte) (gmt/60f*10);
+                time[i] = 80;
             } else {
                 time[i] = Integer.valueOf(dateArray[i]);
             }

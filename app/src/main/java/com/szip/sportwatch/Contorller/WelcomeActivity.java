@@ -236,7 +236,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
     }
 
     private void initBLE() {
-        LocalBluetoothLEManager.getInstance().init(this, 511);
+//        LocalBluetoothLEManager.getInstance().init(this, 511);
         boolean isSuccess = WearableManager.getInstance().init(true, getApplicationContext(), "we had", R.xml.wearable_config);
         //切换成GATT模式
         if (WearableManager.getInstance().getWorkingMode() == WearableManager.MODE_SPP)

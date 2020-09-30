@@ -2,6 +2,7 @@ package com.szip.sportwatch.Util;
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -158,6 +159,8 @@ public class CommandUtil {
 //            data[20] = (byte) (language & 0xff);
 //            data[21] = (byte) ((language >> 8) & 0xff);
 //        }
+
+        Log.d("SZIP******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
         return data;
     }
 

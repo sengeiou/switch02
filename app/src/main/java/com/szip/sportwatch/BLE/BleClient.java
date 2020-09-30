@@ -585,7 +585,7 @@ public class BleClient {
                 default:
                     break;
             }
-            Log.d("SZIP******","发送的蓝牙数据:"+ DateUtil.byteToHexString(datas));
+
             ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
                     datas,bleWriteResponse);
 
