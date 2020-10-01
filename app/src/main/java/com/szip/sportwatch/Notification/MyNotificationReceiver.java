@@ -27,6 +27,7 @@ public class MyNotificationReceiver extends NotificationListenerService{
 
     private NotificationDataManager notificationDataManager = null;
     private ServiceHandler mServiceHandler;
+
     private Looper mServiceLooper;
     public MyNotificationReceiver() {
         notificationDataManager = new NotificationDataManager(this);

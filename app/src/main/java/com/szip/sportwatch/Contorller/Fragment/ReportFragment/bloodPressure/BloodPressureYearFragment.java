@@ -5,10 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
-import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -19,10 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -33,7 +28,7 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     private ReportView reportView;
     private TextView averageSbpTv,averageDbpTv;
     private ReportDataBean reportDataBean;
-
+    private int month;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_blood_pressure_year;
@@ -45,6 +40,7 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
         initData();
         initView();
         updateView();
+        month = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     @Override
@@ -67,8 +63,14 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     private void updateView() {
         reportView.setReportDate(((BloodPressureReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
-        averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        if (reportDataBean.getValue()!=0)
+            averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        else
+            averageSbpTv.setText("--mmHg");
+        if (reportDataBean.getValue1()!=0)
+            averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        else
+            averageDbpTv.setText("--mmHg");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
@@ -85,7 +87,7 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         averageSbpTv = getView().findViewById(R.id.sbpTv);
         averageDbpTv = getView().findViewById(R.id.dbpTv);
@@ -100,13 +102,24 @@ public class BloodPressureYearFragment extends BaseFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rightIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                updateView();
+            case R.id.rightIv:{
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
+                if (calendar.get(Calendar.MONTH)==month)
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    calendar.add(Calendar.MONTH,1);
+                    ((BloodPressureReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+            }
                 break;
             case R.id.leftIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
-                updateView();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(((BloodPressureReportActivity)getActivity()).reportDate*1000);
+                calendar.add(Calendar.MONTH,-1);
+                ((BloodPressureReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

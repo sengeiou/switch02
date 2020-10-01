@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 背景填充颜色值 -->
+    <solid android:color="#00000000" />
+    <stroke android:color="@android:color/holo_blue_light"
+        android:width="2dp"/>
+
+    <!-- radius值越大，越趋于圆形 -->
+    <corners android:radius="6dp" />
+
+
+</shape>

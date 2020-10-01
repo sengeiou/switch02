@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.MyApplication;
@@ -19,9 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/16.
@@ -69,7 +66,7 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
         reportView.setReportDate(((StepReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((StepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -91,7 +88,7 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allStepTv = getView().findViewById(R.id.allStepTv);
         reachTv = getView().findViewById(R.id.reachTv);
@@ -107,14 +104,17 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((StepReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=28*24*60*60;
-                initData();
-                updateView();
+                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

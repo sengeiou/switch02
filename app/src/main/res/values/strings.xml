@@ -1,205 +1,364 @@
 <resources>
     <string name="app_name">iSmarport</string>
 
-    <!--登录页面/找回密码页面/注册页面-->
-    <string name="logo">Welcome to iSmarport</string>
-    <string name="user">User</string>
-    <string name="phoneOrEmail">Enter your phone number/E-mail</string>
+    <!--登录页面 Login Page /找回密码页面 Retrieve Password Page/注册页面 Registration Page-->
+    <string name="logo">Welcome To iSmarport</string>
+    <string name="user">Account</string>
+    <string name="phoneOrEmail">Please Enter Your Phone Number/Email</string>
     <string name="password">Password</string>
-    <string name="enterPassword">Enter a 6-20 digit password</string>
-    <string name="confirmPassword">Confirm password</string>
-    <string name="enterPasswordAgain">Enter your password again</string>
-    <string name="forget"><u>Forgot password</u></string>
-    <string name="register"><u>Registered</u></string>
-    <string name="login">Login</string>
+    <string name="enterPassword">Please Enter A 6-20 Digit Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="enterPasswordAgain">Please Re-enter Your Password</string>
+    <string name="forget"><u>Forgot Password</u></string>
+    <string name="register"><u>Register</u></string>
+    <string name="login">Log In</string>
     <string name="country">Country/Region</string>
-    <string name="choseCountry">Please select country/region</string>
+    <string name="choseCountry">Please Select A Country/Region</string>
     <string name="send">Send</string>
     <string name="verification">Verification Code</string>
-    <string name="enterVerification">Enter your Verification Code</string>
+    <string name="enterVerification">Please Enter Verification Code</string>
     <string name="newPassword">New Password</string>
-    <string name="enterNewPassword">Enter your new Password</string>
+    <string name="enterNewPassword">Please Enter A New Password</string>
     <string name="reset">Reset Password</string>
     <string name="registerTitle">Register</string>
-    <string name="next">Next</string>
-    <string name="privacy">Agree《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">User agreement</a>》and《<a href="https://cloud.znsdkj.com:8443/sleep/comm/statement">Privacy policy</a>》</string>
-    <string name="checkPrivacy">Please be sure to read the privacy policy</string>
+    <string name="next">Next step</string>
+    <string name="privacy">Agree<u>"User Agreement And Privacy Policy"</u></string>
+    <string name="privacy1">User Agreement And Privacy Policy</string>
+    <string name="privacy2">\t\t\tWe attach great importance to the privacy of our users and the protection of personal information. When you use our products and services, we may collect and use information about you. Our company hopes to through the 《Privacy Agreement》hereinafter referred to as "The Policy" to explain to you how and when our company collects, uses and saves this information.
+
+\n\n\t\tWe hope that you carefully read and confirm that you fully understand the content of this policy before using our products and services.
+
+\n\n\t\tYour personal information will never be used without your consent for purposes not specified in this policy.
+
+\n\n\t\tPlease note that all personal information you provide when you use our products and services, we are authorized to collect, unless you delete or do not allow our collection through system settings. When you cancel your account, our company will stop using and delete your personal information.
+
+\n\n1，The following is personal information you authorize us to collect:
+
+\n\n\t\tPersonal information refers to all kinds of information recorded in electronic or other ways that can identify a person or reflect the activity of a person, either alone or in combination with other information.
+The personal information involved in this policy includes: basic information (including personal name birthday, gender, personal phone number, email address); network identity information (including system account, IP address, and email address); contacts; personal common equipment information; personal location information; personal health information.
+
+
+
+\n\n2，Our company may use the personal information collected in the process of providing services to you for the following purposes:
+
+\n（1）To provide you with services owned by the product;
+
+\n（2）When our company provides services, it is used for identity verification, customer service, security prevention, fraud monitoring, archiving and backup purposes to ensure the security of the products and services provided by our company to you;
+
+\n（3）Help us design new services and improve our existing services
+
+\n（4）Make our company know more about how you access and use our services, so as to respond to your personalized needs, such as language settings, location settings, personalized help and instructions, or to you and other users respond in other ways;
+
+\n（5）Software certification or management software upgrade;
+
+\n（6）Let you participate in surveys about our products and services.
+
+\nIn order to allow you to have a better experience, improve our services or other uses you agree with, under the premise of complying with relevant laws and regulations, our company may use the information collected through a service to collect information or personalize way for other services of our company. For example, the information collected when you use one of our services may be used to provide you with specific content in another service or to show you non-generalized information about you. If our company provides corresponding options in related services, you can also authorize us to use the information provided and stored by this service for our other services.
+
+\n\n3，Our company will not share your personal information with any company, organization and individual other than our company, except in the following cases:
+
+\n\n（1）With your explicit consent and authorization in advance;
+
+\n\n（2）Provided in accordance with applicable laws and regulations, legal procedures, mandatory administrative or judicial requirements;
+
+\n\n（3）To the extent permitted by law, it is necessary to provide for the protection of our company, our affiliates or partners, the public interest, property or safety from damage;
+
+\n\n（4） Only by sharing your information can we achieve the core functions of our products and services or provide the services you need;
+
+\n\n（5）To handle your dispute or disputes with others at your request;
+
+\n\n（6）Provided in accordance with the relevant agreement with you or other legal documents;
+
+\n\n（7） For use in the public interest in compliance with laws and regulations.
+
+\n\n4，How we jointly protect and store your personal information:
+
+\n（1）We attach great importance to the security of personal information and take all reasonable and feasible data security technical measures to protect your personal information;
+
+\n（2）While no Internet environment is 100% secure, we do our best to ensure and guarantee the security of any information you send to us. If our physical, technical or management protection facilities are damaged, resulting in unauthorized access, public disclosure, tampering, or destruction of information, resulting in damage to your legitimate rights and interests, our company will bear the corresponding legal responsibility.
+
+\n（3）If you have any questions about the protection of your personal information, you can contact us through the contact information on our official website. If you find that your personal information is leaked, especially your personal information has been leaked, please contact us immediately so that we can take corresponding measures.
+
+
+
+\n\n5，Use of our services by minors：
+
+We recommend that minors encourage their parents or guardians to read this policy and recommend that minors seek the consent and guidance of their parents or guardians before submitting personal information.
+
+
+
+\n\n5，Application scope of privacy policy
+
+ This policy applies to all our services except certain specific services. These specific services will use specific privacy policies. Specific privacy policies for certain services will more specifically describe how we use your information in those services. The privacy policy for that particular service forms part of this policy. If there is any inconsistency between the privacy policy of the relevant specific service and this policy, the privacy policy of the specific service shall prevail。
+
+\nplease note that this policy does not apply to:
+
+\n（1）Information collected by third-party services (including all third-party websites) accessed through our services;
+
+\n（2）Information collected by other companies or agencies that perform advertising services in our services;
+
+\n（3）If you use an Apple device such as an iPhone or iPad, in order to calculate your exercise data, with your authorization, we will receive and send your exercise data from Apple\'s Healthkit. Our company will read your height, weight and gender data from Healthkit. At the same time, your steps, walking + running distance, active energy, riding distance and sleep analysis data generated by iSmarport APP will be written into Apple Healthkit. Any data obtained through Healthkit will not be shared or sold to any third-party company, and our company will not use the information obtained from Healthkit for commercial purposes such as advertising and marketing.
+
+
+
+\n\n7， Update
+
+\n\n\t\tWe may update or amend the terms of this policy, and such amendments form part of this policy. If such amendments cause a substantial reduction in your rights under this policy, before the amendments take effect, we will notify you via a prominent location on the homepage or email you or otherwise. In this case, if you continue to use our services, you agree to be bound by this revised policy.</string>
+    <string name="checkPrivacy">Please Confirm You’ve Read The User Agreement And Privacy Policy</string>
     <string name="setPassword">Set Password</string>
     <string name="china">China</string>
+    <string name="vistor">Visitors to login</string>
 
-    <!--主页-->
-    <string name="healthy">Healthy</string>
+    <!--主页 Main Page-->
+    <string name="healthy">Health</string>
     <string name="sport">Sport</string>
-    <string name="mine">Me</string>
-    <string name="touchAgain">Press again to exit the program</string>
+    <string name="mine">Mine</string>
+    <string name="touchAgain">Press Again To Exit The Program</string>
 
-    <!--健康页面-->
-    <string name="planStep">Step gauge target</string>
+    <!--健康页面 Health Page-->
+    <string name="planStep">Target Steps%d</string>
     <string name="sleep">Sleep</string>
     <string name="heart">Heart Rate</string>
     <string name="blood">Blood Pressure</string>
     <string name="bloodo">Blood Oxygen</string>
-    <string name="check">To view</string>
-    <string name="perfect">perfect</string>
-    <string name="good">good</string>
-    <string name="bad">bad</string>
-    <string name="quick">quick</string>
-    <string name="normal">normol</string>
-    <string name="slow">slow</string>
-    <string name="higher">higher</string>
-    <string name="flat">flat</string>
+    <string name="animal">Temperature</string>
+    <string name="ecg">ECG</string>
+    <string name="check">View</string>
+    <string name="perfect">Perfect</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+    <string name="quick">Quick</string>
+    <string name="normal">Normal</string>
+    <string name="hot">Fever</string>
+    <string name="slow">Slow</string>
+    <string name="higher">High</string>
+    <string name="flat">Low</string>
+    <string name="head">Here Is HeadView</string>
+    <string name="pull_to_refresh">Pull Down To Refresh</string>
+    <string name="release_to_refresh">Refresh After Release</string>
+    <string name="refreshing">Refreshing...</string>
+    <string name="refresh_succeed">Refresh Successful</string>
+    <string name="refresh_fail">Refresh Failed</string>
+    <string name="pullup_to_load"> Pull Up To Load More</string>
+    <string name="release_to_load">Loading Immediately After Release</string>
+    <string name="load_succeed">Loaded successfully</string>
+    <string name="load_fail">Failed To Load</string>
 
-    <!--运动界面-->
-    <string name="best">Best outdoor running record</string>
-    <string name="history">历史运动记录</string>
-    <string name="track">运动轨迹</string>
-    <string name="notrack">无运动轨迹</string>
-    <string name="speed">Pace</string>
-    <string name="kcal">Burn(kcal)</string>
-    <string name="time">Length</string>
 
-    <!--我的页面-->
+    <!--运动界面 Sports-->
+    <string name="best">Personal Record For Outdoor Running</string>
+    <string name="history">Historical Movement Record</string>
+    <string name="track">Sport Information</string>
+    <string name="notrack">No Trajectory</string>
+    <string name="speed">Speed</string>
+    <string name="kcal">Consumed (kcal)</string>
+    <string name="time">Time</string>
+    <string name="heart_rate">Heart Rate(Bpm)</string>
+    <string name="stride">Stride(Steps/s)</string>
+    <string name="distance">Distance(</string>
+    <string name="speedData">Average Speed</string>
+    <string name="kcalData">Sport Consume</string>
+    <string name="timeData">Sport Time</string>
+    <string name="heart_rateData">Average Heart Rate</string>
+    <string name="strideData">Average Stride</string>
+    <string name="distanceData">Distance</string>
+    <string name="basket">Basketball</string>
+    <string name="football">Football</string>
+    <string name="pingpong">Ping Pong</string>
+    <string name="mountain">Mountain</string>
+    <string name="bike">Bike</string>
+    <string name="run">Run</string>
+    <string name="walk">徒步</string>
+    <string name="treadmill">跑步机</string>
+    <string name="runWithout">户外跑</string>
+    <string name="marathon">Marathon</string>
+    <string name="sufing">Sufing</string>
+    <string name="shudu">Speed</string>
+    <string name="averageShudu">Average Speed</string>
+    <string name="boat">Boating</string>
+    <string name="altitude">Altitude</string>
+    <string name="avarageAltitude">Average Altitude</string>
+    <string name="climb">Climb</string>
+    <string name="skii">Skii</string>
+    <string name="golf">Golf</string>
+    <!--我的页面 Mine-->
     <string name="device">Device</string>
-    <string name="stepPlan">Step gauge target</string>
-    <string name="sleepPlan">Sleep gauge target</string>
-    <string name="find">Find Watch</string>
-    <string name="notification">应用通知</string>
-    <string name="blePhone">Bluetooth phone</string>
-    <string name="blePhoto">Bluetooth pictures</string>
+    <string name="stepPlan">Step Goal</string>
+    <string name="sleepPlan">Sleep Target</string>
+    <string name="find">Finding Watch</string>
+    <string name="notification">App Notification</string>
+    <string name="blePhone">Bluetooth Call</string>
+    <string name="blePhoto">Bluetooth Camera</string>
     <string name="unit">Unit</string>
-    <string name="about">About us</string>
-    <string name="logout">Logout</string>
-    <string name="me">Me</string>
-    <string name="set">Set</string>
+    <string name="face">Dial</string>
+    <string name="myDail">My Dial</string>
+    <string name="seeDail">Preview</string>
+    <string name="diyDail">DIY</string>
+    <string name="diyDailing">Updating...</string>
+    <string name="diyDailOK">Update Successful</string>
+    <string name="diyDailError">Update failed,please try again</string>
+    <string name="upDownBackground">Please upload a background picture</string>
+    <string name="chooseClock">Please select a clock style</string>
+    <string name="clock">Clock Style</string>
+    <string name="background">Upload Pictures</string>
+    <string name="about">About</string>
+    <string name="logout">Sign out</string>
+    <string name="me">Mine</string>
+    <string name="set">Setting</string>
     <string name="other">Other</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="tip">Tip</string>
-    <string name="unbind">Please confirm unbinding</string>
-    <string name="logoutTip">Please confirm to log out</string>
-    <string name="sendOK">Send Success</string>
+    <string name="delete">Are You Sure You Want To Delete This Data？</string>
+    <string name="unbind">Are You Sure You Want To Unbind？</string>
+    <string name="logoutTip">Are You Sure You Want To Log Out？</string>
+    <string name="sendOK">Sent Successfully</string>
     <string name="searchDevice">Search Device</string>
-    <string name="noDevice">No device found</string>
-    <string name="connect">Connected</string>
-    <string name="disConnect">Unconnect</string>
-    <string name="connectting">Connectting</string>
-    <string name="syceError">The watch is not connected, the data will be set into the watch the next time it is connected</string>
+    <string name="noDevice">No Device Found</string>
+    <string name="connected">Connected</string>
+    <string name="disConnect">Not Connected</string>
+    <string name="connectting">Connecting</string>
+    <string name="connect">Device Connecting, Please Try Again Later</string>
+    <string name="syceError">Watch Is Not connected，Data Will Be Synced To The Watch The Next Time You Connect</string>
+    <string name="unBind">Replace Device</string>
+    <string name="unline">Disconnect</string>
+    <string name="line">Connect The Watch</string>
+    <string name="addDevice">Add Device</string>
+    <string name="unbindSoon">Please unbind device first</string>
+    <string name="lineError">The connection has failed many times. Please restart the bluetooth of the mobile device or restart the watch</string>
+    <string name="tipUnit">Tip: The unit height and weight will be reset</string>
 
-    <!--蓝牙通话界面-->
-    <string name="step1">1.The watch is paired with the phone\'s bluetooth</string>
-    <string name="step2">2.Unmatching relation</string>
-    <string name="str1">1)Enter the bluetooth function in the watch\n2)Search for bluetooth devices - select the phone\'s bluetooth name\n3)After pairing with the mobile phone, you can use the watch to make bluetooth calls</string>
-    <string name="str2">Enter the system setting - bluetooth - the paired device, find the device, enter and click \"unpaired\" to remove the pairing relationship.\n\nTip:After removing the pairing relationship, the watch cannot use the bluetooth call function</string>
+    <!--蓝牙通话界面 Bluetooth Call Interface-->
+    <string name="step1">1.Pair watch With Mobile Phone</string>
+    <string name="step2">2.Unmatch</string>
+    <string name="str1">1)Enter Bluetooth Function In Watch\n2)Search For Bluetooth Devices-Select Phone Bluetooth name\n3)Pair With Your Phone To Make Bluetooth Calls With Your Watch</string>
+    <string name="str2">Enter System Setting-Bluetooth-Paired Device, Find Device, Enter Click "Unpair", Unpair Successful。\n\nRemark: Watch Cannot Use Bluetooth Call Function After Unpairing</string>
 
-    <!--关于界面-->
-    <string name="version">Version</string>
+    <!--关于界面 About-->
+    <string name="version">Current Version</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_hint">Your feedback/question</string>
+    <string name="tooLong">Input is too long</string>
+    <string name="empty">Field cannot be empty</string>
+    <string name="send_success">Submitted successfully</string>
 
-    <!--单位制式界面-->
-    <string name="measureUnit">Unit of measure</string>
-    <string name="metric">metric</string>
-    <string name="british">british</string>
+    <!--单位制式界面 Unit System Interface-->
+    <string name="measureUnit">Unit Of Measure</string>
+    <string name="metric">Metric</string>
+    <string name="british">Imperial</string>
 
-    <!--报告页面-->
+    <!--报告页面 Report Page-->
     <string name="stepReport">Step Report</string>
     <string name="sleepReport">Sleep Report</string>
     <string name="heartReport">Heart Rate Report</string>
     <string name="bloodPressureReport">Blood Pressure Report</string>
     <string name="bloodOxygenReport">Blood Oxygen Report</string>
-    <string name="ecgReport">ECG report</string>
-    <string name="day">DAY</string>
-    <string name="week">WEEK</string>
+    <string name="animalHeatReport">Temp Report</string>
+    <string name="ecgReport">ECG Report</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
     <string name="sun">Sun</string>
     <string name="mon">Mon</string>
-    <string name="tues">Tues</string>
+    <string name="tues">Tue</string>
     <string name="wed">Wed</string>
-    <string name="thus">Thus</string>
+    <string name="thus">Thu</string>
     <string name="fri">Fri</string>
-    <string name="sta">Sta</string>
+    <string name="sta">Sat</string>
     <string name="today">Today</string>
-    <string name="month">MONTH</string>
-    <string name="year">YEAR</string>
-    <string name="allStep">All Steps</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="allStep">Total Steps</string>
     <string name="averageStep">Average Steps</string>
-    <string name="allSleep">All Sleep Duration</string>
-    <string name="averageSleep">Average sleep Duration</string>
-    <string name="light">Light Sleep</string>
+    <string name="allSleep">Total Sleep Time</string>
+    <string name="averageSleep">Average Sleep Time</string>
+    <string name="light">Light sleep</string>
     <string name="deep">Deep Sleep</string>
-    <string name="lightTable">L</string>
-    <string name="deepTable">D</string>
-    <string name="averageHeart">Average Value</string>
-    <string name="minHeart">Min Value</string>
-    <string name="maxHeart">Max Value</string>
-    <string name="averageSBP">Average SBP</string>
-    <string name="sbp">SBP</string>
-    <string name="averageDBP">Average DBP</string>
-    <string name="dbp">DBP</string>
-    <string name="averageSao">Average Value</string>
-    <string name="passRate">Success Rate</string>
-    <string name="ecgTip">The test is for reference only and cannot be used as evidence of medical diagnosis</string>
+    <string name="lightTable">Light</string>
+    <string name="deepTable">Deep</string>
+    <string name="averageHeart">Average Heart Rate</string>
+    <string name="minHeart">Min.Heart Rate</string>
+    <string name="maxHeart">Max.Heart Rate</string>
+    <string name="averageSBP">Average Systolic Pressure</string>
+    <string name="sbp">Systolic Pressure</string>
+    <string name="averageDBP">Average Diastolic Pressure</string>
+    <string name="dbp">Diastolic Pressure</string>
+    <string name="averageSao">Average Blood Oxygen</string>
+    <string name="averageTemp">Average  Temp</string>
+    <string name="maxTemp">Max Temp</string>
+    <string name="passRate">Compliance Rate</string>
+    <string name="ecgTip">Measurement is only for reference, not as a Medical Certificate</string>
+    <string name="noData">No Report</string>
+    <string name="tomorrow">Available in the future</string>
 
 
-    <!--用户信息页面-->
-    <string name="userInfo">User Information</string>
-    <string name="picture">Portrait</string>
+    <!--用户信息页面 User Information Page-->
+    <string name="userInfo">User Info</string>
+    <string name="picture">Image</string>
     <string name="userName">Nickname</string>
-    <string name="enterUserName">Enter your nickname</string>
+    <string name="enterUserName">Please Enter Your Nickname</string>
+    <string name="nameLong">Nicknames cannot exceed 12 characters</string>
     <string name="sex">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="birthday">Birthday</string>
-    <string name="album">相册</string>
-    <string name="camera">拍照</string>
+    <string name="album">Photo Album</string>
+    <string name="camera">Camera</string>
 
 
-    <!--提示语-->
-    <string name="tokenTimeOut">Login expired, please login again</string>
-    <string name="enterRightEmail">Enter the correct mailbox format</string>
-    <string name="httpError">Network response timeout, please check network connection status</string>
-    <string name="logging">Logging...</string>
-    <string name="waitting">Waitting...</string>
-    <string name="resetSuccess">Password reset successful</string>
-    <string name="passwordUnSame">Two different passwords</string>
-    <string name="saved">Save success</string>
-    <string name="notificationlistener_prompt_title">Enable notification</string>
-    <string name="notificationlistener_prompt_content">iSmarport Need to forward application notifications to remote smart devices.Press \" ok \" to activate the notification page。</string>
-    <string name="tokenTimeout">Login has expired, please login again</string>
-    <string name="lostDevice">Device not connected</string>
-    <string name="permissionErrorForCamare">权限没通过，无法打开拍照功能</string>
-    <string name="findPermission">权限没通过，将无法搜索到设备列表</string>
-    <string name="applyPermission">申请权限</string>
-    <string name="shareFailForPermission">分享失败,相关权限没通过</string>
-    <string name="permissionErrorForSMS">权限没通过，无法打开短信通知功能</string>
-    <string name="loading">loading...</string>
-    <string name="privacyTip">您是否已经认真阅读隐私协议，并同意注册成为我司的新用户？当您点击"确定"即表示你已经同意该协议的条款。\n用户隐私政策主要包括以下内容:\n1.个人资料(头像、昵称、身高、体重、运动数据等)的收集，保存和分享。\n2.设备权限(位置，通讯录，相机等)的使用</string>
-    <string name="crop_pic_failed">截取图像失败，请选择jpg,png格式图片！</string>
+    <!--提示语 Notification-->
+    <string name="tokenTimeOut">Login Expired, Please Log In Again</string>
+    <string name="enterRightEmail">Please Enter The Correct Email Format</string>
+    <string name="httpError">Network Response Timeout，Please Check The Network Connection</string>
+    <string name="logging">Logging in...</string>
+    <string name="waitting">Please Wait...</string>
+    <string name="resetSuccess">Password Reset Succeeded</string>
+    <string name="passwordUnSame">Enter The Wrong Password Twice</string>
+    <string name="saved">Saved successfully</string>
+    <string name="notificationlistener_prompt_title">Enable Notifications</string>
+    <string name="notificationlistener_prompt_content">iSmarport Needs To Forward Application Notifications To Remote Smart Devices. Press\"Confirm\"Enter Notification Page To Activate.</string>
+    <string name="tokenTimeout">Login Has Expired，Please Login Again</string>
+    <string name="lostDevice">Device Is Not Connected</string>
+    <string name="permissionErrorForCamare">Permission Failed, Can Not Turn On Camera Function</string>
+    <string name="findPermission">Permission Failed，Will Not Be Able To Search The Device List</string>
+    <string name="applyPermission">Request For Access</string>
+    <string name="shareFailForPermission">Share Failed, Related Permissions Failed</string>
+    <string name="permissionErrorForSMS">Permission Failed, Unable To Turn On SMS Notifications</string>
+    <string name="loading">Loading...</string>
+    <string name="privacyTip">Have You Read The Privacy Agreement Clearly? Did You Agree To Register As A New User Of Our Company? When You Click "Confirm", You Agree To The Terms Of The Agreement.\nThe User Privacy Policy Mainly Includes The Following:\n1.Personal Information(Profile Photo、Nickname、Height、Weight、Sports Data, etc.)Collection, Save And Share。\n2.Device Permissions(Location，Contact List，Camera, etc.) Using</string>
+    <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG Format Picture!</string>
+    <string name="deviceOut">Unbound device</string>
+    <string name="visiter">This feature is not supported in the visitor mode</string>
+    <string name="chooseJpg">Please choose an image in JPG format</string>
 
-    <!--分享界面-->
-    <string name="planOK">今日目标已达成</string>
-    <string name="planNO">今日目标未达成</string>
-    <string name="planStepShare">目标步数: %dsteps</string>
-    <string name="distanceShare">行走距离: %.1fKm</string>
-    <string name="calurieShare">消耗卡路里: %.1fKcal</string>
 
-    <string name="planSleep">目标时长: %.1fh</string>
-    <string name="deepSleepShare">深睡时长: %02dh%02dmin</string>
-    <string name="lightSleepShare">浅睡时长: %02dh%02dmin</string>
+    <!--分享界面 Sharing Interface-->
+    <string name="planOK">Today\'s goal has been reached</string>
+    <string name="planNO">Today\'s goal was not reached</string>
+    <string name="planStepShare">Target Steps: %dsteps</string>
+    <string name="distanceShare">Walking Distance: %.1fKm</string>
+    <string name="calurieShare">Burnt Calories: %.1fKcal</string>
 
-    <string name="testTimes">今日测量数: %d</string>
-    <string name="maxHeartShare">最大心率: %dbpm</string>
-    <string name="minHeartShare">最小心率: %dbpm</string>
+    <string name="planSleep">Target Duration: %.1fh</string>
+    <string name="deepSleepShare">Deep Sleep: %02dH%02dMin</string>
+    <string name="lightSleepShare">Light Sleep: %02dH%02dMin</string>
 
-    <string name="bloodOxygenData">血氧饱和度</string>
-    <string name="testValue">测试结果: </string>
-    <string name="passTimeData">合格率: %.1f%%</string>
-    <string name="bloodPressureData">平均收缩压/舒张压</string>
-    <string name="shareSuccess">分享成功</string>
-    <string name="shareCancel">取消分享</string>
-    <string name="shareFail">分享失败</string>
+    <string name="testTimes">Measurement Times: %d</string>
+    <string name="maxHeartShare">Max Heart Rate: %dbpm</string>
+    <string name="minHeartShare">Min Heart Rate: %dbpm</string>
 
+    <string name="bloodOxygenData">Blood Oxygen Saturation</string>
+    <string name="testValue">Test Results:</string>
+    <string name="passTimeData">Pass Rate: %.1f%%</string>
+
+    <string name="bloodPressureData">Average Systolic pressure/Diastolic Pressure</string>
+    <string name="shareSuccess">Sharing Success</string>
+    <string name="shareCancel">Cancel Sharing</string>
+    <string name="shareFail">Share Failed</string>
     <!-- Scan & Connect -->
-    <string name="connect_error">Connect Error</string>
+    <string name="connect_error">Connection Error</string>
+
 
     <!-- applist & appstore -->
     <string name="launchfail">Load Application Failed</string>
@@ -208,19 +367,36 @@
     <string name="sms_preference_title">SMS service</string>
     <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">Loading</string>
-    <string name="progress_dialog_message">Please wait&#8230;</string>
+    <string name="progress_dialog_message">Please Wait&#8230;</string>
 
     <!-- SelectNotifiActivity -->
     <string name="personal_apps_title">Personal app</string>
     <string name="system_apps_title">System app</string>
 
+
     <!-- Service -->
     <string name="missed_call">Missed Call</string>
-    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows Bluetooth to push application notifications to remote device.</string>
     <string name="batterylow">Battery low</string>
     <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
 
-    <!-- sos call -->
     <string name="operate_error">Failed</string>
 
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
 </resources>

@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name = "app_name"> Ai Paote </string>
+
+
+    <string name = "logo"> Chào mừng bạn đến với Ai Paote </string>
+    <string name = "user"> số tài khoản </string>
+    <string name = "phoneOrEmail"> vui lòng nhập số điện thoại / email của bạn </string>
+    <string name = "password"> password </string>
+    <string name = "enterPassword"> Vui lòng nhập mật khẩu 6-20 chữ số </string>
+    <string name = "confirmPassword"> xác nhận mật khẩu </string>
+    <string name = "enterPasswordAgain"> Vui lòng nhập lại mật khẩu </string>
+    <string name = "forget"> <u> Quên mật khẩu </u> </string>
+    <string name = "register"> <u> đăng ký </u> </string>
+    <string name = "login"> đăng nhập </string>
+    <string name = "country"> quốc gia / vùng </string>
+    <string name = "choseCountry"> Vui lòng chọn quốc gia / vùng </string>
+    <string name = "send"> gửi mã xác minh </string>
+    <string name = "verification"> Mã xác minh </string>
+    <string name = "enterVerification"> Vui lòng nhập mã xác minh </string>
+    <string name = "newPassword"> mật khẩu mới </string>
+    <string name = "enterNewPassword"> vui lòng nhập mật khẩu mới </string>
+    <string name = "reset"> đặt lại mật khẩu </string>
+    <string name = "registerTitle"> đăng ký </string>
+    <string name = "next"> Bước tiếp theo </string>
+    <string name = "privacy"> đồng ý với "<u> Thỏa thuận Người dùng và Chính sách Bảo mật </u>" </string>
+    <string name = "privacy1"> thỏa thuận người dùng và điều khoản bảo mật </string>
+    <string name = "privacy2"> Công ty chúng tôi rất coi trọng quyền riêng tư của người dùng và bảo vệ thông tin cá nhân. Khi bạn sử dụng sản phẩm / dịch vụ của chúng tôi, chúng tôi có thể
+
+Có thể thu thập và sử dụng thông tin liên quan của bạn. Công ty chúng tôi hy vọng rằng thông qua "Thỏa thuận Bảo mật" sau đây được gọi là "chính sách này", chúng tôi có thể giải thích cho bạn rằng Công nghệ Thời báo Thông minh Thâm Quyến có
+
+Công ty TNHH sau đây được gọi là “công ty của chúng tôi”, cách thức thu thập, sử dụng và lưu các thông tin này khi bạn sử dụng sản phẩm / dịch vụ của chúng tôi. \ n \ nTôi hy vọng bạn đang sử dụng
+
+Đọc kỹ trước sản phẩm / dịch vụ và xác nhận rằng bạn đã hiểu đầy đủ nội dung của chính sách này. \ n \ nKhi công ty chúng tôi muốn sử dụng thông tin cá nhân của bạn không có trong chính sách này
+
+Khi các mục đích khác được chỉ định hoặc khi thông tin được thu thập cho một mục đích cụ thể được sử dụng cho các mục đích khác, bạn sẽ được thông báo để kiểm tra dưới hình thức yêu cầu sự đồng ý của bạn trước
+
+.
+
+\n\nXin lưu ý rằng tất cả thông tin cá nhân bạn cung cấp khi sử dụng sản phẩm / dịch vụ của chúng tôi, trừ khi bạn xóa hoặc từ chối việc thu thập của chúng tôi thông qua cài đặt hệ thống
+
+, Nếu không, bạn sẽ tiếp tục ủy quyền cho công ty chúng tôi sử dụng các sản phẩm / dịch vụ của chúng tôi. Khi bạn hủy tài khoản của mình, công ty chúng tôi sẽ ngừng sử dụng và xóa thông tin cá nhân của bạn
+
+quan tâm.
+
+
+
+\ n \ n \ n \ n1. Phạm vi thông tin cá nhân mà bạn cho phép công ty chúng tôi thu thập:
+
+\ n \ nThông tin cá nhân đề cập đến thông tin được ghi lại dưới dạng điện tử hoặc theo những cách khác có thể xác định một thể nhân cụ thể một mình hoặc kết hợp với thông tin khác hoặc phản ánh một bản thân cụ thể
+
+Tất cả các loại thông tin về hoạt động của mọi người.
+\ nThông tin cá nhân liên quan đến chính sách này bao gồm: thông tin cơ bản (bao gồm tên cá nhân, ngày sinh, giới tính, số điện thoại cá nhân, địa chỉ e-mail);
+
+Thông tin nhận dạng (bao gồm tài khoản hệ thống, địa chỉ IP, địa chỉ email); sổ địa chỉ; thông tin thiết bị cá nhân; thông tin vị trí cá nhân; thông tin sức khỏe cá nhân
+
+.
+
+
+
+\n\n\n\n2. Công ty chúng tôi có thể sử dụng thông tin cá nhân thu thập được trong quá trình cung cấp dịch vụ cho bạn cho các mục đích sau:
+
+\ n \ n (1) Cung cấp cho bạn các dịch vụ do sản phẩm sở hữu;
+
+\ n \ n (2) Khi công ty chúng tôi cung cấp dịch vụ, nó được sử dụng để xác minh danh tính, dịch vụ khách hàng, phòng ngừa bảo mật, giám sát gian lận, lưu trữ và các mục đích sao lưu để đảm bảo rằng công ty chúng tôi cung cấp cho bạn
+
+Sự an toàn của các sản phẩm và dịch vụ được cung cấp;
+
+\ n \ n (3) Giúp công ty của chúng tôi thiết kế các dịch vụ mới và cải thiện trạng thái dịch vụ hiện tại của chúng tôi;
+
+\ n \ n (4) Giúp công ty của chúng tôi hiểu rõ hơn về cách bạn truy cập và sử dụng các dịch vụ của chúng tôi, để đáp ứng các nhu cầu được cá nhân hóa của bạn, chẳng hạn như cài đặt ngôn ngữ, vị trí
+
+Thiết lập cài đặt, trợ giúp và hướng dẫn được cá nhân hóa hoặc đưa ra các phản hồi khác cho bạn và những người dùng khác;
+
+\ n \ n (5) Chứng nhận phần mềm hoặc nâng cấp phần mềm quản lý;
+
+\ n \ n (6) Cho phép bạn tham gia các cuộc khảo sát về sản phẩm và dịch vụ của chúng tôi.
+
+\ n \ nĐể bạn có trải nghiệm tốt hơn, cải thiện dịch vụ của chúng tôi hoặc các mục đích khác mà bạn đồng ý, theo luật và quy định có liên quan, công ty chúng tôi có thể
+
+Thông tin thu thập thông qua một dịch vụ nhất định được sử dụng cho các dịch vụ khác của công ty chúng tôi theo cách tập thể hoặc cá nhân hóa. Ví dụ: khi bạn sử dụng một trong những
+
+Thông tin được thu thập trong dịch vụ này có thể được sử dụng trong một dịch vụ khác để cung cấp cho bạn nội dung cụ thể hoặc để hiển thị cho bạn thông tin có liên quan, không phổ biến
+
+. Nếu công ty chúng tôi cung cấp các tùy chọn tương ứng trong các dịch vụ liên quan, bạn cũng có thể ủy quyền cho công ty chúng tôi sử dụng thông tin do dịch vụ cung cấp và lưu trữ cho các dịch vụ khác của công ty chúng tôi.
+
+Dịch vụ.
+
+
+
+\n\n\n\n3. Công ty chúng tôi sẽ không chia sẻ thông tin cá nhân của bạn với bất kỳ công ty, tổ chức hoặc cá nhân nào khác ngoài công ty chúng tôi, ngoại trừ các trường hợp sau:
+
+\ n \ n (1) Có được sự đồng ý và ủy quyền rõ ràng của bạn trước;
+
+\ n \ n (2) Cung cấp theo luật và quy định hiện hành, thủ tục pháp lý, các yêu cầu hành chính hoặc tư pháp bắt buộc;
+
+\ n \ n (3) Trong phạm vi luật pháp cho phép, để bảo vệ công ty của chúng tôi, các bên liên quan hoặc đối tác của chúng tôi, lợi ích công cộng, tài sản hoặc sự an toàn khỏi bị thiệt hại
+
+Nó là cần thiết để cung cấp;
+
+\ n \ n (4) Chỉ bằng cách chia sẻ thông tin của bạn, chúng tôi mới có thể nhận ra các chức năng cốt lõi của sản phẩm / dịch vụ của mình hoặc cung cấp dịch vụ bạn cần;
+
+\ n \ n (5) Xử lý các tranh chấp hoặc tranh chấp giữa bạn và những người khác theo nhu cầu của bạn;
+
+\ n \ n (6) Được cung cấp theo thỏa thuận liên quan đã ký với bạn hoặc các văn bản pháp lý khác;
+
+\ n \ n (7) Nó được sử dụng dựa trên lợi ích công cộng trong việc tuân thủ các luật và quy định.
+
+
+
+\n\n\n\nThứ tư, làm thế nào để cùng bảo vệ và lưu thông tin cá nhân của bạn
+
+\ n \ n (1) Công ty chúng tôi coi trọng bảo mật thông tin cá nhân và thực hiện tất cả các biện pháp kỹ thuật bảo mật dữ liệu hợp lý và khả thi để bảo vệ thông tin cá nhân của bạn;
+
+\ n \ n (2) Môi trường Internet không an toàn 100%. Công ty chúng tôi sẽ cố gắng hết sức để đảm bảo hoặc đảm bảo tính bảo mật của bất kỳ thông tin nào bạn gửi đến công ty chúng tôi. Nếu công ty của chúng tôi
+
+Việc phá hủy cơ sở quản lý, công nghệ hoặc phương tiện bảo vệ quản lý, dẫn đến truy cập trái phép, tiết lộ công khai, giả mạo hoặc phá hủy thông tin, dẫn đến thiệt hại đến quyền và lợi ích hợp pháp của bạn
+
+, Công ty chúng tôi sẽ chịu trách nhiệm pháp lý tương ứng.
+
+\ n \ n (3) Nếu bạn có bất kỳ câu hỏi nào về việc bảo vệ thông tin cá nhân của công ty chúng tôi, bạn có thể liên hệ với công ty chúng tôi thông qua thông tin liên hệ trên trang web chính thức của chúng tôi. Nếu bạn tìm thấy
+
+Nếu thông tin cá nhân của bạn bị lộ, đặc biệt là thông tin cá nhân của bạn bị lộ, hãy liên hệ ngay với chúng tôi để chúng tôi có biện pháp xử lý tương ứng.
+
+
+
+\ n \ n \ n \ nV. Trẻ vị thành niên sử dụng dịch vụ của chúng tôi
+\ nCông ty của chúng tôi khuyến khích cha mẹ hoặc người giám hộ biết rằng trẻ vị thành niên dưới 18 tuổi sử dụng sản phẩm của chúng tôi. Công ty của chúng tôi khuyến nghị rằng trẻ vị thành niên khuyến khích cha mẹ hoặc người giám sát của họ
+
+Người giám hộ đọc chính sách này và khuyến cáo rằng trẻ vị thành niên nên tìm kiếm sự đồng ý và hướng dẫn của cha mẹ hoặc người giám hộ của họ trước khi gửi thông tin cá nhân.
+
+
+
+\ n \ n \ n \ nSửa, phạm vi của chính sách bảo mật
+
+\ n \ n (1) Ngoại trừ một số dịch vụ cụ thể, tất cả các dịch vụ của chúng tôi đều được áp dụng cho chính sách này. Các dịch vụ cụ thể này sẽ sử dụng các chính sách bảo mật cụ thể. Đối với một số
+
+Chính sách bảo mật cụ thể của các dịch vụ cụ thể sẽ giải thích chi tiết hơn cách công ty chúng tôi sử dụng thông tin của bạn trong các dịch vụ đó. Chính sách bảo mật của dịch vụ cụ thể này cấu thành
+
+Một phần của chính sách. Nếu chính sách bảo mật của một dịch vụ cụ thể không phù hợp với chính sách này, chính sách bảo mật của dịch vụ cụ thể sẽ được ưu tiên áp dụng.
+
+\ n \ n (2) Xin lưu ý rằng chính sách này không áp dụng cho các trường hợp sau:
+
+\ n \ n1) Thông tin được thu thập bởi các dịch vụ của bên thứ ba (bao gồm tất cả các trang web của bên thứ ba) được truy cập thông qua các dịch vụ của chúng tôi;
+
+\ n \ n2) Thông tin được thu thập bởi các công ty hoặc tổ chức khác cung cấp dịch vụ quảng cáo trong các dịch vụ của chúng tôi;
+
+\ n \ n3) Nếu bạn đang sử dụng thiết bị Apple như iphone hoặc ipad, để tính toán dữ liệu bài tập của bạn, sau khi bạn cho phép, công ty chúng tôi sẽ
+
+Healthkit của Apple chấp nhận và gửi dữ liệu tập thể dục của bạn tới nó. Công ty chúng tôi sẽ đọc dữ liệu về chiều cao, cân nặng và giới tính của bạn từ Healthkit, đồng thời
+
+Số bước, khoảng cách đi bộ + chạy, năng lượng hoạt động, quãng đường đạp xe và dữ liệu phân tích giấc ngủ do Ứng dụng của bạn tạo ra sẽ được ghi vào Healthkit của Apple
+
+. Bất kỳ dữ liệu nào thu được thông qua Healthkit sẽ không được chia sẻ hoặc bán cho bất kỳ công ty bên thứ ba nào và công ty của chúng tôi sẽ không lấy dữ liệu đó từ Healthkit
+
+Thông tin được sử dụng cho các mục đích thương mại như quảng cáo và tiếp thị.
+
+
+
+\n\n\n\nBảy, thay đổi
+
+\ n \ nCông ty của chúng tôi có thể sửa đổi các điều khoản của chính sách này ngay lập tức và những sửa đổi đó là một phần của chính sách này. Nếu những sửa đổi đó dẫn đến việc thực hiện các quyền của bạn theo chính sách này
+
+Nếu chất lượng bị giảm sút, công ty chúng tôi sẽ thông báo cho bạn ở vị trí nổi bật trên trang chủ hoặc gửi cho bạn email hoặc các phương tiện khác trước khi sửa đổi có hiệu lực. Trong trường hợp này
+
+Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồng ý bị ràng buộc bởi chính sách sửa đổi này. </string>
+    <string name = "checkPrivacy"> không đồng ý với "Thỏa thuận người dùng và Chính sách quyền riêng tư" </string>
+    <string name = "setPassword"> đặt mật khẩu </string>
+    <string name = "china"> Trung Quốc </string>
+    <string name = "vistor"> Đăng nhập của khách truy cập </string>
+
+
+    <string name = "healthy"> sức khỏe </string>
+    <string name = "sport"> thể thao </string>
+    <string name = "mine"> </string> của tôi
+    <string name = "touchAgain"> nhấn lại để thoát khỏi chương trình </string>
+
+
+    <string name = "planStep"> mục tiêu số bước% d </string>
+    <string name = "sleep"> ngủ </string>
+    <string name = "heart"> nhịp tim </string>
+    <string name = "blood"> huyết áp </string>
+    <string name = "bloodo"> oxy trong máu </string>
+    <string name = "animal"> nhiệt độ cơ thể </string>
+    <string name = "ecg"> ECG </string>
+    <string name = "check"> xem </string>
+    <string name = "perfect"> xuất sắc </string>
+    <string name = "good"> tốt </string>
+    <string name = "bad"> sự khác biệt </string>
+    <string name = "quick"> quá nhanh </string>
+    <string name = "normal"> bình thường </string>
+    <string name = "hot"> sốt </string>
+    <string name = "slow"> quá chậm </string>
+    <string name = "higher"> cao </string>
+    <string name = "flat"> thấp </string>
+    <string name = "head"> đây là HeadView </string>
+    <string name = "pull_to_refresh"> kéo xuống để làm mới </string>
+    <string name = "release_to_refresh"> phát hành làm mới ngay lập tức </string>
+    <string name = "refreshing"> đang làm mới ... </string>
+    <string name = "refresh_succeed"> làm mới thành công </string>
+    <string name = "refresh_fail"> làm mới không thành công </string>
+    <string name = "pullup_to_load"> kéo lên để tải thêm </string>
+    <string name = "release_to_load"> tải xuống ngay lập tức </string>
+    <string name = "load_succeed"> đã tải thành công </string>
+    <string name = "load_fail"> lỗi tải </string>
+
+
+
+    <string name = "best"> Kỷ lục tốt nhất khi chạy ngoài trời </string>
+    <string name = "history"> Lịch sử các kỷ lục thể thao </string>
+    <string name = "track"> chi tiết thể thao </string>
+    <string name = "notrack"> không có rãnh chuyển động </string>
+    <string name = "speed"> nhịp độ </string>
+    <string name = "kcal"> tiêu thụ (kcal) </string>
+    <string name = "time"> thời lượng </string>
+    <string name = "heart_rate"> Nhịp tim (Bpm) </string>
+    <string name = "stride"> Tần suất bước (Số bước / s) </string>
+    <string name = "distance"> mileage (</string>
+    <string name = "speedData"> nhịp độ trung bình </string>
+    <string name = "kcalData"> tiêu thụ thể thao </string>
+    <string name = "timeData"> thời lượng bài tập </string>
+    <string name = "heart_rateData"> nhịp tim trung bình </string>
+    <string name = "strideData"> tần suất sải chân trung bình </string>
+    <string name = "distanceData"> số dặm </string>
+    <string name = "basket"> Bóng rổ </string>
+    <string name = "football"> Bóng đá </string>
+    <string name = "pingpong"> bóng bàn </string>
+    <string name = "mountain"> leo núi </string>
+    <string name = "bike"> cưỡi </string>
+    <string name = "run"> đang chạy </string>
+    <string name = "walk"> đi bộ </string>
+    <string name = "treadmill"> máy chạy bộ </string>
+    <string name = "runWithout"> chạy ngoài trời </string>
+    <string name = "marathon"> Marathon </string>
+    <string name = "sufing"> lướt sóng </string>
+    <string name = "shudu"> tốc độ </string>
+    <string name = "averageShudu"> tốc độ trung bình </string>
+    <string name = "boat"> chèo thuyền </string>
+    <string name = "altitude"> độ cao </string>
+    <string name = "avarageAltitude"> độ cao trung bình </string>
+    <string name = "climb"> Leo núi </string>
+    <string name = "skii"> Trượt tuyết </string>
+    <string name = "golf"> Chơi gôn </string>
+
+    <string name = "device"> thiết bị </string>
+    <string name = "stepPlan"> mục tiêu đếm bước </string>
+    <string name = "sleepPlan"> mục tiêu ngủ </string>
+    <string name = "find"> đang tìm đồng hồ </string>
+    <string name = "notification"> thông báo ứng dụng </string>
+    <string name = "blePhone"> Cuộc gọi qua Bluetooth </string>
+    <string name = "blePhoto"> Máy ảnh Bluetooth </string>
+    <string name = "unit"> Hệ thống đơn vị </string>
+    <string name = "face"> chuyển đổi quay số </string>
+    <string name = "myDail"> Quay số của tôi </string>
+    <string name = "seeDail"> xem trước quay số </string>
+    <string name = "diyDail"> tùy chỉnh </string>
+    <string name = "diyDailing"> Thay thế ... </string>
+    <string name = "diyDailOK"> thay thế thành công </string>
+    <string name = "diyDailError"> không thay thế được, vui lòng thử lại </string>
+    <string name = "upDownBackground"> ​​Vui lòng tải lên ảnh nền </string>
+    <string name = "chooseClock"> Vui lòng chọn kiểu đồng hồ </string>
+    <string name = "clock"> kiểu đồng hồ </string>
+    <string name = "background"> ​​tải lên nền </string>
+    <string name = "about"> Giới thiệu </string>
+    <string name = "logout"> đăng xuất </string>
+    <string name = "me"> </string> của tôi
+    <string name = "set"> set </string>
+    <string name = "other"> khác </string>
+    <string name = "cancel"> huỷ </string>
+    <string name = "confirm"> OK </string>
+    <string name = "tip"> lời nhắc </string>
+    <string name = "delete"> Bạn có chắc chắn muốn xóa phần dữ liệu bài tập này không? </string>
+    <string name = "unbind"> Bạn có chắc chắn muốn hủy liên kết không? </string>
+    <string name = "logoutTip"> Bạn có chắc chắn muốn đăng xuất không? </string>
+    <string name = "sendOK"> đã gửi thành công </string>
+    <string name = "searchDevice"> thiết bị tìm kiếm </string>
+    <string name = "noDevice"> Không tìm thấy thiết bị </string>
+    <string name = "connected"> đã được kết nối </string>
+    <string name = "disConnect"> không được kết nối </string>
+    <string name = "connectting"> đang kết nối </string>
+    <string name = "connect"> Thiết bị đang kết nối, vui lòng thử lại sau </string>
+    <string name = "syceError"> Đồng hồ chưa được kết nối và dữ liệu sẽ được đồng bộ hóa với đồng hồ khi nó được kết nối vào lần sau </string>
+    <string name = "unBind"> chuyển đổi thiết bị </string>
+    <string name = "unline"> ngắt kết nối </string>
+    <string name = "line"> Kết nối với đồng hồ </string>
+    <string name = "addDevice"> thêm thiết bị </string>
+    <string name = "unbindSoon"> Trước tiên, vui lòng hủy liên kết thiết bị </string>
+    <string name = "lineError"> Không kết nối được nhiều lần, vui lòng tắt và bật Bluetooth của điện thoại hoặc khởi động lại đồng hồ </string>
+    <string name = "tipUnit"> Lưu ý: Chiều cao và cân nặng sẽ được đặt lại sau khi chuyển đổi hệ thống đơn vị. </string>
+
+    <string name = "step1"> 1. Ghép nối Bluetooth giữa đồng hồ và điện thoại di động </string>
+    <string name = "step2"> 2. Nâng cao mối quan hệ phù hợp </string>
+    <string name = "str1"> 1) Nhập chức năng Bluetooth vào đồng hồ \ n2) Tìm kiếm thiết bị Bluetooth-chọn tên Bluetooth của điện thoại di động \ n3) Hoàn tất ghép nối với điện thoại di động
+
+Bạn có thể sử dụng đồng hồ để thực hiện cuộc gọi qua Bluetooth </string>
+    <string name = "str2"> 1) Nhập cài đặt hệ thống-Thiết bị được ghép nối Bluetooth \ n2) Tìm thiết bị, nhập và nhấp vào "Bỏ ghép nối" để hủy ghép nối
+
+mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức năng gọi qua Bluetooth sau khi hủy ghép nối. </string>
+
+
+    <string name = "version"> phiên bản hiện tại </string>
+    <string name = "feedback"> Phản hồi </string>
+    <string name = "feedback_hint"> phản hồi / câu hỏi của bạn </string>
+    <string name = "tooLong"> Văn bản bạn đã nhập quá dài </string>
+    <string name = "empty"> Nhận xét không được để trống </string>
+    <string name = "send_success"> đã được gửi thành công </string>
+
+
+    <string name="measureUnit"> Đơn vị đo </string>
+    <string name = "metric"> Hệ thống số liệu </string>
+    <string name = "british"> Hệ thống của Anh </string>
+
+
+    <string name = "stepReport"> Báo cáo bước </string>
+    <string name = "sleepReport"> báo cáo giấc ngủ </string>
+    <string name = "heartReport"> Báo cáo nhịp tim </string>
+    <string name = "bloodPressureReport"> báo cáo huyết áp </string>
+    <string name = "bloodOxygenReport"> báo cáo oxy trong máu </string>
+    <string name = "animalHeatReport"> báo cáo nhiệt độ cơ thể </string>
+    <string name = "ecgReport"> Báo cáo điện tâm đồ </string>
+    <string name = "day"> Ngày </string>
+    <string name = "week"> tuần </string>
+    <string name = "sun"> Chủ nhật </string>
+    <string name = "mon"> Thứ Hai </string>
+    <string name = "tues"> Thứ Ba </string>
+    <string name = "wed"> Thứ Tư </string>
+    <string name = "thus"> Thứ Năm </string>
+    <string name = "fri"> Thứ Sáu </string>
+    <string name = "sta"> Thứ Bảy </string>
+    <string name = "today"> hôm nay </string>
+    <string name = "month"> tháng </string>
+    <string name = "year"> năm </string>
+    <string name = "allStep"> tổng số bước </string>
+    <string name = "averageStep"> số bước trung bình </string>
+    <string name = "allSleep"> tổng thời gian ngủ </string>
+    <string name = "averageSleep"> thời gian ngủ trung bình </string>
+    <string name = "light"> ngủ nhẹ </string>
+    <string name = "deep"> Ngủ sâu </string>
+    <string name = "lightTable"> cạn </string>
+    <string name = "deepTable"> deep </string>
+    <string name = "averageHeart"> nhịp tim trung bình </string>
+    <string name = "minHeart"> nhịp tim tối thiểu </string>
+    <string name = "maxHeart"> nhịp tim tối đa </string>
+    <string name = "averageSBP"> huyết áp tâm thu trung bình </string>
+    <string name = "sbp"> huyết áp tâm thu </string>
+    <string name = "averageDBP"> huyết áp tâm trương trung bình </string>
+    <string name = "dbp"> huyết áp tâm trương </string>
+    <string name = "averageSao"> lượng oxy trong máu trung bình </string>
+    <string name = "averageTemp"> nhiệt độ trung bình </string>
+    <string name = "maxTemp"> nhiệt độ tối đa </string>
+    <string name = "passRate"> tỷ lệ tuân thủ </string>
+    <string name = "ecgTip"> Bài kiểm tra chỉ mang tính chất tham khảo và không thể được sử dụng làm chứng chỉ chẩn đoán y tế </string>
+    <string name = "noData"> Không có báo cáo </string>
+    <string name = "tomorrow"> Tương lai vẫn chưa đến </string>
+
+
+
+
+    <string name = "userInfo"> thông tin người dùng </string>
+    <string name = "picture"> Hình đại diện </string>
+    <string name = "userName"> biệt hiệu </string>
+    <string name = "enterUserName"> vui lòng nhập biệt hiệu của bạn </string>
+    <string name = "nameLong"> biệt hiệu không được vượt quá 12 ký tự </string>
+    <string name = "sex"> giới tính </string>
+    <string name = "male"> Nam </string>
+    <string name = "female"> nữ </string>
+    <string name = "height"> height </string>
+    <string name = "weight"> trọng lượng </string>
+    <string name = "birthday"> ngày sinh </string>
+    <string name = "album"> Album </string>
+    <string name = "camera"> chụp ảnh </string>
+
+
+
+
+
+    <string name = "tokenTimeOut"> đăng nhập đã hết hạn, vui lòng đăng nhập lại </string>
+    <string name = "enterRightEmail"> Vui lòng nhập đúng định dạng hộp thư </string>
+    <string name = "httpError"> Phản hồi mạng đã hết thời gian chờ, vui lòng kiểm tra trạng thái kết nối mạng </string>
+    <string name = "logging"> Đang đăng nhập ... </string>
+    <string name = "waitting"> Vui lòng đợi ... </string>
+    <string name = "resetSuccess"> đặt lại mật khẩu thành công </string>
+    <string name = "passwordUnSame"> hai mật khẩu đầu vào không nhất quán </string>
+    <string name = "saved"> đã lưu thành công </string>
+    <string name = "notificationlistener_prompt_title"> bật thông báo </string>
+    <string name = "notificationlistener_prompt_content"> Aiprint cần chuyển tiếp thông báo của ứng dụng đến các thiết bị thông minh từ xa. Nhấn \ "để xác nhậnNhấn để vào trang thông báo để kích hoạt. </string>
+    <string name = "tokenTimeout"> đăng nhập đã hết hạn, vui lòng đăng nhập lại </string>
+    <string name = "lostDevice"> Thiết bị chưa được kết nối </string>Quyền
+    <string name = "permissionErrorForCamare"> không thành công, không thể mở chức năng camera </string>
+    <string name = "findPermission"> Nếu quyền không được thông qua, danh sách thiết bị sẽ không được tìm kiếm. </string>
+    <string name = "applyPermission"> đăng ký quyền </string>
+    <string name = "shareFailForPermission"> Chia sẻ không thành công, các quyền liên quan không thành công </string>
+    <string name = "permissionErrorForSMS"> không thành công, không thể mở chức năng thông báo SMS </string>
+    <string name = "loading"> đang tải ... </string>
+    <string name = "privacyTip"> Trước khi sử dụng sản phẩm của chúng tôi, vui lòng đọc kỹ và hiểu đầy đủ các thỏa thuận về quyền riêng tư của người dùng có liên quan. \ nKhi
+        Bạn nhấp vào "OK" để cho biết rằng bạn đã đồng ý với các điều khoản của thỏa thuận. \ nChính sách bảo mật của người dùng chủ yếu bao gồm những điều sau: \ n1. Thông tin cá nhân (hình đại diện, biệt hiệu,
+        Dữ liệu về chiều cao, cân nặng, bài tập, v.v.) thu thập, lưu trữ và chia sẻ. \ n2. Sử dụng các quyền của thiết bị (vị trí, sổ địa chỉ, máy ảnh, v.v.) </string>
+    <string name = "crop_pic_failed"> không chặn được ảnh, vui lòng chọn ảnh định dạng jpg! </string>
+    <string name = "deviceOut"> thiết bị không liên kết </string>
+    <string name = "visiter"> Chế độ khách du lịch không hỗ trợ tính năng này </string>
+    <string name = "chooseJpg"> Vui lòng chọn ảnh ở định dạng jpg </string>
+
+
+    <string name = "planOK"> Đã đạt được mục tiêu của ngày hôm nay </string>
+    <string name = "planNO"> Không đạt được mục tiêu của ngày hôm nay </string>
+    <string name = "planStepShare"> các bước mục tiêu:% dsteps </string>
+    <string name = "distanceShare"> khoảng cách đi bộ:% .1fKm </string>
+    <string name = "calurieShare"> Lượng calo đã đốt cháy:% .1fKcal </string>
+
+    <string name = "planSleep"> thời lượng mục tiêu:% .1fh </string>
+    <string name = "deepSleepShare"> Thời lượng ngủ sâu:% 02dh% 02dmin </string>
+    <string name = "lightSleepShare"> Thời lượng ngủ nhẹ:% 02dh% 02dmin </string>
+
+    <string name = "testTimes"> Số đo của ngày hôm nay:% d </string>
+    <string name = "maxHeartShare"> Nhịp tim tối đa:% dbpm </string>
+    <string name = "minHeartShare"> nhịp tim tối thiểu:% dbpm </string>
+
+    <string name = "bloodOxygenData"> độ bão hòa oxy trong máu </string>
+    <string name = "testValue"> kết quả kiểm tra: </string>
+    <string name = "passTimeData"> tỷ lệ vượt qua:% .1f %% </string>
+
+    <string name = "bloodPressureData"> huyết áp tâm thu / huyết áp tâm trương trung bình </string>
+    <string name = "shareSuccess"> đã chia sẻ thành công </string>
+    <string name = "shareCancel"> Hủy chia sẻ </string>
+    <string name = "shareFail"> Chia sẻ không thành công </string>
+
+
+    <string name = "connect_error"> Lỗi kết nối </string>
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Tải ứng dụng không thành công</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">Dịch vụ SMS</string>
+    <string name="call_preference_title">Dịch vụ cuộc gọi</string>
+    <string name="progress_dialog_title">Đang tải</string>
+    <string name="progress_dialog_message">vui lòng đợi&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Ứng dụng cá nhân</string>
+    <string name="system_apps_title">Ứng dụng hệ thống
+</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Cuộc gọi nhỡ</string>
+    <string name="accessibility_description">Dịch vụ thông báo hiện hoạt trong cài đặt trợ năng của bạn. Điều này cho phép thông báo BT đẩy thông báo ứng dụng đến thiết bị từ xa.</string>
+    <string name="batterylow">Pin yếu</string>
+    <string name="pleaseconnectcharger">Pin sắp hết, Vui lòng kết nối bộ sạc, Dung lượng</string>
+
+    <string name="operate_error">Thất bại</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+</resources>

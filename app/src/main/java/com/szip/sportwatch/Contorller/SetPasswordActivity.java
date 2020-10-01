@@ -20,6 +20,7 @@ import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
@@ -61,8 +62,6 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);
     }
 
     @Override
@@ -91,6 +90,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     private void initEvent() {
 
         findViewById(R.id.registerBtn).setOnClickListener(this);
+        findViewById(R.id.backIv).setOnClickListener(this);
 
         passwordEt.addTextChangedListener(watcher);
         passwordEt.setOnFocusChangeListener(focusChangeListener);
@@ -128,20 +128,24 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.registerBtn:
                 try {
+                    HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
                     if (passwordEt.getText().toString().equals("")){
                         showToast(getString(R.string.enterPassword));
                     } else if (!passwordEt.getText().toString().equals(confirmPasswordEt.getText().toString())){
                         showToast(getString(R.string.passwordUnSame));
                     }else if (isPhone){
                         HttpMessgeUtil.getInstance(mContext).postRegister("1",countryCode,user,"",
-                                verifyCode, passwordEt.getText().toString());
+                                verifyCode, passwordEt.getText().toString(),MathUitl.getDeviceId(mContext),"1");
                     }else {
                         HttpMessgeUtil.getInstance(mContext).postRegister("2","","",user,
-                                verifyCode, passwordEt.getText().toString());
+                                verifyCode, passwordEt.getText().toString(),MathUitl.getDeviceId(mContext),"1");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.backIv:
+                finish();
                 break;
         }
     }
@@ -211,12 +215,13 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onCallback(BaseApi baseApi, int id) {
         try {
+            HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);
             if (isPhone){
                 HttpMessgeUtil.getInstance(mContext).postLogin("1",countryCode,user,"",
-                        passwordEt.getText().toString());
+                        passwordEt.getText().toString(), "","");
             }else {
                 HttpMessgeUtil.getInstance(mContext).postLogin("2","","",user,
-                        passwordEt.getText().toString());
+                        passwordEt.getText().toString(),"","");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -238,7 +243,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
         editor.putString("mail",loginBean.getData().getUserInfo().getEmail());
         ((MyApplication)getApplicationContext()).setUserInfo(loginBean.getData().getUserInfo());
         editor.commit();
-        Intent intentmain=new Intent(mContext,SeachingActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intentmain=new Intent(mContext,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intentmain);
     }
 }

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iSmarport</string>
+
+    <!--登录页面 Página de inicio de sesión /找回密码页面 Recuperar la página de contraseña/注册页面 Página de registro-->
+    <string name="logo">Bienvenido a iSmarport</string>
+    <string name="user">Cuenta</string>
+    <string name="phoneOrEmail">Introduzca su número de teléfono / correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="enterPassword">Introduzca una contraseña de 6 a 20 dígitos</string>
+    <string name="confirmPassword">Confirme la contraseña</string>
+    <string name="enterPasswordAgain">Vuelva a ingresar su contraseña</string>
+    <string name="forget"><u>Olvidó su contraseña?</u></string>
+    <string name="register"><u>Registro</u></string>
+    <string name="login">Iniciar sesión</string>
+    <string name="country">País / Región</string>
+    <string name="choseCountry">Seleccione un país / región</string>
+    <string name="send">Enviar</string>
+    <string name="verification">Código de verificación</string>
+    <string name="enterVerification">Introduzca el código de verificación</string>
+    <string name="newPassword">Nueva contraseña</string>
+    <string name="enterNewPassword">Ingrese una nueva contraseña</string>
+    <string name="reset">Restablecer contraseña</string>
+    <string name="registerTitle">Registro</string>
+    <string name="next">Siguiente paso</string>
+    <string name="privacy">De acuerdo<u>"Acuerdo de usuario y política de privacidad"</u></string>
+    <string name="privacy1">Acuerdo de usuario y política de privacidad</string>
+    <string name="privacy2">\t\t\tDamos gran importancia a la privacidad de nuestros usuarios y la protección de la información personal. Cuando utiliza nuestros productos y servicios, podemos recopilar y utilizar información sobre usted. Nuestra empresa espera que a través del 《Acuerdo de Privacidad》to en lo sucesivo, "La Política", se le explique cómo y cuándo nuestra empresa recopila, usa y guarda esta información .
+
+\n\n\t\tEsperamos que lea detenidamente y confirme que comprende completamente el contenido de esta política antes de usar nuestros productos y servicios.
+
+\n\n\t\tCuando usemos su información personal para otros fines no especificados en esta política, o cuando la información recopilada para fines específicos se use para otros fines, le notificaremos una lista de verificación para que la marque para que pueda obtener su consentimiento por adelantado.
+
+\n\n\t\tTenga en cuenta que toda la información personal que proporcione cuando utilice nuestros productos y servicios, nos autorizará a recopilarla, a menos que elimine o rechace nuestra recopilación a través de la configuración del sistema. Cuando cancele su cuenta, nuestra empresa dejará de usar y eliminará su información personal.
+
+\n\n1，El alcance de la información personal que nos autoriza a recopilar:
+
+\n\n\t\tLa información personal se refiere a todo tipo de información registrada en forma electrónica o de otro tipo que puede identificar la identidad de una persona física específica o reflejar la actividad de una persona física específica, ya sea sola o en combinación con otra información.
+La información personal involucrada en esta política incluye información básica (incluido el nombre personal, fecha de nacimiento, sexo, número de teléfono personal, dirección de correo electrónico); información de identidad de la red (incluida la cuenta del sistema, la dirección IP y la dirección de correo electrónico); contactos; información de equipo común personal; información de ubicación personal; información de salud personal.
+
+
+
+\n\n2，Nuestra empresa puede utilizar la información personal recopilada en el proceso de brindarle servicios para los siguientes propósitos:
+
+\n（1）Para brindarle los servicios propiedad del producto;
+
+\n（2）Cuando nuestra empresa brinda servicios, se utiliza para verificación de identidad, servicio al cliente, prevención de seguridad, monitoreo de fraudes, archivo y respaldo para garantizar la seguridad de los productos y servicios que nuestra empresa le brinda;
+
+\n（3）Ayúdenos a diseñar nuevos servicios y mejorar nuestros servicios existentes
+
+\n（4）Hacer que nuestra empresa sepa más sobre cómo accede y utiliza nuestros servicios, para responder a sus necesidades personalizadas, como configuración de idioma, configuración de ubicación, ayuda e instrucciones personalizadas, o para que usted y otros usuarios respondan de otras formas;
+
+\n（5）Certificación de software o actualización del software de gestión;
+
+\n（6）Permitirle participar en encuestas sobre nuestros productos y servicios.
+
+\nCon el fin de permitirle tener una mejor experiencia, mejorar nuestros servicios u otros usos con los que esté de acuerdo, bajo la premisa de cumplir con las leyes y regulaciones pertinentes, nuestra empresa puede utilizar la información recopilada a través de un servicio para recopilar información o personalizarla. para otros servicios de nuestra empresa. Por ejemplo, la información recopilada cuando utiliza uno de nuestros servicios puede usarse para proporcionarle contenido específico en otro servicio o para mostrarle información no generalizada sobre usted. Si nuestra empresa ofrece las opciones correspondientes en servicios relacionados, también puede autorizarnos a utilizar la información proporcionada y almacenada por este servicio para nuestros otros servicios.
+
+\n\n3，Nuestra empresa no compartirá su información personal con ninguna empresa, organización o individuo que no sea nuestra empresa, excepto en los siguientes casos:
+
+\n\n（1）Obtenga su consentimiento explícito y autorización por adelantado;
+
+\n\n（2）Proporcionado de acuerdo con las leyes y reglamentos aplicables, procedimientos legales, requisitos administrativos o judiciales obligatorios;
+
+\n\n（3） en la medida permitida por la ley, es necesario brindar protección a nuestra empresa, nuestras afiliadas o socios, el interés público, la propiedad o la seguridad contra daños;
+
+\n\n（4） Solo compartiendo su información podemos lograr las funciones principales de nuestros productos y servicios o brindarle los servicios que necesita;
+
+\n\n（5）Para manejar su disputa o disputas con otros a su solicitud;
+
+\n\n（6）Proporcionado de acuerdo con el acuerdo pertinente con usted u otros documentos legales;
+
+\n\n（7） Usar en el interés público de acuerdo con las leyes y regulaciones.
+
+\n\n4，Cómo proteger y almacenar conjuntamente su información personal：
+
+\n（1）Damos gran importancia a la seguridad de la información personal y tomamos todas las medidas técnicas de seguridad de datos razonables y factibles para proteger su información personal;
+
+\n（2）El entorno de Internet no es 100% seguro y haremos todo lo posible para asegurar o garantizar la seguridad de cualquier información que nos envíe. Si nuestras instalaciones de protección física, técnica o de gestión resultan dañadas, resultando en acceso no autorizado, divulgación pública, alteración o destrucción de información, resultando en daño a sus derechos e intereses legítimos, nuestra empresa asumirá la responsabilidad legal correspondiente.
+
+\n（3）Si tiene alguna pregunta sobre la protección de su información personal, puede contactarnos a través de la información de contacto en nuestro sitio web oficial. Si descubre que se ha filtrado su información personal, especialmente si se ha filtrado su información personal, comuníquese con nosotros de inmediato para que podamos tomar las medidas correspondientes.
+
+
+
+\n\n5，Uso de nuestros servicios por menores：
+
+Recomendamos que los menores alienten a sus padres o tutores a leer esta política y recomendamos que los menores busquen el consentimiento y la guía de sus padres o tutores antes de enviar información personal.
+
+
+
+\n\n5，Ámbito de aplicación de la política de privacidad
+
+ Esta política se aplica a todos nuestros servicios excepto a ciertos servicios específicos. Estos servicios específicos utilizarán políticas de privacidad específicas. Las políticas de privacidad específicas para ciertos servicios describirán más específicamente cómo usamos su información en esos servicios. La política de privacidad para ese servicio en particular forma parte de esta política. Si existe alguna inconsistencia entre la política de privacidad del servicio específico relevante y esta política, prevalecerá la política de privacidad del servicio específico。
+
+\nTenga en cuenta que esta política no se aplica a:
+
+\n（1）Información recopilada por servicios de terceros (incluidos todos los sitios web de terceros) a los que se accede a través de nuestros servicios;
+
+\n（2）Información recopilada por otras empresas o agencias que realizan servicios publicitarios en nuestros servicios;
+
+\n（3）Si utiliza un dispositivo Apple como un iPhone o iPad, para calcular sus datos de ejercicio, con su autorización, recibiremos y enviaremos sus datos de ejercicio desde el Healthkit de Apple. Nuestra empresa leerá sus datos de altura, peso y sexo de Healthkit. Al mismo tiempo, sus pasos, caminata + distancia de carrera, energía activa, distancia de conducción y datos de análisis del sueño generados por la aplicación iSmarport se escribirán en Apple Healthkit. Los datos obtenidos a través de Healthkit no se compartirán ni venderán a ninguna empresa de terceros, y nuestra empresa no utilizará la información obtenida de Healthkit con fines comerciales como publicidad y marketing.
+
+
+
+\n\n7， Actualización
+
+\n\n\t\tPodemos actualizar o modificar los términos de esta política, y dichas modificaciones forman parte de esta política. Si tales enmiendas causan una reducción sustancial de sus derechos bajo esta política, antes de que las enmiendas entren en vigor, le notificaremos a través de un lugar destacado en la página de inicio o le enviaremos un correo electrónico o de otra manera. En este caso, si continúa utilizando nuestros servicios, acepta regirse por esta política revisada.</string>
+    <string name="checkPrivacy">Confirme leer el Acuerdo de usuario y la Política de privacidad</string>
+    <string name="setPassword">Establecer contraseña</string>
+    <string name="china">China</string>
+    <string name="vistor">Visitantes para iniciar sesión</string>
+
+    <!--主页 Página principal-->
+    <string name="healthy">Salud</string>
+    <string name="sport">Deporte</string>
+    <string name="mine">Mío</string>
+    <string name="touchAgain">Presione nuevamente para salir del programa</string>
+
+    <!--健康页面 Página saludable-->
+    <string name="planStep">Pasos objetivo%d</string>
+    <string name="sleep">Dormir</string>
+    <string name="heart">Frecuencia cardíaca</string>
+    <string name="blood">Presión arterial</string>
+    <string name="bloodo">Oxígeno en sangre</string>
+    <string name="animal">Temp</string>
+    <string name="ecg">ECG</string>
+    <string name="check">Ver</string>
+    <string name="perfect">Perfecto</string>
+    <string name="good">Bueno</string>
+    <string name="bad">Malo</string>
+    <string name="quick">Rápido</string>
+    <string name="normal">Normal</string>
+    <string name="hot">Fiebre</string>
+    <string name="slow">Lento</string>
+    <string name="higher">Alto</string>
+    <string name="flat">Baja</string>
+    <string name="head">Aquí está la vista de la cabeza</string>
+    <string name="pull_to_refresh">Tire hacia abajo para actualizar</string>
+    <string name="release_to_refresh">Actualizar después del lanzamiento</string>
+    <string name="refreshing">Refrescante ...</string>
+    <string name="refresh_succeed">Actualización exitosa</string>
+    <string name="refresh_fail">Actualización fallida</string>
+    <string name="pullup_to_load"> Tire hacia arriba para cargar más</string>
+    <string name="release_to_load">Carga inmediatamente después del lanzamiento</string>
+    <string name="load_succeed">Cargado con éxito</string>
+    <string name="load_fail">Error al cargar</string>
+
+
+    <!--运动界面 Deportes-->
+    <string name="best">Mejor récord para correr al aire libre</string>
+    <string name="history">Registro de movimiento histórico</string>
+    <string name="track">Información deportiva</string>
+    <string name="notrack">Sin trayectoria</string>
+    <string name="speed">Velocidad</string>
+    <string name="kcal">Consumir (kcal)</string>
+    <string name="time">Hora</string>
+    <string name="heart_rate">Frecuencia cardíaca</string>
+    <string name="stride">Zancada (pasos / s)</string>
+    <string name="distance">Distancia(</string>
+    <string name="speedData">Velocidad media</string>
+    <string name="kcalData">Deporte Consumo</string>
+    <string name="timeData">Hora del deporte</string>
+    <string name="heart_rateData">Frecuencia cardíaca media</string>
+    <string name="strideData">Zancada promedio</string>
+    <string name="distanceData">Distancia</string>
+    <string name="basket">Baloncesto</string>
+    <string name="football">Fútbol</string>
+    <string name="pingpong">Pelota de Pingpong</string>
+    <string name="mountain">Montaña</string>
+    <string name="bike">Ciclismo</string>
+    <string name="run">Ejecutar</string>
+    <string name="walk">徒步</string>
+    <string name="treadmill">跑步机</string>
+    <string name="runWithout">户外跑</string>
+    <string name="marathon">马拉松</string>
+    <string name="sufing">冲浪</string>
+    <string name="shudu">速度</string>
+    <string name="averageShudu">平均速度</string>
+    <string name="boat">Boating</string>
+    <string name="altitude">海拔</string>
+    <string name="avarageAltitude">平均海拔</string>
+    <string name="climb">攀岩</string>
+    <string name="skii">滑雪</string>
+    <string name="golf">Golf</string>
+    <!--我的页面 Mine-->
+    <string name="device">Dispositivo</string>
+    <string name="stepPlan">Meta del paso</string>
+    <string name="sleepPlan">Objetivo de sueño</string>
+    <string name="find">Buscando reloj</string>
+    <string name="notification">Notificación de solicitud</string>
+    <string name="blePhone">Llamada Bluetooth</string>
+    <string name="blePhoto">Cámara Bluetooth</string>
+    <string name="unit">Unidad</string>
+    <string name="face">Marque</string>
+    <string name="myDail">Mi Dial</string>
+    <string name="seeDail">Vista previa</string>
+    <string name="diyDail">Bricolaje</string>
+    <string name="diyDailing">Actualizando ...</string>
+    <string name="diyDailOK">Actualización exitosa</string>
+    <string name="diyDailError">Actualización fallida, inténtelo de nuevo</string>
+    <string name="upDownBackground">Sube una imagen de fondo</string>
+    <string name="chooseClock">Seleccione un estilo de reloj</string>
+    <string name="clock">Estilo de reloj</string>
+    <string name="background">Cargar imágenes</string>
+    <string name="about">Acerca de</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="me">Mío</string>
+    <string name="set">Entorno</string>
+    <string name="other">Otro</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="tip">Consejo</string>
+    <string name="delete">¿Estás seguro de que quieres eliminar estos datos?</string>
+    <string name="unbind">¿Estás seguro de que quieres desvincularte?</string>
+    <string name="logoutTip">¿Está seguro de que desea cerrar la sesión?</string>
+    <string name="sendOK">Enviado con éxito</string>
+    <string name="searchDevice">Dispositivo de búsqueda</string>
+    <string name="noDevice">No se encontraron dispositivos</string>
+    <string name="connected">Conectado</string>
+    <string name="disConnect">No conectado</string>
+    <string name="connectting">Conectando</string>
+    <string name="connect">Conexión del dispositivo, inténtelo de nuevo más tarde</string>
+    <string name="syceError">El reloj no está conectado, los datos se sincronizarán con el reloj la próxima vez que se conecte</string>
+    <string name="unBind">Reemplazar dispositivo</string>
+    <string name="unline">Desconectar</string>
+    <string name="line">Conecte el reloj</string>
+    <string name="addDevice">Agregar dispositivo</string>
+    <string name="unbindSoon">Desvincula el dispositivo primero</string>
+    <string name="lineError">La conexión ha fallado muchas veces. Reinicie el bluetooth del teléfono móvil o reinicie el reloj</string>
+    <string name="tipUnit">Consejo:La altura y el peso de la unidad se restablecerán</string>
+
+    <!--蓝牙通话界面 Interfaz de llamada Bluetooth-->
+    <string name="step1">1.Ver Paire con teléfono móvil</string>
+    <string name="step2">2.Desaparecer</string>
+    <string name="str1">1)Ingrese la función Bluetooth en el reloj\n2)Busque dispositivos Bluetooth seleccione el nombre de Bluetooth del teléfono\n3)Emparejar con su teléfono para hacer llamadas Bluetooth con su reloj</string>
+    <string name="str2">1)Ingrese la configuración del sistema dispositivo emparejado con Bluetooth, busque el dispositivo, ingrese Haga clic en "Desvincular", Desvincular correctamente. \n2)Observación El reloj no puede usar la función de llamada Bluetooth después de desvincularlo</string>
+
+    <!--关于界面 Acerca de-->
+    <string name="version">Versión actual</string>
+    <string name="feedback">Comentarios</string>
+    <string name="feedback_hint">Sus comentarios/pregunta</string>
+    <string name="tooLong">La entrada es demasiado larga</string>
+    <string name="empty">Los comentarios no pueden estar vacíos</string>
+    <string name="send_success">Presentado con éxito</string>
+
+    <!--单位制式界面 Interfaz del sistema de la unidad-->
+    <string name="measureUnit">Unidad de medida</string>
+    <string name="metric">Métrica</string>
+    <string name="british">Imperial</string>
+
+    <!--报告页面 Página del informe-->
+    <string name="stepReport">Informe de trámites</string>
+    <string name="sleepReport">Informe del sueño</string>
+    <string name="heartReport">Informe de frecuencia cardíaca</string>
+    <string name="bloodPressureReport">Informe de presión arterial</string>
+    <string name="bloodOxygenReport">Informe de oxígeno en sangre</string>
+    <string name="animalHeatReport"> Informe temporal</string>
+    <string name="ecgReport">Informe de ECG</string>
+    <string name="day">Día</string>
+    <string name="week">Semana</string>
+    <string name="sun">Sol</string>
+    <string name="mon">Lunes</string>
+    <string name="tues">Mar</string>
+    <string name="wed">Mié</string>
+    <string name="thus">Jue</string>
+    <string name="fri">Viernes</string>
+    <string name="sta">Sab</string>
+    <string name="today">Hoy</string>
+    <string name="month">Mes</string>
+    <string name="year">Año</string>
+    <string name="allStep">Pasos totales</string>
+    <string name="averageStep">Pasos promedio</string>
+    <string name="allSleep">Tiempo total de sueño</string>
+    <string name="averageSleep">Tiempo promedio de sueño</string>
+    <string name="light">Sueño Ligero</string>
+    <string name="deep">Sueño Profundo</string>
+    <string name="lightTable">L</string>
+    <string name="deepTable">P</string>
+    <string name="averageHeart">Frecuencia cardíaca media</string>
+    <string name="minHeart">Frecuencia cardíaca mínima</string>
+    <string name="maxHeart"> Frecuencia cardíaca máxima</string>
+    <string name="averageSBP">Presión sistólica promedio</string>
+    <string name="sbp">Presión sistólica</string>
+    <string name="averageDBP">Presión diastólica promedio</string>
+    <string name="dbp">Presión diastólica</string>
+    <string name="averageSao">Oxígeno en sangre promedio</string>
+    <string name="averageTemp">Temperatura media</string>
+    <string name="maxTemp">Temperatura máxima</string>
+    <string name="passRate">Tasa de cumplimiento</string>
+    <string name="ecgTip">La medición es solo para referencia, no como certificado médico</string>
+    <string name="noData">Sin informe</string>
+    <string name="tomorrow">El futuro aún no está aquí</string>
+
+
+    <!--用户信息页面 Página de información del usuario-->
+    <string name="userInfo">Información de usuario</string>
+    <string name="picture">Imagen</string>
+    <string name="userName">Apodo</string>
+    <string name="enterUserName">Ingrese su apodo</string>
+    <string name="nameLong">Los apodos no pueden superar los 12 caracteres</string>
+    <string name="sex">Género</string>
+    <string name="male">Masculino</string>
+    <string name="female">Mujer</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="birthday">Cumpleaños</string>
+    <string name="album">Álbum de fotos</string>
+    <string name="camera">Cámara</string>
+
+
+    <!--提示语 Notification-->
+    <string name="tokenTimeOut">Inicio de sesión caducado, vuelva a iniciar sesión</string>
+    <string name="enterRightEmail">Ingrese el formato de correo electrónico correcto</string>
+    <string name="httpError">Tiempo de espera de respuesta de red, compruebe la conexión de red</string>
+    <string name="logging">Iniciar sesión ...</string>
+    <string name="waitting">Espere ...</string>
+    <string name="resetSuccess">Restablecimiento de contraseña exitoso</string>
+    <string name="passwordUnSame">Ingrese la contraseña incorrecta dos veces</string>
+    <string name="saved">Guardado con éxito</string>
+    <string name="notificationlistener_prompt_title">Habilitar notificaciones</string>
+    <string name="notificationlistener_prompt_content">iSmarport necesita reenviar notificaciones de aplicaciones a dispositivos inteligentes remotos. Presione \ "Confirmar \" Ingrese a la página de notificación para activar。</string>
+    <string name="tokenTimeout">El inicio de sesión ha expirado, inicie sesión de nuevo</string>
+    <string name="lostDevice">El dispositivo no está conectado</string>
+    <string name="permissionErrorForCamare">Permiso fallido, no se puede encender la función de cámara</string>
+    <string name="findPermission">Permiso fallido, no podrá buscar en la lista de dispositivos</string>
+    <string name="applyPermission">Solicitud de acceso</string>
+    <string name="shareFailForPermission">Falló el recurso compartido, fallaron los permisos relacionados</string>
+    <string name="permissionErrorForSMS">Permiso fallido, no se pueden activar las notificaciones por SMS</string>
+    <string name="loading">Cargando...</string>
+    <string name="privacyTip">¿Ha leído claramente el Acuerdo de privacidad? ¿Está de acuerdo en registrarse como nuevo usuario de nuestra empresa? Cuando hace clic en "Confirmar", significa que acepta los términos del acuerdo.La Política de privacidad del usuario incluye principalmente lo siguiente 1. Información personal (foto de perfil, apodo, altura, peso, datos deportivos, etc.), recopilación, guardar y compartir 2. Permisos del dispositivo (ubicación, lista de contactos, cámara, etc.) Utilizando</string>
+    <string name="crop_pic_failed">No se pudo capturar la imagen, elija la imagen en formato JPG / PNG!</string>
+    <string name="deviceOut">Dispositivo no consolidado</string>
+    <string name="visiter">Esta función no se admite en el modo de visitante</string>
+    <string name="chooseJpg">Elija una imagen en formato JPG</string>
+
+    <!--分享界面 Interfaz para compartir-->
+    <string name="planOK">Se ha alcanzado la meta de hoy</string>
+    <string name="planNO">No se alcanzó la meta de hoy</string>
+    <string name="planStepShare">Pasos objetivo</string>
+    <string name="distanceShare">Distancia a pie: %.1fKm</string>
+    <string name="calurieShare">Quema calorías: %.1fKcal</string>
+
+    <string name="planSleep">Duración objetivo: %.1fh</string>
+    <string name="deepSleepShare">Sueño profundo: %02dH%02dMin</string>
+    <string name="lightSleepShare">Sueño ligero: %02dH%02dMin</string>
+
+    <string name="testTimes">Tiempos de medición: %d</string>
+    <string name="maxHeartShare">Frecuencia cardíaca máxima: %dbpm</string>
+    <string name="minHeartShare">Frecuencia cardíaca mínima: %dbpm</string>
+
+    <string name="bloodOxygenData">Saturación de oxígeno en sangre</string>
+    <string name="testValue">Resultados de la prueba:</string>
+    <string name="passTimeData">Tasa de aprobación: %.1f%%</string>
+
+    <string name="bloodPressureData">Presión sistólica promedio / presión diastólica</string>
+    <string name="shareSuccess">Compartiendo el éxito</string>
+    <string name="shareCancel">Cancelar compartir</string>
+    <string name="shareFail">Error al compartir</string>
+    <!-- Scan & Connect -->
+    <string name="connect_error">Error de conexión</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Error al cargar la aplicación</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">Servicio de SMS</string>
+    <string name="call_preference_title">Llamar al servicio</string>
+    <string name="progress_dialog_title">Carga</string>
+    <string name="progress_dialog_message">Espere&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Aplicación personal</string>
+    <string name="system_apps_title">Aplicación del sistema</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Llamada perdida</string>
+    <string name="accessibility_description">Servicio de notificación activo en su configuración de accesibilidad. Esto permite que la notificación de BT envíe la notificación de la aplicación al dispositivo remoto.</string>
+    <string name="batterylow">Batería baja</string>
+    <string name="pleaseconnectcharger">La batería se está agotando. Conecte el cargador. Capacidad</string>
+
+    <string name="operate_error">Fallido</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Actualización de Firmwares</string>
+    <string name="trigger_failed_due_to_low_battery">Baja batería del reloj, inténtelo de nuevo después de la carga</string>
+    <string name="update_failed">Se actualiza el reloj con fracaso, ¡Por favor, inténtelo de nuevo más tarde!</string>
+    <string name="send_firmware_date_success">¡Se envían los datos con éxito!！</string>
+    <string name="new_version">Ya es la última versión</string>
+    <string name="downloading_fota">Descargando firmwares</string>
+    <string name="read_send_fota_file">Preparando</string>
+    <string name="sending_fota_file">Transmitiendo archivos</string>
+    <string name="bt_disconnected_while_transfer">¡Bluetooth desconectado!</string>
+    <string name="download_succeed_via_bt">Enviar completado, ¡espere hasta que se actualice con éxito!</string>
+    <string name="updated_firmware">Se actualiza con éxito</string>
+    <string name="notice_need_write_external_storage_permission">Otorgue autoridades para la tarjeta de memoria en el "Ajuste"</string>
+    <string name="apply_write_external_storage_permission">La aplicación requiere autoridades para operar su tarjeta de memoria, para guardar el archivo de firmwares</string>
+    <string name="get_app_permission">Permita las autoridades para la aplicación</string>
+    <string name="warning_updating_text">Actualizando, espere hasta terminar la actualización o acabar el tiempo (%1$d minutos)</string>
+    <string name="external_storage_unactivity">Indisponible tarjeta de memoria</string>
+
+</resources>

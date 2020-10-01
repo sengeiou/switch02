@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ReportScorllView extends View implements GestureDetector.OnGestureListener{
 
-    private int width,height;//本页面宽，高
+    private int width = 0,height = 0;//本页面宽，高
     private float valueWidth,valueHeight;//绘制数据区域宽高
 
     private float textWidth = 0, textHeight = 0;//文字宽高
@@ -268,6 +268,8 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
      * 添加数据
      * */
     public void addData(List<DrawDataBean> list){
+        this.mSliding = 0;
+
         data_num = list.size();
         datasTop = new int[data_num];
         datasBottom = new int[data_num];
@@ -279,6 +281,10 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
             if (datasTop[i]> maxValue)
                 maxValue = datasTop[i];
         }
+        if (width!=0&&data_num>7){
+            mSliding = -(data_num-7)*(mInterval+mBarWidth);
+        }
+
         postInvalidate();
     }
 
@@ -299,11 +305,6 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-//        PointF tup = new PointF(e.getX(), e.getY());
-//        mSelected = clickWhere(tup);
-//        if(mListener != null) {
-//            mListener.onItemClick(mSelected);
-//        }
         invalidate();
         return true;
     }
@@ -321,8 +322,8 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         upPlace = e2.getX();
-        mScroller
-                .fling((int)e2.getX(), (int)e2.getY(), (int)velocityX/2, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
+        mScroller.fling((int)e2.getX(), (int)e2.getY(), (int)velocityX/2,
+                0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
         return true;
     }
 
@@ -335,14 +336,12 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
     }
 
     protected boolean judgeSliding(float tempSlided){
-        mSliding += tempSlided;
         if(data_num>7) {
+            mSliding += tempSlided;
             if (mSliding <= -(data_num-7)*(mInterval+mBarWidth)){//划到最右端了
-                Log.d("SZIP******","满");
                 if (onPageViewScorllAble!=null)
                     onPageViewScorllAble.onScroll(true);
             }else {
-                Log.d("SZIP******","没满");
                 if (onPageViewScorllAble!=null)
                     onPageViewScorllAble.onScroll(false);
             }
@@ -357,7 +356,6 @@ public class ReportScorllView extends View implements GestureDetector.OnGestureL
                 return true;
             }
         }
-
         return false;
     }
 }

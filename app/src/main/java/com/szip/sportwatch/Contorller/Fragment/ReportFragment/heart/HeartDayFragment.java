@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
-import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -18,10 +16,6 @@ import com.szip.sportwatch.View.ReportView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -66,8 +60,13 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
         if (reportDataBean!=null) {
             reportView.addData(reportDataBean.getDrawDataBeans());
             averageTv.setText(reportDataBean.getValue()+"");
-            maxTv.setText(reportDataBean.getValue1()+45+"");
-            minTv.setText(reportDataBean.getValue2()+45+"");
+            maxTv.setText(reportDataBean.getValue1()+40+"");
+            minTv.setText(reportDataBean.getValue2()+40+"");
+        }else {
+            reportView.addData(null);
+            averageTv.setText("--");
+            maxTv.setText("--");
+            minTv.setText("--");
         }
         if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
@@ -82,9 +81,9 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
-        averageTv = getView().findViewById(R.id.averageTv);
+        averageTv = getView().findViewById(R.id.averageTv1);
         maxTv = getView().findViewById(R.id.maxTv);
         minTv = getView().findViewById(R.id.minTv);
     }
@@ -99,14 +98,17 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
                 ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

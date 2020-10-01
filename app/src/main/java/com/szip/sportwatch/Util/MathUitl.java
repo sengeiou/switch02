@@ -1,7 +1,6 @@
 package com.szip.sportwatch.Util;
 
 import android.annotation.TargetApi;
-import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -9,21 +8,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
-import android.os.StatFs;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
@@ -46,12 +47,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.text.TextUtils.isEmpty;
 import static com.szip.sportwatch.MyApplication.FILE;
 
 /**
@@ -185,21 +196,21 @@ public class MathUitl {
                     span.setSpan(new RelativeSizeSpan(1.5f), i+2, m, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }else {
                     int m = text.indexOf(':');
-                    int i = text.indexOf('h');
+                    int i = text.indexOf('H');
                     if (i>=0){
                         span.setSpan(new RelativeSizeSpan(2f), m, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
-                    i = text.indexOf("min");
+                    i = text.indexOf("Min");
                     if (i>=0){
                         span.setSpan(new RelativeSizeSpan(2f), i-2, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }else {
-                int i = text.indexOf('h');
+                int i = text.indexOf('H');
                 if (i>=0){
                     span.setSpan(new RelativeSizeSpan(2f), 0, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-                i = text.indexOf("min");
+                i = text.indexOf("Min");
                 if (i>=0){
                     span.setSpan(new RelativeSizeSpan(2f), i-2, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
@@ -341,11 +352,22 @@ public class MathUitl {
 
 
     /**
+     * 判断字符串是不是数字
+     * */
+    public static boolean isNumeric(String str){
+        String strPattern = "[0-9]*";
+        if (isEmpty(strPattern)) {
+            return false;
+        } else {
+            return str.matches(strPattern);
+        }
+    }
+    /**
      * 判断邮箱是否合法
      * */
     public static boolean isEmail(String strEmail) {
         String strPattern = "^[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
-        if (TextUtils.isEmpty(strPattern)) {
+        if (isEmpty(strPattern)) {
             return false;
         } else {
             return strEmail.matches(strPattern);
@@ -357,12 +379,37 @@ public class MathUitl {
     }
 
     /**
+     * 英制转公制
+     * */
+    public static int british2Metric(int height){
+        float data = (height / 0.3937008f);
+        return (int)data+(data-(int)data>0.44444?1:0);
+    }
+
+    /**
+     * 英制转公制
+     * */
+    public static int british2MetricWeight(int weight){
+        float data;
+        data = (weight / 2.2046226f);
+        return (int)data+(data-(int)data>0.44444?1:0);
+    }
+
+    /**
      * 公制转英制
      * */
-    public static int [] metric2British(int height,int weight){
-        int data[] = new int[2];
-        data[0] = (int)(height * 0.3937008);
-        data[1] = (int)(weight * 2.2046226);
+    public static int metric2British(int height){
+        int data;
+        data = (int)(height * 0.3937008);
+        return data;
+    }
+
+    /**
+     * 公制转英制
+     * */
+    public static float metric2Miles(int height){
+        float data;
+        data = height * 0.0006214f;
         return data;
     }
 
@@ -381,16 +428,16 @@ public class MathUitl {
 
     public static ArrayList<String> getStepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
-        for (int i = 1;i<=35;i++){
-            list.add(String.format("%d",i*1000));
+        for (int i = 8;i<=40;i++){
+            list.add(String.format(Locale.ENGLISH,"%d",i*500));
         }
         return list;
     }
 
     public static ArrayList<String> getSleepPlanList(){
         ArrayList<String> list  = new ArrayList<>();
-        for (int i = 300;i<=900;i+=30){
-            list.add(String.format("%.1f",(float)i/60));
+        for (int i = 300;i<=720;i+=30){
+            list.add(String.format(Locale.ENGLISH,"%.1f",(float)i/60));
         }
         return list;
     }
@@ -405,12 +452,13 @@ public class MathUitl {
         String data[] = new String[0];
         for (int i = 0;i<steps.size();i++){
             data = steps.get(i).split("\\|");
-            hour[Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))] += Integer.valueOf(data[3]);
+            hour[Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))==24?23:
+                    Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))] += Integer.valueOf(data[3]);
         }
         StringBuffer stepString = new StringBuffer();
         for (int i = 0;i<hour.length;i++){
             if (hour[i]!=0){
-                stepString.append(String.format(",%02d:%d",i,hour[i]));
+                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,hour[i]));
             }
         }
         String step = stepString.toString();
@@ -430,13 +478,14 @@ public class MathUitl {
         for (int i = 0;i<sleeps.size()-1;i++){
             data = sleeps.get(i).split("\\|");
             if (i == 0){//第一条数据，代表睡眠起始时间
-                sleepString.append(DateUtil.getMinue(data[1])+"");//初始化startTime
-                sleepString.append(String.format(",%d:",DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
-                        -DateUtil.getMinue(data[1]))+data[2]);
-            }else {
-                sleepString.append(String.format(",%d:",DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
-                        -DateUtil.getMinue(data[1]))+data[2]);
+                sleepString.append(data[1]);//初始化startTime
             }
+            int time = (DateUtil.getMinue(sleeps.get(i+1).split("\\|")[1])
+                    -DateUtil.getMinue(data[1]));
+            if (time<0)
+                time+=1440;
+            sleepString.append(String.format(Locale.ENGLISH,",%d:",time)+data[2]);
+
         }
         Log.d("SZIP******","详情睡眠数据 = "+"time = "+DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")+"str = "+sleepString.toString());
         return new SleepData(DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd"),0,0,
@@ -453,7 +502,7 @@ public class MathUitl {
         String data[];
         for (int i = 0;i<hearts.size();i++){
             data = hearts.get(i).split("\\|");
-            if (Integer.valueOf(data[1])!=0){
+            if (!Integer.valueOf(data[1]).equals("0")){
                 heart+=Integer.valueOf(data[1]);
                 sum++;
                 heartStr.append(","+data[1]);
@@ -465,70 +514,61 @@ public class MathUitl {
                 heartStr.toString().substring(1));
     }
 
-    private static long stepLast,sleepLast,heartLast,bloodPressureLast,bloodOxygenLast,ecgLast,sportLast;
     /**
      * 把手表的数据换成json格式字符串用于上传到服务器
      * */
     public static String getStringWithJson(SharedPreferences sharedPreferences){
 
-        stepLast = sharedPreferences.getLong("stepLast",0);
-        sleepLast = sharedPreferences.getLong("sleepLast",0);
-        heartLast = sharedPreferences.getLong("heartLast",0);
-        bloodPressureLast = sharedPreferences.getLong("bloodPressureLast",0);
-        bloodOxygenLast = sharedPreferences.getLong("bloodOxygenLast",0);
-        ecgLast = sharedPreferences.getLong("ecgLast",0);
-        sportLast = sharedPreferences.getLong("sportLast",0);
+        long lastTime = sharedPreferences.getLong("lastTime",0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(lastTime*1000);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        long lastTimeForDay = calendar.getTimeInMillis()/1000;
+
+        Log.d("SZIP******","lastTime = "+lastTimeForDay);
 
         List<StepData> stepDataList = SQLite.select()
                 .from(StepData.class)
-                .where(StepData_Table.time.greaterThanOrEq(stepLast))
+                .where(StepData_Table.time.greaterThanOrEq(lastTimeForDay))
                 .queryList();
-        if (stepDataList.size()!=0)
-            stepLast = stepDataList.get(stepDataList.size()-1).time;
 
         List<SleepData> sleepDataList = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.greaterThanOrEq(sleepLast))
+                .where(SleepData_Table.time.greaterThanOrEq(lastTimeForDay))
                 .queryList();
-        if (sleepDataList.size()!=0)
-            sleepLast = sleepDataList.get(sleepDataList.size()-1).time;
 
         List<HeartData> heartDataList = SQLite.select()
                 .from(HeartData.class)
-                .where(HeartData_Table.time.greaterThanOrEq(heartLast))
+                .where(HeartData_Table.time.greaterThanOrEq(lastTimeForDay))
                 .queryList();
-        if (heartDataList.size()!=0)
-            heartLast = heartDataList.get(heartDataList.size()-1).time;
 
         List<BloodPressureData> bloodPressureDataList = SQLite.select()
                 .from(BloodPressureData.class)
-                .where(BloodPressureData_Table.time.greaterThan(bloodPressureLast))
+                .where(BloodPressureData_Table.time.greaterThan(lastTime))
                 .queryList();
-        if (bloodPressureDataList.size()!=0)
-            bloodPressureLast = bloodPressureDataList.get(bloodPressureDataList.size()-1).time;
 
         List<BloodOxygenData> bloodOxygenDataList = SQLite.select()
                 .from(BloodOxygenData.class)
-                .where(BloodOxygenData_Table.time.greaterThan(bloodOxygenLast))
+                .where(BloodOxygenData_Table.time.greaterThan(lastTime))
                 .queryList();
-        if (bloodOxygenDataList.size()!=0)
-            bloodOxygenLast = bloodOxygenDataList.get(bloodOxygenDataList.size()-1).time;
 
         List<EcgData> ecgDataList = SQLite.select()
                 .from(EcgData.class)
-                .where(EcgData_Table.time.greaterThan(ecgLast))
+                .where(EcgData_Table.time.greaterThan(lastTime))
                 .queryList();
-        if (ecgDataList.size()!=0)
-            ecgLast = ecgDataList.get(ecgDataList.size()-1).time;
 
         List<SportData> sportDataList = SQLite.select()
                 .from(SportData.class)
-                .where(SportData_Table.time.greaterThan(sportLast))
+                .where(SportData_Table.time.greaterThan(lastTime))
                 .queryList();
-        if (sportDataList.size()!=0)
-            sportLast = sportDataList.get(sportDataList.size()-1).time;
 
-
+        List<AnimalHeatData> animalHeatDataList = SQLite.select()
+                .from(AnimalHeatData.class)
+                .where(AnimalHeatData_Table.time.greaterThan(lastTime))
+                .queryList();
         JSONArray array = new JSONArray();
         JSONObject data = new JSONObject();
 
@@ -593,6 +633,8 @@ public class MathUitl {
                 object.put("calorie",sportDataList.get(i).calorie);
                 object.put("speed",sportDataList.get(i).speed);
                 object.put("type",sportDataList.get(i).type);
+                object.put("heart",sportDataList.get(i).heart);
+                object.put("stride",sportDataList.get(i).stride);
                 array.put(object);
             }
             data.put("sportDataList",array);
@@ -608,6 +650,15 @@ public class MathUitl {
                 array.put(object);
             }
             data.put("stepDataList",array);
+
+            array = new JSONArray();
+            for (int i = 0;i<animalHeatDataList.size();i++){
+                JSONObject object = new JSONObject();
+                object.put("time",animalHeatDataList.get(i).time);
+                object.put("tempData",animalHeatDataList.get(i).tempData);
+                array.put(object);
+            }
+            data.put("tempDataList",array);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -615,30 +666,46 @@ public class MathUitl {
         return data.toString();
     }
 
+
+    /**
+     * 获取手机唯一标识
+     * */
+    public static String getDeviceId(Context context) {
+        //如果上面都没有， 则生成一个id：随机码
+        String ANDROID_ID = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+        if(!isEmpty(ANDROID_ID)){
+//            Log.d("SZIP******","uuid = "+ANDROID_ID);
+            return ANDROID_ID;
+        }
+        return null;
+    }
+    /**
+     * 得到全局唯一UUID
+     */
+    public static String getUUID(Context context){
+        String uuid = "";
+        SharedPreferences mShare = context.getSharedPreferences(FILE,MODE_PRIVATE);
+        uuid = mShare.getString("uuid", null);
+        if(uuid==null){
+            uuid = UUID.randomUUID().toString();
+            mShare.edit().putString("uuid",uuid).commit();
+        }
+        return uuid;
+    }
+
     public static void saveLastTime(SharedPreferences sharedPreferences){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (stepLast!=0)
-            editor.putLong("stepLast",stepLast);
-        if (sleepLast!=0)
-            editor.putLong("sleepLast",sleepLast);
-        if (heartLast!=0)
-            editor.putLong("heartLast",heartLast);
-        if (bloodPressureLast!=0)
-            editor.putLong("bloodPressureLast",bloodPressureLast);
-        if (bloodOxygenLast!=0)
-            editor.putLong("bloodOxygenLast",bloodOxygenLast);
-        if (ecgLast!=0)
-            editor.putLong("ecgLast",ecgLast);
-        if (sportLast!=0)
-            editor.putLong("sportLast",sportLast);
+        editor.putLong("lastTime",Calendar.getInstance().getTimeInMillis()/1000);
+        Log.d("SZIP******","lastTime = "+Calendar.getInstance().getTimeInMillis()/1000);
         editor.commit();
-
     }
 
     public static SharedPreferences.Editor saveInfoData(Context context, UserInfo info){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE,Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("birthday",info.getBirthday());
+        editor.putString("phoneNumber",info.getPhoneNumber());
+        editor.putString("email",info.getEmail());
         editor.putString("userName",info.getUserName());
         editor.putString("height",info.getHeight());
         editor.putString("weight",info.getWeight());
@@ -646,7 +713,10 @@ public class MathUitl {
         editor.putInt("sex",info.getSex());
         editor.putInt("stepsPlan",info.getStepsPlan());
         editor.putInt("sleepPlan",info.getSleepPlan());
+        editor.putInt("id",info.getId());
         editor.putString("deviceCode",info.getDeviceCode());
+        editor.putString("avatar",info.getAvatar());
+        editor.putString("bindId",info.getBindId());
         return editor;
     }
 
@@ -654,13 +724,66 @@ public class MathUitl {
         UserInfo info = new UserInfo();
         info.setBirthday(sharedPreferences.getString("birthday",""));
         info.setUserName(sharedPreferences.getString("userName","ipt"));
-        info.setHeight(sharedPreferences.getString("height","0"));
-        info.setWeight(sharedPreferences.getString("weight","0"));
+        info.setHeight(sharedPreferences.getString("height",null));
+        info.setWeight(sharedPreferences.getString("weight",null));
         info.setUnit(sharedPreferences.getString("unit","metric"));
         info.setSex(sharedPreferences.getInt("sex",1));
         info.setStepsPlan(sharedPreferences.getInt("stepsPlan",6000));
         info.setSleepPlan(sharedPreferences.getInt("sleepPlan",480));
+        info.setId(sharedPreferences.getInt("id",0));
         info.setDeviceCode(sharedPreferences.getString("deviceCode",null));
+        info.setAvatar(sharedPreferences.getString("avatar",null));
+        info.setPhoneNumber(sharedPreferences.getString("phoneNumber",null));
+        info.setEmail(sharedPreferences.getString("email",null));
+        info.setBindId(sharedPreferences.getString("bindId",null));
         return info;
+    }
+
+    public static int getClockStyle(int num){
+        switch (num){
+            case 2:
+            case 7:
+            case 16:
+            case 21:
+            case 22:
+            case 25:
+            case 26:
+                return 0;
+            default:
+                return 1;
+        }
+    }
+
+    public static boolean isJpgFile(Cursor cursor){
+        String res = null;
+
+        if(cursor.moveToFirst()){;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        Log.d("SZIP******","res = "+res);
+//        if (res.indexOf(".png")>=0||res.indexOf(".PNG")>=0||res.indexOf(".gif")>=0)
+//            return false;
+//        else
+//            return true;
+        try {
+            FileInputStream bin = new FileInputStream(new File(res));
+            int b[] = new int[4];
+            b[0] = bin.read();
+            b[1] = bin.read();
+            bin.skip(bin.available() - 2);
+            b[2] = bin.read();
+            b[3] = bin.read();
+            bin.close();
+            return b[0] == 255;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

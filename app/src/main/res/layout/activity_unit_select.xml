@@ -83,6 +83,15 @@
     </RelativeLayout>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_margin_parallel"
+        android:layout_marginRight="@dimen/item_margin_parallel"
+        android:layout_marginLeft="@dimen/item_margin_parallel"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="@string/tipUnit"/>
 
 
 </LinearLayout>

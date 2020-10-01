@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="27dp"
         android:background="@color/gray1" />
 
     <ImageView
@@ -30,15 +30,6 @@
         android:layout_marginTop="35dp"
         android:padding="5dp"/>
 
-    <ImageView
-        android:id="@+id/image2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/image1"
-        android:layout_marginRight="10dp"
-        android:src="@mipmap/ic_launcher_round"
-        android:visibility="gone"
-        android:layout_marginTop="35dp"/>
 
 
     <TextView

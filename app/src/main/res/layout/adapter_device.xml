@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/itemLl1"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="75dp"
         android:orientation="horizontal">
 
 
@@ -21,7 +21,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/image"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:paddingTop="12dp"
@@ -43,7 +42,7 @@
                     android:id="@+id/deviceAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@color/black1"
                     android:text="ssss"/>
 

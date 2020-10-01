@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name = "app_name"> Ai Paote </string>
+
+    <string name = "logo"> Willkommen bei Ai Paote </string>
+    <string name = "user"> Kontonummer </string>
+    <string name = "phoneOrEmail"> Bitte geben Sie Ihr Telefon / Ihre E-Mail-Adresse </string> ein
+    <string name = "password"> Passwort </string>
+    <string name = "enterPassword"> Bitte geben Sie ein 6-20-stelliges Passwort </string> ein
+    <string name = "confirmPassword"> Bestätigen Sie das Passwort </string>
+    <string name = "enterPasswordAgain"> Bitte geben Sie das Passwort erneut ein </string>
+    <string name = "forget"> <u> Passwort vergessen </u> </string>
+    <string name = "register"> <u> register </u> </string>
+    <string name = "login"> login </string>
+    <string name = "country"> Land / Region </string>
+    <string name = "choseCountry"> Bitte wählen Sie ein Land / eine Region </string> aus
+    <string name = "send"> Bestätigungscode senden </string>
+    <string name = "verification"> Bestätigungscode </string>
+    <string name = "enterVerification"> Bitte geben Sie den Bestätigungscode </string> ein
+    <string name = "newPassword"> neues Passwort </string>
+    <string name = "enterNewPassword"> Bitte geben Sie ein neues Passwort ein </string>
+    <string name = "reset"> Passwort zurücksetzen </string>
+    <string name = "registerTitle"> Registrierung </string>
+    <string name = "next"> Nächster Schritt </string>
+    <string name = "privacy"> stimmt "<u> Benutzervereinbarung und Datenschutzrichtlinie </u>" </string> zu
+    <string name = "privacy1"> Benutzervereinbarung und Datenschutzklausel </string>
+    <string name = "privacy2"> Unser Unternehmen legt großen Wert auf die Privatsphäre der Benutzer und den Schutz persönlicher Daten. Wenn Sie unsere Produkte / Dienstleistungen nutzen, kann unser Unternehmen Ihre relevanten Informationen sammeln und verwenden. Unser Unternehmen hofft, die im Folgenden als "diese Richtlinie" bezeichnete "Datenschutzvereinbarung" verwenden zu können, um Ihnen zu erklären, dass Shenzhen Smart Times Technology Co., Ltd., im Folgenden als "unser Unternehmen" bezeichnet, diese Informationen bei der Nutzung unserer Produkte / Dienstleistungen sammelt, verwendet und speichert . \ n \ nWir hoffen, dass Sie sorgfältig lesen und bestätigen, dass Sie den Inhalt dieser Richtlinie vollständig verstanden haben, bevor Sie unsere Produkte / Dienstleistungen nutzen. \ n \ nWenn unser Unternehmen Ihre persönlichen Daten für andere Zwecke verwenden möchte, die nicht in dieser Richtlinie angegeben sind, oder wenn die für einen bestimmten Zweck gesammelten Informationen für andere Zwecke verwendet werden, werden wir Sie im Voraus über eine Überprüfung informieren Suchen Sie Ihre Zustimmung.
+
+\ n \ nBitte beachten Sie, dass alle persönlichen Daten, die Sie bei der Nutzung unserer Produkte / Dienstleistungen angeben, während Ihrer Nutzung unserer Produkte / Dienstleistungen fortgeführt werden, es sei denn, Sie löschen sie oder lehnen unsere Erfassung über die Systemeinstellungen ab Autorisieren Sie unser Unternehmen zur Verwendung. Wenn Sie Ihr Konto kündigen, wird unser Unternehmen Ihre persönlichen Daten nicht mehr verwenden und löschen.
+
+
+
+\ n \ n \ n \ n1. Der Umfang der persönlichen Daten, zu deren Erfassung Sie unser Unternehmen autorisieren:
+
+\ n \ nPersonalinformationen beziehen sich auf verschiedene Informationen, die elektronisch oder auf andere Weise aufgezeichnet wurden und die eine bestimmte natürliche Person allein oder in Kombination mit anderen Informationen identifizieren oder die Aktivitäten einer bestimmten natürlichen Person widerspiegeln können.
+\ nDie in dieser Richtlinie enthaltenen persönlichen Informationen umfassen: grundlegende Informationen (einschließlich persönlicher Name, Geburtstag, Geschlecht, persönliche Telefonnummer, E-Mail-Adresse), Netzwerkidentifikationsinformationen (einschließlich Systemkonto, IP-Adresse, E-Mail-Adresse), Adressbuch, persönliche Daten Häufig verwendete Geräteinformationen, persönliche Standortinformationen, persönliche Gesundheitsinformationen.
+
+
+
+\ n \ n \ n \ n2. Unser Unternehmen kann die im Rahmen der Erbringung von Dienstleistungen für Sie gesammelten persönlichen Daten für folgende Zwecke verwenden:
+
+\ n \ n (1) Bereitstellung von Dienstleistungen, die dem Produkt gehören;
+
+\ n \ n (2) Wenn unser Unternehmen Dienstleistungen erbringt, werden diese zur Identitätsprüfung, zum Kundendienst, zur Sicherheitsprävention, zur Betrugsüberwachung, zur Archivierung und zur Sicherung verwendet, um die Sicherheit unserer für Sie bereitgestellten Produkte und Dienstleistungen zu gewährleisten.
+
+\ n \ n (3) Helfen Sie unserem Unternehmen, neue Services zu entwickeln und unseren aktuellen Servicestatus zu verbessern.
+
+\ n \ n (4) Informieren Sie unser Unternehmen darüber, wie Sie auf unsere Dienste zugreifen und diese nutzen, um auf Ihre persönlichen Bedürfnisse wie Spracheinstellungen, Standorteinstellungen, personalisierte Hilfe und Anweisungen zu reagieren. Oder geben Sie andere Antworten auf Sie und andere Benutzer.
+
+\ n \ n (5) Software-Zertifizierung oder Upgrade der Verwaltungssoftware;
+
+\ n \ n (6) Sie können an Umfragen zu unseren Produkten und Dienstleistungen teilnehmen.
+
+\ n \ nUm Ihnen eine bessere Erfahrung zu ermöglichen, unsere Dienste oder andere von Ihnen vereinbarte Zwecke zu verbessern und vorbehaltlich einschlägiger Gesetze und Vorschriften, kann unser Unternehmen Informationen sammeln, die über einen bestimmten Dienst gesammelt wurden, um sie zusammenzufassen Informationen oder personalisierte Methoden für andere Dienstleistungen unseres Unternehmens. Beispielsweise können die Informationen, die bei der Nutzung eines unserer Dienste gesammelt werden, in einem anderen Dienst verwendet werden, um Ihnen bestimmte Inhalte bereitzustellen oder um Ihnen relevante, nicht universell übertragene Informationen anzuzeigen. Wenn unser Unternehmen entsprechende Optionen für verwandte Dienstleistungen anbietet, können Sie unser Unternehmen auch autorisieren, die vom Dienst bereitgestellten und gespeicherten Informationen für andere Dienstleistungen unseres Unternehmens zu verwenden.
+
+
+
+\ n \ n \ n \ n3. Unser Unternehmen gibt Ihre persönlichen Daten nur in den folgenden Fällen an andere Unternehmen, Organisationen oder Personen als unser Unternehmen weiter:
+
+\ n \ n (1) Holen Sie Ihre ausdrückliche Zustimmung und Genehmigung im Voraus ein;
+
+\ n \ n (2) Bereitstellung in Übereinstimmung mit den geltenden Gesetzen und Vorschriften, rechtlichen Verfahren, obligatorischen administrativen oder gerichtlichen Anforderungen;
+
+\ n \ n (3) Im gesetzlich zulässigen Rahmen ist es erforderlich, unser Unternehmen, unsere verbundenen Unternehmen oder Partner, das öffentliche Interesse, Eigentum oder die Sicherheit vor Beschädigung zu schützen.
+
+\ n \ n (4) Nur durch die Weitergabe Ihrer Informationen können wir die Kernfunktionen unserer Produkte / Dienstleistungen realisieren oder die von Ihnen benötigten Dienstleistungen erbringen.
+
+\ n \ n (5) Behandlung von Streitigkeiten oder Streitigkeiten zwischen Ihnen und anderen gemäß Ihren Bedürfnissen;
+
+\ n \ n (6) Wird gemäß der mit Ihnen unterzeichneten Vereinbarung oder anderen rechtlichen Dokumenten bereitgestellt.
+
+\ n \ n (7) Es wird aufgrund des öffentlichen Interesses an der Einhaltung von Gesetzen und Vorschriften verwendet.
+
+
+
+\ n \ n \ n \ n4. So schützen und speichern Sie Ihre persönlichen Daten gemeinsam
+
+\ n \ n (1) Unser Unternehmen legt großen Wert auf die Sicherheit persönlicher Daten und ergreift alle angemessenen und praktikablen technischen Maßnahmen zur Datensicherheit, um Ihre persönlichen Daten zu schützen.
+
+\ n \ n (2) Die Internetumgebung ist nicht 100% sicher. Unser Unternehmen wird unser Bestes geben, um die Sicherheit aller Informationen zu gewährleisten, die Sie an unser Unternehmen senden. Wenn die physischen, technischen oder Managementschutzeinrichtungen unseres Unternehmens beschädigt werden, was zu unbefugtem Zugriff, Offenlegung, Manipulation oder Zerstörung von Informationen führt und Ihre gesetzlichen Rechte schädigt, trägt unser Unternehmen die entsprechende rechtliche Verantwortung.
+
+\ n \ n (3) Wenn Sie Fragen zum Schutz personenbezogener Daten unseres Unternehmens haben, können Sie sich über die Kontaktinformationen auf unserer offiziellen Website an unser Unternehmen wenden. Wenn Sie feststellen, dass Ihre persönlichen Daten durchgesickert sind, insbesondere wenn Ihre persönlichen Daten durchgesickert sind, setzen Sie sich bitte umgehend mit uns in Verbindung, damit wir entsprechende Maßnahmen ergreifen können.
+
+
+
+\ n \ n \ n \ nV. Minderjährige nutzen unsere Dienste
+\ nUnsere Firma ermutigt Eltern oder Erziehungsberechtigte zu wissen, dass Minderjährige unter 18 Jahren unsere Produkte verwenden. Unser Unternehmen empfiehlt Minderjährigen, ihre Eltern oder Erziehungsberechtigten zu ermutigen, diese Richtlinie zu lesen, und Minderjährigen zu empfehlen, die Zustimmung und Anleitung ihrer Eltern oder Erziehungsberechtigten einzuholen, bevor sie personenbezogene Daten übermitteln.
+
+
+
+\ n \ n \ n \ nSix, der Umfang der Datenschutzrichtlinie
+
+\ n \ n (1) Mit Ausnahme bestimmter spezifischer Dienste gelten alle unsere Dienste für diese Richtlinie. Diese spezifischen Dienste verwenden spezifische Datenschutzrichtlinien. Spezifische Datenschutzrichtlinien für bestimmte spezifische Dienste erläutern ausführlicher, wie unser Unternehmen Ihre Informationen in solchen Diensten verwendet. Die Datenschutzrichtlinie dieses bestimmten Dienstes ist Teil dieser Richtlinie. Wenn die Datenschutzrichtlinie eines bestimmten Dienstes nicht mit dieser Richtlinie übereinstimmt, hat die Datenschutzrichtlinie des jeweiligen Dienstes Vorrang.
+
+\ n \ n (2) Bitte beachten Sie, dass diese Richtlinie nicht für die folgenden Situationen gilt:
+
+\ n \ n1) Informationen, die von Diensten Dritter (einschließlich aller Websites Dritter) gesammelt werden, auf die über unsere Dienste zugegriffen wird;
+
+\ n \ n2) Informationen, die von anderen Unternehmen oder Organisationen gesammelt wurden, die Werbedienstleistungen für unsere Dienstleistungen erbringen;
+
+\ n \ n3) Wenn Sie ein Apple-Gerät wie ein iPhone oder ein iPad verwenden, um Ihre Trainingsdaten mit Ihrer Genehmigung zu berechnen, wird unser Unternehmen Ihre Trainingsdaten empfangen und an das Apple Healthkit senden. Unser Unternehmen liest Ihre Daten zu Größe, Gewicht und Geschlecht aus dem Healthkit. Gleichzeitig werden die von Ihrer App generierten Daten zu Schritten, Geh- und Laufstrecke, Aktivitätsenergie, Fahrradentfernung und Schlafanalyse in das Healthkit von Apple geschrieben . Über Healthkit erhaltene Daten werden nicht an Drittunternehmen weitergegeben oder verkauft, und unser Unternehmen verwendet die von Healthkit erhaltenen Informationen nicht für kommerzielle Zwecke wie Werbung und Marketing.
+
+
+
+\ n \ n \ n \ nSeven, ändern
+
+\ n \ nUnser Unternehmen kann die Bestimmungen dieser Richtlinie sofort überarbeiten. Diese Änderungen sind Teil dieser Richtlinie. Wenn solche Änderungen zu einer erheblichen Einschränkung Ihrer Rechte aus dieser Richtlinie führen, wird unser Unternehmen Sie über eine prominente Position auf der Homepage benachrichtigen oder Ihnen eine E-Mail oder andere Mittel senden, bevor die Änderung wirksam wird. In diesem Fall erklären Sie sich mit dieser überarbeiteten Richtlinie einverstanden, wenn Sie unsere Dienste weiterhin nutzen. </string>
+    <string name = "checkPrivacy"> stimmte der "Benutzervereinbarung und Datenschutzrichtlinie" </string> nicht zu
+    <string name = "setPassword"> set password </string>
+    <string name = "china"> China </string>
+    <string name = "vistor"> Besucheranmeldung </string>
+
+
+    <string name = "healthy"> Gesundheit </string>
+    <string name = "sport"> sports </string>
+    <string name = "mine"> Mein </string>
+    <string name = "touchAgain"> erneut drücken, um das Programm zu beenden </string>
+
+
+    <string name = "planStep"> Zielanzahl der Schritte% d </string>
+    <string name = "sleep"> sleep </string>
+    <string name = "heart"> Herzfrequenz </string>
+    <string name = "blood"> Blutdruck </string>
+    <string name = "bloodo"> Blutsauerstoff </string>
+    <string name = "animal"> Körpertemperatur </string>
+    <string name = "ecg"> EKG </string>
+    <string name = "check"> Ansicht </string>
+    <string name = "perfect"> ausgezeichnet </string>
+    <string name = "good"> good </string>
+    <string name = "bad"> Unterschied </string>
+    <string name = "quick"> zu schnell </string>
+    <string name = "normal"> normal </string>
+    <string name = "hot"> Fieber </string>
+    <string name = "slow"> zu langsam </string>
+    <string name = "higher"> hohe Seite </string>
+    <string name = "flat"> low </string>
+    <string name = "head"> Dies ist HeadView </string>
+    <string name = "pull_to_refresh"> Zum Aktualisieren nach unten ziehen </string>
+    <string name = "release_to_refresh"> sofort aktualisieren </string>
+    <string name = "refreshing"> wird aktualisiert ... </string>
+    <string name = "refresh_succeed"> erfolgreich aktualisieren </string>
+    <string name = "refresh_fail"> Aktualisierung fehlgeschlagen </string>
+    <string name = "pullup_to_load"> hochziehen, um mehr zu laden </string>
+    <string name = "release_to_load"> sofort freigeben </string>
+    <string name = "load_succeed"> erfolgreich geladen </string>
+    <string name = "load_fail"> Ladefehler </string>
+
+
+    <string name = "best"> Bester Rekord für das Laufen im Freien </string>
+    <string name = "history"> Verlauf der Sportaufzeichnungen </string>
+    <string name = "track"> Sportdetails </string>
+    <string name = "notrack"> keine Bewegungsspur </string>
+    <string name = "speed"> Tempo </string>
+    <string name = "kcal"> Verbrauch (kcal) </string>
+    <string name = "time"> Dauer </string>
+    <string name = "heart_rate"> Herzfrequenz (Bpm) </string>
+    <string name = "stride"> Schrittfrequenz (Schritte / s) </string>
+    <string name = "distance"> Kilometerstand (</string>
+    <string name = "speedData"> durchschnittliches Tempo </string>
+    <string name = "kcalData"> Sportkonsum </string>
+    <string name = "timeData"> Übungsdauer </string>
+    <string name = "heart_rateData"> durchschnittliche Herzfrequenz </string>
+    <string name = "strideData"> durchschnittliche Schrittfrequenz </string>
+    <string name = "distanceData"> Kilometerstand </string>
+    <string name = "basket"> Basketball </string>
+    <string name = "football"> Fußball </string>
+    <string name = "pingpong"> Tischtennis </string>
+    <string name = "mountain"> Bergsteigen </string>
+    <string name = "bike"> fahren </string>
+    <string name = "run"> wird ausgeführt </string>
+    <string name = "walk"> zu Fuß </string>
+    <string name = "treadmill"> Laufband </string>
+    <string name = "runWithout"> Laufen im Freien </string>
+    <string name = "marathon"> Marathon </string>
+    <string name = "sufing"> surfen </string>
+    <string name = "shudu"> Geschwindigkeit </string>
+    <string name = "averageShudu"> Durchschnittsgeschwindigkeit </string>
+    <string name = "boat"> Bootfahren </string>
+    <string name = "altitude"> Höhe </string>
+    <string name = "avarageAltitude"> durchschnittliche Höhe </string>
+    <string name = "climb"> Klettern </string>
+    <string name = "skii"> Skifahren </string>
+    <string name = "golf"> Golf </string>
+
+    <string name = "device"> Ausrüstung </string>
+    <string name = "stepPlan"> Schrittzählziel </string>
+    <string name = "sleepPlan"> Schlafziel </string>
+    <string name = "find"> auf der Suche nach einer Uhr </string>
+    <string name = "notification"> Anwendungsbenachrichtigung </string>
+    <string name = "blePhone"> Bluetooth-Anruf </string>
+    <string name = "blePhoto"> Bluetooth-Kamera </string>
+    <string name = "unit"> Einheitensystem </string>
+    <string name = "face"> Schalter wählen </string>
+    <string name = "myDail"> Mein Zifferblatt </string>
+    <string name = "seeDail"> Vorschau wählen </string>
+    <string name = "diyDail"> benutzerdefiniert </string>
+    <string name = "diyDailing"> Als Ersatz ... </string>
+    <string name = "diyDailOK"> erfolgreicher Austausch </string>
+    <string name = "diyDailError"> Ersatz fehlgeschlagen, bitte versuchen Sie es erneut </string>
+    <string name = "upDownBackground"> ​​Bitte laden Sie ein Hintergrundbild </string> hoch
+    <string name = "chooseClock"> Bitte wählen Sie einen Uhrstil </string>
+    <string name = "clock"> Uhrstil </string>
+    <string name = "background"> ​​Hintergrund hochladen </string>
+    <string name = "about"> Über </string>
+    <string name = "logout"> abmelden </string>
+    <string name = "me"> Mein </string>
+    <string name = "set"> set </string>
+    <string name = "other"> other </string>
+    <string name = "cancel"> Abbrechen </string>
+    <string name = "confirm"> OK </string>
+    <string name = "tip"> Eingabeaufforderung </string>
+    <string name = "delete"> Möchten Sie diese Übungsdaten wirklich löschen? </string>
+    <string name = "unbind"> Möchten Sie wirklich die Bindung aufheben? </string>
+    <string name = "logoutTip"> Möchten Sie sich wirklich abmelden? </string>
+    <string name = "sendOK"> erfolgreich gesendet </string>
+    <string name = "searchDevice"> Suchgerät </string>
+    <string name = "noDevice"> Das Gerät wurde nicht gefunden </string>
+    <string name = "connected"> wurde verbunden </string>
+    <string name = "disConnect"> nicht verbunden </string>
+    <string name = "connectting"> verbindet </string>
+    <string name = "connect"> Das Gerät stellt eine Verbindung her. Bitte versuchen Sie es später erneut. </string>
+    <string name = "syceError"> Die Uhr ist nicht verbunden und die Daten werden mit der Uhr synchronisiert, wenn sie das nächste Mal verbunden wird </string>
+    <string name = "unBind"> Gerät wechseln </string>
+    <string name = "unline"> trennen </string>
+    <string name = "line"> Stellen Sie eine Verbindung zur Uhr her </string>
+    <string name = "addDevice"> Gerät hinzufügen </string>
+    <string name = "unbindSoon"> Bitte lösen Sie zuerst das Gerät </string>
+    <string name = "lineError"> Die Verbindung konnte mehrmals nicht hergestellt werden. Schalten Sie das Bluetooth des Telefons aus und wieder ein oder starten Sie die Uhr </string> neu
+    <string name = "tipUnit"> Hinweis: Die Größe und das Gewicht werden nach dem Umschalten des Einheitensystems zurückgesetzt. </string>
+
+
+
+    <string name = "step1"> 1. Bluetooth-Kopplung zwischen Uhr und Mobiltelefon </string>
+    <string name = "step2"> 2. Heben Sie die übereinstimmende Beziehung </string> auf
+    <string name = "str1"> 1) Geben Sie die Bluetooth-Funktion in die Uhr ein \ n2) Suchen Sie nach Bluetooth-Geräten - wählen Sie den Bluetooth-Namen des Telefons aus \ n3) Nach dem Koppeln mit dem Telefon können Sie mit der Uhr Bluetooth-Anrufe tätigen. </string>
+    <string name = "str2"> 1) Geben Sie die Systemeinstellungen ein - Bluetooth-gekoppelte Geräte \ n2) Suchen Sie das Gerät, geben Sie es ein und klicken Sie auf "Entkoppeln", um die Kopplung aufzuheben. \ n \ nHinweis: Die Uhr kann die Bluetooth-Anruffunktion nach dem Entkoppeln nicht verwenden. </string>
+
+
+    <string name = "version"> aktuelle Version </string>
+    <string name = "feedback"> Feedback </string>
+    <string name = "feedback_hint"> Ihr Feedback / Ihre Frage </string>
+    <string name = "tooLong"> Der eingegebene Text ist zu lang </string>
+    <string name = "empty"> Kommentare dürfen nicht leer sein </string>
+    <string name = "send_success"> erfolgreich übermittelt </string>
+
+
+    <string name="measureUnit"> Maßeinheit </string>
+    <string name = "metric"> Metriksystem </string>
+    <string name = "british"> Britisches System </string>
+
+
+    <string name = "stepReport"> Schrittbericht </string>
+    <string name = "sleepReport"> Schlafbericht </string>
+    <string name = "heartReport"> Herzfrequenzbericht </string>
+    <string name = "bloodPressureReport"> Blutdruckbericht </string>
+    <string name = "bloodOxygenReport"> Blutsauerstoffbericht </string>
+    <string name = "animalHeatReport"> Körpertemperaturbericht </string>
+    <string name = "ecgReport"> EKG-Bericht </string>
+    <string name = "day"> Tag </string>
+    <string name = "week"> week </string>
+    <string name = "sun"> Sonntag </string>
+    <string name = "mon"> Montag </string>
+    <string name = "tues"> Dienstag </string>
+    <string name = "wed"> Mittwoch </string>
+    <string name = "thus"> Donnerstag </string>
+    <string name = "fri"> Freitag </string>
+    <string name = "sta"> Samstag </string>
+    <string name = "today"> heute </string>
+    <string name = "month"> month </string>
+    <string name = "year"> year </string>
+    <string name = "allStep"> Gesamtzahl der Schritte </string>
+    <string name = "averageStep"> durchschnittliche Anzahl von Schritten </string>
+    <string name = "allSleep"> Gesamtschlafzeit </string>
+    <string name = "averageSleep"> durchschnittliche Schlafzeit </string>
+    <string name = "light"> leichter Schlaf </string>
+    <string name = "deep"> Tiefschlaf </string>
+    <string name = "lightTable"> flach </string>
+    <string name = "deepTable"> deep </string>
+    <string name = "averageHeart"> durchschnittliche Herzfrequenz </string>
+    <string name = "minHeart"> minimale Herzfrequenz </string>
+    <string name = "maxHeart"> maximale Herzfrequenz </string>
+    <string name = "averageSBP"> durchschnittlicher systolischer Blutdruck </string>
+    <string name = "sbp"> systolischer Blutdruck </string>
+    <string name = "averageDBP"> durchschnittlicher diastolischer Blutdruck </string>
+    <string name = "dbp"> diastolischer Blutdruck </string>
+    <string name = "averageSao"> durchschnittlicher Blutsauerstoff </string>
+    <string name = "averageTemp"> Durchschnittstemperatur </string>
+    <string name = "maxTemp"> maximale Temperatur </string>
+    <string name = "passRate"> Konformitätsrate </string>
+    <string name = "ecgTip"> Der Test dient nur als Referenz und kann nicht als medizinisches Diagnosezertifikat </string> verwendet werden
+    <string name = "noData"> Kein Bericht </string>
+    <string name = "tomorrow"> Die Zukunft ist noch nicht gekommen </string>
+
+
+
+
+    <string name = "userInfo"> Benutzerinformationen </string>
+    <string name = "picture"> Avatar </string>
+    <string name = "userName"> Spitzname </string>
+    <string name = "enterUserName"> Bitte geben Sie Ihren Spitznamen </string> ein
+    <string name = "nameLong"> Der Spitzname darf 12 Zeichen nicht überschreiten. </string>
+    <string name = "sex"> gender </string>
+    <string name = "male"> Männlich </string>
+    <string name = "female"> weiblich </string>
+    <string name = "height"> height </string>
+    <string name = "weight"> weight </string>
+    <string name = "birthday"> Geburtstag </string>
+    <string name = "album"> album </string>
+    <string name = "camera"> Bilder aufnehmen </string>
+
+
+
+
+    <string name = "tokenTimeOut"> Anmeldung abgelaufen, bitte erneut anmelden </string>
+    <string name = "enterRightEmail"> Bitte geben Sie das richtige Postfachformat </string> ein
+    <string name = "httpError"> Die Netzwerkantwort ist abgelaufen. Überprüfen Sie den Netzwerkverbindungsstatus </string>
+    <string name = "logging"> Anmelden ... </string>
+    <string name = "waitting"> Bitte warten Sie ... </string>
+    <string name = "resetSuccess"> Setzen Sie das Passwort erfolgreich zurück </string>
+    <string name = "passwordUnSame"> Zwei Eingabekennwörter sind inkonsistent </string>
+    <string name = "saved"> erfolgreich gespeichert </string>
+    <string name = "notificationlistener_prompt_title"> Benachrichtigung aktivieren </string>
+    <string name = "notificationlistener_prompt_content"> Aiprint muss Anwendungsbenachrichtigungen an Remote-Smart-Geräte weiterleiten. Drücken Sie "OK", um die zu aktivierende Benachrichtigungsseite aufzurufen. </string>
+    <string name = "tokenTimeout"> Anmeldung abgelaufen, bitte erneut anmelden </string>
+    <string name = "lostDevice"> Das Gerät ist nicht verbunden </string>
+    <string name = "permissionErrorForCamare"> Berechtigung fehlgeschlagen, Kamerafunktion </string> konnte nicht geöffnet werden
+    <string name = "findPermission"> Wenn die Berechtigung nicht übergeben wird, wird die Geräteliste nicht durchsucht. </string>
+    <string name = "applyPermission"> Berechtigung beantragen </string>
+    <string name = "shareFailForPermission"> Freigabe fehlgeschlagen, verwandte Berechtigungen fehlgeschlagen </string>
+    <string name = "permissionErrorForSMS"> Berechtigung fehlgeschlagen, SMS-Benachrichtigungsfunktion </string> konnte nicht geöffnet werden
+    <string name = "loading"> Laden ... </string>
+    <string name = "privacyTip"> Bevor Sie unsere Produkte verwenden, lesen Sie bitte die relevanten Datenschutzvereinbarungen für Benutzer sorgfältig durch und verstehen Sie sie vollständig. \ nWenn Sie auf "OK" klicken, bedeutet dies, dass Sie den Bedingungen der Vereinbarung zugestimmt haben. \ nDie Datenschutzrichtlinie für Benutzer umfasst hauptsächlich den folgenden Inhalt: \ n1. Erfassung, Speicherung und Weitergabe persönlicher Informationen (Avatar, Spitzname, Größe, Gewicht, Trainingsdaten usw.). \ n2. Verwendung von Geräteberechtigungen (Standort, Adressbuch, Kamera usw.) </string>
+    <string name = "crop_pic_failed"> konnte das Bild nicht abfangen, bitte wählen Sie das Bild im JPG-Format aus! </string>
+    <string name = "deviceOut"> ungebundenes Gerät </string>
+    <string name = "visiter"> Der Touristenmodus unterstützt diese Funktion nicht </string>
+    <string name = "chooseJpg"> Bitte wählen Sie Bilder im JPG-Format </string>
+
+    <string name = "planOK"> Das heutige Ziel wurde erreicht </string>
+    <string name = "planNO"> Das heutige Ziel wird nicht erreicht </string>
+    <string name = "planStepShare"> Zielschritte:% dsteps </string>
+    <string name = "distanceShare"> zu Fuß erreichbar:% .1fKm </string>
+    <string name = "calurieShare"> Kalorienverbrauch:% .1fKcal </string>
+
+    <string name = "planSleep"> Zieldauer:% .1fh </string>
+    <string name = "deepSleepShare"> Tiefschlafdauer:% 02dh% 02dmin </string>
+    <string name = "lightSleepShare"> Leichte Schlafdauer:% 02dh% 02dmin </string>
+
+    <string name = "testTimes"> Die heutige Messnummer:% d </string>
+    <string name = "maxHeartShare"> Maximale Herzfrequenz:% dbpm </string>
+    <string name = "minHeartShare"> Mindestherzfrequenz:% dbpm </string>
+
+    <string name = "bloodOxygenData"> Blutsauerstoffsättigung </string>
+    <string name = "testValue"> Testergebnisse: </string>
+    <string name = "passTimeData"> Erfolgsrate:% .1f %% </string>
+
+    <string name = "bloodPressureData"> durchschnittlicher systolischer / diastolischer Blutdruck </string>
+    <string name = "shareSuccess"> erfolgreich freigegeben </string>
+    <string name = "shareCancel"> Freigabe abbrechen </string>
+    <string name = "shareFail"> Freigabe fehlgeschlagen </string>
+
+    <!-- Scannen und verbinden -->
+    <string name="connect_error">Verbindungsfehler</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Anwendung laden fehlgeschlagen</string>
+
+    <!-- Aktivität einstellen -->
+    <string name="sms_preference_title">SMS-Dienst</string>
+    <string name="call_preference_title">Rufen Sie den Service an</string>
+    <string name="progress_dialog_title">Wird geladen</string>
+    <string name="progress_dialog_message">Warten Sie mal&#8230;</string>
+
+    <!-- Wählen Sie Aktivität benachrichtigen -->
+    <string name="personal_apps_title">Persönliche App</string>
+    <string name="system_apps_title">System App</string>
+
+
+    <!-- Bedienung -->
+    <string name="missed_call">Verpasster Anruf</string>
+    <string name="accessibility_description">Aktiver Benachrichtigungsdienst in Ihrer Eingabehilfeneinstellung. Dadurch kann die BT-Benachrichtigung die Anwendungsbenachrichtigung an das Remote-Gerät senden.</string>
+    <string name="batterylow">Batterie schwach</string>
+    <string name="pleaseconnectcharger">Der Akku wird schwach. Bitte schließen Sie das Ladegerät an</string>
+
+    <string name="operate_error">Gescheitert</string>
+
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

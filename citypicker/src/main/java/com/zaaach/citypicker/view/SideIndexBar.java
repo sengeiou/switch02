@@ -97,7 +97,7 @@ public class SideIndexBar extends View{
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = getWidth();
         mHeight = Math.max(h, oldh);
-        mItemHeight = mHeight / mIndexItems.size();
+        mItemHeight = mHeight/ mIndexItems.size();
         mTopMargin = (mHeight - mItemHeight * mIndexItems.size()) / 2;
     }
 

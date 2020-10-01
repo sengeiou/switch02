@@ -1,524 +1,695 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:layout_height="27dp"
+        android:background="#0366e3"/>
 
-        <LinearLayout
+
+    <com.szip.sportwatch.View.PullToRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+
+        <com.szip.sportwatch.View.PullableScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@mipmap/health_steps_bg">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            >
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/healthy_margin_parallel"
-                android:layout_marginRight="@dimen/healthy_margin_parallel"
-                android:layout_marginTop="30dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white">
 
-                <ImageView
-                    android:id="@+id/pictureIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/cp_icon_empty"/>
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/whetherIv"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:src="@mipmap/cp_icon_empty"/>-->
-
-            </RelativeLayout>
-
-            <!--步数目标控件-->
-            <RelativeLayout
-                android:id="@+id/stepRl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/healthy_margin_parallel"
-                android:layout_marginLeft="@dimen/healthy_margin_parallel">
-
-                <com.szip.sportwatch.View.ColorArcProgressBar
-                    android:id="@+id/stepPb"
-                    android:layout_width="257dp"
-                    android:layout_height="257dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    app:is_need_dial="true"
-                    app:degree_color="@color/white"
-                    app:bg_arc_color="@color/stepBarBg"
-                    app:bg_arc_width="8dp"
-                    app:front_color1="@color/white"
-                    app:front_width="8dp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:background="@mipmap/health_steps_bg">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                        android:layout_marginRight="@dimen/healthy_margin_parallel"
+                        android:layout_marginTop="13dp">
+
+                        <com.szip.sportwatch.View.CircularImageView
+                            android:id="@+id/pictureIv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@mipmap/my_head_male_36"
+                            app:is_circular="true"/>
+
+                        <LinearLayout
+                            android:id="@+id/weatherLl"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="5dp">
+
+                                <TextView
+                                    android:id="@+id/tempTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="17sp"
+                                    android:layout_gravity="right"/>
+
+                                <TextView
+                                    android:id="@+id/conditionTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:layout_marginTop="2dp"
+                                    android:ellipsize="marquee"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    android:singleLine="true"
+                                    android:layout_gravity="left"/>
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/weatherIv"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@mipmap/weather_duoyun"/>
+
+                        </LinearLayout>
+
+
+
+
+
+                    </RelativeLayout>
+
+                    <!--步数目标控件-->
+                    <RelativeLayout
+                        android:id="@+id/stepRl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/healthy_margin_parallel"
+                        android:layout_marginLeft="@dimen/healthy_margin_parallel">
+
+                        <com.szip.sportwatch.View.ColorArcProgressBar
+                            android:id="@+id/stepPb"
+                            android:layout_width="257dp"
+                            android:layout_height="257dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            app:is_need_dial="true"
+                            app:degree_color="@color/white"
+                            app:bg_arc_color="@color/stepBarBg"
+                            app:bg_arc_width="8dp"
+                            app:front_color1="@color/white"
+                            app:front_width="8dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/health_icon_steps"/>
+
+                            <TextView
+                                android:id="@+id/stepRadioTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sport_text_size_big"
+                                android:text="0%"
+                                android:textStyle="bold"/>
+
+
+                            <TextView
+                                android:id="@+id/planStepTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:text="@string/planStep"
+                                android:textSize="@dimen/healthy_text_size"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="@dimen/healthy_margin_parallel"
+                        android:layout_marginLeft="@dimen/healthy_margin_parallel">
+
+                        <LinearLayout
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/stepTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:text="0"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:text="Steps"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/dataTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:text="0"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+
+                            <TextView
+                                android:id="@+id/unitTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:text="Km"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:id="@+id/kcalTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:text="0"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:text="Kcal"
+                                android:textSize="@dimen/healthy_text_size"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/sleepRl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
 
                     <ImageView
+                        android:id="@+id/image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/health_icon_steps"/>
+                        android:src="@mipmap/health_icon_health"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sleep"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/sleepDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="-h/8h"/>
+
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/sleepPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:color1="#006DEF"
+                            app:color2="#2294FC"
+                            app:is_average="false"
+                            app:bg_width="10dp" />
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/stepRadioTv"
+                        android:id="@+id/sleepStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sport_text_size_big"
-                        android:text="0%"
-                        android:textStyle="bold"/>
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
+                </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/planStepTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="@string/planStep"
-                        android:textSize="@dimen/healthy_text_size"/>
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
 
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="@dimen/healthy_margin_parallel"
-                android:layout_marginLeft="@dimen/healthy_margin_parallel">
-
-                <LinearLayout
-                    android:layout_width="1dp"
+                <RelativeLayout
+                    android:id="@+id/heartRl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/stepTv"
+
+
+                    <ImageView
+                        android:id="@+id/image1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="0"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:src="@mipmap/health_icon_hr"/>
 
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/heart"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/heartDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--Bpm"/>
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/heartPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color1"
+                            app:color2="@color/color2"
+                            app:color3="@color/color3"/>
+
+                    </LinearLayout>
 
                     <TextView
+                        android:id="@+id/heartStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Steps"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="1dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
+
+                <RelativeLayout
+                    android:id="@+id/bloodPressureRl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/distanceTv"
+                    <ImageView
+                        android:id="@+id/image2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="0"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:src="@mipmap/health_icon_bp"/>
 
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image2">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/blood"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/bloodDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--/--mmHg"/>
+
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/sbpPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color1"
+                            app:color2="@color/color2"
+                            app:color3="@color/color3"/>
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/dbpPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color1"
+                            app:color2="@color/color2"
+                            app:color3="@color/color3"/>
+
+                    </LinearLayout>
 
                     <TextView
+                        android:id="@+id/bloodStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Km"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="1dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
+
+                <RelativeLayout
+                    android:id="@+id/bloodOxygenRl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="end">
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/kcalTv"
+                    <ImageView
+                        android:id="@+id/image3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="0"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:src="@mipmap/health_icon_sao2"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image3">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bloodo"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/bloodODataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--%"/>
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/bloodOxygenPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color1"
+                            app:color2="@color/color2"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/bloodOStateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/animalHeatRl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/health_icon_tw"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image5">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/animal"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/animalHeatDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--"/>
+
+                        <com.szip.sportwatch.View.HealthyProgressView
+                            android:id="@+id/animalHeatPv"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/healthy_margin_each_model"
+                            app:bg_color="@color/grayBar"
+                            app:bg_width="10dp"
+                            app:color1="@color/color2"
+                            app:color2="@color/color3"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/animalHeatStateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"/>
+
+                <RelativeLayout
+                    android:id="@+id/ecgRl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/healthy_margin_parallel"
+                    android:layout_marginRight="@dimen/healthy_margin_parallel"
+                    android:paddingTop="@dimen/healthy_pad_vertical"
+                    android:paddingBottom="@dimen/healthy_pad_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/health_icon_ecg"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/healthy_margin_each_model"
+                        android:layout_toRightOf="@id/image4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ecg"
+                            android:textSize="@dimen/healthy_text_size"
+                            android:textColor="@color/rayblue"/>
+
+                        <TextView
+                            android:id="@+id/ecgDataTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/healthy_data_text_size"
+                            android:layout_marginTop="5dp"
+                            android:text="--Bpm"/>
+
+
+                    </LinearLayout>
 
 
                     <TextView
+                        android:id="@+id/ecgStateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/check"
                         android:textColor="@color/white"
-                        android:text="Kcal"
-                        android:textSize="@dimen/healthy_text_size"/>
+                        android:background="@drawable/bg_button_corner"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="14sp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
+        </com.szip.sportwatch.View.PullableScrollView>
 
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/sleepRl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"
-            android:paddingTop="@dimen/healthy_pad_vertical"
-            android:paddingBottom="@dimen/healthy_pad_vertical"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/health_icon_health"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/healthy_margin_each_model"
-                android:layout_toRightOf="@id/image">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sleep"
-                    android:textSize="@dimen/healthy_text_size"
-                    android:textColor="@color/rayblue"/>
-
-                <TextView
-                    android:id="@+id/sleepDataTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/healthy_data_text_size"
-                    android:layout_marginTop="5dp"
-                    android:text="-h/8h"/>
-
-
-                <com.szip.sportwatch.View.HealthyProgressView
-                    android:id="@+id/sleepPv"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/healthy_margin_each_model"
-                    app:bg_color="@color/grayBar"
-                    app:color1="#006DEF"
-                    app:color2="#2294FC"
-                    app:is_average="false"
-                    app:bg_width="10dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/sleepStateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="-"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-             />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/lineColor"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"/>
-
-
-        <RelativeLayout
-            android:id="@+id/heartRl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"
-            android:paddingTop="@dimen/healthy_pad_vertical"
-            android:paddingBottom="@dimen/healthy_pad_vertical"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/health_icon_hr"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/healthy_margin_each_model"
-                android:layout_toRightOf="@id/image1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/heart"
-                    android:textSize="@dimen/healthy_text_size"
-                    android:textColor="@color/rayblue"/>
-
-                <TextView
-                    android:id="@+id/heartDataTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/healthy_data_text_size"
-                    android:layout_marginTop="5dp"
-                    android:text="--Bpm"/>
-
-                <com.szip.sportwatch.View.HealthyProgressView
-                    android:id="@+id/heartPv"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/healthy_margin_each_model"
-                    app:bg_color="@color/grayBar"
-                    app:bg_width="10dp"
-                    app:color1="@color/color1"
-                    app:color2="@color/color2"
-                    app:color3="@color/color3"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/heartStateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="-"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/lineColor"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"/>
-
-        <RelativeLayout
-            android:id="@+id/bloodPressureRl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"
-            android:paddingTop="@dimen/healthy_pad_vertical"
-            android:paddingBottom="@dimen/healthy_pad_vertical"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/health_icon_bp"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/healthy_margin_each_model"
-                android:layout_toRightOf="@id/image2">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/blood"
-                    android:textSize="@dimen/healthy_text_size"
-                    android:textColor="@color/rayblue"/>
-
-                <TextView
-                    android:id="@+id/bloodDataTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/healthy_data_text_size"
-                    android:layout_marginTop="5dp"
-                    android:text="--/--mmHg"/>
-
-
-                <com.szip.sportwatch.View.HealthyProgressView
-                    android:id="@+id/sbpPv"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/healthy_margin_each_model"
-                    app:bg_color="@color/grayBar"
-                    app:bg_width="10dp"
-                    app:color1="@color/color1"
-                    app:color2="@color/color2"
-                    app:color3="@color/color3"/>
-
-                <com.szip.sportwatch.View.HealthyProgressView
-                    android:id="@+id/dbpPv"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/healthy_margin_each_model"
-                    app:bg_color="@color/grayBar"
-                    app:bg_width="10dp"
-                    app:color1="@color/color1"
-                    app:color2="@color/color2"
-                    app:color3="@color/color3"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/bloodStateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="-"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/lineColor"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"/>
-
-        <RelativeLayout
-            android:id="@+id/bloodOxygenRl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"
-            android:paddingTop="@dimen/healthy_pad_vertical"
-            android:paddingBottom="@dimen/healthy_pad_vertical"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/health_icon_sao2"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/healthy_margin_each_model"
-                android:layout_toRightOf="@id/image3">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bloodo"
-                    android:textSize="@dimen/healthy_text_size"
-                    android:textColor="@color/rayblue"/>
-
-                <TextView
-                    android:id="@+id/bloodODataTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/healthy_data_text_size"
-                    android:layout_marginTop="5dp"
-                    android:text="--%"/>
-
-                <com.szip.sportwatch.View.HealthyProgressView
-                    android:id="@+id/bloodOxygenPv"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/healthy_margin_each_model"
-                    app:bg_color="@color/grayBar"
-                    app:bg_width="10dp"
-                    app:color1="@color/color1"
-                    app:color2="@color/color2"
-                    />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/bloodOStateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="-"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/lineColor"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"/>
-
-        <RelativeLayout
-            android:id="@+id/ecgRl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/healthy_margin_parallel"
-            android:layout_marginRight="@dimen/healthy_margin_parallel"
-            android:paddingTop="@dimen/healthy_pad_vertical"
-            android:paddingBottom="@dimen/healthy_pad_vertical"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/health_icon_ecg"/>
-
-
-            <TextView
-                android:id="@+id/ecgStateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="@string/check"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_button_corner"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-</ScrollView>
+    </com.szip.sportwatch.View.PullToRefreshLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Model.HttpBean;
 
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
 import com.szip.sportwatch.DB.dbModel.EcgData;
@@ -22,6 +23,7 @@ public class DownloadDataBean extends BaseApi {
         ArrayList<SleepData>  sleepDataList;
         ArrayList<SportData>  sportDataList;
         ArrayList<StepData>  stepDataList;
+        ArrayList<AnimalHeatData>  tempDataList;
 
         public ArrayList<BloodOxygenData> getBloodOxygenData() {
             return bloodOxygenDataList;
@@ -49,6 +51,10 @@ public class DownloadDataBean extends BaseApi {
 
         public ArrayList<StepData> getStepDataList() {
             return stepDataList;
+        }
+
+        public ArrayList<AnimalHeatData> getAnimalHeatDataList() {
+            return tempDataList;
         }
     }
 

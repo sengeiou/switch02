@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -53,6 +54,7 @@ public class ReportView extends View {
     private boolean isBar;//是否柱状图
 
     private int maxValue = 100;//最高的数据
+    private int maxDraw;
     private float mBarWidth = -1;//柱状图宽度
     private float mInterval = 0;//柱状图间隔
     private int data_num = 0;//默认一个屏幕里面画的数据数
@@ -66,6 +68,7 @@ public class ReportView extends View {
 
     private int sleepStartTime = 1320;
     private int sleepTime = 480;
+    private int tableTime = 480;
 
     private float marginTop;//图表区域高的缩进量
 
@@ -108,7 +111,6 @@ public class ReportView extends View {
         flag = a.getInteger(R.styleable.ReportView_flag,1);
 
         maxValue = a.getInteger(R.styleable.ReportView_maxVelue,100);
-
         a.recycle();
         pad15 = MathUitl.dipToPx(15,context);
         pad10 = MathUitl.dipToPx(10,context);
@@ -176,8 +178,12 @@ public class ReportView extends View {
             paint.setStrokeWidth(1f);
             DashPathEffect dashPathEffect = new DashPathEffect(new float[]{4,4},0);
             paint.setPathEffect(dashPathEffect);
-            float diffCoordinate = (tableHeight- textHeight)/yValueNum;
-            String[] yMsg = getYMsg(maxValue);
+            float diffCoordinate;
+            if(isBar)
+                diffCoordinate = (height- textHeight- pad10-pad5)/yValueNum;
+            else
+                diffCoordinate = ((float) height-pad5)/yValueNum;
+            String[] yMsg = getYMsg(maxDraw);
             for(int i = 0; i<yValueNum; i++) {
                 if(isBar){
                     if (yValueNum == 2){
@@ -189,22 +195,22 @@ public class ReportView extends View {
                                 levelCoordinate+ textHeight /2, textYPaint);
                         canvas.drawPath(dashPath, paint);
                     }else {
-                        float levelCoordinate = tableHeight-diffCoordinate*(i+1);
+                        float levelCoordinate = height- textHeight- pad10-pad5-diffCoordinate*(i+1);
                         Path dashPath = new Path();
-                        dashPath.moveTo(yTextWidth, levelCoordinate);
-                        dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate);
+                        dashPath.moveTo(yTextWidth, levelCoordinate+pad5);
+                        dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad5);
                         canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
-                                levelCoordinate+ textHeight /2, textYPaint);
+                                levelCoordinate+ textHeight /2+pad2*3, textYPaint);
                         canvas.drawPath(dashPath, paint);
                     }
 
                 }else {
-                    float levelCoordinate = tableHeight-diffCoordinate*(i+1);
+                    float levelCoordinate = height-pad5-diffCoordinate*(i+1);
                     Path dashPath = new Path();
-                    dashPath.moveTo(yTextWidth, levelCoordinate+pad15*2);
-                    dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad15*2);
+                    dashPath.moveTo(yTextWidth, levelCoordinate+pad5);
+                    dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad5);
                     canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
-                            levelCoordinate+ textHeight /2+pad15*2, textYPaint);
+                            levelCoordinate+ textHeight /2+pad2*3, textYPaint);
                     canvas.drawPath(dashPath, paint);
                 }
             }
@@ -270,13 +276,13 @@ public class ReportView extends View {
      */
     private void DrawStepTable(Canvas canvas){
         if (isBar){//柱状图
-            if (maxValue == 2){
+            if (maxDraw == 2){
                 RectF[] rectFS = getRectSleep();
                 for (int i = 0; i< rectFS.length; i++){
-                    if (datas1[i] == 1)
-                        rectPaint.setColor(color2);
-                    else
+                    if (datas1[i] == 2)
                         rectPaint.setColor(color1);
+                    else
+                        rectPaint.setColor(color2);
                     canvas.drawRect(rectFS[i], rectPaint);
                 }
             }else {
@@ -290,8 +296,10 @@ public class ReportView extends View {
                     } else{
                         rectPaint.setColor(color1);
                         canvas.drawRoundRect(rectFS[i],mBarWidth/2,mBarWidth/2, rectPaint);//画第一段柱状图
+                        Log.d("SZIP******","DATA1 = "+datas1[i]+" ;top = "+rectFS[i].top);
                         if (datas2[i]!=0){//如果存在第二段柱状图，画第二段柱状图
                             rectPaint.setColor(color2);
+                            Log.d("SZIP******","DATA2 = "+datas2[i]+" ;top = "+rectFSBottom[i].top);
                             canvas.drawRoundRect(rectFSBottom[i],mBarWidth/2,mBarWidth/2, rectPaint);
                         }
                         if (datas2[i]!=0&&(rectFSBottom[i].top-rectFS[i].top)>=mBarWidth/2){//如果第一段数据比第二段数据高超过半个圆角，则补上直角
@@ -311,9 +319,9 @@ public class ReportView extends View {
                         canvas.drawBitmap(arrow,mSrcRect,mDestRect,mPointPaint);
                         String str;
                         if (flag == 1)
-                            str = String.format("%d", datas1[i]);
+                            str = String.format(Locale.ENGLISH,"%d", datas1[i]);
                         else
-                            str = String.format("%dh%dm", datas1[i]/60,datas1[i]%60);
+                            str = String.format(Locale.ENGLISH,"%dh%dm", datas1[i]/60,datas1[i]%60);
                         float w = textXPaint.measureText(str, 0, str.length());
                         canvas.drawText(str, mDestRect.centerX()-w/2, mDestRect.top-pad2, textXPaint);
                     }
@@ -321,21 +329,23 @@ public class ReportView extends View {
             }
         }else {
             if (flag == 3){//心率
-                RectF[] rectFS = getRectFTop();
-                Path path = new Path();
-                path.moveTo(rectFS[0].centerX(), rectFS[0].top+mBarWidth/2+pad15*2);
-                if (rectFS.length==1){
-                    DrawHelper.pathCubicTo(path, new PointF(rectFS[0].centerX(),rectFS[0].top+mBarWidth/2+pad15*2),
-                            new PointF(rectFS[0].centerX()+1,rectFS[0].top+mBarWidth/2+pad15*2));
+                if (data_num!=0){
+                    RectF[] rectFS = getRectFTop();
+                    Path path = new Path();
+                    path.moveTo(rectFS[0].centerX(), rectFS[0].top);
+                    if (rectFS.length==1){
+                        DrawHelper.pathCubicTo(path, new PointF(rectFS[0].centerX(),rectFS[0].top),
+                                new PointF(rectFS[0].centerX(),rectFS[0].top));
 
-                }else {
-                    for (int i = 1; i< datas1.length; i++){
-                        DrawHelper.pathCubicTo(path, new PointF(rectFS[i-1].centerX(),rectFS[i-1].top+mBarWidth/2+pad15*2),
-                                new PointF(rectFS[i].centerX(),rectFS[i].top+mBarWidth/2+pad15*2));
+                    }else {
+                        for (int i = 1; i< datas1.length; i++){
+                            DrawHelper.pathCubicTo(path, new PointF(rectFS[i-1].centerX(),rectFS[i-1].top),
+                                    new PointF(rectFS[i].centerX(),rectFS[i].top));
+                        }
                     }
-                }
 
-                canvas.drawPath(path, linePaint);//画心率图
+                    canvas.drawPath(path, linePaint);//画心率图
+                }
             }
         }
     }
@@ -350,9 +360,9 @@ public class ReportView extends View {
         float start = yTextWidth;
         for (int i = 0; i< datas1.length; i++){
             float x = start;
-            float width = datas2[i]/(float)sleepTime*tableWidth;
+            float width = datas2[i]/(float)tableTime*tableWidth;
             start = x+width;
-            float top =  tableHeight-(tableHeight- textHeight)/2*datas1[i];
+            float top =  tableHeight-(tableHeight- textHeight)/2*(datas1[i]==0?1:datas1[i]);
             rectFS[i] = new RectF(x, top, x+width, tableHeight-pad5);
         }
 
@@ -363,22 +373,44 @@ public class ReportView extends View {
      * 获取矩形的范围
      * */
     private RectF[] getRectFTop(){
-        if (datas1 ==null)
-            datas1 = new int[data_num];
-        RectF[] rectFS = new RectF[data_num];
-        for (int i = 0; i< datas1.length; i++){
-            float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
-            float top;
-            if (datas1[i] == 0)
-                top = valueHeight-(data_num == 7?mBarWidth/3:mBarWidth)-pad5+marginTop;
-            else
-                top = datas1[i]/(float) maxValue *(valueHeight)<(data_num == 7?mBarWidth/3:mBarWidth)?
-                        valueHeight-(data_num == 7?mBarWidth/3:mBarWidth)-pad5+marginTop:
-                        valueHeight- datas1[i]/(float) maxValue *(valueHeight)-pad5+marginTop;
-            rectFS[i] = new RectF(x, top, x+mBarWidth, valueHeight-pad5+marginTop);
+        if (isBar){
+            if (datas1 ==null)
+                datas1 = new int[data_num];
+            RectF[] rectFS = new RectF[datas1.length];
+            for (int i = 0; i< datas1.length; i++){
+                float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
+                float top;
+                if (datas1[i] == 0)
+                    top = height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth);
+                else
+                    top = datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
+                            height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
+                            height- textHeight- pad10-datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
+                if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+                    top+=pad15;
+                }
+                rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
+            }
+
+            return rectFS;
+        }else {
+            if (datas1 ==null)
+                datas1 = new int[data_num];
+            RectF[] rectFS = new RectF[datas1.length];
+            for (int i = 0; i< datas1.length; i++){
+                float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
+                float top;
+                if (datas1[i] == 0)
+                    top = height-mBarWidth;
+                else
+                    top = datas1[i]/(float) maxDraw *(height-pad5)<mBarWidth?
+                            height-mBarWidth:height - datas1[i]/(float) maxDraw *(height-pad5);
+                rectFS[i] = new RectF(x, top, x+mBarWidth, height);
+            }
+
+            return rectFS;
         }
 
-       return rectFS;
     }
 
     private RectF[] getRectFBottom(){
@@ -388,10 +420,13 @@ public class ReportView extends View {
         for (int i = 0; i< datas2.length; i++){
             float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
             float top;
-            top = datas2[i]/(float) maxValue *(valueHeight)<(data_num == 7?mBarWidth/3:mBarWidth)?
-                    valueHeight-(data_num == 7?mBarWidth/3:mBarWidth)-pad5+marginTop:
-                    valueHeight- datas2[i]/(float) maxValue *(valueHeight)-pad5+marginTop;
-            rectFS[i] = new RectF(x, top, x+mBarWidth, valueHeight-pad5+marginTop);
+            top = datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
+                    height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
+                    height- textHeight- pad10-datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
+            if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+                top+=pad15;
+            }
+            rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
         }
 
         return rectFS;
@@ -408,17 +443,19 @@ public class ReportView extends View {
         }else {
             for (int i = 0;i<yValueNum;i++){
                 if(flag == 1)
-                    yMsg[i] = String.format("%dk",(maxValue/yValueNum)*(i+1)/1000);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%dk",(maxValue/yValueNum)*(i+1)/1000);
                 else if (flag == 2)
-                    yMsg[i] = String.format("%dh",(maxValue/yValueNum)*(i+1)/60);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%dh",(maxValue/yValueNum)*(i+1)/60);
                 else if (flag == 3)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                    yMsg[i] = i == yValueNum-1?maxDraw+40+"":String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+40);
                 else if (flag == 4)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+45);
                 else if (flag == 5)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+70);
+                else if (flag == 6)
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",((maxValue/yValueNum)*(i+1)+340)/10);
                 else
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1));
             }
         }
 
@@ -462,18 +499,15 @@ public class ReportView extends View {
             if (reportDate== DateUtil.getTimeOfToday())
                 xMsg[6] = getContext().getResources().getString(R.string.today);
         }else if (xValueNum == 5){//月的横坐标
-            SimpleDateFormat format = new SimpleDateFormat("MM.dd");
+            SimpleDateFormat format = new SimpleDateFormat("MM.dd",Locale.ENGLISH);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(reportDate*1000);
             long time = calendar.getTimeInMillis()/1000;
-            Log.d("SZIP******","time = "+time);
             for (int i =0;i<5;i++){
                 if (i==0){
-                    Log.d("SZIP******","time = "+(time-27*24*60*60));
                     Date date = new Date((time-27*24*60*60)*1000);
                     xMsg[i] = format.format(date);
                 }else {
-                    Log.d("SZIP******","time = "+(time-(4-i)*7*24*60*60));
                     Date date = new Date((time-(4-i)*7*24*60*60)*1000);
                     xMsg[i] = format.format(date);
                 }
@@ -482,7 +516,7 @@ public class ReportView extends View {
             if (reportDate== DateUtil.getTimeOfToday())
                 xMsg[4] = getContext().getResources().getString(R.string.today);
         }else if (xValueNum == 12){//年的横坐标
-            SimpleDateFormat format = new SimpleDateFormat("MM");
+            SimpleDateFormat format = new SimpleDateFormat("MM",Locale.ENGLISH);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(reportDate*1000);
             for (int i = 11;i>=0;i--){
@@ -498,9 +532,9 @@ public class ReportView extends View {
             xMsg[2] = "18pm";
         }else if (xValueNum == 2){
             xMsg = new String[2];
-            xMsg[0] = String.format("%02d:%02d",sleepStartTime/60,sleepStartTime%60);
-            int time = (sleepStartTime+sleepTime)>24*60?(sleepStartTime+sleepTime)%24*60:sleepStartTime+sleepTime;
-            xMsg[1] = String.format("%02d:%02d",time/60,time%60);
+            xMsg[0] = String.format(Locale.ENGLISH,"%02d:%02d",sleepStartTime/60,sleepStartTime%60);
+            int time = (sleepStartTime+sleepTime)>24*60?(sleepStartTime+sleepTime)%(24*60):sleepStartTime+sleepTime;
+            xMsg[1] = String.format(Locale.ENGLISH,"%02d:%02d",time/60,time%60);
         }
         return xMsg;
     }
@@ -512,25 +546,36 @@ public class ReportView extends View {
     /**
      * 设置睡眠起始时间
      * */
-    public void setSleepState(int sleepStartTime,int sleepTime){
+    public void setSleepState(int sleepStartTime,int sleepTime,int tableTime){
         this.sleepStartTime = sleepStartTime;
         this.sleepTime = sleepTime;
+        this.tableTime = tableTime;
     }
 
     /**
      * 添加数据
      * */
     public void addData(List<DrawDataBean> list){
-        if (data_num<list.size())//如果传进来的数据量比默认的是数据长，则顶替默认值
+        maxDraw = maxValue;
+        if (list!=null){
             data_num = list.size();
-        datas1 = new int[list.size()];
-        datas2 = new int[list.size()];
-        for (int i = 0;i<list.size();i++){
-            datas1[i] = list.get(i).getValue();
-            datas2[i] = list.get(i).getValue1();
-            if (datas1[i]> maxValue)
-                maxValue = datas1[i];
+            datas1 = new int[list.size()];
+            datas2 = new int[list.size()];
+            if(flag==3&&data_num<10&&!isBar)
+                data_num = 10;
+            for (int i = 0;i<list.size();i++){
+                datas1[i] = list.get(i).getValue();
+                datas2[i] = list.get(i).getValue1();
+                if (datas1[i]> maxValue)
+                    if (datas1[i]>maxDraw)
+                        maxDraw = datas1[i];
+            }
+        } else {
+            datas1 = new int[0];
+            datas2 = new int[0];
+            data_num = 0;
         }
+        mInterval = (valueWidth -mBarWidth*data_num)/(data_num-1);
         postInvalidate();
     }
 

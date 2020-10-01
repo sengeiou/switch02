@@ -20,6 +20,8 @@ import com.szip.sportwatch.BLE.EXCDController;
 
 import java.io.IOException;
 
+import static com.szip.sportwatch.Util.HttpMessgeUtil.UPDATA_USERINFO;
+
 public class UnitSelectActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
     private MyApplication app;
@@ -40,7 +42,6 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
     }
 
     @Override
@@ -95,11 +96,14 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
                     showToast(getString(R.string.saved));
                     finish();
                 }else {//如果制式发生变化，则清空原来的数据
+                    UserInfo userInfo = app.getUserInfo();
+                    HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
                     ProgressHudModel.newInstance().show(UnitSelectActivity.this,getString(R.string.waitting),getString(R.string.httpError),
                             3000);
-                    UserInfo info = app.getUserInfo();
                     try {
                         HttpMessgeUtil.getInstance(this).postForSetUnit(unit);
+                        HttpMessgeUtil.getInstance(this).postForSetUserInfo(userInfo.getUserName(),
+                                userInfo.getSex()+"", userInfo.getBirthday(), null, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -112,16 +116,19 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onCallback(BaseApi baseApi, int id) {
         ProgressHudModel.newInstance().diss();
-        showToast(getString(R.string.saved));
-        app.getUserInfo().setUnit(unit);
-        app.getUserInfo().setHeight("");
-        app.getUserInfo().setWeight("");
-        MathUitl.saveInfoData(UnitSelectActivity.this,app.getUserInfo()).commit();
-        if (MainService.getInstance().getConnectState()!=3){
-            showToast(getString(R.string.syceError));
-        }else {
-            EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+        if (id==UPDATA_USERINFO)
+            finish();
+        else {
+            showToast(getString(R.string.saved));
+            app.getUserInfo().setUnit(unit);
+            app.getUserInfo().setHeight(null);
+            app.getUserInfo().setWeight(null);
+            MathUitl.saveInfoData(UnitSelectActivity.this,app.getUserInfo()).commit();
+            if (MainService.getInstance().getState()!=3){
+                showToast(getString(R.string.syceError));
+            }else {
+                EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+            }
         }
-        finish();
     }
 }

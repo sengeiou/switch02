@@ -33,12 +33,13 @@
 
         <com.szip.sportwatch.View.CircularImageView
             android:id="@+id/pictureIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginRight="@dimen/item_margin_model_right"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/my_head_male_36"/>
+            android:src="@mipmap/my_head_male_36"
+            app:is_circular="true"/>
 
 
     </RelativeLayout>
@@ -70,6 +71,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/item_text_size"
             android:layout_toLeftOf="@+id/arrow"
+            android:layout_marginLeft="100dp"
+            android:maxLines="1"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/item_margin_model_right"/>
 

@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
-import com.szip.sportwatch.Contorller.BloodPressureReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -19,10 +16,6 @@ import com.szip.sportwatch.View.ReportView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -65,9 +58,18 @@ public class HeartMonthFragment extends BaseFragment implements View.OnClickList
     private void updateView() {
         reportView.setReportDate(((HeartReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageTv.setText(reportDataBean.getValue()+45+"");
-        maxTv.setText(reportDataBean.getValue1()+45+"");
-        minTv.setText(reportDataBean.getValue2()+45+"");
+        if (reportDataBean.getValue()!=0)
+            averageTv.setText(reportDataBean.getValue()+40+"");
+        else
+            averageTv.setText("--");
+        if (reportDataBean.getValue1()!=0)
+            maxTv.setText(reportDataBean.getValue1()+40+"");
+        else
+            maxTv.setText("--");
+        if (reportDataBean.getValue2()!=0)
+            minTv.setText(reportDataBean.getValue2()+40+"");
+        else
+            minTv.setText("--");
         if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((HeartReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -87,9 +89,9 @@ public class HeartMonthFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
-        averageTv = getView().findViewById(R.id.averageTv);
+        averageTv = getView().findViewById(R.id.averageTv1);
         maxTv = getView().findViewById(R.id.maxTv);
         minTv = getView().findViewById(R.id.minTv);
     }
@@ -104,14 +106,17 @@ public class HeartMonthFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((HeartReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
-                ((HeartReportActivity)getActivity()).reportDate-=28*24*60*60;
-                initData();
-                updateView();
+                ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

@@ -56,7 +56,7 @@
 
 
             <TextView
-                android:id="@+id/averageTv"
+                android:id="@+id/averageTv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -77,7 +77,7 @@
             android:text="@string/averageHeart"/>
 
         <com.szip.sportwatch.View.ReportView
-            android:id="@+id/tableView"
+            android:id="@+id/tableView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/report_margin"
@@ -90,8 +90,8 @@
             app:x_value="false"
             app:y_value="true"
             app:y_value_num="5"
-            app:maxVelue="75"
-            app:bar_width="6dp"
+            app:maxVelue="100"
+            app:bar_width="3dp"
             app:pross_color1="@color/white"/>
 
     </LinearLayout>

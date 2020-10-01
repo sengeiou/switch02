@@ -1,7 +1,11 @@
 package com.szip.sportwatch.Contorller;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +21,7 @@ import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.ScreenCapture;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CalendarPicker;
 import com.szip.sportwatch.View.NoScrollViewPager;
@@ -25,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -44,6 +50,7 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
         getSupportActionBar().hide();
         setContentView(R.layout.activity_blood_pressure_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(4);
         initView();
         initEvent();
         initPager();
@@ -135,51 +142,48 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                EventBus.getDefault().post(new UpdateReport());
-                            }
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    EventBus.getDefault().post(new UpdateReport());
+                                }}
                         })
                         .show();
                 break;
             case R.id.image1:{
-                ReportDataBean reportDataBean = LoadDataUtil.newInstance().getBloodPressureWithDay(reportDate);
-                Intent intent = new Intent(this,ShareActivity.class);
-                intent.putExtra("flag",3);
-                intent.putExtra("time",reportDate);
-                if (reportDataBean.getDrawDataBeans().size()!=0){
-                    intent.putExtra("value",reportDataBean.getDrawDataBeans().get(0).getValue()+45);
-                    intent.putExtra("value1",reportDataBean.getDrawDataBeans().get(0).getValue1()+45);
-                    if ((reportDataBean.getDrawDataBeans().get(0).getValue()+5)/150f<0.333){
-                        intent.putExtra("value2",1);
-                    }else if ((reportDataBean.getDrawDataBeans().get(0).getValue()+5)/150f<0.666){
-                        if ((reportDataBean.getDrawDataBeans().get(0).getValue1()+15)/90f<0.333){
-                            intent.putExtra("value2",1);
-                        }else if ((reportDataBean.getDrawDataBeans().get(0).getValue1()+15)/90f<0.666){
-                            intent.putExtra("value2",0);
-                        }else {
-                            intent.putExtra("value2",2);
-                        }
-                    }else {
-                        intent.putExtra("value2",2);
-                    }
-                    intent.putExtra("value3",reportDataBean.getDrawDataBeans().size());
-                }else {
-                    intent.putExtra("value",0);
-                    intent.putExtra("value1",1);
-                    intent.putExtra("value2",0);
-                    intent.putExtra("value3",0);
-                }
-                startActivityForResult(intent,100);
+               checkPermission();
             }
             break;
         }
     }
 
+    private void checkPermission() {
+        /**
+         * 获取权限·
+         * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        100);
+            }else {
+                shareShow(findViewById(R.id.reportLl));
+            }
+        }else {
+            shareShow(findViewById(R.id.reportLl));
+        }
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100&&resultCode == 101){
-            shareShow(data.getStringExtra("filePath"));
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100){
+            int code = grantResults[0];
+            if (code == PackageManager.PERMISSION_GRANTED){
+                shareShow(findViewById(R.id.reportLl));
+            }else {
+                showToast(getString(R.string.shareFailForPermission));
+            }
         }
     }
 }

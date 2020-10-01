@@ -42,11 +42,20 @@ public class BluetoochCallFragment extends BaseFragment{
         if (flag == 0){
             text.setText(getString(R.string.step1));
             text1.setText(getString(R.string.str1));
-            imageView.setImageResource(R.mipmap.my_call_step1);
+            if (getResources().getConfiguration().locale.getCountry().equals("CN")){
+                imageView.setImageResource(R.mipmap.my_call_step1);
+            }else{
+                imageView.setImageResource(R.mipmap.my_call_step1_en);
+            }
         }else {
             text.setText(getString(R.string.step2));
             text1.setText(getString(R.string.str2));
-            imageView.setImageResource(R.mipmap.my_call_step2);
+            if (getResources().getConfiguration().locale.getCountry().equals("CN")){
+                imageView.setImageResource(R.mipmap.my_call_step2);
+            }else{
+                imageView.setImageResource(R.mipmap.my_call_step2_en);
+            }
+
         }
     }
 }

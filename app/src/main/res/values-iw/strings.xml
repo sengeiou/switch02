@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iSmarport</string>
+
+    <!--עמוד הכניסה / עמוד השחזור הסיסמה / עמוד הרישום-->
+    <string name="logo">ברוכים הבאים לאורט.</string>
+    <string name="user">מספר חשבון</string>
+    <string name="phoneOrEmail">אנא תכניס את הטלפון / האימייל שלך</string>
+    <string name="password">סיסמה</string>
+    <string name="enterPassword">אנא הכנס סיסמה של 6-20 ספרות</string>
+    <string name="confirmPassword">אישור סיסמה</string>
+    <string name="enterPasswordAgain">אנא תכניס את הסיסמה שוב</string>
+    <string name="forget"><u>שכח את הסיסמה.</u></string>
+    <string name="register"><u>רשום </u></string>
+    <string name="login">תחתום</string>
+    <string name="country">מדינה / אזור</string>
+    <string name="choseCountry">בבקשה בחר מדינה / אזור</string>
+    <string name="send">שלח קוד האישור</string>
+    <string name="verification">קוד האמת</string>
+    <string name="enterVerification">אנא הכנס את קוד האישור</string>
+    <string name="newPassword">סיסמה חדשה</string>
+    <string name="enterNewPassword">אנא הכנס סיסמה חדשה</string>
+    <string name="reset">תחדש סיסמה</string>
+    <string name="registerTitle">רשום</string>
+    <string name="next">צעד הבא</string>
+    <string name="privacy">מסכים!《<u>הסכם משתמש ופרטיות</u>》</string>
+    <string name="privacy1">הסכם משתמש ופרטיות</string>
+    <string name="privacy2">החברה שלנו מחייבת חשיבות גדולה להגנה על פרטיות המשתמשים ומידע אישי.כשאתה משתמש במוצרים / שירות שלנו, אנחנו יכולים לאסוף ולהשתמש במידע הרלוונטי שלך.באמצעות הסכם הפרטיות (הנקרא "מדיניות זו"), אנו מקווים להסביר לכם איך Shenzhen Intelligent Times Technology Co., Ltd. (הנקרא "החברה שלנו") יכול לאסוף, להשתמש ולשמור את המידע הזה כשאתם משתמשים במוצרים / שירות שלנו.\n\nאנו מקווים שתוכלו לקרוא ולאישור שהבנתם במלוא את התוכן של המדיניות הזו לפני להשתמש במוצרים / שירותינו.
+
+\n\nכאשר החברה שלנו רוצה להשתמש במידע האישי שלך למטרות אחרות שלא מוגדרות במדיניות הזו, או כאשר המידע שנאסף למטרות מסוימות משתמש במטרות אחרות, אנו מודיעים לך לעשות בדיקה ולבקש את הסכמתך מראש.
+
+\n\nבבקשה שים לב שכל המידע האישי שסיפקת על ידיך כשתשתמש במוצרים / שירותינו ימשיך להיות מאושר להשתמש בזמן השימוש שלך במוצרים / שירותינו אלא אם אתה מחק אותם או מסרב לאסוף שלנו דרך הגדרות המערכת.כשתבטל את החשבון שלך, נפסיק להשתמש ולמחק את המידע האישי שלך.
+
+
+
+\n\n\n\n一、הסקופ של מידע אישי שאפשרת לנו לאסוף הוא כזה:
+
+
+
+\n\nמידע אישי מתייחס לכל מידע שנרשם באמצעים אלקטרוניים או אחרים, שיכול לזהות את זהותו של אדם טבעי מסוים או לשקף פעילות של אדם טבעי מסוים לבד או בשילוב עם מידע אחר.
+
+
+\nמידע אישי מעורב במדיניות הזאת כולל: מידע בסיסי (כולל שם אישי, יום הולדת, מין, מספר טלפון אישי, כתובת דואר אלקטרוני); מידע זהות רשת (כולל מספר חשבון מערכת, כתובת IP, כתובת דואר אלקטרוני); ספר כתובת; מידע ציוד משותף אישי; מי
+
+
+\n\n\n\n二、אנחנו יכולים להשתמש במידע האישי שנאסף במהלך הספקת שירות לכם למטרות הבאות:
+\n\n（1）כדי לספק לך את השירות שבבעלות המוצרים;
+\n\n（2）כשאנחנו מספקים שירותים, זה משתמש באמת, לשירות לקוחות, למניעת אבטחה, מעקב על הונאה, ארכיב וגיבוי כדי להבטיח את אבטחה של המוצרים והשירותים שלנו לכם;
+
+
+
+\n\n（3）עזור לנו לעצב שירותים חדשים ולהשפר את שירותינו הנוכחים;
+
+\n\n（4）תודיעי לנו יותר על איך אתה מגיע לשירותים שלנו ולהשתמש בשירותים שלנו, כדי להגיב לצרכים האישיים שלך, כמו סדרות שפה, סדרות מיקום, עזרה ואישית וההוראות, או תגובות אחרות לך ולמשתמשים אחרים;
+
+
+\n\n（5）תעודת תוכנה או שיפור תוכנה ניהולית;
+\n\n（6）תן לך להשתתף בחקירה של המוצרים והשירות שלנו.
+
+\n\nכדי לתת לכם חוויה טובה יותר, לשפר את שירותינו או מטרות אחרות, אתם מסכימים, תחת הנקודה של להתאים לחוקים ותקנות רלוונטיים, החברה שלנו יכולה להשתמש במידע שנאסף דרך שירות מסוים לשירותים אחרים של החברה שלנו בדרך של אוסף מידע או אישיות.לדוגמה, המידע שנאסף כשמשתמשים באחד השירותים שלנו יכול להשתמש בשירות אחר כדי לספק לכם תוכן מסוים או להראות לכם מידע שלא בדרך כלל נדחף עליו.אם החברה שלנו מספקת אפשרויות מתאימות בשירותים הרלוונטיים, תוכלי גם לאשר לנו להשתמש במידע שנוסף ומחסן בשירותים אחרים של החברה שלנו.
+
+
+\n\n\n\n三、אנחנו לא נחלוק את המידע האישי שלך עם כל חברה, ארגון או אדם חוץ מהחברה שלנו, חוץ מהמצבים הבאים:
+
+
+\n\n（1）קבל את הסכמתך והאישור שלך מראש;
+
+
+\n\n（2）בהנחה כפי שדרוש לפי החוקים והתקנים הנוכחים, תהליכים משפטיים, דרישות ממשלתיות או שופטיות חובה;
+\n\n（3）למידה שנרשה על ידי החוק, צריך להגן על החברה שלנו, על הצדדים הקשורים שלנו או על השותפים שלנו, על האינטרס הציבורי, על רכוש או על בטחון מפני נזק;
+
+
+\n\n（4）רק על ידי שיתוף המידע שלכם נוכל להבין את התפקידים העיקריים של המוצרים / השירותים שלנו או לספק את השירותים שאתה צריך;
+
+
+\n\n（5）לטפל בסכסוכים או בסכסוכים בינך לבין אחרים בשבילך לפי צרכיך ,
+
+
+\n\n（6） לפי הסכם הרלוונטי או מסמכים משפטיים אחרים חתומים איתך;
+
+
+\n\n（7）בהתבסס על האינטרסים החברתיים והציבוריים בהתאם לחוקים והתקנים.
+
+
+\n\n\n\n四、איך להגן ולשמור את המידע האישי שלכם יחד
+
+\n\n（1）החברה שלנו מחייבת חשיבות גדולה לאבטחה מידע אישי, ולקחת את כל אמצעי אבטחה מידע הגיוניים והאפשריים כדי להגן על המידע האישי שלך;
+
+
+\n\n（2）סביבת האינטרנט לא מאובטחת במאה אחוזים אנחנו ננסה כמיטב יכולתנו כדי להבטיח או להבטיח את האבטחה של כל מידע שאתה שולח לנו.אם מתקני ההגנה הפיזיים, הטכניים או הטכניים שלנו יהיו נזקים, מה שהוביל לגישה לא רשמית, גילוי ציבורי, התעללות או הרס של מידע, מה שהוביל לנזק זכויות ואינטרסים הלגיטימיים שלכם, נושא אחריות משפטיות מתאימות.
+
+
+\n\n（3）אם יש לך שאלות על הגנת המידע האישי שלנו, תוכל ליצור קשר איתנו דרך מידע הקשר באתר הרשמי שלנו.אם תמצאו שמידע האישי שלכם דולף, במיוחד מידע האישי שלכם, בבקשה יצרו איתנו קשר מיד כדי שנוכל לקחת צעדים מתאימים.
+
+
+
+
+\n\n\n\n五、קטנים משתמשים בשירותינו
+
+
+\nאנו מעודדים הורים או שומרים לדעת שהקטנים מתחת ל-18 משתמשים במוצרים שלנו.אנו ממליצים שנערים מעודדים את הוריהם או השומרים לקרוא את המדיניות הזאת ושתיערים מבקשים את הסכמה והכיוון של הוריהם או השומרים לפני ששלחו מידע איש
+
+\n\n\n\n六、מגוון מדיניות פרטיות
+\n\n（1）חוץ משירות ספציפיים, המדיניות הזאת מתאימה לכל השירותים שלנו.שירות ספציפיים אלה ישתמשו במדיניות פרטיות ספציפיות.מדיניות הפרטיות המיוחדת לשירותים מסוימים תסביר יותר במיוחד איך אנחנו משתמשים במידע שלך בשירותים האלה.מדיניות הפרטיות לשירות המיוחד הזה היא חלק מהמדיניות הזאת.אם יש אי-תואם בין מדיניות הפרטיות לשירותים מסויימים למדיניות הזו, מדיניות הפרטיות לשירותים מסויימים ישתלטו.
+
+
+\n\n（2）בבקשה שים לב שהמדיניות הזו לא מתאימה למצבים הבאים:
+
+
+\n\n1）מידע שנאסף משירותים שלישיים (כולל כל אתרי האינטרנט שלישיים) שנכנס דרך השירותים שלנו
+\n\n2） מידע שנאסף דרך חברות או מוסדות אחרים שמספקים שירות פרסום בשירותינו;
+\n\n3） אם תשתמשו במכשירים של אפל כמו אייפון או אייפד, כדי לחשב את נתוני התנועה שלכם, עם האישור שלכם, נקבל ונשלח את נתוני התנועה שלכם מהערכת הבריאות של אפל.החברה שלנו תקרא את נתוני הגובה, המשקל והמין שלך מהערכת בריאות. בינתיים, מספר צעדים, הליכה + מרחק רץ, אנרגיה פעילות, מרחק רכב ומידע ניתוח שינה שנוצר על ידיך באפריקציה אוורט ייכתב בתוך ערכת בריאות של אפל.כל מידע שנקבל באמצעות ערכת בריאות לא יחלוק או ימכור לאף חברה שלישית, והחברה שלנו לא תשתמש במידע שנקבל מהערכת בריאות למטרות פרסומת, שיווק ומסחריות אחרות.
+
+
+
+\n\n七、שינוי
+\n\nאנחנו יכולים לשנות את תנאי המדיניות הזאת בזמן אמיתי ותיקונים כאלה הם חלק מהמדיניות הזאת.אם תוקנים כאלה יובילו להפחית משמעותית של זכויותיכם תחת המדיניות הזו, אנו מודיעים לכם על ידי פרסום ברור בעמוד הבית או באימייל או באמצעים אחרים לפני שהתוקן ייכנס לשפעה.במקרה הזה, אם תמשיכו להשתמש בשירותינו, אתם מסכימים להיות קשורים על ידי המדיניות המפורסמת.
+
+。</string>
+    <string name="checkPrivacy">לא הסכמתי《הסכם משתמש ופרטיות》</string>
+    <string name="setPassword">קבע סיסמה</string>
+    <string name="china">סין</string>
+    <string name="vistor">ההכניסה של מבקרים</string>
+
+    <!--עמוד הבית-->
+    <string name="healthy">בריא</string>
+    <string name="sport">תנועה</string>
+    <string name="mine">שלי</string>
+    <string name="touchAgain">לחץ שוב כדי לצאת מהתוכנית</string>
+
+    <!--עמוד בריאות-->
+    <string name="planStep">צעדים מטרה%d</string>
+    <string name="sleep">לישו</string>
+    <string name="heart">קצב הלב</string>
+    <string name="blood">לחץ דם</string>
+    <string name="bloodo">חמצן בדם</string>
+    <string name="animal">טמפרטורה</string>
+    <string name="ecg">ECG</string>
+    <string name="check">ראה</string>
+    <string name="perfect">מצוין.</string>
+    <string name="good">טוב.</string>
+    <string name="bad">הבדל</string>
+    <string name="quick">מהר מדי.</string>
+    <string name="normal">נורמלי</string>
+    <string name="hot">חום</string>
+    <string name="slow">איטי מדי.</string>
+    <string name="higher">בצד הגבוה</string>
+    <string name="flat">בצד הנמוך</string>
+    <string name="head">זהו מבט ראשי</string>
+    <string name="pull_to_refresh">תוריד את החדשה</string>
+    <string name="release_to_refresh">שחרר החדשה עכשיו</string>
+    <string name="refreshing">מחדש</string>
+    <string name="refresh_succeed">החדשה הצליחה</string>
+    <string name="refresh_fail">החדשה נכשלה</string>
+    <string name="pullup_to_load">תמשוך למעלה כדי לטעון יותר</string>
+    <string name="release_to_load">משחרר את העמס עכשיו</string>
+    <string name="load_succeed">הצליח להטען</string>
+    <string name="load_fail">טענה נכשלה</string>
+
+
+    <!--ממשק תנועה-->
+    <string name="best">התקליט הפועל הכי טוב בחוץ</string>
+    <string name="history">רשומות תנועה היסטוריות</string>
+    <string name="track">פרטי ספורט</string>
+    <string name="notrack">אין מסלול</string>
+    <string name="speed">צעד</string>
+    <string name="kcal">להשתמש</string>
+    <string name="time">משך</string>
+    <string name="heart_rate">קצב הלב (BPM)</string>
+    <string name="stride">תדר צעדים (צעדים / שנים)</string>
+    <string name="distance">קילומטר(</string>
+    <string name="speedData">מהירות ממוצעת</string>
+    <string name="kcalData">תרגיל צמיחה</string>
+    <string name="timeData">אורך התאמנות</string>
+    <string name="heart_rateData">קצב לב ממוצע</string>
+    <string name="strideData">תדר צעדים ממוצע</string>
+    <string name="distanceData">קילומטר</string>
+    <string name="basket">כדורסל</string>
+    <string name="football">כדורגל</string>
+    <string name="pingpong">טניס שולחן</string>
+    <string name="mountain">הרים</string>
+    <string name="bike">נסיעה</string>
+    <string name="run">לרוץ</string>
+    <string name="walk">ברגל</string>
+    <string name="treadmill">TreadmillCity name (optional, probably does not need a translation)</string>
+    <string name="runWithout">פועל בחוץ</string>
+    <string name="marathon">מרתון</string>
+    <string name="sufing">גלישה</string>
+    <string name="shudu">מהירות</string>
+    <string name="averageShudu">מהירות ממוצעת</string>
+    <string name="boat">שורה</string>
+    <string name="altitude">גובה</string>
+    <string name="avarageAltitude">גובה ממוצעת</string>
+    <string name="climb">טפסת סלע</string>
+    <string name="skii">סקי</string>
+    <string name="golf">גולף</string>
+    <!--העמוד שלי-->
+    <string name="device">ציוד</string>
+    <string name="stepPlan">מטרה צעד</string>
+    <string name="sleepPlan">מטרות שינה</string>
+    <string name="find">מחפש שעון</string>
+    <string name="notification">הודעה על היישומים</string>
+    <string name="blePhone">שיחת Bluetooth</string>
+    <string name="blePhoto">צילום תמונות Bluetooth</string>
+    <string name="unit">מערכת יחידות</string>
+    <string name="face">תחליף חיוג</string>
+    <string name="myDail">החיוג שלי</string>
+    <string name="seeDail">ראיון התקשר</string>
+    <string name="diyDail">אישי</string>
+    <string name="diyDailing">משתנה</string>
+    <string name="diyDailOK">החלפה מצליחה</string>
+    <string name="diyDailError">החלפה נכשלה, אנא נסה שוב</string>
+    <string name="upDownBackground">אנא העלה תמונה רקע</string>
+    <string name="chooseClock">בבקשה בחר סגנון שעון</string>
+    <string name="clock">סגנון שעון</string>
+    <string name="background">העלה רקע</string>
+    <string name="about">על</string>
+    <string name="logout">התחבר</string>
+    <string name="me">שלי</string>
+    <string name="set">התקן</string>
+    <string name="other">אחרת</string>
+    <string name="cancel">בוטל</string>
+    <string name="confirm">קבע</string>
+    <string name="tip">טיפים</string>
+    <string name="delete">האם אתה בטוח שאתה רוצה למחוק את נתוני התנועה הזאת?</string>
+    <string name="unbind">אתה בטוח שאתה רוצה להתפרק?</string>
+    <string name="logoutTip">אתה בטוח שאתה רוצה להתחבר?</string>
+    <string name="sendOK">נשלח בהצלחה</string>
+    <string name="searchDevice">מכשיר חיפוש</string>
+    <string name="noDevice">לא נמצאו מכשירים</string>
+    <string name="connected">מחובר</string>
+    <string name="disConnect">לא מחובר</string>
+    <string name="connectting">על קשר</string>
+    <string name="connect">מכשיר מחובר, אנא נסה שוב מאוחר יותר</string>
+    <string name="syceError">אם השעון לא מחובר, המידע ייסנכרן לתוך השעון בפעם הבאה שהוא מחובר</string>
+    <string name="unBind">מחליף מכשירים</string>
+    <string name="unline">ניתק</string>
+    <string name="line">מחבר את השעון</string>
+    <string name="addDevice">תוסיף מכשיר</string>
+    <string name="unbindSoon">בבקשה פתח קודם את המכשיר</string>
+    <string name="lineError">בבקשה תכבה ותדליק את Bluetooth של הטלפון הנייד או תחיל מחדש את השעון</string>
+    <string name="tipUnit">Note: the height and weight will be reset when the unit system is switched</string>
+
+
+    <!--ממשק שיחות Bluetooth-->
+    <string name="step1">1.זוג Bluetooth בין שעון לטלפון נייד</string>
+    <string name="step2">2.זוג Bluetooth בין שעון לטלפון נייד</string>
+    <string name="str1">1)הכנס פונקציה Bluetooth בשעון\n2)מחפש מכשיר Bluetooth - בחר שם Bluetooth\n3)זוג עם טלפון נייד יכול לעשות שיחת Bluetooth עם שעון</string>
+    <string name="str2">1)הגדרות המערכת - Bluetooth - מכשיר זוג\n2)הגדרות המערכת - Bluetooth - מכשיר זוג。\n\nNote: after the pairing relationship is removed, the watch cannot use Bluetooth call function</string>
+
+    <!--על הממשך-->
+    <string name="version">גרסה הנוכחית</string>
+    <string name="feedback">חזרה</string>
+    <string name="feedback_hint">ההחזרה שלך / שאלות</string>
+    <string name="tooLong">הטקסט שהכנסת ארוך מדי</string>
+    <string name="empty">דעה לא יכולה להיות ריקה</string>
+    <string name="send_success">הועבר בהצלחה</string>
+
+    <!--ממשק מערכת יחידה-->
+    <string name="measureUnit">יחידת מדידה</string>
+    <string name="metric">מערכת מטרית</string>
+    <string name="british">מערכת בריטית</string>
+
+    <!--עמוד דיווח-->
+    <string name="stepReport">דיווח צעד</string>
+    <string name="sleepReport">דוח שינה</string>
+    <string name="heartReport">דיווח על קצב הלב</string>
+    <string name="bloodPressureReport">דוח לחץ דם</string>
+    <string name="bloodOxygenReport">דוח חמצן בדם</string>
+    <string name="animalHeatReport">דוח טמפרטורה</string>
+    <string name="ecgReport">דוח ECG</string>
+    <string name="day">יום</string>
+    <string name="week">שבוע</string>
+    <string name="sun">יום ראשון</string>
+    <string name="mon">יום שני</string>
+    <string name="tues">יום שלישי</string>
+    <string name="wed">יום רביעי</string>
+    <string name="thus">יום חמישי</string>
+    <string name="fri">יום שישי</string>
+    <string name="sta">יום שבת</string>
+    <string name="today">היום</string>
+    <string name="month">חודש</string>
+    <string name="year">שנה</string>
+    <string name="allStep">שלבים מסוימים</string>
+    <string name="averageStep">צעדים ממוצעים</string>
+    <string name="allSleep">זמן שינה מוחלט</string>
+    <string name="averageSleep">זמן שינה ממוצע</string>
+    <string name="light">שינה קלה.</string>
+    <string name="deep">שינה עמוקה</string>
+    <string name="lightTable">שטחים</string>
+    <string name="deepTable">עמוק</string>
+    <string name="averageHeart">קצב לב ממוצע</string>
+    <string name="minHeart">קצב לב מינימי</string>
+    <string name="maxHeart">קצב לב מקסים</string>
+    <string name="averageSBP">לחץ דם סיסטולי ממוצע</string>
+    <string name="sbp">לחץ סיסטולי</string>
+    <string name="averageDBP">לחץ דם דיסטולי ממוצע</string>
+    <string name="dbp">לחץ דיסטולי</string>
+    <string name="averageSao">חמצן בדם ממוצע</string>
+    <string name="averageTemp">טמפרטורה ממוצעת</string>
+    <string name="maxTemp">טמפרטורה מקסימלית</string>
+    <string name="passRate">שיעור התאמה</string>
+    <string name="ecgTip">המבחן הוא רק לתייחס ולא ניתן להשתמש בו כראיה לאבחנה רפואית</string>
+    <string name="noData">אין דיווח</string>
+    <string name="tomorrow">העתיד עוד לא הגיע.</string>
+
+
+
+    <!--עמוד מידע משתמש-->
+    <string name="userInfo">מידע משתמש</string>
+    <string name="picture">פורטרט ראש</string>
+    <string name="userName">כינוי?</string>
+    <string name="enterUserName">הכנס כינוי</string>
+    <string name="nameLong">הכינוי לא יכול להעביר 12 אותיות</string>
+    <string name="sex">מין</string>
+    <string name="male">זכר</string>
+    <string name="female">נקבה</string>
+    <string name="height">גובה</string>
+    <string name="weight">משקל</string>
+    <string name="birthday">יום הולדת</string>
+    <string name="album">אלבום</string>
+    <string name="camera">תמונה</string>
+
+
+
+
+    <!--שפה מציעה-->
+    <string name="tokenTimeOut">הכניסה נגמרה, בבקשה הכניסה שוב</string>
+    <string name="enterRightEmail">אנא תכניס את פורמט האימייל הנכון</string>
+    <string name="httpError">התזמון של תגובה לרשת, בבקשה בדוק את הקשר לרשת</string>
+    <string name="logging">נכנס</string>
+    <string name="waitting">רגע אחד בבקשה...</string>
+    <string name="resetSuccess">הצליח להחזיר את הגדרת הסיסמה</string>
+    <string name="passwordUnSame">שני הסיסמאות לא מתאימות.</string>
+    <string name="saved">שמור בהצלחה</string>
+    <string name="notificationlistener_prompt_title">אפשר להודיע</string>
+    <string name="notificationlistener_prompt_content">אוורט צריך להעביר הודעות אפליקציות למתקנים חכמים מרחוקים.לחץ על "בסדר" כדי להכניס את עמוד ההודעה.</string>
+    <string name="tokenTimeout">הגישה נגמרה. אנא הגישה שוב</string>
+    <string name="lostDevice">מכשיר לא מחובר</string>
+    <string name="permissionErrorForCamare">הרישוי נכשל, לא ניתן לפתוח את תפקיד צילום התמונה</string>
+    <string name="findPermission">אם האישור לא מועבר, לא ניתן לחפש את רשימת המכשירי</string>
+    <string name="applyPermission">סמכות ביקשה</string>
+    <string name="shareFailForPermission">לא הצליח לחלוק. הרשויות הקשורות נכשלו</string>
+    <string name="permissionErrorForSMS">הרישוי נכשל, לא ניתן לפתוח פונקציית הודעה SMS</string>
+    <string name="loading">מטען</string>
+    <string name="privacyTip">לפני שאתה משתמש במוצרים שלנו, בבקשה לקרוא ולהבין לחלוטין את הסכם פרטיות המשתמש הרלוונטי.כשתלחץ על "בסדר", תסכים לתנאים של ההסכם.\מדיניות הפרטיות של המשתמשים כוללות בעיקר את התוכן הבא: 1. אסוף, אחסון וחלוק של נתונים אישיים (avatar, כינוי, גובה, משקל, נתוני התרגיל, jne.).\ N2. השימוש של רשויות המכשיר (מיקום, ספר כתובות, מצלמה, וכו. ב.)</string>
+    <string name="crop_pic_failed">לא הצליח לתפוס תמונה, בבקשה בחר תמונה בצורת JPG!</string>
+    <string name="deviceOut">מכשיר לא מחובר</string>
+    <string name="visiter">מצב טוריסטי לא תומך בתוכנית זו</string>
+    <string name="chooseJpg">בבקשה בחר תמונה בצורה JPG</string>
+
+    <!--משותף ממשק-->
+    <string name="planOK">המטרה של היום הושגה</string>
+    <string name="planNO">המטרה של היום לא מושגת</string>
+    <string name="planStepShare">צעדים מטרה: %dsteps</string>
+    <string name="distanceShare">מרחק הליכה:%.1fKm</string>
+    <string name="calurieShare">קלוריות נצרפות: %.1fKcal</string>
+
+    <string name="planSleep">משך המטרה:%.1fh</string>
+    <string name="deepSleepShare">אורך שינה עמוקה:%02dh%02dmin</string>
+    <string name="lightSleepShare">אורך שינה קלה: %02dh%02dmin</string>
+
+    <string name="testTimes">מדידות היום: %d</string>
+    <string name="maxHeartShare">קצב לב מקסים:%dbpm</string>
+    <string name="minHeartShare">קצב לב מינימי: %dbpm</string>
+
+    <string name="bloodOxygenData">עיוות חמצן בדם</string>
+    <string name="testValue">תוצאות הבדיקה:</string>
+    <string name="passTimeData">קצב העברה:f%%</string>
+
+    <string name="bloodPressureData">לחץ דם סיסטולי / דיסטולי ממוצע</string>
+    <string name="shareSuccess">לחלוק הצלחה</string>
+    <string name="shareCancel">בוטל שיתוף</string>
+    <string name="shareFail">שיתוף נכשל</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">מטען</string>
+    <string name="progress_dialog_message">רגע אחד בבקשה&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <string name="operate_error">Failed</string>
+
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

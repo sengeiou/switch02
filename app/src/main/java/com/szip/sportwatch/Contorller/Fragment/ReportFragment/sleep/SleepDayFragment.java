@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
-import com.szip.sportwatch.Contorller.HeartReportActivity;
 import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
+import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -17,6 +17,9 @@ import com.szip.sportwatch.View.ReportView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -60,12 +63,19 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
 
     private void updateView() {
         if (reportDataBean!=null){
-            reportView.setSleepState(reportDataBean.getValue(),reportDataBean.getValue1()+reportDataBean.getValue2());
+            reportView.setSleepState(reportDataBean.getValue(),reportDataBean.getValue1()+reportDataBean.getValue2(),
+                    getAllSleep(reportDataBean.getDrawDataBeans()));
             reportView.addData(reportDataBean.getDrawDataBeans());
-            allSleepTv.setText(String.format("%2dh%02dmin",(reportDataBean.getValue1()+reportDataBean.getValue2())/60,
+            allSleepTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",(reportDataBean.getValue1()+reportDataBean.getValue2())/60,
                     (reportDataBean.getValue1()+reportDataBean.getValue2())%60));
-            deepTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue1()/60,reportDataBean.getValue1()%60));
-            lightTv.setText(String.format("%2dh%02dmin",reportDataBean.getValue2()/60,reportDataBean.getValue2()%60));
+            deepTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",reportDataBean.getValue1()/60,reportDataBean.getValue1()%60));
+            lightTv.setText(String.format(Locale.ENGLISH,"%2dh%02dmin",reportDataBean.getValue2()/60,reportDataBean.getValue2()%60));
+        }else {
+            reportView.setSleepState(0,0,0);
+            reportView.addData(null);
+            allSleepTv.setText("--h--min");
+            deepTv.setText("--h--min");
+            lightTv.setText("--h--min");
         }
         if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
@@ -75,12 +85,26 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
             ));
     }
 
+    /**
+     * 获取总睡眠时间
+     * */
+    private int getAllSleep(ArrayList<DrawDataBean> dataBeans){
+        if (dataBeans!=null&&dataBeans.size()!=0){
+            int sum = 0;
+            for (int i = 0;i<dataBeans.size();i++){
+                sum+=dataBeans.get(i).getValue1();
+            }
+            return sum;
+        }
+        return 0;
+    }
+
     private void initData() {
         reportDataBean = LoadDataUtil.newInstance().getSleepWithDay(((SleepReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allSleepTv = getView().findViewById(R.id.allSleepTv);
         deepTv = getView().findViewById(R.id.deepTv);
@@ -97,14 +121,17 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
                 ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ismarport</string>
+
+    <string name = "logo"> به ismarport خوش آمدید </string>
+    <string name = "user"> شماره حساب </string>
+    <string name = "phoneOrEmail"> لطفاً تلفن / ایمیل خود را وارد کنید </string>
+    <string name = "password"> رمز عبور </string>
+    <string name = "enterPassword"> لطفاً یک گذرواژه 6-20 رقمی وارد کنید </string>
+    <string name = "confirmPassword"> رمز ورود را تأیید کنید </string>
+    <string name = "enterPasswordAgain"> لطفاً دوباره رمز عبور را وارد کنید </string>
+    <string name = "forget"> <u> رمز ورود خود را فراموش کرده اید </u> </string>
+    <string name = "register"> <u> ثبت نام </u> </string>
+    <string name = "login"> ورود به سیستم </string>
+    <string name = "country"> کشور / منطقه </string>
+    <string name = "choseCountry"> لطفاً یک کشور / منطقه را انتخاب کنید </string>
+    <string name = "send"> ارسال کد تأیید </string>
+    <string name = "verification"> کد تأیید </string>
+    <string name = "enterVerification"> لطفاً کد تأیید را وارد کنید </string>
+    <string name = "newPassword"> رمز ورود جدید </string>
+    <string name = "enterNewPassword"> لطفاً گذرواژه جدیدی وارد کنید </string>
+    <string name = "reset"> بازنشانی گذرواژه </string>
+    <string name = "registerTitle"> ثبت نام </string>
+    <string name = "next"> مرحله بعدی </string>
+    <string name = "privacy"> با "<u> توافق نامه کاربر و خط مشی رازداری </u>" موافقت کنید </string>
+    <string name = "privacy1"> توافق نامه کاربر و بند حریم خصوصی </string>
+    <string name = "privacy2"> شرکت ما اهمیت زیادی برای حفظ حریم خصوصی کاربر و محافظت از اطلاعات شخصی قائل است. هنگام استفاده از محصولات / خدمات ما ، شرکت ما ممکن است اطلاعات مربوط به شما را جمع آوری و استفاده کند. شرکت ما امیدوار است با استفاده از "توافق نامه حریم خصوصی" که از این پس "این سیاست" نامیده می شود ، برای شما توضیح دهد که شنژن Smart Times Technology Co. Ltd. ، از این پس "شرکت ما" نامیده می شود ، نحوه جمع آوری ، استفاده و ذخیره این اطلاعات هنگام استفاده از محصولات / خدمات ما . \ n \ n امیدواریم که قبل از استفاده از محصولات / خدمات ما ، با دقت بخوانید و تأیید کنید که محتوای این سیاست را کاملاً درک کرده اید. \ n \ n هنگامی که شرکت ما می خواهد از اطلاعات شخصی شما برای اهداف دیگری که در این سیاست مشخص نشده است استفاده کند ، یا هنگامی که اطلاعات جمع آوری شده برای یک هدف خاص برای اهداف دیگری استفاده می شود ، ما به شما اطلاع می دهیم که پیش از این چک کنید رضایت خود را جویا شوید.
+
+\ n \ n لطفا توجه داشته باشید که کلیه اطلاعات شخصی شما هنگام استفاده از محصولات / خدمات ما ارائه می شود در طول استفاده شما از محصولات / خدمات ما ادامه خواهد یافت ، مگر اینکه آنها را حذف کنید یا از طریق تنظیمات سیستم از جمع آوری ما خودداری کنید. اجازه استفاده از شرکت ما را بدهید. وقتی حساب خود را لغو کنید ، شرکت ما دیگر از استفاده و حذف اطلاعات شخصی شما جلوگیری خواهد کرد.
+
+
+
+\ n \ n \ n \ n1. دامنه اطلاعات شخصی که به شرکت ما اجازه می دهید جمع آوری کند:
+
+\ n \ n اطلاعات شخصی به اطلاعات مختلفی مربوط می شود که به صورت الکترونیکی یا به روش های دیگر ثبت شده اند و می توانند یک شخص حقیقی خاص را به تنهایی یا در ترکیب با سایر اطلاعات شناسایی کنند یا فعالیت های یک شخص طبیعی خاص را منعکس کنند.
+\ n اطلاعات شخصی درگیر در این سیاست شامل: اطلاعات اساسی (از جمله نام شخصی ، روز تولد ، جنسیت ، شماره تلفن شخصی ، آدرس ایمیل) ؛ اطلاعات شناسایی شبکه (از جمله حساب سیستم ، آدرس IP ، آدرس ایمیل) ؛ دفترچه آدرس ؛ شخصی اطلاعات تجهیزات معمولاً مورد استفاده ؛ اطلاعات مکان شخصی ؛ اطلاعات بهداشتی شخصی.
+
+
+
+\ n \ n \ n \ n2. شرکت ما ممکن است از اطلاعات شخصی جمع آوری شده در حین ارائه خدمات به شما برای اهداف زیر استفاده کند:
+
+\ n \ n (1) خدمات متعلق به محصول را به شما ارائه دهیم.
+
+\ n \ n (2) هنگامی که شرکت ما خدمات ارائه می دهد ، برای تأیید هویت ، خدمات به مشتری ، جلوگیری از امنیت ، نظارت بر تقلب ، بایگانی و اهداف پشتیبان گیری ، برای اطمینان از ایمنی محصولات و خدمات ارائه شده به شما استفاده می شود.
+
+\ n \ n (3) به شرکت ما در طراحی سرویس های جدید و بهبود وضعیت خدمات فعلی کمک کنید.
+
+\ n \ n (4) به شرکت ما اجازه دهید درباره نحوه دسترسی و استفاده از خدمات ما اطلاعات بیشتری کسب کند تا به نیازهای شخصی شما پاسخ دهد ، مانند تنظیمات زبان ، تنظیمات مکان ، راهنمای شخصی و دستورالعمل ها ، یا پاسخهای دیگری به شما و سایر کاربران بدهید
+
+\ n \ n (5) گواهینامه یا ارتقا software نرم افزار مدیریت نرم افزار.
+
+\ n \ n (6) به شما اجازه می دهیم در نظرسنجی درباره محصولات و خدمات ما شرکت کنید.
+
+\ n \ n برای اینکه شما بتوانید تجربه بهتری داشته باشید ، خدمات ما را بهبود بخشید یا اهداف دیگری را که با آن موافقت می کنید ، و تحت قوانین و مقررات مربوطه ، شرکت ما ممکن است اطلاعات جمع آوری شده از طریق یک سرویس خاص را جمع آوری کند اطلاعات یا روشهای شخصی سازی شده برای سایر خدمات شرکت ما. به عنوان مثال ، اطلاعات جمع آوری شده هنگام استفاده از یکی از سرویس های ما ممکن است در سرویس دیگری برای ارائه محتوای خاص به شما یا نشان دادن اطلاعات تحت فشار و انتقال غیر جهانی به شما استفاده شود. اگر شرکت ما گزینه های مربوطه را در خدمات مرتبط ارائه می دهد ، می توانید به شرکت ما اجازه دهید از اطلاعات ارائه شده و ذخیره شده توسط سرویس برای سایر خدمات شرکت ما استفاده کند.
+
+
+
+\ n \ n \ n \ n3. شرکت ما اطلاعات شخصی شما را با هیچ شرکت ، سازمان یا شخص دیگری غیر از شرکت ما به اشتراک نمی گذارد ، مگر در موارد زیر:
+
+\ n \ n (1) رضایت صریح و مجوز خود را از قبل بگیرید.
+
+\ n \ n (2) مطابق با قوانین و مقررات قابل اجرا ، رویه های قانونی ، الزامات اجباری اداری یا قضایی ارائه دهید.
+
+\ n \ n (3) در محدوده مجاز قانون ، لازم است از شرکت ، شرکتهای وابسته یا شرکای ما ، منافع عمومی ، دارایی یا ایمنی در برابر آسیب محافظت کنیم.
+
+\ n \ n (4) فقط با به اشتراک گذاشتن اطلاعات شما می توانیم به عملکردهای اصلی محصولات / خدمات خود پی ببریم یا خدمات مورد نیاز خود را ارائه دهیم.
+
+\ n \ n (5) رسیدگی به اختلافات یا اختلافات بین شما و دیگران با توجه به نیاز شما.
+
+\ n \ n (6) مطابق با توافق نامه مربوطه که با شما یا سایر اسناد قانونی امضا شده ارائه شده است.
+
+\ n \ n (7) براساس منافع عمومی و با رعایت قوانین و مقررات استفاده می شود.
+
+
+
+\ n \ n \ n \ n4. چگونه می توان به طور مشترک از اطلاعات شخصی خود محافظت و ذخیره کرد
+
+\ n \ n (1) شرکت ما اهمیت زیادی برای امنیت اطلاعات شخصی قائل است و کلیه اقدامات فنی معقول و عملی امنیت اطلاعات را برای محافظت از اطلاعات شخصی شما انجام می دهد.
+
+\ n \ n (2) محیط اینترنت 100٪ امن نیست. شرکت ما تمام تلاش خود را می کند تا امنیت هر اطلاعاتی را که برای شرکت ما ارسال می کنید تضمین یا تضمین کند. اگر امکانات محافظتی فیزیکی ، فنی یا مدیریتی شرکت ما آسیب ببیند ، در نتیجه دسترسی غیرمجاز ، افشای اطلاعات عمومی ، دستکاری یا تخریب اطلاعات منجر به آسیب رساندن به حقوق قانونی شما خواهد شد ، شرکت ما مسئولیت قانونی مربوطه را بر عهده خواهد داشت.
+
+\ n \ n (3) اگر در مورد حفاظت از اطلاعات شخصی شرکت ما س questionsالی دارید ، می توانید از طریق اطلاعات تماس در وب سایت رسمی ما با شرکت ما تماس بگیرید. اگر متوجه شدید که اطلاعات شخصی شما به بیرون درز کرده است ، به خصوص اگر اطلاعات شخصی شما درز کرده باشد ، لطفاً سریعاً با ما تماس بگیرید تا بتوانیم اقدامات مربوطه را انجام دهیم.
+
+
+
+\ n \ n \ n \ n ول. افراد زیر سن قانونی از خدمات ما استفاده می کنند
+\ n شرکت ما والدین یا سرپرستان را تشویق می کند که بدانند افراد خردسال زیر 18 سال از محصولات ما استفاده می کنند. شرکت ما به خردسالان توصیه می کند که افراد زیر سن قانونی والدین یا سرپرستان خود را به خواندن این خط مشی ترغیب کنند و به خردسالان توصیه می کند قبل از ارسال اطلاعات شخصی ، رضایت و راهنمایی والدین یا سرپرستان خود را جلب کنند.
+
+
+
+\ n \ n \ n \ n شش ، محدوده سیاست حفظ حریم خصوصی
+
+\ n \ n (1) به غیر از سرویس های خاص خاص ، همه خدمات ما برای این خط مشی قابل استفاده هستند. این سرویس های خاص از سیاست های حفظ حریم خصوصی خاصی استفاده خواهند کرد. سیاست های خاص حفظ حریم خصوصی برای برخی خدمات خاص با جزئیات بیشتری نحوه استفاده شرکت ما از اطلاعات شما را در اینگونه خدمات توضیح می دهد. سیاست حفظ حریم خصوصی این سرویس خاص بخشی از این سیاست را تشکیل می دهد. اگر سیاست حفظ حریم خصوصی یک سرویس خاص با این سیاست مغایرت داشته باشد ، سیاست حفظ حریم خصوصی سرویس خاص حاکم است.
+
+\ n \ n (2) لطفاً توجه داشته باشید که این خط مشی در موارد زیر اعمال نمی شود:
+
+\ n \ n1) اطلاعات جمع آوری شده توسط سرویس های شخص ثالث (از جمله همه وب سایت های شخص ثالث) از طریق سرویس های ما قابل دسترسی است.
+
+\ n \ n2) اطلاعات جمع آوری شده توسط شرکت ها یا سازمان های دیگر که خدمات تبلیغاتی را در خدمات ما ارائه می دهند.
+
+\ n \ n3) اگر از دستگاه Apple مانند iphone یا ipad استفاده می کنید ، با مجوز شما ، برای محاسبه داده های ورزش خود ، شرکت ما داده های ورزش شما را به Healthkit Apple دریافت و ارسال می کند. شرکت ما داده های قد ، وزن و جنسیت شما را از Healthkit می خواند. در عین حال ، تعداد مراحل ، راه رفتن + مسافت دویدن ، انرژی فعالیت ، فاصله دوچرخه سواری و داده های تجزیه و تحلیل خواب ایجاد شده توسط برنامه شما در Healthkit اپل نوشته می شود . هرگونه اطلاعات بدست آمده از طریق Healthkit به هیچ یک از شرکت های شخص ثالث به اشتراک گذاشته یا فروخته نمی شود و شرکت ما از اطلاعات به دست آمده از Healthkit برای اهداف تجاری مانند تبلیغات و بازاریابی استفاده نخواهد کرد.
+
+
+
+
+\ n \ n \ n \ n هفت ، تغییر دهید
+
+\ n \ n شرکت ما ممکن است بلافاصله شرایط این خط مشی را تجدید نظر کند ، و این اصلاحات بخشی از این خط مشی است. اگر چنین اصلاحاتی منجر به کاهش قابل توجه حقوق شما در این سیاست شود ، شرکت ما قبل از اینکه اصلاحیه اعمال شود ، از طریق موقعیت برجسته در صفحه اصلی به شما اطلاع می دهد یا برای شما ایمیل یا روش دیگری می فرستد. در این حالت ، اگر همچنان به استفاده از خدمات ما ادامه می دهید ، موافقت می کنید که به این سیاست اصلاح شده ملزم شوید. </string>
+    <string name = "checkPrivacy"> با "توافق نامه کاربر و خط مشی رازداری" موافقت نکرد </string>
+    <string name = "setPassword"> تنظیم گذرواژه </string>
+    <string name = "china"> چین </string>
+    <string name = "vistor"> ورود بازدید کننده </string>
+
+
+    <string name = "healthy"> سلامتی </string>
+    <string name = "sport"> ورزش </string>
+    <string name = "mine"> من </string>
+    <string name = "touchAgain"> برای خروج از برنامه دوباره فشار دهید </string>
+
+
+    <string name = "planStep"> تعداد هدف مراحل٪ d </string>
+    <string name = "sleep"> خواب </string>
+    <string name = "heart"> ضربان قلب </string>
+    <string name = "blood"> فشار خون </string>
+    <string name = "bloodo"> اکسیژن خون </string>
+    <string name = "animal"> دمای بدن </string>
+    <string name = "ecg"> نوار قلب </string>
+    <string name = "check"> نمایش </string>
+    <string name = "perfect"> عالی </string>
+    <string name = "good"> خوب </string>
+    <string name = "bad"> تفاوت </string>
+    <string name = "quick"> خیلی سریع </string>
+    <string name = "normal"> عادی </string>
+    <string name = "hot"> تب </string>
+    <string name = "slow"> خیلی آهسته </string>
+    <string name = "higher"> سمت بالا </string>
+    <string name = "flat"> کم </string>
+    <string name = "head"> این HeadView است </string>
+    <string name = "pull_to_refresh"> پایین کشیدن برای تازه کردن </string>
+    <string name = "release_to_refresh"> فوراً تازه سازی </string>
+    <string name = "refreshing"> طراوت بخش است ... </string>
+    <string name = "refresh_succeed"> تازه سازی با موفقیت </string>
+    <string name = "refresh_fail"> تازه سازی ناموفق بود </string>
+    <string name = "pullup_to_load"> برای بارگیری بیشتر </string> را بالا بکشید
+    <string name = "release_to_load"> فوراً بارگیری شود </string>
+    <string name = "load_succeed"> با موفقیت بارگیری شد </string>
+    <string name = "load_fail"> خرابی بار </string>
+
+
+
+    <string name = "best"> بهترین رکورد برای اجرای در فضای باز </string>
+    <string name = "history"> تاریخچه سوابق ورزشی </string>
+    <string name = "track"> جزئیات ورزشی </string>
+    <string name = "notrack"> مسیر حرکت وجود ندارد </string>
+    <string name = "speed"> سرعت </string>
+    <string name = "kcal"> مصرف (kcal) </string>
+    <string name = "time"> مدت زمان </string>
+    <string name = "heart_rate"> ضربان قلب (Bpm) </string>
+    <string name = "stride"> فرکانس مرحله (مراحل / ثانیه ها) </string>
+    <string name = "distance"> مسافت پیموده شده (</string>)
+    <string name = "speedData"> سرعت متوسط ​​</string>
+    <string name = "kcalData"> مصرف ورزش </string>
+    <string name = "timeData"> مدت زمان تمرین </string>
+    <string name = "heart_rateData"> متوسط ​​ضربان قلب </string>
+    <string name = "strideData"> فرکانس متوسط ​​گام </string>
+    <string name = "distanceData"> مسافت پیموده شده </string>
+    <string name = "basket"> بسکتبال </string>
+    <string name = "football"> فوتبال </string>
+    <string name = "pingpong"> پینگ پنگ </string>
+    <string name = "mountain"> کوهنوردی </string>
+    <string name = "bike"> سوارکاری </string>
+    <string name = "run"> در حال اجرا </string>
+    <string name = "walk"> با پای پیاده </string>
+    <string name = "treadmill"> تردمیل </string>
+    <string name = "runWithout"> دویدن در فضای باز </string>
+    <string name = "marathon"> ماراتن </string>
+    <string name = "sufing"> موج سواری </string>
+    <string name = "shudu"> سرعت </string>
+    <string name = "averageShudu"> سرعت متوسط ​​</string>
+    <string name = "boat"> قایقرانی </string>
+    <string name = "altitude"> ارتفاع </string>
+    <string name = "avarageAltitude"> ارتفاع متوسط ​​</string>
+    <string name = "climb"> سنگ نوردی </string>
+    <string name = "skii"> اسکی </string>
+    <string name = "golf"> گلف </string>
+
+    <string name = "device"> تجهیزات </string>
+    <string name = "stepPlan"> هدف شمارش گام </string>
+    <string name = "sleepPlan"> هدف خواب </string>
+    <string name = "find"> به دنبال ساعت </string> هستید
+    <string name = "notification"> اعلان برنامه </string>
+    <string name = "blePhone"> تماس بلوتوث </string>
+    <string name = "blePhoto"> دوربین بلوتوث </string>
+    <string name = "unit"> سیستم واحد </string>
+    <string name = "face"> تغییر شماره گیری </string>
+    <string name = "myDail"> شماره گیری من </string>
+    <string name = "seeDail"> پیش نمایش شماره گیری </string>
+    <string name = "diyDail"> سفارشی </string>
+    <string name = "diyDailing"> در جایگزینی ... </string>
+    <string name = "diyDailOK"> جایگزینی موفق </string>
+    <string name = "diyDailError"> جایگزینی انجام نشد ، لطفاً دوباره امتحان کنید </string>
+    <string name = "upDownBackground"> ​​لطفاً یک تصویر پس زمینه را بارگذاری کنید </string>
+    <string name = "chooseClock"> لطفاً سبک ساعت </string> را انتخاب کنید
+    <string name = "clock"> سبک ساعت </string>
+    <string name = "background"> ​​پس زمینه بارگذاری </string>
+    <string name = "about"> درباره </string>
+    <string name = "logout"> از سیستم خارج شوید </string>
+    <string name = "me"> من </string>
+    <string name = "set"> مجموعه </string>
+    <string name = "other"> دیگر </string>
+    <string name = "cancel"> لغو </string>
+    <string name = "confirm"> تأیید </string>
+    <string name = "tip"> اعلان </string>
+    <string name = "delete"> آیا مطمئن هستید که می خواهید این بخش از داده های تمرین را حذف کنید؟ </string>
+    <string name = "unbind"> آیا مطمئنید که می خواهید لغو پیوند را انجام دهید؟ </string>
+    <string name = "logoutTip"> آیا مطمئن هستید که می خواهید از سیستم خارج شوید؟ </string>
+    <string name = "sendOK"> با موفقیت ارسال شد </string>
+    <string name = "searchDevice"> دستگاه جستجو </string>
+    <string name = "noDevice"> دستگاه پیدا نشد </string>
+    <string name = "connected"> متصل شده است </string>
+    <string name = "disConnect"> متصل نیست </string>
+    <string name = "connectting"> در حال اتصال است </string>
+    <string name = "connect"> دستگاه در حال اتصال است ، لطفاً بعداً دوباره امتحان کنید </string>
+    <string name = "syceError"> ساعت متصل نیست ، و داده ها با دفعه بعدی وصل شدن با ساعت همگام می شوند </string>
+    <string name = "unBind"> تجهیزات سوئیچ </string>
+    <string name = "unline"> قطع ارتباط </string>
+    <string name = "line"> به ساعت متصل شوید </string>
+    <string name = "addDevice"> افزودن دستگاه </string>
+    <string name = "unbindSoon"> لطفاً ابتدا تجهیزات را جدا کنید </string>
+    <string name = "lineError"> چندین بار اتصال برقرار نشد ، لطفاً بلوتوث تلفن را خاموش و روشن کنید یا ساعت را دوباره راه اندازی کنید </string>
+    <string name = "tipUnit"> توجه: بعد از تعویض سیستم واحد ، قد و وزن مجدداً تنظیم می شود. </string>
+
+
+    <string name = "step1"> 1. جفت شدن بلوتوث بین ساعت و تلفن همراه </string>
+    <string name = "step2"> 2. رابطه مطابقت را بردارید </string>
+    <string name = "str1"> 1) عملکرد بلوتوث را در ساعت وارد کنید \ n2) جستجوی دستگاه های بلوتوث - نام بلوتوث تلفن را انتخاب کنید \ n3) پس از جفت شدن با تلفن ، می توانید از ساعت برای برقراری تماس بلوتوث استفاده کنید. </string>
+    <string name = "str2"> 1) تنظیمات سیستم را وارد کنید - دستگاههای جفت شده با بلوتوث \ n2) دستگاه را پیدا کنید ، وارد کنید و "لغو جفت شدن" را برای اتصال مجدد کلیک کنید. \ n \ n توجه: ساعت پس از جدا شدن اتصال نمی تواند از عملکرد تماس بلوتوث استفاده کند. </string>
+
+    <string name = "version"> نسخه فعلی </string>
+    <string name = "feedback"> بازخورد </string>
+    <string name = "feedback_hint"> بازخورد / س yourال شما </string>
+    <string name = "tooLong"> متنی که وارد کردید خیلی طولانی است </string>
+    <string name = "empty"> نظرات نمی توانند خالی باشند </string>
+    <string name = "send_success"> با موفقیت ارسال شد </string>
+
+    <string name="measureUnit"> واحد اندازه گیری </string>
+    <string name = "metric"> سیستم متریک </string>
+    <string name = "british"> سیستم انگلیس </string>
+
+    <string name = "stepReport"> گزارش مرحله </string>
+    <string name = "sleepReport"> گزارش خواب </string>
+    <string name = "heartReport"> گزارش ضربان قلب </string>
+    <string name = "bloodPressureReport"> گزارش فشار خون </string>
+    <string name = "bloodOxygenReport"> گزارش اکسیژن خون </string>
+    <string name = "animalHeatReport"> گزارش دمای بدن </string>
+    <string name = "ecgReport"> گزارش نوار قلب </string>
+    <string name = "day"> روز </string>
+    <string name = "week"> هفته </string>
+    <string name = "sun"> یکشنبه </string>
+    <string name = "mon"> دوشنبه </string>
+    <string name = "tues"> سه شنبه </string>
+    <string name = "wed"> چهارشنبه </string>
+    <string name = "thus"> پنجشنبه </string>
+    <string name = "fri"> جمعه </string>
+    <string name = "sta"> شنبه </string>
+    <string name = "today"> امروز </string>
+    <string name = "month"> ماه </string>
+    <string name = "year"> سال </string>
+    <string name = "allStep"> تعداد کل مراحل </string>
+    <string name = "averageStep"> تعداد متوسط ​​مراحل </string>
+    <string name = "allSleep"> کل زمان خواب </string>
+    <string name = "averageSleep"> متوسط ​​زمان خواب </string>
+    <string name = "light"> خواب سبک </string>
+    <string name = "deep"> خواب عمیق </string>
+    <string name = "lightTable"> کم عمق </string>
+    <string name = "deepTable"> عمیق </string>
+    <string name = "averageHeart"> متوسط ​​ضربان قلب </string>
+    <string name = "minHeart"> حداقل ضربان قلب </string>
+    <string name = "maxHeart"> حداکثر ضربان قلب </string>
+    <string name = "averageSBP"> فشار خون متوسط ​​سیستولیک </string>
+    <string name = "sbp"> فشار خون سیستولیک </string>
+    <string name = "averageDBP"> فشار خون متوسط ​​دیاستولیک </string>
+    <string name = "dbp"> فشار خون دیاستولیک </string>
+    <string name = "averageSao"> اکسیژن خون متوسط ​​</string>
+    <string name = "averageTemp"> متوسط ​​دما </string>
+    <string name = "maxTemp"> حداکثر دما </string>
+    <string name = "passRate"> میزان انطباق </string>
+    <string name = "ecgTip"> آزمون فقط برای مرجع است و نمی تواند به عنوان گواهی تشخیص پزشکی استفاده شود </string>
+    <string name = "noData"> بدون گزارش </string>
+    <string name = "tomorrow"> آینده هنوز نیامده است </string>
+
+
+
+    <string name = "userInfo"> اطلاعات کاربری </string>
+    <string name = "picture"> آواتار </string>
+    <string name = "userName"> نام مستعار </string>
+    <string name = "enterUserName"> لطفاً نام مستعار خود را وارد کنید </string>
+    <string name = "nameLong"> نام مستعار نمی تواند بیش از 12 نویسه باشد </string>
+    <string name = "sex"> جنسیت </string>
+    <string name = "male"> نر </string>
+    <string name = "female"> زن </string>
+    <string name = "height"> قد </string>
+    <string name = "weight"> وزن </string>
+    <string name = "birthday"> تولد </string>
+    <string name = "album"> آلبوم </string>
+    <string name = "camera"> عکس بگیرید </string>
+
+
+
+    <string name = "tokenTimeOut"> ورود به سیستم منقضی شد ، لطفاً دوباره وارد شوید </string>
+    <string name = "enterRightEmail"> لطفاً قالب صندوق پستی صحیح را وارد کنید </string>
+    <string name = "httpError"> زمان پاسخ شبکه به پایان رسیده است ، لطفاً وضعیت اتصال شبکه را بررسی کنید </string>
+    <string name = "logging"> ورود به سیستم ... </string>
+    <string name = "waitting"> لطفاً صبر کنید ... </string>
+    <string name = "resetSuccess"> رمز عبور را با موفقیت تنظیم کنید </string>
+    <string name = "passwordUnSame"> دو رمز ورود متناقض هستند </string>
+    <string name = "saved"> با موفقیت ذخیره شد </string>
+    <string name = "notificationlistener_prompt_title"> اعلان را فعال کنید </string>
+    <string name = "notificationlistener_prompt_content"> ismarport باید اعلان های برنامه را به دستگاه های هوشمند از راه دور منتقل کند. برای ورود به صفحه اعلان ها ، "OK" را فشار دهید تا فعال شود. </string>
+    <string name = "tokenTimeout"> ورود به سیستم منقضی شده است ، لطفاً دوباره وارد سیستم شوید </string>
+    <string name = "lostDevice"> دستگاه متصل نیست </string>
+    <string name = "permissionErrorForCamare"> مجوز ناموفق بود ، قادر به باز کردن عملکرد دوربین نیست </string>
+    <string name = "findPermission"> اگر مجوز به تصویب نرسد ، لیست دستگاه جستجو نمی شود. </string>
+    <string name = "applyPermission"> درخواست مجوز کنید </string>
+    <string name = "shareFailForPermission"> اشتراک گذاری ناموفق بود ، مجوزهای مربوطه ناموفق بودند </string>
+    <string name = "permissionErrorForSMS"> مجوز ناموفق بود ، نمی توان عملکرد اعلان پیام کوتاه را باز کرد </string>
+    <string name = "loading"> در حال بارگیری ... </string>
+    <string name = "privacyTip"> لطفاً قبل از استفاده از محصولات ما ، با دقت بخوانید و توافق نامه های مربوط به حریم خصوصی کاربر را بطور کامل درک کنید. \ n وقتی روی "تأیید" کلیک می کنید ، به این معنی است که شما با شرایط توافق موافقت کرده اید. \ n خط مشی رازداری کاربر عمدتا شامل محتوای زیر است: \ n1. جمع آوری ، ذخیره و به اشتراک گذاری اطلاعات شخصی (آواتار ، نام مستعار ، قد ، وزن ، داده های ورزش و غیره). \ n2. استفاده از مجوزهای دستگاه (مکان ، دفترچه آدرس ، دوربین و غیره) </string>
+    <string name = "crop_pic_failed"> قادر به رهگیری تصویر نبود ، لطفاً تصویر قالب jpg را انتخاب کنید! </string>
+    <string name = "deviceOut"> دستگاه بی بند و باری </string>
+    <string name = "visiter"> حالت Tourist از این ویژگی پشتیبانی نمی کند </string>
+    <string name = "chooseJpg"> لطفاً تصاویر را با فرمت jpg انتخاب کنید </string>
+
+
+    <string name = "planOK"> هدف امروز محقق شد </string>
+    <string name = "planNO"> هدف امروز محقق نشده است </string>
+    <string name = "planStepShare"> مراحل هدف:٪ dsteps </string>
+    <string name = "distanceShare"> مسافت پیاده روی:٪ .1fKm </string>
+    <string name = "calurieShare"> کالری سوزانده شده:٪ .1fKcal </string>
+
+    <string name = "planSleep"> مدت زمان هدف:٪ .1fh </string>
+    <string name = "deepSleepShare"> مدت زمان خواب عمیق:٪ 02dh٪ 02dmin </string>
+    <string name = "lightSleepShare"> مدت زمان خواب سبک:٪ 02dh٪ 02dmin </string>
+
+    <string name = "testTimes"> شماره اندازه گیری امروز:٪ d </string>
+    <string name = "maxHeartShare"> حداکثر ضربان قلب:٪ dbpm </string>
+    <string name = "minHeartShare"> حداقل ضربان قلب:٪ dbpm </string>
+
+    <string name = "bloodOxygenData"> اشباع اکسیژن خون </string>
+    <string name = "testValue"> نتایج آزمون: </string>
+    <string name = "passTimeData"> میزان عبور:٪ .1f ٪٪ </string>
+
+    <string name = "bloodPressureData"> فشار خون متوسط ​​سیستولیک / دیاستولیک </string>
+    <string name = "shareSuccess"> با موفقیت به اشتراک گذاشته شد </string>
+    <string name = "shareCancel"> لغو اشتراک </string>
+    <string name = "shareFail"> اشتراک گذاری ناموفق بود </string>
+
+    <!-- اسکن و اتصال -->
+    <string name="connect_error">خطای اتصال</string>
+
+
+    <!-- لیست برنامه و فروشگاه -->
+    <string name="launchfail">برنامه بارگیری ناموفق بود</string>
+
+    <!-- تنظیم فعالیت -->
+    <string name="sms_preference_title">سرویس پیام کوتاه</string>
+    <string name="call_preference_title">تماس با خدمات</string>
+    <string name="progress_dialog_title">بارگذاری</string>
+    <string name="progress_dialog_message">لطفا صبر کنید &#8230;</string>
+
+    <!-- گزینه اطلاع رسانی را انتخاب کنید -->
+    <string name="personal_apps_title">برنامه شخصی</string>
+    <string name="system_apps_title">برنامه سیستم</string>
+
+
+    <!-- سرویس -->
+    <string name="missed_call">تماس از دست رفته</string>
+    <string name="accessibility_description">سرویس اعلان فعال در تنظیمات دسترسی شما. این امر باعث می شود تا اعلان BT اعلان برنامه را به دستگاه از راه دور هدایت کند.</string>
+    <string name="batterylow">باتری کم است</string>
+    <string name="pleaseconnectcharger">باتری کم می شود ، لطفاً شارژر را وصل کنید ، ظرفیت</string>
+
+    <string name="operate_error">ناموفق</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

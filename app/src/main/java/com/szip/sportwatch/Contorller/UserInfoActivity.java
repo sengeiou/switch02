@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,22 +26,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
+import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CharacterPickerWindow;
+import com.szip.sportwatch.View.CircularImageView;
 import com.szip.sportwatch.View.MyAlerDialog;
 import com.szip.sportwatch.View.character.OnOptionChangedListener;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.yalantis.ucrop.UCrop;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -50,11 +58,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import okhttp3.Call;
+
+import static com.szip.sportwatch.MyApplication.FILE;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
@@ -80,7 +94,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     private Dialog dialog;
     private String tmpFile;
-    private String photoName;
+    private String photoName = "";
+    private String fileName;
     private final int IMAGE_CAPTURE = 0;
     private final int IMAGE_MEDIA = 1;
 
@@ -109,7 +124,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+
     }
 
     @Override
@@ -125,7 +140,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
 
         //性别选择器
-        window = new CharacterPickerWindow(UserInfoActivity.this,getString(R.string.height));
+        window = new CharacterPickerWindow(UserInfoActivity.this,getString(R.string.sex));
         final List<String> sexList =new ArrayList<>(Arrays.asList(getString(R.string.female),getString(R.string.male)));
         //初始化选项数据
         window.getPickerView().setPicker(sexList);
@@ -137,6 +152,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
                     sexTv.setText(sexList.get(option1));
+                    if (userInfo.getAvatar()==null){
+                        if (option1==0)
+                            pictureIv.setImageResource(R.mipmap.my_head_female_36);
+                        else
+                            pictureIv.setImageResource(R.mipmap.my_head_male_36);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -152,7 +173,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             //初始化选项数据
             window1.getPickerView().setPicker(list2);
             //设置默认选中的三级项目
-            window1.setCurrentPositions(list2.size()/2, 0, 0);
+            if (userInfo.getHeight()!=null)
+                window1.setCurrentPositions(Integer.valueOf(userInfo.getHeight().substring(0,userInfo.getHeight().indexOf("cm")))-50, 0, 0);
+            else
+                window1.setCurrentPositions(list2.size()/2, 0, 0);
             //监听确定选择按钮
             window1.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
@@ -170,7 +194,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             //初始化选项数据
             window1.getPickerView().setPicker(list2);
             //设置默认选中的三级项目
-            window1.setCurrentPositions(list2.size()/2, 0, 0);
+            if (userInfo.getHeight()!=null)
+                window1.setCurrentPositions(Integer.valueOf(userInfo.getHeight().substring(0,userInfo.getHeight().indexOf("in")))-20, 0, 0);
+            else
+                window1.setCurrentPositions(list2.size()/2, 0, 0);
             //监听确定选择按钮
             window1.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
@@ -193,7 +220,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             final ArrayList<String> list3 = DateUtil.getWeight();
             window2.getPickerView().setPicker(list3);
             //设置默认选中的三级项目
-            window2.setCurrentPositions(list3.size()/2, 0, 0);
+            if (userInfo.getWeight()!=null)
+                window2.setCurrentPositions(Integer.valueOf(userInfo.getWeight().substring(0,userInfo.getWeight().indexOf("kg")))-30, 0, 0);
+            else
+                window2.setCurrentPositions(list3.size()/2, 0, 0);
             //监听确定选择按钮
             window2.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
@@ -210,7 +240,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             final ArrayList<String> list3 = DateUtil.getWeightWithBritish();
             window2.getPickerView().setPicker(list3);
             //设置默认选中的三级项目
-            window2.setCurrentPositions(list3.size()/2, 0, 0);
+            if (userInfo.getWeight()!=null)
+                window2.setCurrentPositions(Integer.valueOf(userInfo.getWeight().substring(0,userInfo.getWeight().indexOf("lb")))-67, 0, 0);
+            else
+                window2.setCurrentPositions(list3.size()/2, 0, 0);
             //监听确定选择按钮
             window2.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
@@ -231,13 +264,19 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         //初始化选项数据
         window3.getPickerView().setPickerForDate(list1);
         //设置默认选中的三级项目
-        window3.setCurrentPositions(list1.size()/2, 0, 0);
+        if (userInfo.getBirthday()!=null){
+            String [] strs = userInfo.getBirthday().split("-");
+            window3.setCurrentPositions(Integer.valueOf(strs[0])-1930, Integer.valueOf(strs[1])-1, Integer.valueOf(strs[2])-1);
+        }else {
+            window3.setCurrentPositions(list1.size()/2, 0, 0);
+        }
+
         //监听确定选择按钮
         window3.setOnoptionsSelectListener(new OnOptionChangedListener() {
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
-                    birthdayTv.setText(String.format("%4d-%02d-%02d",(1930+option1),(option2+1),(option3+1)));
+                    birthdayTv.setText(String.format(Locale.ENGLISH,"%4d-%02d-%02d",(1930+option1),(option2+1),(option3+1)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -281,6 +320,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         userInfo = app.getUserInfo();
         userNameTv.setText(userInfo.getUserName());
         sexTv.setText(userInfo.getSex()==1?getString(R.string.male):getString(R.string.female));
+        if (app.getUserInfo().getAvatar()!=null)
+            Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
+        else
+            pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52: R.mipmap.my_head_female_52);
         isMetric = userInfo.getUnit().equals("metric");
         heightTv.setText(userInfo.getHeight());
         weightTv.setText(userInfo.getWeight());
@@ -300,11 +343,16 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 selectPhotoDialog();
                 break;
             case R.id.userNameRl:
-                MyAlerDialog.getSingle().showAlerDialogWithEdit(getString(R.string.userName), userInfo.getUserName(), getString(R.string.enterUserName),
+                MyAlerDialog.getSingle().showAlerDialogWithEdit(getString(R.string.userName), userNameTv.getText().toString(), getString(R.string.enterUserName),
                         null, null,false, new MyAlerDialog.AlerDialogEditOnclickListener() {
                             @Override
                             public void onDialogEditTouch(String edit1) {
-                                userNameTv.setText(edit1);
+                                if (edit1.length()<=12){
+                                    userNameTv.setText(edit1);
+                                }else {
+                                    showToast(getString(R.string.nameLong));
+                                }
+
                             }
                         },mContext);
                 break;
@@ -321,12 +369,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 window3.showAtLocation(v, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rightIv:
+                HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
                 ProgressHudModel.newInstance().show(mContext,getString(R.string.waitting),getString(R.string.httpError),
                         3000);
                 try {
                     HttpMessgeUtil.getInstance(this).postForSetUserInfo(userNameTv.getText().toString(),
-                            sexTv.getText().toString().equals(getString(R.string.male))?"1":"0", birthdayTv.getText().toString(),
-                            heightTv.getText().toString(),weightTv.getText().toString());
+                            sexTv.getText().toString().equals(getString(R.string.male))?"1":"0",
+                            birthdayTv.getText().toString()==""?null:birthdayTv.getText().toString(),
+                            heightTv.getText().toString()==""?null:heightTv.getText().toString(),
+                            weightTv.getText().toString()==""?null:weightTv.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -401,9 +452,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
 
     private void takePhoto(){
-        photoName = getExternalFilesDir(null).getPath()+"/shgame/" + DateUtil.getTimeOfToday() + ".png";
-        File file = new File(photoName);
 
+        photoName = getExternalFilesDir(null).getPath()+"/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
+        File file = new File(photoName);
+        Log.d("IMAGE******","photoName = "+photoName);
         Uri photoURI = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             photoURI = FileProvider.getUriForFile(this,"com.szip.sportwatch.fileprovider", file);
@@ -426,20 +478,22 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             if (code == PackageManager.PERMISSION_GRANTED){
                 takePhoto();
             }else {
+
                 showToast(getString(R.string.permissionErrorForCamare));
             }
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d("IMAGE******","回调 = "+resultCode+";request = "+requestCode);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
        if (resultCode == UCrop.RESULT_ERROR){
             showToast(getString(R.string.crop_pic_failed));
         }
         switch (requestCode){
             case IMAGE_CAPTURE:{// 相机
+                Log.d("IMAGE******","拍照回调");
                 File file = new File(photoName);
+                Log.d("IMAGE******","photoName = "+photoName);
                 if (file.exists()) {
                     Uri uri;
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -453,19 +507,43 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
             case IMAGE_MEDIA:{
                 Log.d("IMAGE******","相册回调");
+                if (data!=null)
                 startPhotoZoom(data.getData());
             }
                 break;
             case  UCrop.REQUEST_CROP:{
                 Log.d("IMAGE******","裁剪回调");
-                Uri resultUri = UCrop.getOutput(data);
-                pictureIv.setImageURI(resultUri);
-//                setPicToView(resultUri);
+                if (data!=null){
+                    try {
+                        HttpMessgeUtil.getInstance(this).postUpdownAvatar(new File(fileName), new GenericsCallback<AvatarBean>(new JsonGenericsSerializator()) {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+
+                            }
+
+                            @Override
+                            public void onResponse(AvatarBean response, int id) {
+                                if (response.getCode()==200){
+                                    //上传头像
+                                    if (data!=null){
+                                        Uri resultUri = UCrop.getOutput(data);
+                                        pictureIv.setImageURI(resultUri);
+                                        app.getUserInfo().setAvatar(response.getData().getUrl());
+                                        MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
+                                    }
+                                    //裁剪成功之后，删掉之前拍的照片
+                                    new File(photoName).delete();
+                                    new File(fileName).delete();
+                                }
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
                 break;
-
         }
-
     }
 
     /**
@@ -474,54 +552,28 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * @param uri
      */
     private void startPhotoZoom(Uri uri) {
-        Log.d("IMAGE******","裁剪");
         try {
             tmpFile = null;
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inJustDecodeBounds = true;
-            String realPath = MathUitl.getRealFilePath(this, uri);
-            BitmapFactory.decodeFile(realPath, opts);
-            if (StringUtils.endsWithIgnoreCase(opts.outMimeType, "webp")) {
-                opts.inJustDecodeBounds = false;
-                Bitmap bmp = BitmapFactory.decodeFile(realPath, opts);
-                if (bmp != null) {
-                    OutputStream out = null;
-                    try {
-
-                        tmpFile = getExternalFilesDir(null).getPath()+"/shgame/file/tmp_" + DateUtil.getTimeOfToday() + ".jpg";
-                        out = new FileOutputStream(tmpFile);
-                        bmp.compress(Bitmap.CompressFormat.JPEG, 80, out);
-                    } catch (Exception e) {
-                    } finally {
-                        out.close();
-                    }
-                }
-            }
             Uri path;
             if (!MathUitl.isBlank(tmpFile))
                 path = Uri.fromFile(new File(tmpFile));
             else
                 path = uri;
-
-            String fileName = getExternalFilesDir(null).getPath()+"/shgame/file/" + DateUtil.getTimeOfToday() + ".jpg";
+            //临时用一个名字用来保存裁剪后的图片
+            Log.d("IMAGE******","开始裁切");
+            fileName = getExternalFilesDir(null).getPath()+"/"+ Calendar.getInstance().getTimeInMillis() + ".jpg";
             File file = new File(fileName);
             file.getParentFile().mkdirs();
-            boolean res = file.createNewFile();
-            if (res) {
-                Log.d("IMAGE******","裁剪");
-                Uri target = Uri.fromFile(file);
-                UCrop.Options options = new UCrop.Options();
-                options.setToolbarColor(getResources().getColor(R.color.blue));
-                options.setStatusBarColor(getResources().getColor(R.color.blue));
-                options.setActiveWidgetColor(getResources().getColor(R.color.blue));
-                options.setCompressionQuality(70);
-                options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-                UCrop.of(path, target)
-                        .withAspectRatio(1f, 1f)
-                        .withMaxResultSize(500, 500)
-                        .withOptions(options)
-                        .start(this);
-            }
+            Uri target = Uri.fromFile(file);
+            UCrop.Options options = new UCrop.Options();
+            options.setToolbarColor(getResources().getColor(R.color.rayblue));
+            options.setStatusBarColor(getResources().getColor(R.color.rayblue));
+            options.setActiveWidgetColor(getResources().getColor(R.color.rayblue));
+            UCrop.of(path, target)
+                    .withAspectRatio(1f, 1f)
+                    .withMaxResultSize(200, 200)
+                    .withOptions(options)
+                    .start(this);
         } catch (Exception e) {
         }
     }
@@ -535,15 +587,16 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         showToast(getString(R.string.saved));
         app.getUserInfo().setUserName(userNameTv.getText().toString());
         app.getUserInfo().setSex(sexTv.getText().toString().equals(getString(R.string.male))?1:0);
-        app.getUserInfo().setBirthday(birthdayTv.getText().toString());
-        app.getUserInfo().setHeight(heightTv.getText().toString());
-        app.getUserInfo().setWeight(weightTv.getText().toString());
+        app.getUserInfo().setBirthday(birthdayTv.getText().toString()==""?null:birthdayTv.getText().toString());
+        app.getUserInfo().setHeight(heightTv.getText().toString()==""?null:heightTv.getText().toString());
+        app.getUserInfo().setWeight(weightTv.getText().toString()==""?null:weightTv.getText().toString());
         MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
-        if (MainService.getInstance().getConnectState()!=3){
+        if (MainService.getInstance().getState()!=3){
             showToast(getString(R.string.syceError));
         }else {
             EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
         }
         finish();
+
     }
 }

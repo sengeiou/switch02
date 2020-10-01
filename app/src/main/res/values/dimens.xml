@@ -34,6 +34,7 @@
     <dimen name="item_margin_model_top">5dp</dimen>
 
     <!--报告页面的缩放及字体大小-->
+    <dimen name="tab_text_size">14dp</dimen>
     <dimen name="report_margin_table_parallel">3dp</dimen>
     <dimen name="report_margin">15dp</dimen>
     <dimen name="report_margin_parallel">17dp</dimen>
@@ -49,8 +50,10 @@
 
     <!--运动页面的缩放及字体大小-->
     <dimen name="sport_margin_parallel">15dp</dimen>
-    <dimen name="sport_text_size_normal">25sp</dimen>
+    <dimen name="sport_text_size_normal">18sp</dimen>
     <dimen name="sport_text_size_big">40sp</dimen>
-    <dimen name="sport_text_size_small">15sp</dimen>
+    <dimen name="sport_text_size_small">12sp</dimen>
+
+    <dimen name="tab_weight">300dp</dimen>
 
 </resources>

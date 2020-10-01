@@ -1,7 +1,11 @@
 package com.szip.sportwatch.Contorller;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,17 +19,26 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Contorller.Fragment.HealthyFragment;
 import com.szip.sportwatch.Contorller.Fragment.MineFragment;
 import com.szip.sportwatch.Contorller.Fragment.SportFragment;
+import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
+import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.HostTabView;
 import com.szip.sportwatch.View.MyToastView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTabHost;
@@ -55,9 +68,45 @@ public class MainActivity extends BaseActivity{
         mContext = this;
         app = (MyApplication) getApplicationContext();
         layout = findViewById(R.id.layout);
+
+        //判断蓝牙状态
+        BluetoothAdapter blueadapter = BluetoothAdapter.getDefaultAdapter();
+        if (!blueadapter.isEnabled()) {
+            Intent bleIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(bleIntent);
+        }
+
+        initBLE();
         initAnimation();
         initTabData();
         initHost();
+        mTableItemList.get(1).setView(app.getSportVisiable());
+    }
+
+    private void initBLE() {
+        if (app.getUserInfo().getDeviceCode()!=null){//已绑定
+            //连接设备
+            Log.d("SZIP******","state = "+WearableManager.getInstance().getConnectState());
+            if (MainService.getInstance().getState()==0){
+                MainService.getInstance().setConnectAble(true);
+                WearableManager.getInstance().scanDevice(true);
+            }else if (MainService.getInstance().getState() == 1||MainService.getInstance().getState() == 5){
+                BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
+                WearableManager.getInstance().setRemoteDevice(device);
+                MainService.getInstance().startConnect();
+            }
+
+            if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
+                //获取云端数据
+                try {
+                    HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -71,6 +120,13 @@ public class MainActivity extends BaseActivity{
                 }
             }
         }
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -86,6 +142,11 @@ public class MainActivity extends BaseActivity{
         finish();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateSport(UpdateSportView updateSportView){
+        mTableItemList.get(1).setView(app.getSportVisiable());
+    }
+
     /**
      * 初始化标签
      * */
@@ -97,12 +158,13 @@ public class MainActivity extends BaseActivity{
         mTableItemList.add(new HostTabView(R.mipmap.tab_icon_my,R.mipmap.tab_icon_my_pre,R.string.mine, MineFragment.class,this));
     }
 
+    FragmentTabHost fragmentTabHost;
     /**
      * 初始化选项卡视图
      * */
     private void initHost() {
         //实例化FragmentTabHost对象
-        FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
+        fragmentTabHost = findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
 
         //去掉分割线
@@ -213,4 +275,5 @@ public class MainActivity extends BaseActivity{
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

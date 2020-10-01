@@ -76,7 +76,7 @@
             android:text="@string/allSleep"/>
 
         <com.szip.sportwatch.View.ReportView
-            android:id="@+id/tableView"
+            android:id="@+id/tableView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/report_margin"
@@ -87,7 +87,7 @@
             app:pross_color1="@color/white"
             app:pross_color2="#d1b3ff"
             app:text_color="@color/white"
-            app:text_size="@dimen/report_text_size_table"
+            app:text_size="9sp"
             app:data_number="0"
             app:x_value="true"
             app:x_value_num="2"

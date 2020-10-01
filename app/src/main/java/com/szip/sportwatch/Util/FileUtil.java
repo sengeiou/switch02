@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Util;
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -37,17 +38,25 @@ public class FileUtil {
         return mInstance;
     }
 
-    public void initFile(String pathStr){
-        this.path = pathStr+"/shgame";
-        if (getExternalStorageState().equals(MEDIA_MOUNTED))
+    public void initFile(){
+//        this.path = pathStr+"/shgame";
+
+        if (getExternalStorageState().equals(MEDIA_MOUNTED)){
+            this.path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+
+                    "/Camera/";
             isSdCard = true;
-        else
+        }
+        else{
             isSdCard = false;
+        }
+
 
 
         if (isSdCard){
             File file = new File(path);
             if (!file.exists()){
+                this.path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/";
+                file = new File(path);
                 file.mkdir();
                 Log.d("SZIP******","创建文件夹成功"+path);
             }else {
@@ -66,6 +75,20 @@ public class FileUtil {
         }
 
         return path+"/"+fileName;
+    }
+
+    public File renameFile(String name,String oldName,boolean isNull){
+        if (isNull)
+            new File(oldName).delete();
+        else {
+            if (new File(name).length()!=0)
+                new File(name).delete();
+            File file = new File(oldName);
+            if (file.length()!=0)
+                file.renameTo(new File(name));
+            return new File(name);
+        }
+        return null;
     }
 
     public void deleteFile(String fileName){

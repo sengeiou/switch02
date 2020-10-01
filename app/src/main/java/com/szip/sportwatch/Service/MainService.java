@@ -1,30 +1,26 @@
 package com.szip.sportwatch.Service;
 
-import android.Manifest;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+import android.os.Looper;
+import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mediatek.ctrl.map.MapController;
 import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.DB.SaveDataUtil;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
 import com.szip.sportwatch.DB.dbModel.EcgData;
@@ -34,14 +30,13 @@ import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
+import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
-import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Notification.AppList;
-import com.szip.sportwatch.Notification.CallService;
 import com.szip.sportwatch.Notification.NotificationReceiver;
 import com.szip.sportwatch.Notification.NotificationService;
 import com.szip.sportwatch.Notification.SmsService;
@@ -49,14 +44,11 @@ import com.szip.sportwatch.Notification.SystemNotificationService;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 import static android.media.AudioManager.STREAM_MUSIC;
-import static com.szip.sportwatch.MyApplication.FILE;
 
 /**
  * Created by Administrator on 2019/12/27.
@@ -68,7 +60,7 @@ public class MainService extends Service {
     private static final String TAG = "AppManager/MainService";
 
     // Global instance
-    private static MainService sInstance = null;
+    private static MainService mSevice = null;
 
     // Application context
     private static final Context sContext = MyApplication.getInstance()
@@ -79,41 +71,89 @@ public class MainService extends Service {
 
     private boolean mIsSmsServiceActive = false;
 
-    private boolean mIsCallServiceActive = false;
 
     // Register and unregister SMS service dynamically
     private SmsService mSmsService = null;
 
     private SystemNotificationService mSystemNotificationService = null;
 
-    // Register and unregister call service dynamically
-    private CallService mCallService = null;
 
     private NotificationService mNotificationService = null;
 
-    private Thread connectThread;
+    private Thread heartThread;//心跳包线程
+    private Thread connectThread;//回连线程
     private boolean isThreadRun = true;
-    private int connectState = WearableManager.getInstance().STATE_CONNECT_FAIL;
-
-    private Thread updownDataThread;//上传数据的线程
 
     private MediaPlayer mediaPlayer;
 
-    public int getConnectState() {
-        return connectState;
+    private int errorTimes = 0;//用于统计连接失败次数，如果连接失败次数太多，则提示用户重启手表
+
+    private boolean connectAble = false;//判断是否需要连接
+
+
+    private MyApplication app;
+
+    private int volume = 0;
+
+
+
+    public int getState() {
+        return app.isMtk()?WearableManager.getInstance().getConnectState(): BleClient.getInstance().getConnectState();
+    }
+
+    public void setConnectAble(boolean connectAble) {
+        this.connectAble = connectAble;
     }
 
     private WearableListener mWearableListener = new WearableListener() {
 
         @Override
         public void onConnectChange(int oldState, int newState) {
-            Log.d("SZIP******","STATE = "+newState);
-            connectState = newState;
-            EventBus.getDefault().post(new ConnectState(newState));
-            if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
-                EXCDController.getInstance().writeForSetDate();
-                EXCDController.getInstance().writeForSetInfo(((MyApplication)getApplication()).getUserInfo());
-                EXCDController.getInstance().writeForSetUnit(((MyApplication)getApplication()).getUserInfo());
+            if (app.isMtk()){
+                Log.d("SZIP******","STATE = "+newState);
+                EventBus.getDefault().post(new ConnectState(newState));
+                if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
+                    startThread();//使能线程
+                    errorTimes = 0;
+                    String str = getResources().getConfiguration().locale.getLanguage();
+                    if (str.equals("en"))
+                        EXCDController.getInstance().writeForSetLanuage("en_US");
+                    else if (str.equals("de"))
+                        EXCDController.getInstance().writeForSetLanuage("de_DE");
+                    else if (str.equals("fr"))
+                        EXCDController.getInstance().writeForSetLanuage("fr_FR");
+                    else if (str.equals("it"))
+                        EXCDController.getInstance().writeForSetLanuage("it_IT");
+                    else if (str.equals("es"))
+                        EXCDController.getInstance().writeForSetLanuage("es_ES");
+                    else if (str.equals("pt"))
+                        EXCDController.getInstance().writeForSetLanuage("pt_PT");
+                    else if (str.equals("tr"))
+                        EXCDController.getInstance().writeForSetLanuage("tr_TR");
+                    else if (str.equals("ru"))
+                        EXCDController.getInstance().writeForSetLanuage("ru_RU");
+                    else if (str.equals("ar"))
+                        EXCDController.getInstance().writeForSetLanuage("ar_SA");
+                    else if (str.equals("th"))
+                        EXCDController.getInstance().writeForSetLanuage("th_TH");
+                    else if (str.equals("zh"))
+                        EXCDController.getInstance().writeForSetLanuage("zh_CN");
+                    EXCDController.getInstance().writeForSetDate();
+                    EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+                    EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+                    EXCDController.getInstance().writeForCheckVersion();
+                    EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),
+                            app.getCity());
+                }else if (newState == WearableManager.STATE_CONNECT_LOST){
+                    if (errorTimes<3){
+                        errorTimes++;
+                    } else{
+                        errorTimes = 0;
+//                        Looper.prepare();
+//                        Toast.makeText(mSevice,getString(R.string.lineError),Toast.LENGTH_SHORT).show();
+//                        Looper.loop();
+                    }
+                }
             }
         }
 
@@ -124,7 +164,15 @@ public class MainService extends Service {
 
         @Override
         public void onDeviceScan(BluetoothDevice device) {
-            return;
+            if (connectAble){
+                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
+                    connectAble = false;
+                    Log.d("SZIP******","正在搜索="+device.getAddress());
+                    WearableManager.getInstance().scanDevice(false);
+                    WearableManager.getInstance().setRemoteDevice(device);
+                    startConnect();
+                }
+            }
         }
 
         @Override
@@ -140,14 +188,14 @@ public class MainService extends Service {
     private ReviceDataCallback reviceDataCallback = new ReviceDataCallback() {
         @Override
         public void checkVersion(boolean stepNum, boolean deltaStepNum, boolean sleepNum, boolean deltaSleepNum,
-                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg) {
+                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum) {
             Log.d("SZIP******","收到心跳包step = "+stepNum+" ;stepD = "+deltaStepNum+" ;sleep = "+sleepNum+
                     " ;sleepD = "+deltaSleepNum+" ;heart = "+heart+ " ;bloodPressure = "+bloodPressure+
-                    " ;bloodOxygen = "+heart+" ;ecg = "+ecg);
-            if (deltaStepNum){
+                    " ;bloodOxygen = "+heart+" ;ecg = "+ecg+" ;animalHeat = "+animalHeat);
+            if (stepNum)
                 EXCDController.getInstance().writeForGetDaySteps();
+            if (deltaStepNum)
                 EXCDController.getInstance().writeForGetSteps();
-            }
             if (sleepNum)
                 EXCDController.getInstance().writeForGetDaySleep();
             if (deltaSleepNum)
@@ -160,6 +208,14 @@ public class MainService extends Service {
                 EXCDController.getInstance().writeForGetBloodOxygen();
             if (ecg)
                 EXCDController.getInstance().writeForGetEcg();
+            if (animalHeat)
+                EXCDController.getInstance().writeForGetAnimalHeat();
+
+            if(app.getDeviceNum()!=deviceNum){
+                app.setDeviceNum(deviceNum);
+                EventBus.getDefault().post(new UpdateSportView());
+            }
+
         }
 
         @Override
@@ -167,15 +223,15 @@ public class MainService extends Service {
             Log.d("SZIP******","收到计步数据条数 = "+stepsForday.length);
             ArrayList<StepData> dataArrayList = new ArrayList<>();
             for (int i =0;i<stepsForday.length;i++){
-                String stepDatas[] = stepsForday[i].split("\\|");
-                long time = DateUtil.getTimeScopeForDay(stepDatas[0],"yyyy-MM-dd");
-                int steps = Integer.valueOf(stepDatas[1]);
-                int distance = Integer.valueOf(stepDatas[2]);
-                int calorie = Integer.valueOf(stepDatas[3]);
+                String datas[] = stepsForday[i].split("\\|");
+                long time = DateUtil.getTimeScopeForDay(datas[0],"yyyy-MM-dd");
+                int steps = Integer.valueOf(datas[1]);
+                int distance = Integer.valueOf(datas[2]);
+                int calorie = Integer.valueOf(datas[3]);
                 Log.d("SZIP******","计步数据 = "+"time = "+time+" ;steps = "+steps+" ;distance = "+distance+" ;calorie = "+calorie);
                 dataArrayList.add(new StepData(time,steps,distance,calorie,null));
             }
-            SaveDataUtil.newInstance(sInstance).saveStepDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveStepDataListData(dataArrayList);
         }
 
         @Override
@@ -202,7 +258,7 @@ public class MainService extends Service {
             }
             if (list!=null)
                 dataArrayList.add(MathUitl.mathStepDataForDay(list));
-            SaveDataUtil.newInstance(sInstance).saveStepInfoDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveStepInfoDataListData(dataArrayList);
         }
 
         @Override
@@ -210,14 +266,14 @@ public class MainService extends Service {
             Log.d("SZIP******","收到睡眠数据条数 = "+sleepForday.length);
             ArrayList<SleepData> dataArrayList = new ArrayList<>();
             for (int i =0;i<sleepForday.length;i++){
-                String sleepDatas[] = sleepForday[i].split("\\|");
-                long time = DateUtil.getTimeScopeForDay(sleepDatas[0],"yyyy-MM-dd");
-                int deepTime = DateUtil.getMinue(sleepDatas[1]);
-                int lightTime = DateUtil.getMinue(sleepDatas[2]);
+                String datas[] = sleepForday[i].split("\\|");
+                long time = DateUtil.getTimeScopeForDay(datas[0],"yyyy-MM-dd")+24*60*60;
+                int deepTime = DateUtil.getMinue(datas[1]);
+                int lightTime = DateUtil.getMinue(datas[2]);
                 Log.d("SZIP******","睡眠数据 = "+"time = "+time+" ;deep = "+deepTime+" ;light = "+lightTime);
                 dataArrayList.add(new SleepData(time,deepTime,lightTime,null));
             }
-            SaveDataUtil.newInstance(sInstance).saveSleepDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveSleepDataListData(dataArrayList);
         }
 
         @Override
@@ -237,7 +293,7 @@ public class MainService extends Service {
                     if (sleepDate.equals(date)){//如果是同一天的数据，则加入数组
                         list.add(sleep[i]);
                     }else {//如果不是同一天的数据，则统计当天的数据，并把list置为null,date保存新一天的日期
-                        dataArrayList.add(MathUitl.mathSleepDataForDay(list,sleepDate));
+                        dataArrayList.add(MathUitl.mathSleepDataForDay(list,date));
                         list = new ArrayList<>();
                         list.add(sleep[i]);
                         date = sleepDate;
@@ -245,8 +301,8 @@ public class MainService extends Service {
                 }
             }
             if (list!=null)
-                dataArrayList.add(MathUitl.mathSleepDataForDay(list,sleepDate));
-            SaveDataUtil.newInstance(sInstance).saveSleepInfoDataListData(dataArrayList);
+                dataArrayList.add(MathUitl.mathSleepDataForDay(list,date));
+            SaveDataUtil.newInstance().saveSleepInfoDataListData(dataArrayList);
         }
 
         @Override
@@ -273,7 +329,7 @@ public class MainService extends Service {
             }
             if (list!=null)
                 dataArrayList.add(MathUitl.mathHeartDataForDay(list));
-            SaveDataUtil.newInstance(sInstance).saveHeartDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveHeartDataListData(dataArrayList,true);
         }
 
         @Override
@@ -281,14 +337,14 @@ public class MainService extends Service {
             Log.d("SZIP******","收到血压数据条数 = "+bloodPressure.length);
             ArrayList<BloodPressureData> dataArrayList = new ArrayList<>();
             for (int i =0;i<bloodPressure.length;i++){
-                String stepDatas[] = bloodPressure[i].split("\\|");
-                long time = DateUtil.getTimeScope(stepDatas[0],"yyyy-MM-dd HH:mm:ss");
-                int sbp = Integer.valueOf(stepDatas[1]);
-                int dbp = Integer.valueOf(stepDatas[2]);
+                String datas[] = bloodPressure[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int sbp = Integer.valueOf(datas[1]);
+                int dbp = Integer.valueOf(datas[2]);
                 Log.d("SZIP******","血压数据 = "+"time = "+time+" ;sbp = "+sbp+" ;dbp = "+dbp);
                 dataArrayList.add(new BloodPressureData(time,sbp,dbp));
             }
-            SaveDataUtil.newInstance(sInstance).saveBloodPressureDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveBloodPressureDataListData(dataArrayList);
         }
 
         @Override
@@ -296,13 +352,27 @@ public class MainService extends Service {
             Log.d("SZIP******","收到血氧数据条数 = "+bloodOxygen.length);
             ArrayList<BloodOxygenData> dataArrayList = new ArrayList<>();
             for (int i =0;i<bloodOxygen.length;i++){
-                String stepDatas[] = bloodOxygen[i].split("\\|");
-                long time = DateUtil.getTimeScope(stepDatas[0],"yyyy-MM-dd HH:mm:ss");
-                int data = Integer.valueOf(stepDatas[1]);
-                Log.d("SZIP******","血压数据 = "+"time = "+time+" ;oxygen = "+data);
+                String datas[] = bloodOxygen[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int data = Integer.valueOf(datas[1]);
+                Log.d("SZIP******","血氧数据 = "+"time = "+time+" ;oxygen = "+data);
                 dataArrayList.add(new BloodOxygenData(time,data));
             }
-            SaveDataUtil.newInstance(sInstance).saveBloodOxygenDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveBloodOxygenDataListData(dataArrayList);
+        }
+
+        @Override
+        public void getAnimalHeat(String[] animalHeat) {
+            Log.d("SZIP******","收到体温数据条数 = "+animalHeat.length);
+            ArrayList<AnimalHeatData> dataArrayList = new ArrayList<>();
+            for (int i =0;i<animalHeat.length;i++){
+                String datas[] = animalHeat[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0],"yyyy-MM-dd HH:mm:ss");
+                int data = Integer.valueOf(datas[1])*10+Integer.valueOf(datas[2]);
+                Log.d("SZIP******","体温数据 = "+"time = "+time+" ;animalHeat = "+data);
+                dataArrayList.add(new AnimalHeatData(time,data));
+            }
+            SaveDataUtil.newInstance().saveAnimalHeatDataListData(dataArrayList);
         }
 
         @Override
@@ -310,12 +380,12 @@ public class MainService extends Service {
             Log.d("SZIP******","收到ecg数据条数 = "+ecg.length);
             ArrayList<EcgData> dataArrayList = new ArrayList<>();
             for (int i =0;i<ecg.length;i++){
-                String ecgDatas[] = ecg[i].split("\\|");
-                long time = DateUtil.getTimeScope(ecgDatas[0]+" "+ecgDatas[1],"yyyy-MM-dd HH:mm:ss");
-                Log.d("SZIP******","ecg数据 = "+"time = "+time+" ;heart = "+ecgDatas[2]);
-                dataArrayList.add(new EcgData(time,ecgDatas[2]));
+                String datas[] = ecg[i].split("\\|");
+                long time = DateUtil.getTimeScope(datas[0]+" "+datas[1],"yyyy-MM-dd HH:mm:ss");
+                Log.d("SZIP******","ecg数据 = "+"time = "+time+" ;heart = "+datas[2]);
+                dataArrayList.add(new EcgData(time,datas[2]));
             }
-            SaveDataUtil.newInstance(sInstance).saveEcgDataListData(dataArrayList);
+            SaveDataUtil.newInstance().saveEcgDataListData(dataArrayList);
         }
 
         @Override
@@ -326,16 +396,20 @@ public class MainService extends Service {
             int distance = Integer.valueOf(sport[3]);
             int calorie = Integer.valueOf(sport[4]);
             int speed = Integer.valueOf(sport[5]);
-            SportData sportData = new SportData(time,sportTime,distance,calorie,speed,type);
-            SaveDataUtil.newInstance(sInstance).saveSportData(sportData);
+            int heart = Integer.valueOf(sport[10]);
+            int stride = Integer.valueOf(sport[7]);
+            SportData sportData = new SportData(time,sportTime,distance,calorie,speed,type,heart,stride);
+            SaveDataUtil.newInstance().saveSportData(sportData);
         }
+
 
         @Override
         public void findPhone(int flag) {
-            final AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-            final int volume = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
-            am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
+            final AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
             if (flag == 1){
+                starVibrate(new long[]{500,500,500});
+                volume  = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
+                am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
                 if (mediaPlayer==null){
                     mediaPlayer = MediaPlayer.create(MainService.this, R.raw.dang_ring);
                     mediaPlayer.start();
@@ -343,6 +417,7 @@ public class MainService extends Service {
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
+                            stopVibrate();
                             am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                             mediaPlayer = null;
                         }
@@ -351,6 +426,7 @@ public class MainService extends Service {
             }else{
                 if (mediaPlayer!=null){
                     mediaPlayer.stop();
+                    stopVibrate();
                     am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                     mediaPlayer = null;
                 }
@@ -370,8 +446,8 @@ public class MainService extends Service {
 
         super.onCreate();
         Log.d("SZIP******","service start");
-        sInstance = this;
-
+        mSevice = this;
+        app = MyApplication.getInstance();
         mIsMainServiceActive = true;
         Map<Object, Object> applist = AppList.getInstance().getAppList();
         if (applist.size() == 0) {
@@ -401,59 +477,83 @@ public class MainService extends Service {
     }
 
     public void startConnect(){
-        if ((WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_FAIL||
-                WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECT_LOST ||
-                WearableManager.getInstance().getConnectState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
-            //如果没有连接，则连接
-            Log.d("SZIP******","连接设备");
-            WearableManager.getInstance().connect();
+        if (!app.isMtk()) {//判断是否使用MTK的库进行蓝牙连接
+            if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                    getState()==WearableManager.STATE_CONNECT_LOST ||
+                    getState()==WearableManager.STATE_NONE) ){//如果设备未连接，这连接设备
+                //如果没有连接，则连接
+                Log.d("SZIP******","连接设备BLE");
+                BleClient.getInstance().connect(app.getUserInfo().getDeviceCode());
+            }
+        }else {
+            if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                    getState()==WearableManager.STATE_CONNECT_LOST ||
+                    getState()==WearableManager.STATE_NONE||
+                    getState()==WearableManager.STATE_LISTEN) ){//如果设备未连接，这连接设备
+                //如果没有连接，则连接
+                Log.d("SZIP******","连接设备MTK");
+                WearableManager.getInstance().connect();
+            }
         }
-        isThreadRun = true;
-        connectThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isThreadRun){
-                    if (WearableManager.getInstance().getRemoteDevice()!=null&&
-                            WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
-                            Log.d("SZIP******","发送心跳包");
-                            EXCDController.getInstance().writeForCheckVersion();
-                    }
-                    try {
-                        Thread.sleep(6000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        connectThread.start();
-
-        updownDataThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isThreadRun){
-                    try {
-                        Thread.sleep(60*60*1000);
-                        if (WearableManager.getInstance().getRemoteDevice()!=null){
-                            String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
-                            HttpMessgeUtil.getInstance(sInstance).postForUpdownReportData(datas);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        });
-        updownDataThread.start();
     }
 
     public void stopConnect(){
-        WearableManager.getInstance().disconnect();
-        WearableManager.getInstance().setRemoteDevice(null);
+        if (app.isMtk()){
+            WearableManager.getInstance().disconnect();
+            WearableManager.getInstance().setRemoteDevice(null);
+        }else {
+            BleClient.getInstance().disConnect();
+        }
         isThreadRun = false;
+    }
+
+
+    private void startThread(){
+        isThreadRun = true;
+//        if (heartThread ==null||!heartThread.isAlive()){//发送获取数据的心跳包
+//            heartThread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    while (isThreadRun){
+//                        if (WearableManager.getInstance().getRemoteDevice()!=null&&
+//                                getState()==WearableManager.STATE_CONNECTED){//如果设备连接上了，则发送心跳包
+//                            Log.d("SZIP******","发送心跳包");
+//                            EXCDController.getInstance().writeForCheckVersion();
+//                        }
+//                        try {
+//                            Thread.sleep(10*60*1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
+//            heartThread.start();
+//        }
+
+        if(connectThread == null||!connectThread.isAlive()){//断线重连机制
+            connectThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isThreadRun){
+                        if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                                getState()==WearableManager.STATE_CONNECT_LOST ||
+                                getState()==WearableManager.STATE_NONE)){
+                            Log.d("SZIP******","断线重连");
+                            connectAble = true;
+//                            WearableManager.getInstance().connect();
+                            WearableManager.getInstance().scanDevice(true);
+                        }
+                        try {
+                            Thread.sleep(10*1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            connectThread.start();
+        }
     }
 
     @Override
@@ -475,6 +575,16 @@ public class MainService extends Service {
         stopNotificationService();
     }
 
+    private void starVibrate(long[] pattern) {
+        Vibrator vib = (Vibrator) mSevice.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.vibrate(pattern, 1);
+    }
+
+
+    private void stopVibrate() {
+        Vibrator vib = (Vibrator) mSevice.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.cancel();
+    }
     @Override
     public IBinder onBind(Intent intent) {
         // We don't provide binding, so return null
@@ -487,7 +597,7 @@ public class MainService extends Service {
      * @return main service instance
      */
     public static MainService getInstance() {
-        return sInstance;
+        return mSevice;
     }
 
     /**
@@ -574,5 +684,6 @@ public class MainService extends Service {
      */
     public static void clearNotificationReceiver() {
     }
+
 
 }

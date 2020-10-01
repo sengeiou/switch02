@@ -19,6 +19,8 @@ import android.view.WindowManager;
 
 import com.szip.sportwatch.R;
 
+import java.util.Locale;
+
 /**
  * colorful arc progress bar
  * Created by shinelw on 12/4/15.
@@ -299,7 +301,7 @@ public class ColorArcProgressBar extends View
         if(isNeedContent)
         {
             //drawText的第三个参数代表的是基线坐标,只要x坐标、基线位置、文字大小确定以后，文字的位置就是确定的了。
-            canvas.drawText(String.format("%.0f", currentValues), centerX, centerY + textSize / 4, vTextPaint);
+            canvas.drawText(String.format(Locale.ENGLISH,"%.0f", currentValues), centerX, centerY + textSize / 4, vTextPaint);
         }
         if(isNeedUnit)
         {

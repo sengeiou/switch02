@@ -60,8 +60,14 @@ public class BloodPressureMonthFragment extends BaseFragment implements View.OnC
     private void updateView() {
         reportView.setReportDate(((BloodPressureReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
-        averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        if (reportDataBean.getValue()!=0)
+            averageSbpTv.setText(reportDataBean.getValue()+45+"mmHg");
+        else
+            averageSbpTv.setText("--mmHg");
+        if (reportDataBean.getValue1()!=0)
+            averageDbpTv.setText(reportDataBean.getValue1()+45+"mmHg");
+        else
+            averageDbpTv.setText("--mmHg");
         if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodPressureReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -81,7 +87,7 @@ public class BloodPressureMonthFragment extends BaseFragment implements View.OnC
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         averageSbpTv = getView().findViewById(R.id.sbpTv);
         averageDbpTv = getView().findViewById(R.id.dbpTv);
@@ -97,14 +103,16 @@ public class BloodPressureMonthFragment extends BaseFragment implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
                 break;
             case R.id.leftIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate-=28*24*60*60;
-                initData();
-                updateView();
+                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

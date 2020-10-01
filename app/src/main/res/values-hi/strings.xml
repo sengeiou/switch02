@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">艾跑特</string>
+
+    <!--लॉगिन पेज:/पासवर्ड पृष्ठ पुनः प्राप्त करे/पंजीकरण पृष्ठ-->
+    <string name="logo"> iSmarport में आपका स्वागत ह</string>
+    <string name="user">खाता</string>
+    <string name="phoneOrEmail">पट्टा अपना फोन नंबर / ईमेल दर्ज करे</string>
+    <string name="password"> कुंजिका</string>
+    <string name="enterPassword">कृपया 6-20 अंकों का पासवर्ड दर्ज कर</string>
+    <string name="confirmPassword">पासवर्ड की पुष्टि करे</string>
+    <string name="enterPasswordAgain"> कृपया अपना पासवर्ड पुनः दर्ज कर</string>
+    <string name="forget"><u>पासवर्ड भूल गए</u></string>
+    <string name="register"><u>रजिस्टर</u></string>
+    <string name="login">लॉग इन करे</string>
+    <string name="country">देश / क्षेत्र</string>
+    <string name="choseCountry">कृपया एक देश / क्षेत्र चुनें</string>
+    <string name="send">संदेश</string>
+    <string name="verification">सत्यापन कोड</string>
+    <string name="enterVerification">कृपया सत्यापन कोड दर्ज करें</string>
+    <string name="newPassword"> नया पासवर्ड</string>
+    <string name="enterNewPassword">कृपया एक नया पासवर्ड दर्ज करे</string>
+    <string name="reset"> पासवर्ड रीसेट करे</string>
+    <string name="registerTitle">रजिस्टर</string>
+    <string name="next">अगला कदम</string>
+    <string name="privacy">सहमत《<u>. उपयोगकर्ता समझौता और गोपनीयता नीति</u>》</string>
+    <string name="privacy1">. उपयोगकर्ता समझौता और गोपनीयता नीति</string>
+    <string name="privacy2">我हम अपने उपयोगकर्ताओं की गोपनीयता और व्यक्तिगत जानकारी की सुरक्षा को बहुत महत्व देते हैं। जब आप हमारे उत्पादों और सेवाओं का उपयोग करते हैं, तो हम आपके बारे में जानकारी एकत्र और उपयोग कर सकते हैं। हमारी कंपनी 《गोपनीयता समझौते के माध्यम से उम्मीद करती है fter इसके बाद "इस नीति" के रूप में संदर्भित किया जाता है ताकि आप यह बता सकें कि हमारी कंपनी इस जानकारी को कैसे और कब एकत्र करती है, उपयोग करती है और सहेजती है।。\n\nहम आशा करते हैं कि आप हमारे उत्पादों और सेवाओं का उपयोग करने से पहले इस नीति की सामग्री को पूरी तरह से समझने और पढ़ने की पुष्टि करते हैं。\n\n इस नीति में निर्दिष्ट उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी का उपयोग आपकी सहमति के बिना कभी नहीं किया जाएगा。
+
+\n\n कृपया ध्यान दें कि आप हमारे उत्पादों और सेवाओं का उपयोग करते समय आपके द्वारा प्रदान की जाने वाली सभी व्यक्तिगत जानकारी, हम एकत्रित करने के लिए अधिकृत हैं, जब तक कि आप सिस्टम सेटिंग्स के माध्यम से हमारे संग्रह को नष्ट नहीं करते या अनुमति नहीं देते हैं। जब आप अपना खाता रद्द कर देंगे, तो हमारी कंपनी आपकी व्यक्तिगत जानकारी का उपयोग करना और हटाना बंद कर देगी。
+
+
+
+\n\n\n\n一、निम्नलिखित व्यक्तिगत जानकारी है जिसे आप हमें एकत्रित करने के लिए अधिकृत करते है
+
+\n\nव्यक्तिगत जानकारी इलेक्ट्रॉनिक या अन्य तरीकों से दर्ज की गई सभी प्रकार की सूचनाओं को संदर्भित करती है जो किसी व्यक्ति की पहचान कर सकती है या किसी व्यक्ति की गतिविधि को प्रतिबिंबित कर सकती है, या तो अकेले या अन्य जानकारी के साथ संयोजन मे
+\n इस नीति में शामिल व्यक्तिगत जानकारी में शामिल हैं: बुनियादी जानकारी (व्यक्तिगत नाम जन्मदिन, लिंग, व्यक्तिगत फोन नंबर, ईमेल पता सहित); नेटवर्क पहचान जानकारी (सिस्टम खाता, आईपी पता और ईमेल पता सहित); संपर्कों; व्यक्तिगत सामान्य उपकरण जानकारी; व्यक्तिगत स्थान की जानकारी; व्यक्तिगत स्वास्थ्य जानकारी。
+
+
+
+\n\n\n\n二、हमारी कंपनी निम्नलिखित उद्देश्यों के लिए आपको सेवाएं प्रदान करने की प्रक्रिया में एकत्र की गई व्यक्तिगत जानकारी का उपयोग कर सकती है:
+
+\n\n（1）आपको उत्पाद के स्वामित्व वाली सेवाएं प्रदान करने के लिए
+\n\n（2）जब हमारी कंपनी सेवाएं प्रदान करती है, तो इसका उपयोग हमारी कंपनी द्वारा आपके द्वारा प्रदान किए गए उत्पादों और सेवाओं की सुरक्षा सुनिश्चित करने के लिए पहचान सत्यापन, ग्राहक सेवा, सुरक्षा रोकथाम, धोखाधड़ी निगरानी, संग्रह और बैकअप उद्देश्यों के लिए किया जाता है।
+
+\n\n（3）नई सेवाओं को डिज़ाइन करने और हमारी मौजूदा सेवाओं को बेहतर बनाने में हमारी सहायता करें
+
+\n\n（4）हमारी कंपनी को इस बारे में अधिक जानकारी दें कि आप हमारी सेवाओं का उपयोग और उपयोग कैसे करते हैं, इसलिए अपनी व्यक्तिगत आवश्यकताओं, जैसे कि भाषा सेटिंग्स, स्थान सेटिंग्स, व्यक्तिगत मदद और निर्देश, या आपके और अन्य उपयोगकर्ताओं के लिए अन्य तरीकों से प्रतिक्रिया दें।:
+\n\n（5）सॉफ्टवेयर प्रमाणन या प्रबंधन सॉफ्टवेयर उन्नयन:
+\n\n（6）आप हमारे उत्पादों और सेवाओं के बारे में सर्वेक्षण में भाग लेते है
+\n\nआपको बेहतर अनुभव देने की अनुमति देने के लिए, प्रासंगिक कानूनों और नियमों के अनुपालन के आधार पर, हमारी सेवाओं या अन्य उपयोगों से आप सहमत हैं, हमारी कंपनी जानकारी एकत्र करने या वैयक्तिकृत करने के लिए किसी सेवा के माध्यम से एकत्रित जानकारी का उपयोग कर सकती है। हमारी कंपनी की अन्य सेवाओं के लिए। उदाहरण के लिए, जब आप हमारी किसी एक सेवा का उपयोग करते हैं तो एकत्र की गई जानकारी का उपयोग आपको किसी अन्य सेवा में विशिष्ट सामग्री प्रदान करने या आपके बारे में गैर-सामान्यीकृत जानकारी दिखाने के लिए किया जा सकता है। यदि हमारी कंपनी संबंधित सेवाओं में संबंधित विकल्प प्रदान करती है, तो आप हमें हमारी अन्य सेवाओं के लिए इस सेवा द्वारा प्रदान और संग्रहीत जानकारी का उपयोग करने के लिए भी अधिकृत कर सकते हैं:
+
+
+
+\n\n\n\n三、हमारी कंपनी निम्नलिखित मामलों को छोड़कर, हमारी कंपनी के अलावा किसी भी कंपनी, संगठन और व्यक्ति के साथ आपकी व्यक्तिगत जानकारी साझा नहीं करेगी:
+
+\n\n（1）अग्रिम में आपकी स्पष्ट सहमति और प्राधिकरण के साथ;
+
+\n\n（2）लागू कानूनों और विनियमों, कानूनी प्रक्रियाओं, अनिवार्य प्रशासनिक या न्यायिक आवश्यकताओं के अनुसार प्रदान किया जाता है;
+
+\n\n（3） कानून द्वारा अनुमत सीमा तक, हमारी कंपनी, हमारे सहयोगियों या भागीदारों, सार्वजनिक हित, संपत्ति या क्षति से सुरक्षा के लिए प्रदान करना आवश्यक है;
+\n\n（4） केवल अपनी जानकारी साझा करके हम अपने उत्पादों और सेवाओं के मूल कार्यों को प्राप्त कर सकते हैं या आपको आवश्यक सेवाएं प्रदान कर सकते हैं;
+\n\n（5）अपने अनुरोध पर दूसरों के साथ अपने विवाद या विवादों को संभालने के लिए;
+\n\n（6）आपके या अन्य कानूनी दस्तावेजों के साथ प्रासंगिक समझौते के अनुसार प्रदान किया गया;
+\n\n（7） कानूनों और नियमों के अनुपालन में सार्वजनिक हित में उपयोग के लिए.
+
+
+\n\n\n\n四、हम आपकी व्यक्तिगत जानकारी की संयुक्त रूप से रक्षा और भंडारण कैसे करते हैं:
+\n\n（1）हम व्यक्तिगत जानकारी की सुरक्षा को बहुत महत्व देते हैं और आपकी व्यक्तिगत जानकारी की सुरक्षा के लिए सभी उचित और व्यवहार्य डेटा सुरक्षा तकनीकी उपाय करते हैं:
+\n\n（2）हम व्यक्तिगत जानकारी की सुरक्षा को बहुत महत्व देते हैं और आपकी व्यक्तिगत जानकारी की सुरक्षा के लिए सभी उचित और व्यवहार्य डेटा सुरक्षा तकनीकी उपाय करते हैं:
+\n\n（3）यदि आपकी व्यक्तिगत जानकारी की सुरक्षा के बारे में आपके कोई प्रश्न हैं, तो आप हमारी आधिकारिक वेबसाइट पर संपर्क जानकारी के माध्यम से हमसे संपर्क कर सकते हैं। यदि आप पाते हैं कि आपकी व्यक्तिगत जानकारी लीक हो गई है, विशेष रूप से आपकी व्यक्तिगत जानकारी लीक हो गई है, तो कृपया हमसे तुरंत संपर्क करें ताकि हम संबंधित उपाय कर सकें.
+
+
+
+\n\n\n\n五、नाबालिगों द्वारा हमारी सेवाओं का उपयोग:
+\nहम अनुशंसा करते हैं कि नाबालिग अपने माता-पिता या अभिभावकों को इस नीति को पढ़ने के लिए प्रोत्साहित करें और सलाह दें कि नाबालिग व्यक्तिगत जानकारी जमा करने से पहले अपने माता-पिता या अभिभावकों की सहमति और मार्गदर्शन लें।
+
+
+\n\n\n\n六、गोपनीयता नीति का अनुप्रयोग क्षेत्र:
+\n\n（1） यह नीति कुछ विशिष्ट सेवाओं को छोड़कर हमारी सभी सेवाओं पर लागू होती है। ये विशिष्ट सेवाएं विशिष्ट गोपनीयता नीतियों का उपयोग करेंगी। कुछ सेवाओं के लिए विशिष्ट गोपनीयता नीतियां अधिक विशेष रूप से बताएंगी कि हम उन सेवाओं में आपकी जानकारी का उपयोग कैसे करते हैं। उस विशेष सेवा के लिए गोपनीयता नीति इस नीति का हिस्सा है। यदि प्रासंगिक विशिष्ट सेवा की गोपनीयता नीति और इस नीति के बीच कोई असंगतता है, तो विशिष्ट सेवा की गोपनीयता नीति प्रबल होगी:。
+
+\n\n（2）. कृपया ध्यान दें कि यह नीति लागू नहीं होती ह
+\n\n1） हमारी सेवाओं के माध्यम से एक्सेस की गई तृतीय-पक्ष सेवाओं (सभी तृतीय-पक्ष वेबसाइटों सहित) द्वारा एकत्रित जानकारी:
+\n\n2） अन्य कंपनियों या एजेंसियों द्वारा एकत्र की गई जानकारी जो हमारी सेवाओं में विज्ञापन सेवाएं प्रदान करती हैं:
+\n\n3） यदि आप अपने व्यायाम डेटा की गणना करने के लिए एक iPhone या iPad जैसे Apple डिवाइस का उपयोग करते हैं, तो आपके प्राधिकरण के साथ, हम Apple के Healthkit से आपके व्यायाम डेटा प्राप्त करेंगे और भेजेंगे। हमारी कंपनी हेल्थकिट से आपकी ऊंचाई, वजन और लिंग के डेटा को पढ़ेगी। साथ ही, आपके कदम, चलना + दौड़ना दूरी, सक्रिय ऊर्जा, सवारी दूरी और नींद विश्लेषण डेटा iSmarport APP द्वारा उत्पन्न Apple Healthkit में लिखा जाएगा। Healthkit के माध्यम से प्राप्त कोई भी डेटा किसी भी तृतीय-पक्ष कंपनी को साझा या बेचा नहीं जाएगा, और हमारी कंपनी विज्ञापन और विपणन जैसे वाणिज्यिक प्रयोजनों के लिए Healthkit से प्राप्त जानकारी का उपयोग नहीं करेगी।
+
+
+\n\n\n\n七、परिवर्तन
+
+\n\n हम इस नीति की शर्तों को अद्यतन या संशोधित कर सकते हैं, और ऐसे संशोधन इस नीति का हिस्सा बनते हैं। यदि इस तरह के संशोधन इस नीति के तहत आपके अधिकारों में पर्याप्त कमी का कारण बनते हैं, तो संशोधन प्रभावी होने से पहले, हम आपको मुखपृष्ठ पर एक प्रमुख स्थान के माध्यम से सूचित करेंगे या आपको ईमेल करेंगे या अन्यथा। इस मामले में, यदि आप हमारी सेवाओं का उपयोग करना जारी रखते हैं, तो आप इस संशोधित नीति से बाध्य होने के लिए सहमत हैं:。</string>
+    <string name="checkPrivacy"> कृपया पुष्टि करें कि आपने उपयोगकर्ता अनुबंध और गोपनीयता नीति पढ़ ली है:</string>
+    <string name="setPassword">​पासवर्ड सेट करें:</string>
+    <string name="china">चीन</string>
+    <string name="vistor">. आगंतुक लॉगिन करने के लिए</string>
+
+    <!--मुख्य पृष्ठ-->
+    <string name="healthy">स्वस्थ</string>
+    <string name="sport"> खेल</string>
+    <string name="mine">खान</string>
+    <string name="touchAgain">कार्यक्रम से बाहर निकलने के लिए फिर से दबाएं</string>
+
+    <!--स्वस्थ पृष्ठ:-->
+    <string name="planStep"> लक्ष्य चरण%d</string>
+    <string name="sleep">नींद</string>
+    <string name="heart">हृदय गति</string>
+    <string name="blood"> रक्तचाप</string>
+    <string name="bloodo">रक्त ऑक्सीजन</string>
+    <string name="animal">तापमान</string>
+    <string name="ecg">ECG</string>
+    <string name="check">दृश्य</string>
+    <string name="perfect">बिल्कुल सही</string>
+    <string name="good">अच्छ</string>
+    <string name="bad"> बुरा</string>
+    <string name="quick">त्वरित</string>
+    <string name="normal"> सामान्य</string>
+    <string name="hot">बुखार</string>
+    <string name="slow">धीरे</string>
+    <string name="higher">उच्च</string>
+    <string name="flat"> कम</string>
+    <string name="head">यहाँ है हेड व्यू</string>
+    <string name="pull_to_refresh">ताज़ा करने के लिए नीचे खींचो</string>
+    <string name="release_to_refresh">रिलीज़ के बाद ताज़ा करें</string>
+    <string name="refreshing">रिफ्रेशिंग ...</string>
+    <string name="refresh_succeed">. ताज़ा सफल:</string>
+    <string name="refresh_fail">ताज़ा विफल</string>
+    <string name="pullup_to_load"> अधिक लोड करने के लिए ऊपर खींचो</string>
+    <string name="release_to_load">रिलीज़ के तुरंत बाद लोड हो रहा ह</string>
+    <string name="load_succeed"> सफलतापूर्वक लोड किया गया</string>
+    <string name="load_fail">लोड करने में विफल</string>
+
+
+    <!--खेल-->
+    <string name="best">आउटडोर रनिंग के लिए व्यक्तिगत रिकॉर्ड</string>
+    <string name="history">ऐतिहासिक आंदोलन रिकॉर्ड</string>
+    <string name="track">खेल जानकारी</string>
+    <string name="notrack"> कोई प्रक्षेपवक्र</string>
+    <string name="speed">गति</string>
+    <string name="kcal">उपभोग किया गया (kcal)</string>
+    <string name="time">समय:</string>
+    <string name="heart_rate">हृदय गति (Bpm)</string>
+    <string name="stride"> स्ट्राइड (स्टेप्स /s)</string>
+    <string name="distance">दूरी(</string>
+    <string name="speedData"> औसत गत</string>
+    <string name="kcalData">खेल का उपभोग</string>
+    <string name="timeData">स्पोर्ट टाइम:</string>
+    <string name="heart_rateData">औसत हृदय गति</string>
+    <string name="strideData">औसत स्ट्राइड</string>
+    <string name="distanceData">दूरी</string>
+    <string name="basket">बास्केटबॉल</string>
+    <string name="football">फुटबॉल</string>
+    <string name="pingpong">पिंग पोंग</string>
+    <string name="mountain"> माउंटेन:</string>
+    <string name="bike"> बाइकिंग</string>
+    <string name="run"> रन</string>
+    <string name="walk">पैरों पर</string>
+    <string name="treadmill">ट्रेडमिल</string>
+    <string name="runWithout">आउटडोर चल रहा है</string>
+    <string name="marathon">मैराथन</string>
+    <string name="sufing">लहर</string>
+    <string name="shudu">गति</string>
+    <string name="averageShudu">औसत गति</string>
+    <string name="boat">नौका विहार</string>
+    <string name="altitude">ऊंचाई</string>
+    <string name="avarageAltitude">औसत ऊंचाई</string>
+    <string name="climb">रॉक क्लिंबिंग</string>
+    <string name="skii">स्की</string>
+    <string name="golf">गोल्फ़</string>
+    <!--मेरा पन्ना-->
+    <string name="device">मेरा पन्ना</string>
+    <string name="stepPlan"> चरण लक्ष्य</string>
+    <string name="sleepPlan">नींद का लक्ष्य</string>
+    <string name="find">वॉचिंग वॉच</string>
+    <string name="notification">ऐप अधिसूचना</string>
+    <string name="blePhone">ब्लूटूथ कॉल</string>
+    <string name="blePhoto">ब्लूटूथ कैमरा</string>
+    <string name="unit">इकाई</string>
+    <string name="face">डायल</string>
+    <string name="myDail">मेरा डायल</string>
+    <string name="seeDail"> पूर्वावलोकन</string>
+    <string name="diyDail">अनुकूलित करें</string>
+    <string name="diyDailing">अद्यतन ...</string>
+    <string name="diyDailOK"> अद्यतन सफल</string>
+    <string name="diyDailError">: अपडेट विफल; कृपया पुन: प्रयास करें:</string>
+    <string name="upDownBackground"> कृपया एक पृष्ठभूमि चित्र अपलोड करें</string>
+    <string name="chooseClock">कृपया एक घड़ी शैली चुने</string>
+    <string name="clock">क्लॉक स्टाइल</string>
+    <string name="background">चित्र अपलोड करें</string>
+    <string name="about">के बारे मे</string>
+    <string name="logout">साइन आउट करे</string>
+    <string name="me">मेरी</string>
+    <string name="set">स्थापन</string>
+    <string name="other">अन्य</string>
+    <string name="cancel">रद्द करना</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="tip"> टिप</string>
+    <string name="delete">क्या आप सुनिश्चित हैं कि आप इस डेटा को हटाना चाहते हैं?</string>
+    <string name="unbind">क्या आप निश्चित हैं कि आप अनबाइंड करना चाहते हैं?</string>
+    <string name="logoutTip">क्या आप लॉग आउट करना चाहते हैं?</string>
+    <string name="sendOK"> सफलतापूर्वक भेज दिया</string>
+    <string name="searchDevice">डिवाइस खोजें</string>
+    <string name="noDevice">कोई उपकरण नहीं मिला</string>
+    <string name="connected">जुड़े हुए</string>
+    <string name="disConnect">जुड़े नहीं हैं</string>
+    <string name="connectting">. कनेक्ट</string>
+    <string name="connect">डिवाइस कनेक्ट करना, कृपया बाद में पुन: प्रयास करे</string>
+    <string name="syceError">घड़ी कनेक्टेड नहीं है Will डेटा अगली बार कनेक्ट होने वाले घड़ी के लिए सिंक किया जाएग</string>
+    <string name="unBind">उपकरण बदले</string>
+    <string name="unline">डिस्कनेक्ट</string>
+    <string name="line">वॉच कनेक्ट करें</string>
+    <string name="addDevice">डिवाइस जोड़े</string>
+    <string name="unbindSoon">कृपया पहले डिवाइस को अनबाइंड करे</string>
+    <string name="lineError">. कनेक्शन कई बार विफल हुआ है। कृपया मोबाइल डिवाइस के ब्लूटूथ को पुनरारंभ करें या घड़ी को पुनरारंभ करें</string>
+    <string name="tipUnit">युक्ति: इकाई ऊंचाई और वजन रीसेट हो जाएगा</string>
+
+
+    <string name="step1">1.मोबाइल फोन के साथ जोड़ी घड़ी</string>
+    <string name="step2">2.बेजोड</string>
+    <string name="str1">1)वॉच में ब्लूटूथ फ़ंक्शन दर्ज करे\n2) ब्लूटूथ डिवाइसेस के लिए खोजें फ़ोन ब्लूटूथ नाम चुनें\n3)अपने फोन के साथ जोड़ी अपनी घड़ी के साथ ब्लूटूथ कॉल करने के लिए</string>
+    <string name="str2">1)सिस्टम सेटिंग-ब्लूटूथ-पेयर डिवाइस डालें, डिवाइस खोजें, "अनपेयर" पर क्लिक करें, अनफेयर सक्सेसफुल: पासवर्ड: अनपेयर करने के बाद ब्लूटूथ कॉल फंक्शन का उपयोग नहीं कर सकते\n2)डिवाइस ढूंढें, दर्ज करें और "Unpair" पर क्लिक करें:
+रिश्ते को ख़राब करना।\n\nनोट: घड़ी ब्लूटूथ कॉल फ़ंक्शन का उपयोग अनपेयर करने के बाद नहीं कर सकती है
+</string>
+
+    <!--के बारे मे-->
+    <string name="version">वर्तमान संस्करण</string>
+    <string name="feedback"> प्रतिपुष्टि</string>
+    <string name="feedback_hint"> आपकी प्रतिक्रिया</string>
+    <string name="tooLong"> इनपुट बहुत लंबा ह</string>
+    <string name="empty">फ़ील्ड खाली नहीं हो सकती</string>
+    <string name="send_success">सफलतापूर्वक प्रस्तुत</string>
+
+    <!--. यूनिट सिस्टम इंटरफ़ेस-->
+    <string name="measureUnit">माप की इकाई</string>
+    <string name="metric">मीट्रिक</string>
+    <string name="british">इंपीरियल</string>
+
+    <!--रिपोर्ट पृष्ठ-->
+    <string name="stepReport">चरण रिपोर्ट:</string>
+    <string name="sleepReport">. नींद की रिपोर्ट</string>
+    <string name="heartReport">हृदय गति रिपोर्ट</string>
+    <string name="bloodPressureReport">रक्तचाप की रिपोर्ट:</string>
+    <string name="bloodOxygenReport">रक्त ऑक्सीजन रिपोर्ट</string>
+    <string name="animalHeatReport">तापमान रिपोर्ट</string>
+    <string name="ecgReport">. ECG रिपोर्ट</string>
+    <string name="day"> दिन</string>
+    <string name="week">. सप्ताह</string>
+    <string name="sun"> सूर्य</string>
+    <string name="mon"> सोमवार</string>
+    <string name="tues">मंगल</string>
+    <string name="wed">बुधवार को</string>
+    <string name="thus">गुरूवार</string>
+    <string name="fri">शुक्रवार</string>
+    <string name="sta"> शनिवार को</string>
+    <string name="today">आजकल</string>
+    <string name="month">महीना</string>
+    <string name="year">वर्ष</string>
+    <string name="allStep">कुल चरण</string>
+    <string name="averageStep">औसत चरण</string>
+    <string name="allSleep">कुल नींद का समय</string>
+    <string name="averageSleep">कुल नींद का समय</string>
+    <string name="light">हल्की नींद</string>
+    <string name="deep">गहरी नींद</string>
+    <string name="lightTable">लाइट</string>
+    <string name="deepTable">दीप</string>
+    <string name="averageHeart">औसत हृदय गति</string>
+    <string name="minHeart">मिन। हृदय गति</string>
+    <string name="maxHeart">मैक्स। हृदय गति</string>
+    <string name="averageSBP">औसत सिस्टोलिक दबाव</string>
+    <string name="sbp">सिस्टोलिक दबाव</string>
+    <string name="averageDBP">औसत डायस्टोलिक दबाव</string>
+    <string name="dbp"> डायस्टोलिक दबाव</string>
+    <string name="averageSao">औसत रक्त ऑक्सीजन</string>
+    <string name="averageTemp">औसत तापमान</string>
+    <string name="maxTemp">अधिकतम तापमान:</string>
+    <string name="passRate">अनुपालन दर</string>
+    <string name="ecgTip">माप केवल संदर्भ के लिए है, मेडिकल सर्टिफिकेट के रूप में नहीं</string>
+    <string name="noData"> कोई रिपोर्ट नही</string>
+    <string name="tomorrow">भविष्य में उपलब्ध</string>
+
+
+
+    <!--उपयोगकर्ता सूचना पृष्ठ-->
+    <string name="userInfo">उपयोगकर्ता जानकारी</string>
+    <string name="picture">छवि:</string>
+    <string name="userName">. उपनाम</string>
+    <string name="enterUserName"> कृपया अपना उपनाम दर्ज करे</string>
+    <string name="nameLong">उपनाम 12 अक्षरों से अधिक नहीं हो सकते</string>
+    <string name="sex">लिंग</string>
+    <string name="male"> नर</string>
+    <string name="female">महिला</string>
+    <string name="height">ऊंचाई</string>
+    <string name="weight">भार</string>
+    <string name="birthday">जन्मदिन</string>
+    <string name="album">फोटो एल्बम:</string>
+    <string name="camera"> कैमरा:</string>
+
+
+
+
+    <!--संकेत-->
+    <string name="tokenTimeOut">. लॉग इन की समय सीमा समाप्त, कृपया लॉग इन करें</string>
+    <string name="enterRightEmail">कृपया सही ईमेल प्रारूप दर्ज करे</string>
+    <string name="httpError">नेटवर्क रिस्पांस टाइमआउट: कृपया नेटवर्क कनेक्शन की जाँच करे</string>
+    <string name="logging">लॉग इन ...</string>
+    <string name="waitting">कृपया प्रतीक्षा करें ...:</string>
+    <string name="resetSuccess">पासवर्ड रीसेट किया गया</string>
+    <string name="passwordUnSame">गलत पासवर्ड दर्ज करें</string>
+    <string name="saved">सफलतापूर्वक बचाय</string>
+    <string name="notificationlistener_prompt_title">सूचनाएं सक्षम करें</string>
+    <string name="notificationlistener_prompt_content">. iSmarport को दूरस्थ स्मार्ट डिवाइसेस के लिए अनुप्रयोग सूचनाओं को अग्रेषित करने की आवश्यकता है \ "पुष्टि करें \" सक्रिय करने के लिए अधिसूचना पृष्ठ दर्ज करें.</string>
+    <string name="tokenTimeout">लॉग इन समाप्त हो गया है, कृपया फिर से लॉगिन करे</string>
+    <string name="lostDevice"> डिवाइस कनेक्टेड नहीं है</string>
+    <string name="permissionErrorForCamare">अनुमति विफल, कैमरा फ़ंक्शन चालू नहीं कर सकता</string>
+    <string name="findPermission">अनुमति विफल। डिवाइस सूची को खोजने में सक्षम नहीं होगी</string>
+    <string name="applyPermission">. अनुरोध के लिए पहुँच:</string>
+    <string name="shareFailForPermission"> साझा विफल, संबंधित अनुमतियाँ विफल:</string>
+    <string name="permissionErrorForSMS">权अनुमति विफल, एसएमएस सूचनाओं को चालू करने में असमर्थ:</string>
+    <string name="loading">. लोड हो रहा है ...:</string>
+    <string name="privacyTip">在क्या आपने गोपनीयता समझौते को स्पष्ट रूप से पढ़ा है? क्या आप हमारी कंपनी के नए उपयोगकर्ता के रूप में पंजीकरण करने के लिए सहमत हुए हैं Click जब आप "पुष्टि" पर क्लिक करते हैं, तो आप समझौते की शर्तों से सहमत होते हैं.。\nउपयोगकर्ता की गोपनीयता नीति में मुख्य रूप से निम्नलिखित शामिल हैं:
+1. व्यक्तिगत जानकारी (प्रोफाइल फोटो 、 उपनाम (ऊँचाई 、 वजन, खेल डेटा, आदि) संग्रह, सहेजें और साझा करें.
+2. डिवाइस अनुमतियाँ (स्थान List संपर्क सूची, कैमरा, आदि) का उपयोग करना</string>
+    <string name="crop_pic_failed">कैद की गई छवि, कृपया JPG / PNG प्रारूप चित्र चुनें!</string>
+    <string name="deviceOut"> अनबाउंड डिवाइस</string>
+    <string name="visiter"> यह सुविधा विज़िटर मोड में समर्थित नहीं ह</string>
+    <string name="chooseJpg">कृपया jpg प्रारूप में एक चित्र चुनें</string>
+
+    <!--साझाकरण इंटरफ़ेस:-->
+    <string name="planOK">आज का लक्ष्य पूरा हो चुका है</string>
+    <string name="planNO">. आज का लक्ष्य पूरा नहीं हुआ</string>
+    <string name="planStepShare">लक्ष्य चरण: %dsteps</string>
+    <string name="distanceShare">पैदल दूर: %.1fKm</string>
+    <string name="calurieShare">जला कैलोरी: %.1fKcal</string>
+
+    <string name="planSleep">लक्ष्य अवधि: %.1fh</string>
+    <string name="deepSleepShare">गहरी नींद: %02dh%02dmin</string>
+    <string name="lightSleepShare">हल्की नींद: %02dh%02dmin</string>
+
+    <string name="testTimes"> मापन टाइम्स: %d</string>
+    <string name="maxHeartShare">मैक्स हार्ट रेट: %dbpm</string>
+    <string name="minHeartShare">न्यूनतम हृदय दर: %dbpm</string>
+
+    <string name="bloodOxygenData">रक्त ऑक्सीजन संतृप्ति</string>
+    <string name="testValue">परीक्षण के परिणाम:</string>
+    <string name="passTimeData">पारित दर: %.1f%%</string>
+
+    <string name="bloodPressureData">औसत सिस्टोलिक दबाव / डायस्टोलिक दबाव</string>
+    <string name="shareSuccess">सफलता साझा करना</string>
+    <string name="shareCancel">रद्द करना: साझा करना</string>
+    <string name="shareFail">शेयर विफल</string>
+
+    <!-- Scan & Connect -->
+    <string name="connect_error">Connect Error</string>
+
+
+    <!-- applist & appstore -->
+    <string name="launchfail">Load Application Failed</string>
+
+    <!-- SettingActivity -->
+    <string name="sms_preference_title">SMS service</string>
+    <string name="call_preference_title">Call service</string>
+    <string name="progress_dialog_title">लोड हो रहा ह</string>
+    <string name="progress_dialog_message">कृपया प्रतीक्षा करें&#8230;</string>
+
+    <!-- SelectNotifiActivity -->
+    <string name="personal_apps_title">Personal app</string>
+    <string name="system_apps_title">System app</string>
+
+
+    <!-- Service -->
+    <string name="missed_call">Missed Call</string>
+    <string name="accessibility_description">Active notification service in your accessibility setting. This allows BT notification to push application notification to remote device.</string>
+    <string name="batterylow">Battery low</string>
+    <string name="pleaseconnectcharger">The battery is getting low,Please connect charger, Capacity</string>
+
+    <string name="operate_error">Failed</string>
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

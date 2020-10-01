@@ -1,74 +1,123 @@
 package com.szip.sportwatch.Contorller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.media.Image;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BasketballFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BikeFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BoatFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.ClimbFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.FootballFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.GolfFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.MarathonFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.MountainFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.OnfootFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.PingpangFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.RunFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SkiiFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SurfingFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.TreadmillFragment;
+import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.StatusBarCompat;
+
+import java.util.Locale;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class SportTrackActivity extends BaseActivity implements View.OnClickListener {
 
+    /**
+     * Fragment操作相关
+     * */
+    private FragmentManager fm;
+    private FragmentTransaction transaction;
 
-    private ImageView pictureIv;
-    private TextView nameTv,timeTv,distanceTv,speedTv,calorieTv,sportTimeTv;
-    private long time;
-    private int distance,speed,calorie,sportTime;
-    private MyApplication app;
+    private SportData sportData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sport_track);
-        app = (MyApplication) getApplicationContext();
-        initData(getIntent());
+        sportData = (SportData) getIntent().getBundleExtra("data").getSerializable("sport");
         initView();
         initEvent();
     }
 
-    private void initData(Intent intent) {
-        time = intent.getLongExtra("time",0);
-        distance = intent.getIntExtra("distance",0);
-        speed = intent.getIntExtra("speed",0);
-        calorie = intent.getIntExtra("calorie",0);
-        sportTime = intent.getIntExtra("sportTime",0);
-    }
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
-        pictureIv = findViewById(R.id.pictureIv);
-        nameTv = findViewById(R.id.nameTv);
-        timeTv = findViewById(R.id.timeTv);
-        distanceTv = findViewById(R.id.distanceTv);
-        speedTv = findViewById(R.id.speedTv);
-        calorieTv = findViewById(R.id.calorieTv);
-        sportTimeTv = findViewById(R.id.sportTimeTv);
-
-        if (app.getUserInfo().getSex()==0){
-            pictureIv.setImageResource(R.mipmap.my_head_female_52);
-        }else {
-            pictureIv.setImageResource(R.mipmap.my_head_male_52);
+        BaseFragment fragment = null;
+        switch (sportData.type){
+            case 1:
+                fragment = new OnfootFragment(sportData);
+                break;
+            case 2:
+            case 6:
+                fragment = new RunFragment(sportData);
+                break;
+            case 3:
+                fragment = new TreadmillFragment(sportData);
+                break;
+            case 4:
+                fragment = new MountainFragment(sportData);
+                break;
+            case 5:
+                fragment = new MarathonFragment(sportData);
+                break;
+            case 10:
+                fragment = new BasketballFragment();
+                break;
+            case 11:
+                fragment = new BikeFragment(sportData);
+                break;
+            case 12:
+                fragment = new SkiiFragment(sportData);
+                break;
+            case 16:
+                fragment = new PingpangFragment();
+                break;
+            case 17:
+                fragment = new FootballFragment();
+                break;
+            case 19:
+                fragment = new ClimbFragment(sportData);
+                break;
+            case 20:
+                fragment = new BoatFragment(sportData);
+                break;
+            case 21:
+                fragment = new GolfFragment(sportData);
+                break;
+            case 22:
+                fragment = new SurfingFragment(sportData);
+                break;
         }
-        nameTv.setText(app.getUserInfo().getUserName());
-        timeTv.setText(DateUtil.getStringDateFromSecond(time,"MM/dd HH:mm:ss"));
-        distanceTv.setText(String.format("%.2f",distance/1000f));
-        speedTv.setText(String.format("%02d'%02d''",speed/60,speed%60));
-        calorieTv.setText(calorie+"");
-        sportTimeTv.setText(String.format("%02d:%02d:%02d",sportTime/3600, sportTime%3600/60,sportTime%3600%60));
+        fm = getSupportFragmentManager();
+        transaction =  fm.beginTransaction();
+        transaction.replace(R.id.fragment,fragment);
+        transaction.commit();
+
     }
 
     private void initEvent() {
         findViewById(R.id.backIv).setOnClickListener(this);
+        findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +126,25 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
             case R.id.backIv:
                 finish();
                 break;
+            case R.id.rightIv:
+                checkPermission();
+                break;
+        }
+    }
+
+    private void checkPermission() {
+        /**
+         * 获取权限·
+         * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        100);
+            }else {
+                shareShow(findViewById(R.id.reportLl));
+            }
+        }else {
+            shareShow(findViewById(R.id.reportLl));
         }
     }
 }

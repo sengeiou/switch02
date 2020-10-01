@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -18,9 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -64,8 +61,8 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     private void updateView() {
         reportView.setReportDate(((SleepReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        allSleepTv.setText(String.format("%.1fh",reportDataBean.getValue()/60f));
-        averageSleepTv.setText(String.format("%.1fh",reportDataBean.getValue1()/60f));
+        allSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue()/60f));
+        averageSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue1()/60f));
         if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((SleepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -85,7 +82,7 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allSleepTv = getView().findViewById(R.id.allSleepTv);
         averageSleepTv = getView().findViewById(R.id.averageSleepTv);
@@ -100,14 +97,17 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((SleepReportActivity)getActivity()).reportDate+=28*24*60*60;
-                initData();
-                updateView();
+                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
-                ((SleepReportActivity)getActivity()).reportDate-=28*24*60*60;
-                initData();
-                updateView();
+                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

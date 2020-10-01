@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/report_icon_white_left"
-                android:layout_marginRight="20dp"/>
+                android:padding="17dp"/>
 
             <TextView
                 android:id="@+id/dateTv"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/report_icon_white_right"
-                android:layout_marginLeft="20dp"/>
+                android:padding="17dp"/>
 
         </LinearLayout>
 
@@ -58,7 +58,7 @@
 
 
             <TextView
-                android:id="@+id/averageTv"
+                android:id="@+id/averageTv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -79,7 +79,7 @@
             android:text="@string/averageHeart"/>
 
         <com.szip.sportwatch.View.ReportView
-            android:id="@+id/tableView"
+            android:id="@+id/tableView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/report_margin"
@@ -95,7 +95,7 @@
             app:x_value="true"
             app:x_value_num="12"
             app:y_value="true"
-            app:maxVelue="75"
+            app:maxVelue="100"
             app:y_value_num="5"
             app:bar_width="12dp" />
 

@@ -30,6 +30,9 @@ public class SleepData extends BaseModel implements Comparable<SleepData>{
     @Column
     public String dataForHour;
 
+    @Column
+    public String deviceCode;
+
 
     public long getTime() {
         return time;

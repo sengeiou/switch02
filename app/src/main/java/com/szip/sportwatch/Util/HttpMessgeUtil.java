@@ -4,26 +4,37 @@ package com.szip.sportwatch.Util;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 
 import com.szip.sportwatch.Contorller.LoginActivity;
+import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
+import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
+import com.szip.sportwatch.Model.HttpBean.BindBean;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
+import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -31,8 +42,6 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String urlTest = "https://test.znsdkj.com:8443/sportWatch/";
-    private String urlCloud = "https://cloud.znsdkj.com:8443/sportWatch/";
     private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
@@ -42,15 +51,13 @@ public class HttpMessgeUtil {
 
     private HttpCallbackWithBase httpCallbackWithBase;
     private HttpCallbackWithLogin httpCallbackWithLogin;
-//    private HttpCallbackWithUpdata httpCallbackWithUpdata;
-//    private HttpCallbackWithReport httpCallbackWithReport;
     private HttpCallbackWithUserInfo httpCallbackWithUserInfo;
-//    private HttpCallbackWithAddClock httpCallbackWithAddClock;
-//    private HttpCallbackWithClockData httpCallbackWithClockData;
 
     private int GET_VERIFICATION = 100;
     public static int UPDOWN_LOG = 101;
     public static int UPDOWN_DATA = 102;
+    public static int UPDOWN_AVATAR = 103;
+    public static int UPDATA_USERINFO = 104;
 
     public static HttpMessgeUtil getInstance(Context context)
     {
@@ -69,19 +76,14 @@ public class HttpMessgeUtil {
 
     private HttpMessgeUtil(Context context){
         mContext = context;
-        if (context.getResources().getConfiguration().locale.getCountry().equals("CN")){
+        if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
             language = "zh-CN";
+        }else if (context.getResources().getConfiguration().locale.getLanguage().equals("es")){
+            language = "es-ES";
         }else{
             language = "en-US";
         }
         time = DateUtil.getGMTWithString();
-    }
-
-    public void setUrl(boolean isTest){
-        if (isTest)
-            url = urlTest;
-        else
-            url = urlCloud;
     }
 
     public void setToken(String token){
@@ -92,30 +94,13 @@ public class HttpMessgeUtil {
         this.httpCallbackWithBase = httpCallbackWithBase;
     }
 
-
     public void setHttpCallbackWithLogin(HttpCallbackWithLogin httpCallbackWithLogin) {
         this.httpCallbackWithLogin = httpCallbackWithLogin;
     }
 
-//    public void setHttpCallbackWithUpdata(HttpCallbackWithUpdata httpCallbackWithUpdata) {
-//        this.httpCallbackWithUpdata = httpCallbackWithUpdata;
-//    }
-//
-//    public void setHttpCallbackWithReport(HttpCallbackWithReport httpCallbackWithReport) {
-//        this.httpCallbackWithReport = httpCallbackWithReport;
-//    }
-
     public void setHttpCallbackWithUserInfo(HttpCallbackWithUserInfo httpCallbackWithUserInfo) {
         this.httpCallbackWithUserInfo = httpCallbackWithUserInfo;
     }
-
-//    public void setHttpCallbackWithAddClock(HttpCallbackWithAddClock httpCallbackWithAddClock) {
-//        this.httpCallbackWithAddClock = httpCallbackWithAddClock;
-//    }
-//
-//    public void setHttpCallbackWithClockData(HttpCallbackWithClockData httpCallbackWithClockData) {
-//        this.httpCallbackWithClockData = httpCallbackWithClockData;
-//    }
 
     /**
      * 注册接口
@@ -126,7 +111,8 @@ public class HttpMessgeUtil {
      * @param verifyCode             验证码
      * @param password               密码
      * */
-    private void _postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password) throws IOException {
+    private void _postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password,
+                               String phoneId,String phoneSystem) throws IOException {
         String url = this.url+"user/signUp";
         OkHttpUtils
                 .jpost()
@@ -139,6 +125,8 @@ public class HttpMessgeUtil {
                 .addParams("email",email)
                 .addParams("verifyCode",verifyCode)
                 .addParams("password",password)
+                .addParams("phoneId",phoneId)
+                .addParams("phoneSystem",phoneSystem)
                 .build()
                 .execute(baseApiGenericsCallback);
     }
@@ -197,19 +185,20 @@ public class HttpMessgeUtil {
      * @param email                  邮箱
      * @param password               密码
      * */
-    private void _postLogin(String type,String areaCode, String phoneNumber, String email, String password)throws IOException{
+    private void _postLogin(String type,String areaCode, String phoneNumber, String email, String password,String phoneId,String phoneSystem)throws IOException{
         String url = this.url+"user/login";
         OkHttpUtils
                 .jpost()
                 .url(url)
                 .addHeader("Time-Diff",time)
                 .addHeader("Accept-Language",language)
-                .addParams("project","sleep")
                 .addParams("type",type)
                 .addParams("areaCode",areaCode)
                 .addParams("phoneNumber",phoneNumber)
                 .addParams("email",email)
                 .addParams("password",password)
+                .addParams("phoneId",phoneId)
+                .addParams("phoneSystem",phoneSystem)
                 .build()
                 .execute(loginBeanGenericsCallback);
     }
@@ -243,22 +232,21 @@ public class HttpMessgeUtil {
 
 
 
-//    /**
-//     * 发送意见反馈接口
-//     * */
-//    private void _postSendFeedback(String content,int id)throws IOException{
-//        String url = this.url+"comm/feedback";
-//        OkHttpUtils
-//                .fpost()
-//                .url(url)
-//                .id(id)
-//                .addHeader("Time-Diff",time)
-//                .addHeader("token",token)
-//                .addHeader("Accept-Language",language)
-//                .addParams("content",content)
-//                .build()
-//                .execute(baseApiGenericsCallback);
-//    }
+    /**
+     * 发送意见反馈接口
+     * */
+    private void _postSendFeedback(String content)throws IOException{
+        String url = this.url+"user/uploadFeedback";
+        OkHttpUtils
+                .jpost()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addParams("content",content)
+                .build()
+                .execute(baseApiGenericsCallback);
+    }
 
 //    /**
 //     * 获取固件升级
@@ -309,6 +297,7 @@ public class HttpMessgeUtil {
         OkHttpUtils
                 .jpost()
                 .url(url)
+                .id(UPDATA_USERINFO)
                 .addHeader("Time-Diff",time)
                 .addHeader("token",token)
                 .addHeader("Accept-Language",language)
@@ -462,9 +451,26 @@ public class HttpMessgeUtil {
 //    }
 //
     /**
+     * 上传头像
+     * */
+    private void _postUpdownAvatar(File avatar, GenericsCallback<AvatarBean> callback)throws IOException{
+        String url = this.url+"user/setProfilePicture";
+        OkHttpUtils
+                .fpost()
+                .url(url)
+                .id(UPDOWN_AVATAR)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addFile("file","iSmarport_6.jpg",avatar)
+                .build()
+                .execute(callback);
+    }
+
+
+    /**
      * 绑定设备
      * */
-    private void _getBindDevice(String deviceCode)throws IOException{
+    private void _getBindDevice(String deviceCode, GenericsCallback<BindBean> callback)throws IOException{
         String url = this.url+"device/bindDevice";
         OkHttpUtils
                 .get()
@@ -474,8 +480,26 @@ public class HttpMessgeUtil {
                 .addHeader("Accept-Language",language)
                 .addParams("deviceCode",deviceCode)
                 .build()
-                .execute(baseApiGenericsCallback);
+                .execute(callback);
     }
+
+    /**
+     * 天气预报
+     * */
+    private void _getWeather(String lat,String lon,GenericsCallback<WeatherBean> callback)throws IOException{
+        String url = this.url+"comm/weather";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addParams("lat",lat)
+                .addParams("lon",lon)
+                .build()
+                .execute(callback);
+    }
+
 
     /**
      * 解绑设备
@@ -544,6 +568,23 @@ public class HttpMessgeUtil {
                 .execute(reportDataBeanGenericsCallback);
     }
 
+    private void _getDeviceConfig(GenericsCallback<DeviceConfigBean> callback)throws IOException{
+        String url = this.url+"comm/getAppFunctionConfigs";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .build()
+                .execute(callback);
+    }
+
+
+    public void getDeviceConfig(GenericsCallback<DeviceConfigBean> callback)throws IOException{
+        _getDeviceConfig(callback);
+    }
+
     public void postAppCrashLog(String appName,String appVersion,String systemInfo,String stackTrace)throws IOException{
         _postAppCrashLog(appName,appVersion,systemInfo,stackTrace);
     }
@@ -552,8 +593,9 @@ public class HttpMessgeUtil {
     /**
      * 提供给用户的方法
      * */
-    public void postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password) throws IOException{
-        _postRegister(type,areaCode,phoneNumber,email,verifyCode,password);
+    public void postRegister(String type,String areaCode,String phoneNumber,String email,String verifyCode,String password,
+                             String phoneId,String phoneSystem) throws IOException{
+        _postRegister(type,areaCode,phoneNumber,email,verifyCode,password, phoneId, phoneSystem);
     }
 
     public void getVerificationCode(String type,String areaCode,String phoneNumber,String email)throws IOException{
@@ -565,8 +607,8 @@ public class HttpMessgeUtil {
         _postCheckVerifyCode(type,areaCode,phoneNumber,email,verifyCode);
     }
 
-    public void postLogin(String type, String areaCode,String phoneNumber, String email, String password)throws IOException{
-        _postLogin(type,areaCode,phoneNumber,email,password);
+    public void postLogin(String type, String areaCode,String phoneNumber, String email, String password,String phoneId,String phoneSystem)throws IOException{
+        _postLogin(type,areaCode,phoneNumber,email,password,phoneId,phoneSystem);
     }
 
     public void postForgotPassword(String type,String areaCode,String phoneNumber,String email,String verifyCode,
@@ -617,8 +659,8 @@ public class HttpMessgeUtil {
 //        _postForChangePassword(currentPassword,newPassword,id);
 //    }
 //
-    public void getBindDevice(String deviceCode)throws IOException{
-        _getBindDevice(deviceCode);
+    public void getBindDevice(String deviceCode,GenericsCallback<BindBean> callback)throws IOException{
+        _getBindDevice(deviceCode,callback);
     }
 
     public void getUnbindDevice()throws IOException{
@@ -631,6 +673,10 @@ public class HttpMessgeUtil {
 
     public void getForDownloadReportData(String time, String size)throws IOException{
         _getForDownloadReportData(time,size);
+    }
+
+    public void postUpdownAvatar(File avatar,GenericsCallback<AvatarBean> callback)throws IOException{
+        _postUpdownAvatar(avatar,callback);
     }
 //
 //    public void postForChangeClock(String clockId,String type,String hour,String minute,String index,String isPhone,
@@ -653,9 +699,13 @@ public class HttpMessgeUtil {
 //
 //
 //
-//    public void postSendFeedback(String content,int id)throws IOException{
-//        _postSendFeedback(content,id);
-//    }
+    public void postSendFeedback(String content)throws IOException{
+        _postSendFeedback(content);
+    }
+
+    public void getWeather(String lat,String lon,GenericsCallback<WeatherBean> callback)throws IOException{
+        _getWeather(lat,lon,callback);
+    }
 
     /**
      * 接口回调
@@ -768,7 +818,7 @@ public class HttpMessgeUtil {
         @Override
         public void onResponse(DownloadDataBean response, int id) {
             if (response.getCode() == 200){
-                SaveDataUtil saveDataUtil = SaveDataUtil.newInstance(mContext);
+                SaveDataUtil saveDataUtil = SaveDataUtil.newInstance();
                 if (response.getData().getBloodOxygenData().size()!=0)
                     saveDataUtil.saveBloodOxygenDataListData(response.getData().getBloodOxygenData());
 
@@ -776,7 +826,7 @@ public class HttpMessgeUtil {
                     saveDataUtil.saveBloodPressureDataListData(response.getData().getBloodPressureDataList());
 
                 if (response.getData().getHeartDataList().size()!=0)
-                    saveDataUtil.saveHeartDataListData(response.getData().getHeartDataList());
+                    saveDataUtil.saveHeartDataListData(response.getData().getHeartDataList(),false);
 
                 if (response.getData().getSleepDataList().size()!=0)
                     saveDataUtil.saveSleepDataListData(response.getData().getSleepDataList());
@@ -787,9 +837,14 @@ public class HttpMessgeUtil {
                 if (response.getData().getEcgDataList().size()!=0)
                     saveDataUtil.saveEcgDataListData(response.getData().getEcgDataList());
 
-                for (SportData sportData:response.getData().getSportDataList()){
-                    saveDataUtil.saveSportData(sportData);
-                }
+                if (response.getData().getAnimalHeatDataList().size()!=0)
+                    saveDataUtil.saveAnimalHeatDataListData(response.getData().getAnimalHeatDataList());
+
+                if (response.getData().getSportDataList().size()!=0)
+                    saveDataUtil.saveSportDataListData(response.getData().getSportDataList());
+//                for (SportData sportData:response.getData().getSportDataList()){
+//                    saveDataUtil.saveSportData(sportData);
+//                }
             }else if (response.getCode() == 401){
                 tokenTimeOut();
             }else {
@@ -851,7 +906,10 @@ public class HttpMessgeUtil {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isLogin",false);
         editor.putBoolean("isBind",false);
+        editor.putString("token",null);
         editor.commit();
+//        SaveDataUtil.newInstance().clearDB();
+        MainService.getInstance().stopConnect();
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intentmain);

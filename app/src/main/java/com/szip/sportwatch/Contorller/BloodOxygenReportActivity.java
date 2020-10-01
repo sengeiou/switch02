@@ -1,7 +1,11 @@
 package com.szip.sportwatch.Contorller;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +21,7 @@ import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.ScreenCapture;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CalendarPicker;
 import com.szip.sportwatch.View.NoScrollViewPager;
@@ -25,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -45,6 +51,7 @@ public class BloodOxygenReportActivity extends BaseActivity implements View.OnCl
         getSupportActionBar().hide();
         setContentView(R.layout.activity_blood_oxygen_report);
         tabs = new String[]{getString(R.string.day),getString(R.string.week),getString(R.string.month),getString(R.string.year)};
+        LoadDataUtil.newInstance().initCalendarPoint(5);
         initView();
         initEvent();
         initPager();
@@ -137,43 +144,49 @@ public class BloodOxygenReportActivity extends BaseActivity implements View.OnCl
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                EventBus.getDefault().post(new UpdateReport());
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    EventBus.getDefault().post(new UpdateReport());
+                                }
                             }
                         })
                         .show();
                 break;
             case R.id.image1:{
-                ReportDataBean reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithDay(reportDate);
-                Intent intent = new Intent(this,ShareActivity.class);
-                intent.putExtra("flag",4);
-                intent.putExtra("time",reportDate);
-                if (reportDataBean.getDrawDataBeans().size()!=0){
-                    intent.putExtra("value",reportDataBean.getDrawDataBeans().get(0).getValue()+70);
-                    if ((reportDataBean.getDrawDataBeans().get(0).getValue()+70)/12f<0.5){
-                        intent.putExtra("value1",1);
-                    }else {
-                        intent.putExtra("value1",0);
-                    }
-                    intent.putExtra("value2",reportDataBean.getDrawDataBeans().size());
-                    intent.putExtra("value3",1000);
-                }else {
-                    intent.putExtra("value",0);
-                    intent.putExtra("value1",1);
-                    intent.putExtra("value2",0);
-                    intent.putExtra("value3",0);
-                }
-                startActivityForResult(intent,100);
+                checkPermission();
             }
             break;
         }
     }
 
+    private void checkPermission() {
+        /**
+         * 获取权限·
+         * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        100);
+            }else {
+                shareShow(findViewById(R.id.reportLl));
+            }
+        }else {
+            shareShow(findViewById(R.id.reportLl));
+        }
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100&&resultCode == 101){
-            shareShow(data.getStringExtra("filePath"));
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100){
+            int code = grantResults[0];
+            if (code == PackageManager.PERMISSION_GRANTED){
+                shareShow(findViewById(R.id.reportLl));
+            }else {
+                showToast(getString(R.string.shareFailForPermission));
+            }
         }
     }
 }

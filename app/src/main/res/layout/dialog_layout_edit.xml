@@ -21,13 +21,16 @@
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:padding="8dp"
         android:background="@drawable/main_color_corner"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:textCursorDrawable="@null"/>
+        android:textCursorDrawable="@null"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
 
     <View
@@ -50,7 +53,8 @@
             android:background="#00000000"
             android:textColor="@color/gray"
             android:textSize="17sp"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textAllCaps="false"/>
 
         <View
             android:layout_width="1dp"
@@ -66,7 +70,8 @@
             android:background="#00000000"
             android:text="@string/confirm"
             android:textColor="@color/blue"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 

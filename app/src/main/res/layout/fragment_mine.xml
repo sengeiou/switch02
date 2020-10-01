@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bgColor">
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/bgColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layout"
@@ -48,14 +49,30 @@
                     android:padding="@dimen/item_pad"/>
 
                 <TextView
+                    android:id="@+id/device"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+
                     android:text="@string/device"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/item_text_size"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/image" />
+
+
+                <TextView
+                    android:id="@+id/deviceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:textSize="13sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/device"
+                    android:layout_toLeftOf="@+id/deviceNameTv"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/deviceNameTv"
@@ -65,7 +82,7 @@
                     android:textColor="@color/blue"
                     android:layout_toLeftOf="@id/arrow"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/item_margin_model_right"/>
+                    android:layout_marginRight="@dimen/item_margin_model_right" />
 
                 <ImageView
                     android:id="@+id/arrow"
@@ -341,7 +358,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/unitLl"
+                android:id="@+id/faceLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -352,6 +369,43 @@
 
                 <ImageView
                     android:id="@+id/image6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/my_icon_change"
+                    android:padding="@dimen/item_pad"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/face"
+                    android:textColor="@color/rayblue"
+                    android:textSize="@dimen/item_text_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/image6"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/item_margin_model_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_icon_arrow"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/unitLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="@dimen/item_margin_parallel"
+                android:layout_marginLeft="@dimen/item_margin_parallel"
+                android:background="@drawable/bg_mine_item"
+                android:layout_marginTop="@dimen/item_margin_model_top">
+
+                <ImageView
+                    android:id="@+id/image10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/my_icon_unit"
@@ -365,7 +419,7 @@
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/item_text_size"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/image6"/>
+                    android:layout_toRightOf="@id/image10"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -457,32 +511,35 @@
         </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/userLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@mipmap/my_head_bg">
+        android:background="@mipmap/my_head_bg"
+        android:clickable="true">
 
-        <ImageView
+        <com.szip.sportwatch.View.CircularImageView
             android:id="@+id/pictureIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@mipmap/my_head_male_52"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginLeft="40dp"
+            app:is_circular="true"/>
 
         <TextView
             android:id="@+id/userNameTv"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_text_size"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:text="用户名"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:maxLines="1"/>
 
     </LinearLayout>
 

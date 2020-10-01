@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.szip.sportwatch.View.CalendarPicker;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EcgListActivity extends BaseActivity implements View.OnClickListener{
 
@@ -34,6 +36,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_ecg_list);
+        LoadDataUtil.newInstance().initCalendarPoint(6);
         initData();
         initView();
         initEvent();
@@ -41,11 +44,16 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
 
     private void initEvent() {
         findViewById(R.id.backIv).setOnClickListener(this);
-        findViewById(R.id.image2).setOnClickListener(this);
+        findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void initData() {
         dataList =  LoadDataUtil.newInstance().getEcgDataList(reportDate);
+        if(dataList.size()==0){
+            findViewById(R.id.noDataLl).setVisibility(View.VISIBLE);
+        }else {
+            findViewById(R.id.noDataLl).setVisibility(View.GONE);
+        }
     }
 
     private void updateView() {
@@ -58,19 +66,22 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         listView = findViewById(R.id.ecgListView);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.ecgReport));
+        ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         ecgDataAdapter = new EcgDataAdapter(dataList,this);
         listView.setAdapter(ecgDataAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(EcgListActivity.this,EcgDataActivity.class);
-                intent.putExtra("name",((MyApplication)getApplication()).getUserInfo().getUserName());
-                intent.putExtra("average",dataList.get(position).getValue());
-                intent.putExtra("max",dataList.get(position).getValue1());
-                intent.putExtra("min",dataList.get(position).getValue2());
-                intent.putExtra("time",dataList.get(position).getTime());
-                startActivity(intent);
+                if(position!=dataList.size()){
+                    Intent intent = new Intent(EcgListActivity.this,EcgDataActivity.class);
+                    intent.putExtra("name",((MyApplication)getApplication()).getUserInfo().getUserName());
+                    intent.putExtra("average",dataList.get(position).getValue());
+                    intent.putExtra("max",dataList.get(position).getValue1());
+                    intent.putExtra("min",dataList.get(position).getValue2());
+                    intent.putExtra("time",dataList.get(position).getTime());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -82,7 +93,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
             case R.id.backIv:
                 finish();
                 break;
-            case R.id.image2:
+            case R.id.rightIv:
                 CalendarPicker.getInstance()
                         .enableAnimation(true)
                         .setFragmentManager(getSupportFragmentManager())
@@ -92,9 +103,14 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                dataList =  LoadDataUtil.newInstance().getEcgDataList(reportDate);
-                                updateView();
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    initData();
+                                    updateView();
+                                }
+
                             }
                         })
                         .show();

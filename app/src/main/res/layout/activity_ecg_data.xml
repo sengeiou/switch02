@@ -10,7 +10,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="27dp"
         android:background="@color/gray1"/>
 
     <RelativeLayout
@@ -32,7 +32,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/item_margin_parallel"
-            android:src="@mipmap/report_icon_share"/>
+            android:src="@mipmap/report_icon_share"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -89,7 +90,8 @@
                         android:textColor="@color/rayblue"
                         android:textSize="@dimen/report_text_size_mid"
                         android:text="球儿"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,7 +120,7 @@
                     android:layout_marginBottom="12dp">
 
                     <TextView
-                        android:id="@+id/averageTv"
+                        android:id="@+id/averageTv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
@@ -130,11 +132,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/averageTv"
+                        android:layout_below="@id/averageTv1"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/averageHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -170,7 +173,8 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/maxHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -206,7 +210,8 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
                         android:text="@string/minHeart"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"/>
 
                 </RelativeLayout>
 
@@ -233,6 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/gray"
+                    android:layout_toRightOf="@id/timeTv"
                     android:textSize="@dimen/report_text_size_small"
                     android:text="@string/ecgTip"/>
 

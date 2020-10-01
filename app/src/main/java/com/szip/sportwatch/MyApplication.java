@@ -10,21 +10,37 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
+import com.szip.sportwatch.DB.SaveDataUtil;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
+import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.TopExceptionHandler;
+import com.zhy.http.okhttp.callback.GenericsCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import okhttp3.Call;
 
 
 /**
@@ -35,7 +51,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     private SharedPreferences sharedPreferences;
     private int mFinalCount;
-    public static boolean isBackground = false;
     static public String FILE = "sportWatch";
 
     private UserInfo userInfo;
@@ -50,8 +65,34 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     private static MyApplication mInstance;
     private boolean camerable;//能否使用照相机
 
+    private int updownTime;
+    private Thread updownDataThread;//上传数据的线程
+
     public static MyApplication getInstance(){
         return mInstance;
+    }
+
+    private ArrayList<WeatherBean.Condition> weatherModel;
+    private String city;
+
+    private String deviceNum;
+
+    private boolean isMtk = true;
+
+    private String BtMac;
+
+    public String getBtMac() {
+        return BtMac;
+    }
+
+    public void setBtMac(String btMac) {
+        if (BtMac==null||!btMac.split(":")[0].equals(BtMac.split(":")[0])){
+            String[] buff = btMac.split(":");
+            BtMac = String.format("%02X:%02X:%02X:%02X:%02X:%02X",Integer.valueOf(buff[0],16),Integer.valueOf(buff[1],16),
+                    Integer.valueOf(buff[2],16),Integer.valueOf(buff[3],16),Integer.valueOf(buff[4],16)
+                    ,Integer.valueOf(buff[5],16));
+            Log.d("SZIP******","MAC = "+BtMac);
+        }
     }
 
     @Override
@@ -61,34 +102,46 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
         mInstance = this;
         FlowManager.init(this);
-        LoadDataUtil.newInstance().initCalendarPoint();
+
+        /**
+         * 注册广播
+         * */
+        UtilBroadcat broadcat = new UtilBroadcat(getApplicationContext());
+        broadcat.onRegister();
+
         /**
          * 把log上传到云端
          * */
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
         //初始化文件存储
-        FileUtil.getInstance().initFile(getExternalFilesDir(null).getPath());
+        FileUtil.getInstance().initFile();
 
         //注册网络回调
         HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(this);
 
         //初始化不推送的应用
-        initIgnoreList();
+
 
         /**
          * 拿去本地缓存的数据
          * */
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+        isMtk = sharedPreferences.getBoolean("bleConfig",true);
+        //获取上次退出之后剩余的倒计时上传时间
+        updownTime = sharedPreferences.getInt("updownTime",3600);
+
+        camerable = sharedPreferences.getBoolean("camera",false);
+
+        if (sharedPreferences.getBoolean("first",true)){
+            initIgnoreList();
+            sharedPreferences.edit().putBoolean("first",false).commit();
+        }
+
         //判断登录状态
         String token = sharedPreferences.getString("token",null);
-        camerable = sharedPreferences.getBoolean("camera",false);
-//        HttpMessgeUtil.getInstance(this).setUrl(sharedPreferences.getBoolean("isTest",false));
-        if (token==null){//未登录
-            startState = 1;
-        }else {//已登录
-            startState = 0;
+        if (token!=null){//已登录
             HttpMessgeUtil.getInstance(this).setToken(token);
             new Thread(new Runnable() {
                 @Override
@@ -97,7 +150,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                         try {
                             Log.d("SZIP******","GET USER1");
                             HttpMessgeUtil.getInstance(MyApplication.this).getForGetInfo();
-                            Thread.sleep(2000);
+                            Thread.sleep(60000);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }catch (InterruptedException e) {
@@ -109,17 +162,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
         }
 
-        String packageName = getPackageName();
-        String strListener = Settings.Secure.getString(this.getContentResolver(),
-                "enabled_notification_listeners");
-        if (strListener != null
-                && strListener
-                .contains(packageName)) {
-            ComponentName localComponentName = new ComponentName(this, MyNotificationReceiver.class);
-            PackageManager localPackageManager = this.getPackageManager();
-            localPackageManager.setComponentEnabledSetting(localComponentName, 2, 1);
-            localPackageManager.setComponentEnabledSetting(localComponentName, 1, 1);
-        }
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -133,7 +175,16 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 Log.e("onActivityStarted", mFinalCount + "");
                 if (mFinalCount == 1) {
                     //说明从后台回到了前台
-                    MyApplication.isBackground = false;
+                    Log.i("SZIP******", " 返回到了 前台");
+                    if(sharedPreferences==null)
+                        sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+                    //判断登录状态
+                    String token = sharedPreferences.getString("token",null);
+                    if (token==null){//未登录
+                        startState = 1;
+                    }else {//已登录
+                        startState = 0;
+                    }
                 }
             }
 
@@ -152,9 +203,10 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 mFinalCount--;
                 //如果mFinalCount ==0，说明是前台到后台
 
+                Log.i("onActivityStopped", mFinalCount + "");
                 if (mFinalCount == 0) {
                     //说明从前台回到了后台
-                    MyApplication.isBackground = true;
+                    Log.i("SZIP******", " 切换到了 后台");
                 }
             }
 
@@ -168,7 +220,58 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
             }
         });
+
+
+        String packageName = getPackageName();
+        String strListener = Settings.Secure.getString(this.getContentResolver(),
+                "enabled_notification_listeners");
+        if (strListener != null
+                && strListener
+                .contains(packageName)) {
+            ComponentName localComponentName = new ComponentName(this, MyNotificationReceiver.class);
+            PackageManager localPackageManager = this.getPackageManager();
+            localPackageManager.setComponentEnabledSetting(localComponentName, 2, 1);
+            localPackageManager.setComponentEnabledSetting(localComponentName, 1, 1);
+        }
+
+       startUpdownThread();
     }
+
+    /**
+     * 倒计时累计一个小时就上传一次数据到云端
+     * */
+    private void startUpdownThread(){
+
+        updownDataThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(1000);
+                        updownTime--;
+                        if (updownTime == 0)
+                            break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (getUserInfo().getDeviceCode()!=null){
+                    try {
+                        String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
+                        HttpMessgeUtil.getInstance(MyApplication.this).postForUpdownReportData(datas);
+                        updownTime = 3600;
+                        startUpdownThread();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        updownDataThread.start();
+    }
+
+
     private void initIgnoreList() {
         HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
         List<PackageInfo> packagelist = getPackageManager().getInstalledPackages(0);
@@ -227,5 +330,120 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         }else {//保存用户信息
             setUserInfo(userInfoBean.getData());
         }
+    }
+
+    public int getUpdownTime() {
+        return updownTime;
+    }
+
+    public ArrayList<WeatherBean.Condition> getWeatherModel() {
+        if (weatherModel==null){
+            String weather = sharedPreferences.getString("weatherList",null);
+            if (weather == null)
+                return null;
+            else {
+                Gson gson = new Gson();
+                ArrayList<WeatherBean.Condition> bean = gson.fromJson(weather, new TypeToken<ArrayList<WeatherBean.Condition>>(){}.getType());
+                return bean;
+            }
+        }else
+            return weatherModel;
+    }
+
+    public String getCity() {
+        if (city==null){
+            String city1 = sharedPreferences.getString("city",null);
+            return city1;
+        }
+        return city;
+    }
+
+    public void setWeatherModel(WeatherBean weatherBean) {
+        try {
+            Gson gson=new Gson();
+            this.weatherModel = weatherBean.getData().getForecasts();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            JSONArray array = null;
+            array = new JSONArray(gson.toJson(weatherModel));
+            Log.d("SZIP******", "weather = "+array.toString());
+            editor.putString("weatherList",array.toString());
+            editor.putString("city",weatherBean.getData().getLocation().getCity());
+            editor.commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDeviceNum(String deviceNum) {
+        this.deviceNum = deviceNum;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("deviceNum",deviceNum);
+        editor.commit();
+    }
+
+    public String getDeviceNum() {
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return "0";
+            else
+                return deviceNum;
+        }else
+            return deviceNum;
+    }
+
+    public boolean getSportVisiable(){
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return true;
+        }
+
+        return LoadDataUtil.newInstance().getSportConfig(Integer.valueOf(deviceNum));
+    }
+
+    public boolean isCirlce(){
+        if (deviceNum==null){
+            deviceNum = sharedPreferences.getString("deviceNum",null);
+            if (deviceNum==null)
+                return true;
+        }
+
+        return LoadDataUtil.newInstance().getDialConfig(Integer.valueOf(deviceNum));
+    }
+
+    public void getDeviceConfig(){
+        try {
+            HttpMessgeUtil.getInstance(this).getDeviceConfig(new GenericsCallback<DeviceConfigBean>(new JsonGenericsSerializator()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+
+                @Override
+                public void onResponse(DeviceConfigBean response, int id) {
+                    if (response.getCode()==200){
+                        ArrayList<HealthyConfig> data = new ArrayList<>();
+                        SaveDataUtil.newInstance().saveConfigListData(response.getData());
+                        for (SportWatchAppFunctionConfigDTO configDTO:response.getData()){
+                            configDTO.getHealthMonitorConfig().identifier = configDTO.identifier;
+                            data.add(configDTO.getHealthMonitorConfig());
+                        }
+                        SaveDataUtil.newInstance().saveHealthyConfigListData(data);
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMtk(String deviceName) {
+        isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
+        sharedPreferences.edit().putBoolean("bleConfig",isMtk).commit();
+    }
+
+    public boolean isMtk() {
+        return isMtk;
     }
 }

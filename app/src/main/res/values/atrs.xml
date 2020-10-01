@@ -52,6 +52,16 @@
         <attr name="flag" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="SportReportView">
+        <attr name="color_text" format="color"/>
+        <attr name="color_pross" format="color"/>
+        <attr name="width_bar" format="dimension"/>
+        <attr name="value_y" format="boolean"/>
+        <attr name="size_text" format="dimension"/>
+        <attr name="number_data" format="integer"/>
+        <attr name="value_max" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="NoScrollViewPager">
         <attr name="scorll_able" format="boolean"/>
     </declare-styleable>
@@ -67,6 +77,12 @@
         <attr name="awv_isLoop" format="boolean" />
         <attr name="awv_initialPosition" format="integer" />
         <attr name="awv_scaleX" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageView">
+        <attr name="is_circular" format="boolean"/>
+        <attr name="is_allRadius" format="boolean"/>
+        <attr name="radius" format="dimension"/>
     </declare-styleable>
 
 </resources>

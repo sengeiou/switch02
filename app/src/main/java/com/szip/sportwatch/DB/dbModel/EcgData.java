@@ -12,7 +12,7 @@ import com.szip.sportwatch.DB.AppDatabase;
  * Created by Administrator on 2019/12/30.
  */
 @Table(database = AppDatabase.class)
-public class EcgData extends BaseModel implements Comparable<EcgData>{
+public class EcgData extends BaseModel {
     @PrimaryKey(autoincrement = true)
     public long id;
 
@@ -22,6 +22,8 @@ public class EcgData extends BaseModel implements Comparable<EcgData>{
     @Column
     public String heart;
 
+    @Column
+    public String deviceCode;
 
     public long getTime() {
         return time;
@@ -34,10 +36,5 @@ public class EcgData extends BaseModel implements Comparable<EcgData>{
 
     public EcgData() {
     }
-
-    @Override
-    public int compareTo(@NonNull EcgData o) {
-        return (int)(this.time-o.time);
-    }
-
 }
+

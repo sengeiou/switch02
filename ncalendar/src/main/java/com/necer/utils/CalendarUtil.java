@@ -20,67 +20,14 @@ import java.util.List;
 
 public class CalendarUtil {
 
-    private static List<LocalDate> stepPointList = new ArrayList<>();//计步有数据的日期
-    private static List<LocalDate> sleepPointList = new ArrayList<>();//睡眠有数据的日期
-    private static List<LocalDate> heartPointList = new ArrayList<>();//心率有数据的日期
-    private static List<LocalDate> bloodPressurePointList = new ArrayList<>();//血压有数据的日期
-    private static List<LocalDate> bloodOxygenPointList = new ArrayList<>();//血氧有数据的日期
-    private static List<LocalDate> ecgPointList = new ArrayList<>();//心电有数据的日期
-    private static List<LocalDate> sportPointList = new ArrayList<>();//计步有数据的日期
+    private static List<LocalDate> dataList = new ArrayList<>();
 
-    public static void setPointList(List<LocalDate> stepPointList1,List<LocalDate> sleepPointList1,List<LocalDate> heartPointList1,
-                             List<LocalDate> bloodPressurePointList1,List<LocalDate> bloodOxygenPointList1,List<LocalDate> ecgPointList1,
-                             List<LocalDate> sportPointList1){
-        stepPointList = stepPointList1;
-        sleepPointList = sleepPointList1;
-        heartPointList = heartPointList1;
-        bloodPressurePointList = bloodPressurePointList1;
-        bloodOxygenPointList = bloodOxygenPointList1;
-        ecgPointList = ecgPointList1;
-        sportPointList = sportPointList1;
+    public static void setPointList(List<LocalDate> dataList1){
+        dataList = dataList1;
     }
 
-    public static List<LocalDate> getPointList(int flag){
-        if (flag == 0){
-            return stepPointList;
-        }else if (flag == 1){
-            return sleepPointList;
-        }else if (flag == 2){
-            return heartPointList;
-        }else if (flag == 3){
-            return bloodPressurePointList;
-        }else if (flag == 4){
-            return bloodOxygenPointList;
-        }else if (flag == 5){
-            return ecgPointList;
-        }else{
-            return sportPointList;
-        }
-    }
-
-    public static void addPoint(LocalDate localDate,int flag) {
-        if (flag==0){
-            if (!stepPointList.contains(localDate))
-                stepPointList.add(localDate);
-        }else if (flag == 1){
-            if (!sleepPointList.contains(localDate))
-                sleepPointList.add(localDate);
-        }else if (flag == 2){
-            if (!heartPointList.contains(localDate))
-                heartPointList.add(localDate);
-        }else if (flag == 3){
-            if (!bloodPressurePointList.contains(localDate))
-                bloodPressurePointList.add(localDate);
-        }else if (flag == 4){
-            if (!bloodOxygenPointList.contains(localDate))
-                bloodOxygenPointList.add(localDate);
-        }else if (flag == 5){
-            if (!ecgPointList.contains(localDate))
-                ecgPointList.add(localDate);
-        }else{
-            if (!sportPointList.contains(localDate))
-                sportPointList.add(localDate);
-        }
+    public static List<LocalDate> getPointList(){
+        return dataList;
     }
 
     /**
@@ -105,7 +52,7 @@ public class CalendarUtil {
         int a = (int) Math.round(alpha * 255);
         String hex = Integer.toHexString(a).toUpperCase();
         if (hex.length() == 1) hex = "0" + hex;
-        String hexCode = "#" + hex + String.format("%06X", Integer.valueOf(16777215 & color));
+        String hexCode = "#" + hex + String.format(Locale.ENGLISH,"%06X", Integer.valueOf(16777215 & color));
         int newColor;
         try {
             newColor = Color.parseColor(hexCode);

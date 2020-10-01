@@ -3,6 +3,7 @@ package com.szip.sportwatch.Util;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -20,7 +22,7 @@ public class DateUtil {
     public static ArrayList<String> getMonthList() {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            list.add(String.format("%02d", i));
+            list.add(String.format(Locale.ENGLISH,"%02d", i));
         }
         return list;
     }
@@ -51,7 +53,7 @@ public class DateUtil {
         }
 
         for (int i = 1; i <= day; i++) {
-            list.add(String.format("%02d", i));
+            list.add(String.format(Locale.ENGLISH,"%02d", i));
         }
         return list;
 
@@ -61,7 +63,7 @@ public class DateUtil {
     public static ArrayList<String> getYearList() {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i <= Integer.valueOf(getCurrentYear()) - 1930; i++) {
-            list.add(String.format("%4d", i + 1930));
+            list.add(String.format(Locale.ENGLISH,"%4d", i + 1930));
         }
         return list;
     }
@@ -70,7 +72,7 @@ public class DateUtil {
         ArrayList<String> list = new ArrayList<>();
 
         for (int i = 0; i < 179; i++) {
-            list.add(String.format("%d", i + 50));
+            list.add(String.format(Locale.ENGLISH,"%d", i + 50));
         }
 
         return list;
@@ -80,7 +82,7 @@ public class DateUtil {
 
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < 70; i++) {
-            list.add(String.format("%d", i + 20));
+            list.add(String.format(Locale.ENGLISH,"%d", i + 20));
         }
         return list;
     }
@@ -91,7 +93,7 @@ public class DateUtil {
 
 
         for (int i = 0; i < 199; i++) {
-            list1.add(String.format("%d", i + 30));
+            list1.add(String.format(Locale.ENGLISH,"%d", i + 30));
         }
         return list1;
     }
@@ -101,21 +103,21 @@ public class DateUtil {
         ArrayList<String> list2 = new ArrayList<>();
 
         for (int i = 0; i < 437; i++) {
-            list2.add(String.format("%d", 67 + i));
+            list2.add(String.format(Locale.ENGLISH,"%d", 67 + i));
         }
 
         return list2;
     }
 
     public static String getCurrentYear() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy",Locale.ENGLISH);
         Date date = new Date();
         return sdf.format(date);
     }
 
     //出生日期字符串转化成Date对象
     public static Date parse(String strDate) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
         return sdf.parse(strDate);
     }
 
@@ -157,7 +159,7 @@ public class DateUtil {
     public static String getDateToString(int milSecond) {
         long time = ((long) milSecond) * 60 * 60 * 24 * 1000;
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
         return format.format(date);
     }
 
@@ -193,7 +195,7 @@ public class DateUtil {
     public static String getGMTWithString(){
         TimeZone tz = TimeZone.getDefault();
         int offsetMinutes = tz.getOffset(System.currentTimeMillis()) / 60000;
-        return String.format("%d",offsetMinutes);
+        return String.format(Locale.ENGLISH,"%d",offsetMinutes);
     }
 
 
@@ -203,7 +205,7 @@ public class DateUtil {
      * @return 返回这一天0点到24点的时间戳
      * */
     public static long getTimeScopeForDay(String dateStr,String tag){
-        SimpleDateFormat dateFormat = new SimpleDateFormat(tag);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(tag,Locale.ENGLISH);
         Date date = new Date();
         try {
             date = dateFormat.parse(dateStr);
@@ -220,8 +222,23 @@ public class DateUtil {
         return calendar.getTimeInMillis()/1000;
     }
 
+    /**
+     * 获取当前日期00点的时间戳
+     * @param dateStr 日期
+     * @return 返回这一天0点到24点的时间戳
+     * */
+    public static long getTimeScopeForDay(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        return calendar.getTimeInMillis()/1000;
+    }
+
     public static long getTimeScope(String dateStr,String tag){
-        SimpleDateFormat dateFormat = new SimpleDateFormat(tag);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(tag,Locale.ENGLISH);
         Date date = new Date();
         try {
             date = dateFormat.parse(dateStr);
@@ -253,7 +270,7 @@ public class DateUtil {
      * */
     public static int getMinue(String time){
         int index = time.indexOf(':');
-        return Integer.valueOf(time.substring(0,index))*60+Integer.valueOf(time.substring(index+1,time.length()));
+        return Integer.valueOf(time.substring(0,index))*60+Integer.valueOf(time.substring(index+1));
     }
 
     /**
@@ -265,7 +282,7 @@ public class DateUtil {
     public static String getStringDateFromSecond(long milSecond,String formatStyle) {
         long time = milSecond * 1000;
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat(formatStyle);
+        SimpleDateFormat format = new SimpleDateFormat(formatStyle,Locale.ENGLISH);
         return format.format(date);
     }
 
@@ -277,12 +294,55 @@ public class DateUtil {
      */
     public static String getSleepDate(String data) {
         String datas[] = data.split("\\|");
-        if (getMinue(datas[1])>600)
-            return datas[0];
-        else {
+        if (getMinue(datas[1])>1260){
             long time = getTimeScopeForDay(datas[0],"yyyy-MM-dd");
-            return getStringDateFromSecond(time-24*60*60,"yyyy-MM-dd");
+            return getStringDateFromSecond(time+24*60*60,"yyyy-M-d");
+        } else {
+            return datas[0];
         }
+    }
+
+
+    /**
+     * byte[]转变为16进制String字符, 每个字节2位, 不足补0
+     */
+    public static String byteToHexString(byte[] bytes) {
+        String result = null;
+        String hex = null;
+        if (bytes != null && bytes.length > 0) {
+            final StringBuilder stringBuilder = new StringBuilder(bytes.length);
+            for (byte byteChar : bytes) {
+                hex = Integer.toHexString(byteChar & 0xFF);
+                if (hex.length() == 1) {
+                    hex = '0' + hex;
+                }
+                stringBuilder.append(hex.toUpperCase());
+            }
+            result = stringBuilder.toString();
+        }
+        return result;
+    }
+
+    public static int[] getNowDate() {
+        int gmt = DateUtil.getGMT();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        TimeZone timeZone = TimeZone.getDefault();
+        String timeZoneId = timeZone.getDisplayName(false, TimeZone.SHORT);
+        String date = mFormat.format(new Date(System.currentTimeMillis()));
+        String[] dateArray = date.split("-");
+        String timeZoneDisplay = timeZoneId.substring(3, timeZoneId.length());
+        int[] time = new int[dateArray.length + 1];
+        for (int i = 0; i <= dateArray.length; i++) {
+            if (i == dateArray.length) {
+                byte gmtData = (byte) (gmt/60f*10);
+                time[i] = 80;
+            } else {
+                time[i] = Integer.valueOf(dateArray[i]);
+            }
+        }
+
+        return time;
+
     }
 
 }

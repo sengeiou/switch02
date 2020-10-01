@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -49,6 +50,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
      * */
     private TextView countryTv,countryCodeTv,countryTipTv;
 
+    /**
+     * 隐私条款
+     * */
+    private CheckBox checkBox;
+
     private Context mContext;
 
     private SharedPreferences sharedPreferencesp;
@@ -71,7 +77,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);//注册网络回调监听
+
     }
 
     @Override
@@ -92,6 +98,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         userEt = findViewById(R.id.userEt);
         passwordEt = findViewById(R.id.passwordEt);
         countryTv = findViewById(R.id.countryTv);
+
+        checkBox = findViewById(R.id.checkbox);
+        (findViewById(R.id.privacyTv)).setOnClickListener(this);
+
+        if (sharedPreferencesp==null)
+            sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+        userEt.setText(sharedPreferencesp.getString("user",""));
     }
 
     /**
@@ -103,6 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.registerTv).setOnClickListener(this);
         findViewById(R.id.countryRl).setOnClickListener(this);
         findViewById(R.id.iconIv).setOnClickListener(this);
+        findViewById(R.id.visitorTv).setOnClickListener(this);
         userEt.addTextChangedListener(watcher);
         userEt.setOnFocusChangeListener(focusChangeListener);
         passwordEt.addTextChangedListener(watcher);
@@ -132,23 +146,40 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     showToast(getString(R.string.choseCountry));
                 }else if (userEt.getText().toString().equals("")){
                     showToast(getString(R.string.phoneOrEmail));
+                } else if (!checkBox.isChecked()){
+                    showToast(getString(R.string.checkPrivacy));
                 }else if (passwordEt.getText().toString().equals("")){
                     showToast(getString(R.string.enterPassword));
                 }else {
                     try {
-                        if (userEt.getText().toString().contains("@")){//邮箱
+                        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);//注册网络回调监听
+                        if (!MathUitl.isNumeric(userEt.getText().toString())){//邮箱
                             if (MathUitl.isEmail(userEt.getText().toString())){//如果是邮箱登录，判断邮箱格式是否正确
                                 ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
                                 HttpMessgeUtil.getInstance(mContext).postLogin("2","","",
-                                        userEt.getText().toString(),passwordEt.getText().toString());
+                                        userEt.getText().toString(),passwordEt.getText().toString(),"","");
                             }else {
                                 showToast(getString(R.string.enterRightEmail));
                             }
                         }else {//电话
                             ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
                             HttpMessgeUtil.getInstance(LoginActivity.this).postLogin("1","00"+countryCodeTv.getText().toString().substring(1),
-                                    userEt.getText().toString(), "",passwordEt.getText().toString());
+                                    userEt.getText().toString(), "",passwordEt.getText().toString(),"","");
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.visitorTv:
+                if (!checkBox.isChecked()){
+                    showToast(getString(R.string.checkPrivacy));
+                }else {
+                    ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
+                    try {
+                        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);//注册网络回调监听
+                        HttpMessgeUtil.getInstance(LoginActivity.this).postLogin("3","",
+                                "", "","",MathUitl.getDeviceId(mContext),"1");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -195,6 +226,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (touchTimes == 10){
 
                 }
+                break;
+            case R.id.privacyTv:
+                startActivity(new Intent(LoginActivity.this, PrivacyActivity.class));
                 break;
         }
     }
@@ -265,31 +299,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onLogin(LoginBean loginBean) {
         ProgressHudModel.newInstance().diss();
         HttpMessgeUtil.getInstance(mContext).setToken(loginBean.getData().getToken());
-        if (sharedPreferencesp == null)
-            sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferencesp.edit();
+        if (loginBean.getData().getUserInfo().getPhoneNumber()!=null||loginBean.getData().getUserInfo().getEmail()!=null)
+            editor.putString("user",loginBean.getData().getUserInfo().getPhoneNumber()!=null?
+                    loginBean.getData().getUserInfo().getPhoneNumber():
+                    loginBean.getData().getUserInfo().getEmail());
         editor.putString("token",loginBean.getData().getToken());
         editor.putString("phone",loginBean.getData().getUserInfo().getPhoneNumber());
         editor.putString("mail",loginBean.getData().getUserInfo().getEmail());
         ((MyApplication)getApplicationContext()).setUserInfo(loginBean.getData().getUserInfo());
         editor.putString("password",passwordEt.getText().toString());
-        if (loginBean.getData().getUserInfo().getDeviceCode()== null){//如果未绑定手环，跳到绑定页面
-            startActivity(new Intent(mContext, SeachingActivity.class));
-        }else {
 
-            try {
-                HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        startActivity(new Intent(mContext,MainActivity.class));
 
-            BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-            BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(loginBean.getData().getUserInfo().getDeviceCode());
-            WearableManager.getInstance().setRemoteDevice(device);
-            MainService.getInstance().startConnect();
-            startActivity(new Intent(mContext,MainActivity.class));
-        }
         editor.commit();
         finish();
     }

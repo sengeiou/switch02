@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -47,9 +48,6 @@ public class NotificationDataManager {
         HashSet<CharSequence> blockList = BlockList.getInstance().getBlockList();
         HashSet<String> ignoreList = IgnoreList.getInstance().getIgnoreList();
         HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
-        Log.i(TAG, "blockList = " + blockList.contains(notificationData.getPackageName())+
-                " ;ignoreList = " + ignoreList.contains(notificationData.getPackageName())+
-                " ;exclusionList = " + exclusionList.contains(notificationData.getPackageName()));
         if (!blockList.contains(notificationData.getPackageName()) && !ignoreList.contains(notificationData.getPackageName())
                 && !exclusionList.contains(notificationData.getPackageName())) {
             Log.i(TAG, "Notice: notification need send, package name=" + notificationData.getPackageName());
@@ -110,8 +108,13 @@ public class NotificationDataManager {
     public String[] getNotificationText(Notification notification) {
         String[] textArray = null;
         RemoteViews remoteViews = notification.contentView;
+//        if (remoteViews == null){
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                remoteViews = Notification.Builder.recoverBuilder(mContext, notification).createContentView();
+//            }
+//        }
         if (remoteViews == null) {
-            textArray = new String[]{"",""};
+            textArray = null;
             Log.i(TAG,"remoteViews is null, set title and content to be empty. ");
         } else {
             HashMap<Integer, String> text = new HashMap<Integer, String>();
@@ -183,7 +186,7 @@ public class NotificationDataManager {
         }
         String[] bigTextArray = new String[2];
         if (WearableManager.getInstance().getRemoteDeviceVersion() >= WearableManager.VERSION_340
-                && android.os.Build.VERSION.SDK_INT  >= 19) {//android 4.4
+                && Build.VERSION.SDK_INT  >= 19) {//android 4.4
             //get bigtextstyle title and content
             String EXTRA_TITLE = "android.title";
             String EXTRA_TITLE_BIG = EXTRA_TITLE + ".big";
@@ -400,7 +403,18 @@ public class NotificationDataManager {
                                             notificationData);
                                     NotificationSyncList.getInstance().saveSyncList();
                                 }
-
+                                if (notificationData.getTextList()==null||Arrays.toString(notificationData.getTextList()).equals("[]")){
+                                    String[] str1 = new String[]{"",""};
+                                    String[] str = notificationData.getTickerText().split(":");
+                                    if (notificationData.getTickerText().equals(""))
+                                        return;
+                                    if (str.length>=2){
+                                        notificationData.setTextList(str);
+                                    } else {
+                                        str1[1] = str[0];
+                                        notificationData.setTextList(str1);
+                                    }
+                                }
                                 Log.d(TAG, "SendNotficationThread mThreadNotfication = "
                                         + notificationData);
                                 NotificationController.getInstance(mContext)

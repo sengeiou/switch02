@@ -83,6 +83,10 @@ public class HostTabView {
         return this.view;
     }
 
+    public void setView(boolean visiable) {
+        this.view.setVisibility(visiable?View.VISIBLE:View.GONE);
+    }
+
     //切换tab的方法
     public void setChecked(boolean isChecked) {
         if(imageView != null) {

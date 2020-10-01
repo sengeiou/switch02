@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -17,10 +16,6 @@ import com.szip.sportwatch.View.ReportView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/16.
@@ -87,7 +82,7 @@ public class StepWeekFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allStepTv = getView().findViewById(R.id.allStepTv);
         averageStepTv = getView().findViewById(R.id.averageStepTv);
@@ -103,14 +98,17 @@ public class StepWeekFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((StepReportActivity)getActivity()).reportDate+=7*24*60*60;
-                initData();
-                updateView();
+                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
+
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=7*24*60*60;
-                initData();
-                updateView();
+                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

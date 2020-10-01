@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ismarport</string>
+
+
+    <string name = "logo"> ยินดีต้อนรับสู่ ismarport </string>
+    <string name = "user"> หมายเลขบัญชี </string>
+    <string name = "phoneOrEmail"> โปรดป้อนโทรศัพท์ / อีเมลของคุณ </string>
+    <string name = "password"> รหัสผ่าน </string>
+    <string name = "enterPassword"> โปรดป้อนรหัสผ่าน 6-20 หลัก </string>
+    <string name = "confirmPassword"> ยืนยันรหัสผ่าน </string>
+    <string name = "enterPasswordAgain"> โปรดป้อนรหัสผ่านอีกครั้ง </string>
+    <string name = "forget"> <u> ลืมรหัสผ่าน </u> </string>
+    <string name = "register"> <u> ลงทะเบียน </u> </string>
+    <string name = "login"> เข้าสู่ระบบ </string>
+    <string name = "country"> ประเทศ / ภูมิภาค </string>
+    <string name = "choseCountry"> โปรดเลือกประเทศ / ภูมิภาค </string>
+    <string name = "send"> ส่งรหัสยืนยัน </string>
+    <string name = "verification"> รหัสยืนยัน </string>
+    <string name = "enterVerification"> โปรดป้อนรหัสยืนยัน </string>
+    <string name = "newPassword"> รหัสผ่านใหม่ </string>
+    <string name = "enterNewPassword"> โปรดป้อนรหัสผ่านใหม่ </string>
+    <string name = "reset"> รีเซ็ตรหัสผ่าน </string>
+    <string name = "registerTitle"> การลงทะเบียน </string>
+    <string name = "next"> ขั้นตอนต่อไป </string>
+    <string name = "privacy"> ยอมรับ "<u> ข้อตกลงผู้ใช้และนโยบายความเป็นส่วนตัว </u>" </string>
+    <string name = "privacy1"> ข้อตกลงผู้ใช้และประโยคความเป็นส่วนตัว </string>
+    <string name = "privacy2"> บริษัท ของเราให้ความสำคัญอย่างยิ่งต่อความเป็นส่วนตัวของผู้ใช้และการปกป้องข้อมูลส่วนบุคคล เมื่อคุณใช้ผลิตภัณฑ์ / บริการของเรา บริษัท ของเราอาจรวบรวมและใช้ข้อมูลที่เกี่ยวข้องของคุณ บริษัท ของเราหวังว่าจะใช้ "ข้อตกลงความเป็นส่วนตัว" ซึ่งต่อไปนี้จะเรียกว่า "นโยบายนี้" เพื่ออธิบายให้คุณทราบว่า Shenzhen Smart Times Technology Co. , Ltd. ซึ่งต่อไปนี้จะเรียกว่า "บริษัท ของเรา" วิธีการรวบรวมใช้และบันทึกข้อมูลนี้เมื่อคุณใช้ผลิตภัณฑ์ / บริการของเรา . \ n \ n เราหวังว่าคุณจะอ่านอย่างละเอียดและยืนยันว่าคุณเข้าใจเนื้อหาของนโยบายนี้อย่างครบถ้วนก่อนที่จะใช้ผลิตภัณฑ์ / บริการ \ n \ n เมื่อ บริษัท ของเราต้องการใช้ข้อมูลส่วนบุคคลของคุณเพื่อวัตถุประสงค์อื่นที่ไม่ได้ระบุไว้ในนโยบายนี้หรือเมื่อข้อมูลที่รวบรวมเพื่อวัตถุประสงค์เฉพาะถูกนำไปใช้เพื่อวัตถุประสงค์อื่นเราจะแจ้งให้คุณทำการตรวจสอบล่วงหน้า ขอความยินยอมของคุณ
+
+\ n \ n โปรดทราบว่าข้อมูลส่วนบุคคลทั้งหมดที่คุณให้เมื่อใช้ผลิตภัณฑ์ / บริการของเราจะยังคงดำเนินต่อไปในระหว่างที่คุณใช้ผลิตภัณฑ์ / บริการของเราเว้นแต่คุณจะลบออกหรือปฏิเสธการเก็บรวบรวมของเราผ่านการตั้งค่าระบบ อนุญาตให้ บริษัท ของเราใช้ เมื่อคุณยกเลิกบัญชี บริษัท ของเราจะหยุดใช้และลบข้อมูลส่วนบุคคลของคุณ
+
+
+
+\ n \ n \ n \ N1. ขอบเขตของข้อมูลส่วนบุคคลที่คุณอนุญาตให้ บริษัท ของเรารวบรวม:
+
+\ n \ n ข้อมูลส่วนบุคคลหมายถึงข้อมูลต่างๆที่บันทึกทางอิเล็กทรอนิกส์หรือในรูปแบบอื่น ๆ ที่สามารถระบุบุคคลธรรมดาเฉพาะบุคคลเพียงอย่างเดียวหรือใช้ร่วมกับข้อมูลอื่น ๆ หรือสะท้อนถึงกิจกรรมของบุคคลธรรมดาที่ระบุ
+\ n ข้อมูลส่วนบุคคลที่เกี่ยวข้องในนโยบายนี้รวมถึงข้อมูลพื้นฐาน (รวมถึงชื่อส่วนตัววันเกิดเพศหมายเลขโทรศัพท์ส่วนตัวที่อยู่อีเมล) ข้อมูลระบุเครือข่าย (รวมถึงบัญชีระบบที่อยู่ IP ที่อยู่อีเมล) สมุดที่อยู่ส่วนบุคคล ข้อมูลอุปกรณ์ที่ใช้ทั่วไปข้อมูลตำแหน่งส่วนบุคคลข้อมูลสุขภาพส่วนบุคคล
+
+
+
+\ n \ n \ n \ N2. บริษัท ของเราอาจใช้ข้อมูลส่วนบุคคลที่รวบรวมในการให้บริการแก่คุณเพื่อวัตถุประสงค์ดังต่อไปนี้:
+
+\ n \ n (1) ให้บริการที่เป็นของผลิตภัณฑ์แก่คุณ
+
+\ n \ n (2) เมื่อ บริษัท ของเราให้บริการจะใช้สำหรับการยืนยันตัวตนการบริการลูกค้าการป้องกันความปลอดภัยการตรวจสอบการฉ้อโกงการเก็บถาวรและการสำรองข้อมูลเพื่อความปลอดภัยของผลิตภัณฑ์และบริการของเราที่มอบให้กับคุณ
+
+\ n \ n (3) ช่วย บริษัท ของเราออกแบบบริการใหม่และปรับปรุงสถานะบริการปัจจุบันของเรา
+
+\ n \ n (4) แจ้งให้ บริษัท ของเราทราบเพิ่มเติมเกี่ยวกับวิธีที่คุณเข้าถึงและใช้บริการของเราเพื่อตอบสนองความต้องการส่วนบุคคลของคุณเช่นการตั้งค่าภาษาการตั้งค่าตำแหน่งความช่วยเหลือและคำแนะนำส่วนบุคคล หรือตอบสนองต่อคุณและผู้ใช้รายอื่น
+
+\ n \ n (5) การรับรองซอฟต์แวร์หรือการอัปเกรดซอฟต์แวร์การจัดการ
+
+\ n \ n (6) ให้คุณมีส่วนร่วมในการสำรวจเกี่ยวกับผลิตภัณฑ์และบริการของเรา
+
+\ n \ n เพื่อให้คุณได้รับประสบการณ์ที่ดีขึ้นปรับปรุงบริการของเราหรือวัตถุประสงค์อื่น ๆ ที่คุณตกลงและภายใต้กฎหมายและข้อบังคับที่เกี่ยวข้อง บริษัท ของเราอาจรวบรวมข้อมูลที่รวบรวมผ่านบริการบางอย่างเพื่อรวบรวม ข้อมูลหรือวิธีการส่วนบุคคลสำหรับบริการอื่น ๆ ของ บริษัท ของเรา ตัวอย่างเช่นข้อมูลที่รวบรวมเมื่อคุณใช้บริการของเราอาจถูกนำไปใช้ในบริการอื่นเพื่อจัดหาเนื้อหาที่เฉพาะเจาะจงให้คุณหรือเพื่อแสดงข้อมูลที่เกี่ยวข้องและไม่ได้รับการผลักดันในระดับสากล หาก บริษัท ของเรามีตัวเลือกที่เกี่ยวข้องในบริการที่เกี่ยวข้องคุณยังสามารถอนุญาตให้ บริษัท ของเราใช้ข้อมูลที่บริการให้และจัดเก็บไว้สำหรับบริการอื่น ๆ ของ บริษัท ของเรา
+
+
+
+\ n \ n \ n \ N3. บริษัท ของเราจะไม่เปิดเผยข้อมูลส่วนบุคคลของคุณกับ บริษัท องค์กรหรือบุคคลอื่นใดที่ไม่ใช่ บริษัท ของเรายกเว้นในกรณีต่อไปนี้:
+
+\ n \ n (1) ขอความยินยอมและการอนุญาตล่วงหน้าจากคุณอย่างชัดเจน
+
+\ n \ n (2) จัดให้เป็นไปตามกฎหมายและข้อบังคับที่เกี่ยวข้องขั้นตอนทางกฎหมายข้อกำหนดบังคับทางปกครองหรือกระบวนการยุติธรรม
+
+\ n \ n (3) ภายในขอบเขตที่กฎหมายอนุญาตจำเป็นที่จะต้องจัดหา บริษัท ของเราผู้เกี่ยวข้องหรือคู่ค้าของเราผลประโยชน์สาธารณะทรัพย์สินหรือความปลอดภัยจากความเสียหาย
+
+\ n \ n (4) การแบ่งปันข้อมูลของคุณเท่านั้นที่เราจะทราบถึงหน้าที่หลักของผลิตภัณฑ์ / บริการของเราหรือให้บริการที่คุณต้องการ
+
+\ n \ n (5) การจัดการข้อพิพาทหรือข้อพิพาทระหว่างคุณกับผู้อื่นตามความต้องการของคุณ
+
+\ n \ n (6) จัดทำขึ้นตามข้อตกลงที่เกี่ยวข้องซึ่งลงนามกับคุณหรือเอกสารทางกฎหมายอื่น ๆ
+
+\ n \ n (7) ใช้ตามประโยชน์สาธารณะตามกฎหมายและข้อบังคับ
+
+
+
+\ n \ n \ n \ N4. วิธีร่วมกันปกป้องและบันทึกข้อมูลส่วนบุคคลของคุณ
+
+\ n \ n (1) บริษัท ของเราให้ความสำคัญอย่างยิ่งกับความปลอดภัยของข้อมูลส่วนบุคคลและใช้มาตรการทางเทคนิคด้านความปลอดภัยของข้อมูลที่สมเหตุสมผลและเป็นไปได้เพื่อปกป้องข้อมูลส่วนบุคคลของคุณ
+
+\ n \ n (2) สภาพแวดล้อมอินเทอร์เน็ตไม่ปลอดภัย 100% บริษัท ของเราจะพยายามอย่างเต็มที่เพื่อให้แน่ใจหรือรับประกันความปลอดภัยของข้อมูลใด ๆ ที่คุณส่งไปยัง บริษัท ของเรา หากสิ่งอำนวยความสะดวกด้านการป้องกันทางกายภาพทางเทคนิคหรือการจัดการของ บริษัท ของเราได้รับความเสียหายส่งผลให้มีการเข้าถึงโดยไม่ได้รับอนุญาตการเปิดเผยต่อสาธารณะการปลอมแปลงหรือการทำลายข้อมูลส่งผลให้เกิดความเสียหายต่อสิทธิ์ทางกฎหมายของคุณ บริษัท ของเราจะรับผิดชอบตามกฎหมายที่เกี่ยวข้อง
+
+\ n \ n (3) หากคุณมีคำถามใด ๆ เกี่ยวกับการปกป้องข้อมูลส่วนบุคคลของ บริษัท ของเราคุณสามารถติดต่อ บริษัท ของเราผ่านข้อมูลการติดต่อบนเว็บไซต์ทางการของเรา หากคุณพบว่าข้อมูลส่วนบุคคลของคุณรั่วไหลโดยเฉพาะอย่างยิ่งหากข้อมูลส่วนบุคคลของคุณรั่วไหลโปรดติดต่อเราทันทีเพื่อให้เราดำเนินมาตรการที่เกี่ยวข้อง
+
+
+
+\ n \ n \ n \ nV ผู้เยาว์ใช้บริการของเรา
+\ n บริษัท ของเราสนับสนุนให้พ่อแม่หรือผู้ปกครองทราบว่าผู้เยาว์อายุต่ำกว่า 18 ปีใช้ผลิตภัณฑ์ของเรา บริษัท ของเราขอแนะนำให้ผู้เยาว์สนับสนุนให้พ่อแม่หรือผู้ปกครองอ่านนโยบายนี้และแนะนำให้ผู้เยาว์ขอความยินยอมและคำแนะนำจากพ่อแม่หรือผู้ปกครองก่อนส่งข้อมูลส่วนบุคคล
+
+
+
+\ n \ n \ n \ n หกขอบเขตของนโยบายความเป็นส่วนตัว
+
+\ n \ n (1) ยกเว้นบริการบางอย่างบริการทั้งหมดของเรามีผลบังคับใช้กับนโยบายนี้ บริการเฉพาะเหล่านี้จะใช้นโยบายความเป็นส่วนตัวเฉพาะ นโยบายความเป็นส่วนตัวเฉพาะสำหรับบริการบางอย่างจะอธิบายรายละเอียดเพิ่มเติมว่า บริษัท ของเราใช้ข้อมูลของคุณในบริการดังกล่าวอย่างไร นโยบายความเป็นส่วนตัวของบริการเฉพาะนี้เป็นส่วนหนึ่งของนโยบายนี้ หากนโยบายความเป็นส่วนตัวของบริการเฉพาะไม่สอดคล้องกับนโยบายนี้นโยบายความเป็นส่วนตัวของบริการเฉพาะจะมีผลเหนือกว่า
+
+\ n \ n (2) โปรดทราบว่านโยบายนี้ใช้ไม่ได้กับสถานการณ์ต่อไปนี้:
+
+\ n \ N1) ข้อมูลที่รวบรวมโดยบริการของบุคคลที่สาม (รวมถึงเว็บไซต์ของบุคคลที่สามทั้งหมด) ที่เข้าถึงผ่านบริการของเรา
+
+\ n \ n2) ข้อมูลที่รวบรวมโดย บริษัท หรือองค์กรอื่นที่ให้บริการโฆษณาในบริการของเรา
+
+\ n \ n3) หากคุณใช้อุปกรณ์ Apple เช่น iphone หรือ ipad เพื่อคำนวณข้อมูลการออกกำลังกายโดยได้รับอนุญาตจากคุณ บริษัท ของเราจะรับและส่งข้อมูลการออกกำลังกายของคุณไปยัง Healthkit ของ Apple บริษัท ของเราจะอ่านข้อมูลส่วนสูงน้ำหนักและเพศของคุณจาก Healthkit ในขณะเดียวกันจำนวนก้าวเดิน + ระยะทางวิ่งพลังงานกิจกรรมระยะทางในการปั่นจักรยานและข้อมูลการวิเคราะห์การนอนหลับที่สร้างโดยแอพของคุณจะถูกเขียนลงใน Healthkit ของ Apple . ข้อมูลใด ๆ ที่ได้รับผ่าน Healthkit จะไม่ถูกแบ่งปันหรือขายให้กับ บริษัท บุคคลที่สามใด ๆ และ บริษัท ของเราจะไม่ใช้ข้อมูลที่ได้รับจาก Healthkit เพื่อวัตถุประสงค์ทางการค้าเช่นการโฆษณาและการตลาด
+
+
+
+\ n \ n \ n \ n เจ็ดเปลี่ยน
+
+\ n \ n บริษัท ของเราอาจแก้ไขข้อกำหนดของนโยบายนี้ทันทีและการแก้ไขดังกล่าวถือเป็นส่วนหนึ่งของนโยบายนี้ หากการแก้ไขดังกล่าวส่งผลให้สิทธิ์ของคุณลดลงอย่างมากภายใต้นโยบายนี้ บริษัท ของเราจะแจ้งให้คุณทราบผ่านตำแหน่งที่โดดเด่นในหน้าแรกหรือส่งอีเมลหรือวิธีการอื่น ๆ ให้คุณก่อนที่การแก้ไขจะมีผล ในกรณีนี้หากคุณยังคงใช้บริการของเราคุณตกลงที่จะผูกพันตามนโยบายฉบับแก้ไขนี้ </string>
+    <string name = "checkPrivacy"> ไม่ยอมรับ "ข้อตกลงผู้ใช้และนโยบายความเป็นส่วนตัว" </string>
+    <string name = "setPassword"> ตั้งรหัสผ่าน </string>
+    <string name = "china"> จีน </string>
+    <string name = "vistor"> เข้าสู่ระบบของผู้เยี่ยมชม </string>
+
+
+    <string name = "healthy"> สุขภาพ </string>
+    <string name = "sport"> กีฬา </string>
+    <string name = "mine"> ของฉัน </string>
+    <string name = "touchAgain"> กดอีกครั้งเพื่อออกจากโปรแกรม </string>
+
+
+    <string name = "planStep"> เป้าหมายจำนวนก้าว% d </string>
+    <string name = "sleep"> นอน </string>
+    <string name = "heart"> อัตราการเต้นของหัวใจ </string>
+    <string name = "blood"> ความดันโลหิต </string>
+    <string name = "bloodo"> ออกซิเจนในเลือด </string>
+    <string name = "animal"> อุณหภูมิร่างกาย </string>
+    <string name = "ecg"> ECG </string>
+    <string name = "check"> ดู </string>
+    <string name = "perfect"> ยอดเยี่ยม </string>
+    <string name = "good"> ดี </string>
+    <string name = "bad"> ความแตกต่าง </string>
+    <string name = "quick"> เร็วเกินไป </string>
+    <string name = "normal"> ปกติ </string>
+    <string name = "hot"> ไข้ </string>
+    <string name = "slow"> ช้าเกินไป </string>
+    <string name = "higher"> ด้านสูง </string>
+    <string name = "flat"> ต่ำ </string>
+    <string name = "head"> นี่คือ HeadView </string>
+    <string name = "pull_to_refresh"> ดึงลงเพื่อรีเฟรช </string>
+    <string name = "release_to_refresh"> รีเฟรชทันที </string>
+    <string name = "refreshing"> กำลังรีเฟรช ... </string>
+    <string name = "refresh_succeed"> รีเฟรชสำเร็จ </string>
+    <string name = "refresh_fail"> รีเฟรชล้มเหลว </string>
+    <string name = "pullup_to_load"> ดึงขึ้นเพื่อโหลดเพิ่มเติม </string>
+    <string name = "release_to_load"> ปล่อยโหลดทันที </string>
+    <string name = "load_succeed"> สำเร็จ </string>
+    <string name = "load_fail"> โหลดล้มเหลว </string>
+
+
+
+    <string name = "best"> สถิติที่ดีที่สุดสำหรับการวิ่งกลางแจ้ง </string>
+    <string name = "history"> ประวัติบันทึกกีฬา </string>
+    <string name = "track"> รายละเอียดกีฬา </string>
+    <string name = "notrack"> ไม่มีการติดตามการเคลื่อนไหว </string>
+    <string name = "speed"> ก้าว </string>
+    <string name = "kcal"> การบริโภค (kcal) </string>
+    <string name = "time"> ระยะเวลา </string>
+    <string name = "heart_rate"> อัตราการเต้นของหัวใจ (Bpm) </string>
+    <string name = "stride"> ความถี่ขั้นตอน (Steps / s) </string>
+    <string name = "distance"> ระยะทาง (</string>
+    <string name = "speedData"> ก้าวเฉลี่ย </string>
+    <string name = "kcalData"> การใช้กีฬา </string>
+    <string name = "timeData"> ระยะเวลาการออกกำลังกาย </string>
+    <string name = "heart_rateData"> อัตราการเต้นของหัวใจเฉลี่ย </string>
+    <string name = "strideData"> ความถี่ในการก้าวเฉลี่ย </string>
+    <string name = "distanceData"> ระยะทาง </string>
+    <string name = "basket"> บาสเก็ตบอล </string>
+    <string name = "football"> ฟุตบอล </string>
+    <string name = "pingpong"> ปิงปอง </string>
+    <string name = "mountain"> ปีนเขา </string>
+    <string name = "bike"> ขี่ </string>
+    <string name = "run"> กำลังทำงาน </string>
+    <string name = "walk"> เดินเท้า </string>
+    <string name = "treadmill"> ลู่วิ่ง </string>
+    <string name = "runWithout"> วิ่งกลางแจ้ง </string>
+    <string name = "marathon"> มาราธอน </string>
+    <string name = "sufing"> ท่องเว็บ </string>
+    <string name = "shudu"> ความเร็ว </string>
+    <string name = "averageShudu"> ความเร็วเฉลี่ย </string>
+    <string name = "boat"> พายเรือ </string>
+    <string name = "altitude"> ความสูง </string>
+    <string name = "avarageAltitude"> ความสูงเฉลี่ย </string>
+    <string name = "climb"> ปีนหน้าผา </string>
+    <string name = "skii"> สกี </string>
+    <string name = "golf"> กอล์ฟ </string>
+
+    <string name = "device"> อุปกรณ์ </string>
+    <string name = "stepPlan"> เป้าหมายการนับก้าว </string>
+    <string name = "sleepPlan"> เป้าหมายการนอนหลับ </string>
+    <string name = "find"> กำลังมองหานาฬิกา </string>
+    <string name = "notification"> การแจ้งเตือนแอปพลิเคชัน </string>
+    <string name = "blePhone"> การโทรด้วยบลูทู ธ </string>
+    <string name = "blePhoto"> กล้องบลูทู ธ </string>
+    <string name = "unit"> ระบบหน่วย </string>
+    <string name = "face"> สลับสาย </string>
+    <string name = "myDail"> โทรของฉัน </string>
+    <string name = "seeDail"> ตัวอย่างการโทร </string>
+    <string name = "diyDail"> กำหนดเอง </string>
+    <string name = "diyDailing"> ในการเปลี่ยน ... </string>
+    <string name = "diyDailOK"> เปลี่ยนสำเร็จ </string>
+    <string name = "diyDailError"> การแทนที่ล้มเหลวโปรดลองอีกครั้ง </string>
+    <string name = "upDownBackground"> ​​โปรดอัปโหลดภาพพื้นหลัง </string>
+    <string name = "chooseClock"> โปรดเลือกรูปแบบนาฬิกา </string>
+    <string name = "clock"> รูปแบบนาฬิกา </string>
+    <string name = "background"> ​​อัปโหลดพื้นหลัง </string>
+    <string name = "about"> เกี่ยวกับ </string>
+    <string name = "logout"> ออกจากระบบ </string>
+    <string name = "me"> ของฉัน </string>
+    <string name = "set"> ตั้งค่า </string>
+    <string name = "other"> อื่น ๆ </string>
+    <string name = "cancel"> ยกเลิก </string>
+    <string name = "confirm"> ตกลง </string>
+    <string name = "tip"> พร้อมต์ </string>
+    <string name = "delete"> แน่ใจไหมว่าต้องการลบข้อมูลการออกกำลังกายนี้ </string>
+    <string name = "unbind"> แน่ใจหรือไม่ว่าต้องการเลิกผูก </string>
+    <string name = "logoutTip"> แน่ใจไหมว่าต้องการออกจากระบบ </string>
+    <string name = "sendOK"> ส่งสำเร็จ </string>
+    <string name = "searchDevice"> อุปกรณ์ค้นหา </string>
+    <string name = "noDevice"> ไม่พบอุปกรณ์ </string>
+    <string name = "connected"> แล้ว </string>
+    <string name = "disConnect"> ไม่ได้เชื่อมต่อ </string>
+    <string name = "connectting"> กำลังเชื่อมต่อ </string>
+    <string name = "connect"> อุปกรณ์กำลังเชื่อมต่อโปรดลองอีกครั้งในภายหลัง </string>
+    <string name = "syceError"> นาฬิกาไม่ได้เชื่อมต่อและข้อมูลจะถูกซิงโครไนซ์กับนาฬิกาเมื่อมีการเชื่อมต่อในครั้งต่อไป </string>
+    <string name = "unBind"> เปลี่ยนอุปกรณ์ </string>
+    <string name = "unline"> ยกเลิกการเชื่อมต่อ </string>
+    <string name = "line"> เชื่อมต่อกับนาฬิกา </string>
+    <string name = "addDevice"> เพิ่มอุปกรณ์ </string>
+    <string name = "unbindSoon"> โปรดเลิกผูกอุปกรณ์ก่อน </string>
+    <string name = "lineError"> เชื่อมต่อไม่สำเร็จหลายครั้งโปรดปิดและเปิดบลูทู ธ ของโทรศัพท์หรือรีสตาร์ทนาฬิกา </string>
+    <string name = "tipUnit"> หมายเหตุ: ความสูงและน้ำหนักจะถูกรีเซ็ตหลังจากเปลี่ยนระบบหน่วย </string>
+
+
+
+    <string name = "step1"> 1. การจับคู่บลูทู ธ ระหว่างนาฬิกากับโทรศัพท์มือถือ </string>
+    <string name = "step2"> 2. ยกระดับความสัมพันธ์ที่ตรงกัน </string>
+    <string name = "str1"> 1) ป้อนฟังก์ชันบลูทู ธ ในนาฬิกา \ n2) ค้นหาอุปกรณ์บลูทู ธ - เลือกชื่อบลูทู ธ ของโทรศัพท์ \ n3) หลังจากจับคู่กับโทรศัพท์แล้วคุณสามารถใช้นาฬิกาสำหรับการโทรผ่านบลูทู ธ ได้ </string>
+    <string name = "str2"> 1) ป้อนการตั้งค่าระบบ - อุปกรณ์ที่จับคู่บลูทู ธ \ n2) ค้นหาอุปกรณ์ป้อนและคลิก "เลิกจับคู่" เพื่อยกเลิกความสัมพันธ์ในการจับคู่ \ n \ n หมายเหตุ: นาฬิกาไม่สามารถใช้ฟังก์ชันการโทรผ่านบลูทู ธ ได้หลังจากเลิกจับคู่แล้ว </string>
+
+
+    <string name = "version"> เวอร์ชันปัจจุบัน </string>
+    <string name = "feedback"> ข้อเสนอแนะ </string>
+    <string name = "feedback_hint"> ความคิดเห็น / คำถามของคุณ </string>
+    <string name = "tooLong"> ข้อความที่คุณป้อนยาวเกินไป </string>
+    <string name = "empty"> ความคิดเห็นต้องไม่ว่างเปล่า </string>
+    <string name = "send_success"> ส่งเรียบร้อยแล้ว </string>
+
+
+    <string name="measureUnit"> หน่วยการวัด </string>
+    <string name = "metric"> ระบบเมตริก </string>
+    <string name = "british"> ระบบอังกฤษ </string>
+
+
+    <string name = "stepReport"> รายงานขั้นตอน </string>
+    <string name = "sleepReport"> รายงานการนอนหลับ </string>
+    <string name = "heartReport"> รายงานอัตราการเต้นของหัวใจ </string>
+    <string name = "bloodPressureReport"> รายงานความดันโลหิต </string>
+    <string name = "bloodOxygenReport"> รายงานออกซิเจนในเลือด </string>
+    <string name = "animalHeatReport"> รายงานอุณหภูมิร่างกาย </string>
+    <string name = "ecgReport"> รายงาน ECG </string>
+    <string name = "day"> วัน </string>
+    <string name = "week"> สัปดาห์ </string>
+    <string name = "sun"> วันอาทิตย์ </string>
+    <string name = "mon"> วันจันทร์ </string>
+    <string name = "tues"> วันอังคาร </string>
+    <string name = "wed"> วันพุธ </string>
+    <string name = "thus"> วันพฤหัสบดี </string>
+    <string name = "fri"> วันศุกร์ </string>
+    <string name = "sta"> วันเสาร์ </string>
+    <string name = "today"> วันนี้ </string>
+    <string name = "month"> เดือน </string>
+    <string name = "year"> ปี </string>
+    <string name = "allStep"> จำนวนก้าวทั้งหมด </string>
+    <string name = "averageStep"> จำนวนก้าวเฉลี่ย </string>
+    <string name = "allSleep"> เวลานอนทั้งหมด </string>
+    <string name = "averageSleep"> เวลานอนเฉลี่ย </string>
+    <string name = "light"> นอนเบา </string>
+    <string name = "deep"> หลับสนิท </string>
+    <string name = "lightTable"> ตื้น </string>
+    <string name = "deepTable"> ลึก </string>
+    <string name = "averageHeart"> อัตราการเต้นของหัวใจเฉลี่ย </string>
+    <string name = "minHeart"> อัตราการเต้นของหัวใจขั้นต่ำ </string>
+    <string name = "maxHeart"> อัตราการเต้นของหัวใจสูงสุด </string>
+    <string name = "averageSBP"> ความดันโลหิตซิสโตลิกเฉลี่ย </string>
+    <string name = "sbp"> ความดันโลหิตซิสโตลิก </string>
+    <string name = "averageDBP"> ความดันโลหิต diastolic เฉลี่ย </string>
+    <string name = "dbp"> ความดันโลหิตไดแอสโตลิก </string>
+    <string name = "averageSao"> ออกซิเจนในเลือดเฉลี่ย </string>
+    <string name = "averageTemp"> อุณหภูมิเฉลี่ย </string>
+    <string name = "maxTemp"> อุณหภูมิสูงสุด </string>
+    <string name = "passRate"> อัตราการปฏิบัติตามข้อกำหนด </string>
+    <string name = "ecgTip"> การทดสอบนี้มีไว้เพื่ออ้างอิงเท่านั้นและไม่สามารถใช้เป็นใบรับรองการวินิจฉัยทางการแพทย์ได้ </string>
+    <string name = "noData"> ไม่มีรายงาน </string>
+    <string name = "tomorrow"> อนาคตยังไม่มา </string>
+
+
+
+    <string name = "userInfo"> ข้อมูลผู้ใช้ </string>
+    <string name = "picture"> อวาตาร์ </string>
+    <string name = "userName"> ชื่อเล่น </string>
+    <string name = "enterUserName"> โปรดป้อนชื่อเล่นของคุณ </string>
+    <string name = "nameLong"> ชื่อเล่นต้องมีอักขระไม่เกิน 12 ตัว </string>
+    <string name = "sex"> เพศ </string>
+    <string name = "male"> ชาย </string>
+    <string name = "female"> หญิง </string>
+    <string name = "height"> ความสูง </string>
+    <string name = "weight"> น้ำหนัก </string>
+    <string name = "birthday"> วันเกิด </string>
+    <string name = "album"> อัลบั้ม </string>
+    <string name = "camera"> ถ่ายภาพ </string>
+
+
+
+    <string name = "tokenTimeOut"> การเข้าสู่ระบบหมดอายุโปรดเข้าสู่ระบบอีกครั้ง </string>
+    <string name = "enterRightEmail"> โปรดป้อนรูปแบบกล่องจดหมายที่ถูกต้อง </string>
+    <string name = "httpError"> การตอบสนองของเครือข่ายหมดเวลาโปรดตรวจสอบสถานะการเชื่อมต่อเครือข่าย </string>
+    <string name = "logging"> กำลังเข้าสู่ระบบ ... </string>
+    <string name = "waitting"> โปรดรอ ... </string>
+    <string name = "resetSuccess"> รีเซ็ตรหัสผ่านสำเร็จ </string>
+    <string name = "passwordUnSame"> รหัสผ่านที่ป้อนสองรหัสไม่สอดคล้องกัน </string>
+    <string name = "saved"> บันทึกสำเร็จ </string>
+    <string name = "notificationlistener_prompt_title"> เปิดใช้งานการแจ้งเตือน </string>
+    <string name = "notificationlistener_prompt_content"> ismarport จำเป็นต้องส่งต่อการแจ้งเตือนของแอปพลิเคชันไปยังอุปกรณ์อัจฉริยะระยะไกล กด \ "OK \" เพื่อเข้าสู่หน้าการแจ้งเตือนเพื่อเปิดใช้งาน </string>
+    <string name = "tokenTimeout"> การเข้าสู่ระบบหมดอายุแล้วโปรดเข้าสู่ระบบอีกครั้ง </string>
+    <string name = "lostDevice"> อุปกรณ์ไม่ได้เชื่อมต่อ </string>
+    <string name = "permissionErrorForCamare"> การอนุญาตล้มเหลวไม่สามารถเปิดฟังก์ชันกล้องได้ </string>
+    <string name = "findPermission"> หากไม่ผ่านการอนุญาตรายการอุปกรณ์จะไม่ถูกค้นหา </string>
+    <string name = "applyPermission"> ขออนุญาต </string>
+    <string name = "shareFailForPermission"> การแบ่งปันล้มเหลวสิทธิ์ที่เกี่ยวข้องล้มเหลว </string>
+    <string name = "permissionErrorForSMS"> ล้มเหลวไม่สามารถเปิดฟังก์ชันการแจ้งเตือนทาง SMS ได้ </string>
+    <string name = "loading"> กำลังโหลด ... </string>
+    <string name = "privacyTip"> ก่อนที่คุณจะใช้ผลิตภัณฑ์ของเราโปรดอ่านอย่างละเอียดและเข้าใจข้อตกลงความเป็นส่วนตัวของผู้ใช้ที่เกี่ยวข้อง \ n เมื่อคุณคลิก "ตกลง" หมายความว่าคุณได้ยอมรับเงื่อนไขของข้อตกลงแล้ว \ n นโยบายความเป็นส่วนตัวของผู้ใช้ส่วนใหญ่ประกอบด้วยเนื้อหาต่อไปนี้: \ n1. การรวบรวมการจัดเก็บและการแบ่งปันข้อมูลส่วนบุคคล (อวาตาร์ชื่อเล่นส่วนสูงน้ำหนักข้อมูลการออกกำลังกาย ฯลฯ ) \ n2. การใช้สิทธิ์ของอุปกรณ์ (ตำแหน่งที่ตั้งสมุดที่อยู่กล้องถ่ายรูป ฯลฯ ) </string>
+    <string name = "crop_pic_failed"> ล้มเหลวในการดักจับรูปภาพโปรดเลือกรูปภาพในรูปแบบ jpg! </string>
+    <string name = "deviceOut"> อุปกรณ์ที่ไม่ถูกผูกไว้ </string>
+    <string name = "visiter"> โหมดนักท่องเที่ยวไม่รองรับคุณลักษณะนี้ </string>
+    <string name = "chooseJpg"> โปรดเลือกรูปภาพในรูปแบบ jpg </string>
+
+    <string name = "planOK"> บรรลุเป้าหมายของวันนี้แล้ว </string>
+    <string name = "planNO"> เป้าหมายของวันนี้ไม่ถึง </string>
+    <string name = "planStepShare"> ขั้นตอนเป้าหมาย:% dsteps </string>
+    <string name = "distanceShare"> ระยะทางเดิน:% .1fKm </string>
+    <string name = "calurieShare"> แคลอรี่ที่เผาผลาญ:% .1fKcal </string>
+
+    <string name = "planSleep"> ระยะเวลาเป้าหมาย:% .1fh </string>
+    <string name = "deepSleepShare"> ระยะเวลาหลับลึก:% 02dh% 02dmin </string>
+    <string name = "lightSleepShare"> ระยะเวลาการนอนหลับแบบเบา:% 02dh% 02dmin </string>
+
+    <string name = "testTimes"> หมายเลขการวัดของวันนี้:% d </string>
+    <string name = "maxHeartShare"> อัตราการเต้นของหัวใจสูงสุด:% dbpm </string>
+    <string name = "minHeartShare"> อัตราการเต้นของหัวใจขั้นต่ำ:% dbpm </string>
+
+    <string name = "bloodOxygenData"> ความอิ่มตัวของออกซิเจนในเลือด </string>
+    <string name = "testValue"> ผลการทดสอบ: </string>
+    <string name = "passTimeData"> อัตราการส่งผ่าน:% .1f %% </string>
+
+    <string name = "bloodPressureData"> ความดันโลหิตเฉลี่ย systolic / diastolic </string>
+    <string name = "shareSuccess"> แชร์สำเร็จ </string>
+    <string name = "shareCancel"> ยกเลิกการแบ่งปัน </string>
+    <string name = "shareFail"> การแบ่งปันล้มเหลว </string>
+
+    <!-- สแกนและเชื่อมต่อ -->
+    <string name="connect_error">ข้อผิดพลาดในการเชื่อมต่อ</string>
+
+
+    <!-- แอปพลิเคชันและ appstore -->
+    <string name="launchfail">โหลดแอปพลิเคชันล้มเหลว</string>
+
+    <!-- การตั้งค่ากิจกรรม -->
+    <string name="sms_preference_title">บริการ SMS</string>
+    <string name="call_preference_title">บริการโทร</string>
+    <string name="progress_dialog_title">กำลังโหลด</string>
+    <string name="progress_dialog_message">กรุณารอสักครู่ &#8230;</string>
+
+    <!-- เลือกแจ้งกิจกรรม -->
+    <string name="personal_apps_title">แอปส่วนตัว</string>
+    <string name="system_apps_title">แอประบบ</string>
+
+
+    <!-- บริการ -->
+    <string name="missed_call">สายที่ไม่ได้รับ</string>
+    <string name="accessibility_description">บริการแจ้งเตือนที่ใช้งานอยู่ในการตั้งค่าการเข้าถึงของคุณ ซึ่งช่วยให้การแจ้งเตือน BT ส่งการแจ้งเตือนแอปพลิเคชันไปยังอุปกรณ์ระยะไกล.</string>
+    <string name="batterylow">แบตเตอรี่เหลือน้อย</string>
+    <string name="pleaseconnectcharger">แบตเตอรี่ใกล้หมดกรุณาต่อเครื่องชาร์จความจุ</string>
+
+    <string name="operate_error">ล้มเหลว</string>
+
+
+    <!--固件升级-->
+    <string name="update_fota">Firmware upgrade</string>
+    <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
+    <string name="update_failed">Watch upgrade failed,Please try again later!</string>
+    <string name="send_firmware_date_success">Succeed in data transmition!</string>
+    <string name="new_version">It has been the latest version currently</string>
+    <string name="downloading_fota">Firmware is being downloaded</string>
+    <string name="read_send_fota_file">It is being prepared</string>
+    <string name="sending_fota_file">The file is sent now</string>
+    <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
+    <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
+    <string name="updated_firmware">Update successfully!</string>
+    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
+    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
+    <string name="get_app_permission">Please allow application permission</string>
+    <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
+    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+
+</resources>

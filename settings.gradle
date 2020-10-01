@@ -1,1 +1,1 @@
-include ':app', ':okhttputils', ':citypicker', ':ncalendar'
+include ':app', ':okhttputils', ':citypicker', ':ncalendar', ':library'

@@ -209,7 +209,7 @@ public class InnerPainter implements CalendarPainter {
 
     //绘制圆点
     private void drawPoint(Canvas canvas, RectF rectF, boolean isTodaySelect, int alphaColor, LocalDate date,int flag) {
-        List<LocalDate> pointList = CalendarUtil.getPointList(flag);
+        List<LocalDate> pointList = CalendarUtil.getPointList();
         if (pointList.contains(date)) {
             mPointPaint.setStyle(Paint.Style.FILL);
             int []colors = new int[2];

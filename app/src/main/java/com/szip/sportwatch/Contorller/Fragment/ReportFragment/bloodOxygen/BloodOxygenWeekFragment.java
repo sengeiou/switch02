@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
 import com.szip.sportwatch.R;
@@ -18,9 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/18.
@@ -66,8 +63,10 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
     private void updateView() {
         reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
-        averageTv.setText(reportDataBean.getValue()+70+"%");
-        reachTv.setText(String.format("%.1f%%",reportDataBean.getValue1()/10f));
+        if (reportDataBean.getValue()!=0)
+            averageTv.setText(reportDataBean.getValue()+70+"%");
+        if (reportDataBean.getValue()!=0)
+            reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         if (DateUtil.getTimeOfToday()==((BloodOxygenReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((BloodOxygenReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
@@ -87,9 +86,9 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
-        averageTv = getView().findViewById(R.id.averageTv);
+        averageTv = getView().findViewById(R.id.averageTv1);
         reachTv = getView().findViewById(R.id.reachTv);
     }
 
@@ -103,14 +102,16 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate+=7*24*60*60;
-                initData();
-                updateView();
+                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
                 break;
             case R.id.leftIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate-=7*24*60*60;
-                initData();
-                updateView();
+                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

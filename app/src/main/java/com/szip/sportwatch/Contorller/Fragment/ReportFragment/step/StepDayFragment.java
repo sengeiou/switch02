@@ -5,23 +5,21 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
-import com.szip.sportwatch.Contorller.SleepReportActivity;
 import com.szip.sportwatch.Contorller.StepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.View.ReportView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/16.
@@ -66,8 +64,14 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     private void updateView() {
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        kcalTv.setText(String.format("%.1f",reportDataBean.getValue2()/10f));
-        distanceTv.setText(String.format("%.2f",reportDataBean.getValue1()/10000f));
+        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue2()/10f));
+        if (((MyApplication)getActivity().getApplicationContext()).getUserInfo().getUnit().equals("metric")){
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue1()/10f));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+        } else{
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(reportDataBean.getValue1()/10)));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+        }
         if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
@@ -83,11 +87,11 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initView() {
-        reportView = getView().findViewById(R.id.tableView);
+        reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
         allStepTv = getView().findViewById(R.id.allStepTv);
         kcalTv = getView().findViewById(R.id.kcalTv);
-        distanceTv = getView().findViewById(R.id.distanceTv);
+        distanceTv = getView().findViewById(R.id.dataTv);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -100,14 +104,16 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((StepReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
                 break;
             case R.id.leftIv:
                 ((StepReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

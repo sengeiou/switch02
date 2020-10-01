@@ -139,7 +139,7 @@ public class HealthyProgressView extends View {
                 canvas.drawLine(current*(1-(float)i/color.length)-bgArcWidth,mHeight/2,
                         current*(1-(float)i/color.length),mHeight/2, squarePaint);
             }
-            if (radio!=0){
+            if (radio>0){
                 canvas.drawLine(mWidth*radio,0,mWidth*radio,mHeight, radioPaint);
             }
 
@@ -200,9 +200,7 @@ public class HealthyProgressView extends View {
         this.radio = radio;
     }
 
-    /**
-     * 设置游标位置
-     * */
+
     public void setSleepData(float radio,int deepTime,int lightTime) {
         this.radio = radio>1?1:radio;
         this.allTime = deepTime;

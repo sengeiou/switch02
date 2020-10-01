@@ -4,27 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Adapter.SportDataAdapter;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CalendarPicker;
+import com.szip.sportwatch.View.MyAlerDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SportDataListActivity extends BaseActivity implements View.OnClickListener {
@@ -40,6 +45,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sport_data_list);
+        LoadDataUtil.newInstance().initCalendarPoint(7);
         initData();
         initView();
         initEvent();
@@ -59,16 +65,27 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
 
     private void initEvent() {
         findViewById(R.id.backIv).setOnClickListener(this);
-        findViewById(R.id.image2).setOnClickListener(this);
+        findViewById(R.id.rightIv).setOnClickListener(this);
     }
 
     private void initData() {
-        if (MainService.getInstance().getConnectState()==3){
-            ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),10000);
-            EXCDController.getInstance().writeForSportIndex();
+        if (MyApplication.getInstance().isMtk()){
+            if (MainService.getInstance().getState()==3){
+                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
+                EXCDController.getInstance().writeForSportIndex();
+            }else {
+                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                Collections.sort(dataList);
+            }
         }else {
-            dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+            if (BleClient.getInstance().isSync()){
+                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
+            }else {
+                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                Collections.sort(dataList);
+            }
         }
+
 
     }
 
@@ -82,6 +99,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
         listView = findViewById(R.id.sportList);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.history));
+        ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         sportDataAdapter = new SportDataAdapter(dataList,this);
         listView.setAdapter(sportDataAdapter);
@@ -89,12 +107,28 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SportDataListActivity.this,SportTrackActivity.class);
-                intent.putExtra("time",dataList.get(position).time);
-                intent.putExtra("distance",dataList.get(position).distance);
-                intent.putExtra("speed",dataList.get(position).speed);
-                intent.putExtra("calorie",dataList.get(position).calorie);
-                intent.putExtra("sportTime",dataList.get(position).sportTime);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("sport",dataList.get(position));
+                intent.putExtra("data",bundle);
                 startActivity(intent);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.delete),
+                        null, null, false, new MyAlerDialog.AlerDialogOnclickListener() {
+                            @Override
+                            public void onDialogTouch(boolean flag) {
+                                if (flag){
+                                    LoadDataUtil.newInstance().removeSportData(dataList.get(position));
+                                    dataList.remove(position);
+                                    sportDataAdapter.setList(dataList);
+                                }
+                            }
+                        },SportDataListActivity.this);
+                return true;
             }
         });
 
@@ -105,6 +139,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
     public void updateReport(UpdateReport updateReport){
         ProgressHudModel.newInstance().diss();
         dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+        Collections.sort(dataList);
         updateView();
     }
 
@@ -114,7 +149,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
             case R.id.backIv:
                 finish();
                 break;
-            case R.id.image2:
+            case R.id.rightIv:
                 CalendarPicker.getInstance()
                         .enableAnimation(true)
                         .setFragmentManager(getSupportFragmentManager())
@@ -124,9 +159,15 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
                         .setCalendarListener(new CalendarListener() {
                             @Override
                             public void onClickDate(String date) {
-                                reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
-                                dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
-                                updateView();
+                                if (DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd")>DateUtil.getTimeOfToday()){
+                                    showToast(getString(R.string.tomorrow));
+                                }else {
+                                    reportDate = DateUtil.getTimeScopeForDay(date,"yyyy-MM-dd");
+                                    dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
+                                    Collections.sort(dataList);
+                                    updateView();
+                                }
+
                             }
                         })
                         .show();

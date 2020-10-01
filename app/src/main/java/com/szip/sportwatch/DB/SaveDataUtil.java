@@ -3,31 +3,41 @@ package com.szip.sportwatch.DB;
 import android.content.Context;
 import android.util.Log;
 
+import com.mediatek.wearable.WearableManager;
 import com.necer.utils.CalendarUtil;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
+import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData;
 import com.szip.sportwatch.DB.dbModel.BloodPressureData_Table;
 import com.szip.sportwatch.DB.dbModel.EcgData;
 import com.szip.sportwatch.DB.dbModel.EcgData_Table;
+import com.szip.sportwatch.DB.dbModel.HealthyConfig;
 import com.szip.sportwatch.DB.dbModel.HeartData;
 import com.szip.sportwatch.DB.dbModel.HeartData_Table;
 import com.szip.sportwatch.DB.dbModel.SleepData;
 import com.szip.sportwatch.DB.dbModel.SleepData_Table;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.SportData_Table;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
+import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.LocalDate;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2019/12/22.
@@ -35,16 +45,15 @@ import java.util.List;
 
 public class SaveDataUtil {
     private static SaveDataUtil saveDataUtil;
-    private Context mContext;
-    private SaveDataUtil(Context context){
-        mContext = context;
+    private SaveDataUtil(){
+
     }
 
-    public static SaveDataUtil newInstance(Context context){                     // 单例模式，双重锁
+    public static SaveDataUtil newInstance(){                     // 单例模式，双重锁
         if( saveDataUtil == null ){
             synchronized (SaveDataUtil.class){
                 if( saveDataUtil == null ){
-                    saveDataUtil = new SaveDataUtil(context);
+                    saveDataUtil = new SaveDataUtil();
                 }
             }
         }
@@ -62,11 +71,11 @@ public class SaveDataUtil {
                             public void processModel(StepData stepData, DatabaseWrapper wrapper) {
                                 StepData sqlData = SQLite.select()
                                         .from(StepData.class)
-                                        .where(StepData_Table.time.is(stepData.time))
+                                        .where(StepData_Table.time.is(stepData.time),
+                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                                         .querySingle();
                                 if (sqlData == null) {//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,
-                                            "yyyy-MM-dd")),0);
+                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
@@ -86,6 +95,7 @@ public class SaveDataUtil {
                     @Override
                     public void onSuccess(Transaction transaction) {
                         Log.d("SZIP******","计步数据保存成功");
+                        EventBus.getDefault().post(new ConnectState());
                     }
                 }).build().execute();
     }
@@ -101,11 +111,11 @@ public class SaveDataUtil {
                             public void processModel(StepData stepData, DatabaseWrapper wrapper) {
                                 StepData sqlData = SQLite.select()
                                         .from(StepData.class)
-                                        .where(StepData_Table.time.is(stepData.time))
+                                        .where(StepData_Table.time.is(stepData.time),
+                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,
-                                            "yyyy-MM-dd")),0);
+                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
@@ -126,7 +136,7 @@ public class SaveDataUtil {
                                         StringBuffer stepString = new StringBuffer();
                                         for (int i = 0;i<24;i++){
                                             if (sql[i]+step[i]!=0){
-                                                stepString.append(String.format(",%02d:%d",i,sql[i]+step[i]));
+                                                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,sql[i]+step[i]));
                                             }
                                         }
                                         sqlData.dataForHour = stepString.toString().substring(1);
@@ -145,6 +155,75 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","计步详情数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
+    /**
+     * 批量保存详情计步(用来保存2523的计步数据，2523的总计步与详情计步是放在一条协议里面的)
+     * */
+    public void saveStepInfoDataListData1(List<StepData> stepDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<StepData>() {
+                            @Override
+                            public void processModel(StepData stepData, DatabaseWrapper wrapper) {
+                                StepData sqlData = SQLite.select()
+                                        .from(StepData.class)
+                                        .where(StepData_Table.time.is(stepData.time),
+                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
+                                    stepData.save();
+                                }
+                                else {//不为null则代表数据库存在，进行更新
+                                    if (sqlData.dataForHour != null&&
+                                            !sqlData.dataForHour.equals(stepData.dataForHour)){
+                                        int sql[] = new int[24];
+                                        String[] sqlStr = sqlData.dataForHour.split(",");
+                                        Log.d("SZIP******","old stepStr = "+sqlData.dataForHour);
+                                        int step[] = new int[24];
+                                        Log.d("SZIP******","new stepStr = "+stepData.dataForHour);
+                                        String[] stepStr = stepData.dataForHour.split(",");
+                                        for (int i = 0;i<sqlStr.length;i++){
+                                            sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
+                                        }
+                                        for (int i = 0;i<stepStr.length;i++){
+                                            step[Integer.valueOf(stepStr[i].substring(0,2))] = Integer.valueOf(stepStr[i].substring(3));
+                                        }
+                                        StringBuffer stepString = new StringBuffer();
+                                        for (int i = 0;i<24;i++){
+                                            if (sql[i]+step[i]!=0){
+                                                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,sql[i]+step[i]));
+                                            }
+                                        }
+                                        sqlData.dataForHour = stepString.toString().substring(1);
+                                        sqlData.steps = stepData.steps;
+                                        sqlData.distance = stepData.distance;
+                                        sqlData.calorie = stepData.calorie;
+                                    }else{
+                                        sqlData.dataForHour = stepData.dataForHour;
+                                        sqlData.steps = stepData.steps;
+                                        sqlData.distance = stepData.distance;
+                                        sqlData.calorie = stepData.calorie;
+                                    }
+
+                                    sqlData.update();
+                                }
+                            }
+                        }).addAll(stepDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","计步详情数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -160,11 +239,11 @@ public class SaveDataUtil {
                             public void processModel(SleepData sleepData, DatabaseWrapper wrapper) {
                                 SleepData sqlData = SQLite.select()
                                         .from(SleepData.class)
-                                        .where(SleepData_Table.time.is(sleepData.time))
+                                        .where(SleepData_Table.time.is(sleepData.time),
+                                                SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,
-                                            "yyyy-MM-dd")),1);
+                                    sleepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     sleepData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     sqlData.deepTime = sleepData.deepTime;
@@ -186,6 +265,65 @@ public class SaveDataUtil {
         }).build().execute();
     }
 
+
+    /**
+     * 批量保存设备配置
+     * */
+    public void saveConfigListData(List<SportWatchAppFunctionConfigDTO> sportWatchAppFunctionConfigDTOS){
+
+        SQLite.delete()
+        .from(SportWatchAppFunctionConfigDTO.class)
+        .execute();
+
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<SportWatchAppFunctionConfigDTO>() {
+                            @Override
+                            public void processModel(SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO, DatabaseWrapper wrapper) {
+                                sportWatchAppFunctionConfigDTO.save();
+                            }
+                        }).addAll(sportWatchAppFunctionConfigDTOS).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+            }
+        }).build().execute();
+    }
+
+    /**
+     * 批量保存设备健康配置
+     * */
+    public void saveHealthyConfigListData(List<HealthyConfig> healthyConfigs){
+
+        SQLite.delete()
+                .from(HealthyConfig.class)
+                .execute();
+
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<HealthyConfig>() {
+                            @Override
+                            public void processModel(HealthyConfig healthyConfig, DatabaseWrapper wrapper) {
+                                healthyConfig.save();
+                            }
+                        }).addAll(healthyConfigs).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+            }
+        }).build().execute();
+    }
+
     /**
      * 批量保存详情睡眠
      * */
@@ -197,13 +335,12 @@ public class SaveDataUtil {
                             public void processModel(SleepData sleepData, DatabaseWrapper wrapper) {
                                 SleepData sqlData = SQLite.select()
                                         .from(SleepData.class)
-                                        .where(SleepData_Table.time.is(sleepData.time))
+                                        .where(SleepData_Table.time.is(sleepData.time),
+                                                SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,
-                                            "yyyy-MM-dd")),1);
+                                    sleepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     sleepData.save();
-
                                 } else {//不为null则代表数据库存在，进行更新
                                     sqlData.dataForHour = sleepData.dataForHour;
                                     sqlData.update();
@@ -219,6 +356,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","睡眠详情保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -226,8 +364,9 @@ public class SaveDataUtil {
 
     /**
      * 批量保存心率
+     * @param isAdd   判断该条数据是当天需要往上累加的数据还是服务器返回的需要替代的数据
      * */
-    public void saveHeartDataListData(List<HeartData> heartDataList){
+    public void saveHeartDataListData(List<HeartData> heartDataList, final boolean isAdd){
         FlowManager.getDatabase(AppDatabase.class)
                 .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
                         new ProcessModelTransaction.ProcessModel<HeartData>() {
@@ -235,28 +374,35 @@ public class SaveDataUtil {
                             public void processModel(HeartData heartData, DatabaseWrapper wrapper) {
                                 HeartData sqlData = SQLite.select()
                                         .from(HeartData.class)
-                                        .where(HeartData_Table.time.is(heartData.time))
+                                        .where(HeartData_Table.time.is(heartData.time),
+                                                HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,
-                                            "yyyy-MM-dd")),2);
+                                    heartData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     heartData.save();
                                 } else {//不为null则代表数据库存在，进行更新
-                                    String heartStr = sqlData.heartArray+","+heartData.heartArray;
-                                    String []heartArray = heartStr.split(",");
-                                    int heartSum = 0;
-                                    int sum = 0;
-                                    StringBuffer heartBuffer = new StringBuffer();
-                                    for (int i = 0;i<heartArray.length;i++){
-                                        if (!heartArray[i].equals("0")){
-                                            heartSum+=Integer.valueOf(heartArray[i]);
-                                            sum++;
-                                            heartBuffer.append(","+heartArray[i]);
+                                    if (isAdd){
+                                        String heartStr = sqlData.heartArray+","+heartData.heartArray;
+                                        String []heartArray = heartStr.split(",");
+                                        int heartSum = 0;
+                                        int sum = 0;
+                                        for (int i = 0;i<heartArray.length;i++){
+                                            if (!heartArray[i].equals("0")){
+                                                heartSum+=Integer.valueOf(heartArray[i]);
+                                                sum++;
+                                            }
+                                        }
+                                        sqlData.averageHeart = heartSum/sum;
+                                        sqlData.heartArray = heartStr;
+                                        sqlData.update();
+                                    }else {
+                                        if (sqlData.heartArray.length()<heartData.heartArray.length()){
+                                            sqlData.averageHeart = heartData.averageHeart;
+                                            sqlData.heartArray = heartData.heartArray;
+                                            sqlData.update();
                                         }
                                     }
-                                    sqlData.averageHeart = heartSum/sum;
-                                    sqlData.heartArray = heartBuffer.toString().substring(1);
-                                    sqlData.update();
+
                                 }
                             }
                         }).addAll(heartDataList).build())  // add elements (can also handle multiple)
@@ -269,6 +415,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","心率数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -288,8 +435,7 @@ public class SaveDataUtil {
                                         .where(BloodPressureData_Table.time.is(bloodPressureData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(bloodPressureData.time,
-                                            "yyyy-MM-dd")),3);
+                                    bloodPressureData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     bloodPressureData.save();
                                 }
                             }
@@ -303,6 +449,7 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","血压数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -321,8 +468,7 @@ public class SaveDataUtil {
                                         .where(BloodOxygenData_Table.time.is(bloodOxygenData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(bloodOxygenData.time,
-                                            "yyyy-MM-dd")),4);
+                                    bloodOxygenData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     bloodOxygenData.save();
                                 }
                             }
@@ -336,6 +482,40 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","血氧数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
+    /**
+     * 批量保存体温
+     * */
+    public void saveAnimalHeatDataListData(List<AnimalHeatData> animalHeatDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<AnimalHeatData>() {
+                            @Override
+                            public void processModel(AnimalHeatData animalHeatData, DatabaseWrapper wrapper) {
+                                AnimalHeatData sqlData = SQLite.select()
+                                        .from(AnimalHeatData.class)
+                                        .where(AnimalHeatData_Table.time.is(animalHeatData.time))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    animalHeatData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
+                                    animalHeatData.save();
+                                }
+                            }
+                        }).addAll(animalHeatDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","体温数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
     }
@@ -354,8 +534,7 @@ public class SaveDataUtil {
                                         .where(EcgData_Table.time.is(ecgData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(ecgData.time,
-                                            "yyyy-MM-dd")),5);
+                                    ecgData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     ecgData.save();
                                 }
                             }
@@ -369,6 +548,40 @@ public class SaveDataUtil {
             @Override
             public void onSuccess(Transaction transaction) {
                 Log.d("SZIP******","ECG数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
+    /**
+     * 批量保存sport
+     * */
+    public void saveSportDataListData(List<SportData> sportDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<SportData>() {
+                            @Override
+                            public void processModel(SportData sportData, DatabaseWrapper wrapper) {
+                                SportData sqlData = SQLite.select()
+                                        .from(SportData.class)
+                                        .where(SportData_Table.time.is(sportData.time))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    Log.d("SZIP******","SAVEID = "+MyApplication.getInstance().getUserInfo().getBindId());
+                                    sportData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
+                                    sportData.save();
+                                }
+                            }
+                        }).addAll(sportDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","多运动数据保存成功");
             }
         }).build().execute();
     }
@@ -382,8 +595,7 @@ public class SaveDataUtil {
                 .where(SportData_Table.time.is(sportData.time))
                 .querySingle();
         if (sqlData == null){//为null则代表数据库没有保存
-            CalendarUtil.addPoint(new LocalDate(DateUtil.getStringDateFromSecond(sportData.time,
-                    "yyyy-MM-dd")),6);
+            sportData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
             sportData.save();
             Log.d("SZIP******","sport数据保存成功 time = "+sportData.time+" ;distance = "+sportData.distance+" ;caloria = "+sportData.calorie+
                     " ;speed = "+sportData.speed+" ;sportTime = "+sportData.sportTime+" type = "+sportData.type);
@@ -413,6 +625,9 @@ public class SaveDataUtil {
                 .execute();
         SQLite.delete()
                 .from(SportData.class)
+                .execute();
+        SQLite.delete()
+                .from(AnimalHeatData.class)
                 .execute();
     }
 }

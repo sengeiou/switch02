@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -74,7 +75,9 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
 
     private void updateView() {
         reportScorllView.addData(reportDataBean.getDrawDataBeans());
-        adapter.setDrawDataBeans(reportDataBean.getDrawDataBeans());
+        ArrayList<DrawDataBean> list = reportDataBean.getDrawDataBeans();
+        Collections.sort(list);
+        adapter.setDrawDataBeans(list);
         if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
@@ -96,7 +99,7 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
         reportScorllView = getView().findViewById(R.id.reportView);
         reportScorllView.setOnPageViewScorllAble(this);
         listView = getView().findViewById(R.id.dataList);
-        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),getContext());
+        adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),0,getContext());
         listView.setAdapter(adapter);
     }
 
@@ -116,14 +119,16 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
-                initData();
-                updateView();
+                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                    showToast(getString(R.string.tomorrow));
+                else{
+                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
+                    EventBus.getDefault().post(new UpdateReport());
+                }
                 break;
             case R.id.leftIv:
                 ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
-                initData();
-                updateView();
+                EventBus.getDefault().post(new UpdateReport());
                 break;
         }
     }

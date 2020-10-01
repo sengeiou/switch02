@@ -27,6 +27,9 @@ public class HeartData extends BaseModel implements Comparable<HeartData>{
     @Column
     public String heartArray;
 
+    @Column
+    public String deviceCode;
+
     public long getTime() {
         return time;
     }

@@ -27,10 +27,14 @@ import com.szip.sportwatch.Util.ScreenCapture;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.MyAlerDialog;
 
+import java.util.Locale;
+
 public class ShareActivity extends BaseActivity {
 
     private long time;
     private int value,value1,value2,value3;
+    private boolean isFirst = true;
+
 
     private LinearLayout layout;
     private TextView timeTv,stateTv,valueTv,valueTv1,valueTv2,valueTv3;
@@ -50,6 +54,13 @@ public class ShareActivity extends BaseActivity {
         initView(flag);
         checkPermission();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isFirst)
+            finish();
     }
 
     private void checkPermission() {
@@ -120,7 +131,7 @@ public class ShareActivity extends BaseActivity {
                 timeTv.setText(DateUtil.getStringDateFromSecond(time,"yyyy-MM-dd"));
 
                 valueTv.setTextColor(getResources().getColor(R.color.white));
-                valueTv.setText(MathUitl.initText(String.format("%dsteps",value),0,null,null));
+                valueTv.setText(MathUitl.initText(String.format(Locale.ENGLISH,"%dsteps",value),0,null,null));
 
                 stateTv.setTextColor(getResources().getColor(R.color.white));
                 if (value1>value)
@@ -129,15 +140,15 @@ public class ShareActivity extends BaseActivity {
                     stateTv.setText(getString(R.string.planOK));
 
                 valueTv1.setTextColor(getResources().getColor(R.color.white));
-                valueTv1.setText(MathUitl.initText(String.format(getString(R.string.planStepShare),value1),
+                valueTv1.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.planStepShare),value1),
                         0,":","steps"));
 
                 valueTv2.setTextColor(getResources().getColor(R.color.white));
-                valueTv2.setText(MathUitl.initText(String.format(getString(R.string.distanceShare),value2/1000f),0,
+                valueTv2.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.distanceShare),value2/1000f),0,
                         ":","Km"));
 
                 valueTv3.setTextColor(getResources().getColor(R.color.white));
-                valueTv3.setText(MathUitl.initText(String.format(getString(R.string.calurieShare),value3/10f),0,
+                valueTv3.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.calurieShare),value3/10f),0,
                         ":","Kcal"));
                 break;
             case 1:
@@ -146,7 +157,7 @@ public class ShareActivity extends BaseActivity {
                 timeTv.setText(DateUtil.getStringDateFromSecond(time,"yyyy-MM-dd"));
 
                 valueTv.setTextColor(getResources().getColor(R.color.white));
-                valueTv.setText(MathUitl.initText(String.format("%02dh%02dmin",value/60,value%60),1,null,null));
+                valueTv.setText(MathUitl.initText(String.format(Locale.ENGLISH,"%02dh%02dmin",value/60,value%60),1,null,null));
 
                 stateTv.setTextColor(getResources().getColor(R.color.white));
                 if (value1>value)
@@ -155,14 +166,14 @@ public class ShareActivity extends BaseActivity {
                     stateTv.setText(getString(R.string.planOK));
 
                 valueTv1.setTextColor(getResources().getColor(R.color.white));
-                valueTv1.setText(MathUitl.initText(String.format(getString(R.string.planSleep),value1/60f),1,":","h"));
+                valueTv1.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.planSleep),value1/60f),1,":","h"));
 
                 valueTv2.setTextColor(getResources().getColor(R.color.white));
-                valueTv2.setText(MathUitl.initText(String.format(getString(R.string.deepSleepShare),value2/60,value2%60),1,
+                valueTv2.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.deepSleepShare),value2/60,value2%60),1,
                         ":",null));
 
                 valueTv3.setTextColor(getResources().getColor(R.color.white));
-                valueTv3.setText(MathUitl.initText(String.format(getString(R.string.lightSleepShare),value3/60,value3%60),1,
+                valueTv3.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.lightSleepShare),value3/60,value3%60),1,
                         ":",null));
                 break;
             case 2:
@@ -171,19 +182,19 @@ public class ShareActivity extends BaseActivity {
                 timeTv.setText(DateUtil.getStringDateFromSecond(time,"yyyy-MM-dd"));
 
                 valueTv.setTextColor(getResources().getColor(R.color.black));
-                valueTv.setText(MathUitl.initText(String.format("%dbpm",value),2,null,null));
+                valueTv.setText(MathUitl.initText(String.format(Locale.ENGLISH,"%dbpm",value),2,null,null));
 
                 stateTv.setTextColor(getResources().getColor(R.color.black));
                 stateTv.setText(getString(R.string.averageHeart));
 
                 valueTv1.setTextColor(getResources().getColor(R.color.black));
-                valueTv1.setText(MathUitl.initText(String.format(getString(R.string.testTimes),value1),2,":",null));
+                valueTv1.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.testTimes),value1),2,":",null));
 
                 valueTv2.setTextColor(getResources().getColor(R.color.black));
-                valueTv2.setText(MathUitl.initText(String.format(getString(R.string.maxHeartShare),value2),2,":","bpm"));
+                valueTv2.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.maxHeartShare),value2),2,":","bpm"));
 
                 valueTv3.setTextColor(getResources().getColor(R.color.black));
-                valueTv3.setText(MathUitl.initText(String.format(getString(R.string.minHeartShare),value3),2,":","bpm"));
+                valueTv3.setText(MathUitl.initText(String.format(Locale.ENGLISH,getString(R.string.minHeartShare),value3),2,":","bpm"));
                 break;
             case 3:
                 layout.setBackground(getResources().getDrawable(R.mipmap.bp));
@@ -239,7 +250,8 @@ public class ShareActivity extends BaseActivity {
         // TODO Auto-generated method stub
         String filePath = ScreenCapture.getBitmap
                 (ShareActivity.this, layout);
-        shareShow(filePath);
+        isFirst = false;
+//        shareShow(filePath);
 //        Intent intent = new Intent();
 //        intent.putExtra("filePath", filePath);
 //        setResult(101, intent);

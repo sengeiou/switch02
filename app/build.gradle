@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 def dbflow_version = "4.2.4"
 android {
+    signingConfigs {
+        szp {
+            storeFile file('E:\\keyStore\\szip.keystore')
+            storePassword 'damibao123'
+            keyAlias = 'key'
+            keyPassword 'damibao123'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
@@ -16,19 +24,18 @@ android {
         applicationId "com.szip.sportwatch"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 16
+        versionName "1.14"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.szp
     }
     buildTypes {
         release {
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFile 'proguard-rules.pro'
-            }
+            signingConfig signingConfigs.szp
+
+        }
+        debug {
+            signingConfig signingConfigs.szp
         }
     }
 }
@@ -100,7 +107,12 @@ dependencies {
     implementation files('libs/MREPermission.jar')
     implementation files('libs/signpost-commonshttp4-1.2.1.1.jar')
     implementation files('libs/signpost-core-1.2.1.1.jar')
-    implementation files('libs/wearable.jar')
     implementation 'org.greenrobot:eventbus:3.0.0'
+
+    //图片缓存
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation project(path: ':library')
+    implementation files('libs\\wearable.jar')
 
 }
