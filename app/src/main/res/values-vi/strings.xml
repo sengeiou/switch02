@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "app_name"> Ai Paote </string>
+    <string name = "app_name"> iSmarport </string>
 
 
-    <string name = "logo"> Chào mừng bạn đến với Ai Paote </string>
+    <string name = "logo"> Chào mừng bạn đến với iSmarport </string>
     <string name = "user"> số tài khoản </string>
     <string name = "phoneOrEmail"> vui lòng nhập số điện thoại / email của bạn </string>
     <string name = "password"> password </string>
@@ -173,7 +173,7 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
 
     <string name = "healthy"> sức khỏe </string>
     <string name = "sport"> thể thao </string>
-    <string name = "mine"> </string> của tôi
+    <string name = "mine"> của tôi </string>
     <string name = "touchAgain"> nhấn lại để thoát khỏi chương trình </string>
 
 
@@ -268,7 +268,7 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
     <string name = "set"> set </string>
     <string name = "other"> khác </string>
     <string name = "cancel"> huỷ </string>
-    <string name = "confirm"> OK </string>
+    <string name = "confirm"> Chắc chắn </string>
     <string name = "tip"> lời nhắc </string>
     <string name = "delete"> Bạn có chắc chắn muốn xóa phần dữ liệu bài tập này không? </string>
     <string name = "unbind"> Bạn có chắc chắn muốn hủy liên kết không? </string>
@@ -307,7 +307,7 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name = "send_success"> đã được gửi thành công </string>
 
 
-    <string name = "measureUnit"> Đơn vị đo </string>
+    <string name="measureUnit"> Đơn vị đo </string>
     <string name = "metric"> Hệ thống số liệu </string>
     <string name = "british"> Hệ thống của Anh </string>
 
@@ -321,13 +321,13 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name = "ecgReport"> Báo cáo điện tâm đồ </string>
     <string name = "day"> Ngày </string>
     <string name = "week"> tuần </string>
-    <string name = "sun"> Chủ nhật </string>
-    <string name = "mon"> Thứ Hai </string>
-    <string name = "tues"> Thứ Ba </string>
-    <string name = "wed"> Thứ Tư </string>
-    <string name = "thus"> Thứ Năm </string>
-    <string name = "fri"> Thứ Sáu </string>
-    <string name = "sta"> Thứ Bảy </string>
+    <string name = "sun"> nhật </string>
+    <string name = "mon"> Hai </string>
+    <string name = "tues"> Ba </string>
+    <string name = "wed"> Tư </string>
+    <string name = "thus"> Năm </string>
+    <string name = "fri"> Sáu </string>
+    <string name = "sta"> Bảy </string>
     <string name = "today"> hôm nay </string>
     <string name = "month"> tháng </string>
     <string name = "year"> năm </string>
@@ -338,7 +338,7 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name = "light"> ngủ nhẹ </string>
     <string name = "deep"> Ngủ sâu </string>
     <string name = "lightTable"> cạn </string>
-    <string name = "deepTable"> deep </string>
+    <string name = "deepTable"> sâu </string>
     <string name = "averageHeart"> nhịp tim trung bình </string>
     <string name = "minHeart"> nhịp tim tối thiểu </string>
     <string name = "maxHeart"> nhịp tim tối đa </string>

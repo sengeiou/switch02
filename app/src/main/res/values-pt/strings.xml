@@ -198,7 +198,7 @@
     <string name="face">. Disque</string>
     <string name="myDail">Meu Dial</string>
     <string name="seeDail">Visualização</string>
-    <string name="diyDail">Personalizado</string>
+    <string name="diyDail">DIY</string>
     <string name="diyDailing">Atualizando ...</string>
     <string name="diyDailOK">Atualização bem-sucedida</string>
     <string name="diyDailError">Falha na atualização; Por favor, tente novamente</string>
@@ -262,11 +262,11 @@
     <string name="animalHeatReport">Relatório temporário</string>
     <string name="ecgReport"> Relatório de ECG</string>
     <string name="day">Dia</string>
-    <string name="week"> Semana</string>
+    <string name="week">Semana</string>
     <string name="sun">Sol</string>
     <string name="mon"> Seg</string>
     <string name="tues">Ter</string>
-    <string name="wed">Quarta</string>
+    <string name="wed">Qua</string>
     <string name="thus">Qui</string>
     <string name="fri"> Sex</string>
     <string name="sta">Sáb</string>

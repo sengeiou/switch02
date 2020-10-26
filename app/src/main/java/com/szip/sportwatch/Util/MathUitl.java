@@ -40,6 +40,7 @@ import com.szip.sportwatch.DB.dbModel.SportData_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.UserInfo;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Notification.AppList;
 
 
@@ -452,6 +453,7 @@ public class MathUitl {
         String data[] = new String[0];
         for (int i = 0;i<steps.size();i++){
             data = steps.get(i).split("\\|");
+            Log.d("SZIP******","DATE = "+steps.get(i));
             hour[Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))==24?23:
                     Integer.valueOf(data[1].substring(0,data[1].indexOf(':')))] += Integer.valueOf(data[3]);
         }

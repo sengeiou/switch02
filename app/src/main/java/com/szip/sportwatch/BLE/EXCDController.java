@@ -16,6 +16,7 @@ import com.mediatek.wearable.Controller;
 import com.szip.sportwatch.Contorller.CameraActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
+import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
@@ -146,15 +147,18 @@ public class EXCDController extends Controller {
                         steps = new ArrayList<>();
                         steps.add(command);
                     }else {
-                        steps.add(command);
+                        if (!steps.contains(command))
+                            steps.add(command);
                     }
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<steps.size();i++){
+                            Log.d("SZIP******","STEP = "+steps.get(i));
                             String strs[] = steps.get(i).split(",");
                             str.append(steps.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
                                     strs[3].length()+4));
                         }
+                        Log.d("SZIP******","STEP str = "+str);
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getSteps(str.toString().split(","));
                         steps = null;
@@ -175,7 +179,8 @@ public class EXCDController extends Controller {
                         sleeps = new ArrayList<>();
                         sleeps.add(command);
                     }else {
-                        sleeps.add(command);
+                        if (!sleeps.contains(command))
+                            sleeps.add(command);
                     }
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
@@ -214,7 +219,8 @@ public class EXCDController extends Controller {
                         sports = new ArrayList<>();
                         sports.add(command);
                     }else {
-                        sports.add(command);
+                        if (!sports.contains(command))
+                            sports.add(command);
                     }
                     if (commands[3].equals(commands[4])){//接收结束
                         StringBuffer str = new StringBuffer();
@@ -242,6 +248,143 @@ public class EXCDController extends Controller {
                         EventBus.getDefault().post(new UpdateReport());
                     }
                     writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
+                }
+            }else if (commands[1].equals("20")){//接受心电数据
+                if (commands.length>4){//有数据
+                    if (ecgs == null){
+                        ecgs = new ArrayList<>();
+                        ecgs.add(command);
+                    }else {
+                        if (!ecgs.contains(command))
+                            ecgs.add(command);
+                    }
+                    if (commands[2].equals(commands[3])){//接收结束
+                        StringBuffer str = new StringBuffer();
+                        for (int i = 0;i<ecgs.size();i++){
+                            String strs[] = ecgs.get(i).split(",");
+                            str.append(ecgs.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+                                    strs[3].length()+5));
+                        }
+                        if (reviceDataCallback!=null)
+                            reviceDataCallback.getEcg(str.toString().split("#"));
+                        ecgs = null;
+                    }
+                    writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]);
+                }
+            }else if (commands[1].equals("51")){//接受血压数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getBloodPressure(datas);
+                    writeForRET("GET,"+commands[1]);
+                }
+            }else if (commands[1].equals("52")){//接受血氧数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getBloodOxygen(datas);
+                    writeForRET("GET,"+commands[1]);
+                }
+            }else if (commands[1].equals("80")){//接受血氧数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getAnimalHeat(datas);
+                    writeForRET("GET,"+commands[1]);
+                }
+            }else if (commands[1].equals("81")){//初始化缓存完毕
+                EventBus.getDefault().post(new UpdateView("3"));
+            }
+        }else if (commands[0].contains("SET")){//SET指令
+            if (commands[1].equals("10")){//操作相机指令
+                UserInfo userInfo =((MyApplication)mContext.getApplicationContext()).getUserInfo();
+                if (userInfo!=null&&commands[2]!=null) {
+                    String [] datas = commands[2].split("\\|");
+                    userInfo.setStepsPlan(Integer.valueOf(datas[0]));
+                    EventBus.getDefault().post(new PlanModel(Integer.valueOf(datas[0])));
+                }
+                writeForRET("SET,"+commands[1]);
+            }else if (commands[1].equals("14")){//操作相机指令
+                if (((MyApplication)mContext.getApplicationContext()).isCamerable())
+                if (commands[2].equals("1")){//打开相机
+                    Intent intent1=new Intent(mContext, CameraActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent1);
+                }else if (commands[2].equals("0")){//关闭相机
+                    if (onCameraListener!=null)
+                        onCameraListener.onCamera(0);
+                }else {//拍照
+                    if (onCameraListener!=null)
+                        onCameraListener.onCamera(1);
+                }
+                writeForRET("SET,"+commands[1]+","+commands[2]);
+            }else if (commands[1].equals("40")){//找手机
+                if (commands[2].equals("1")){//开始找手机
+                   if (reviceDataCallback!=null)
+                       reviceDataCallback.findPhone(1);
+                }else {
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.findPhone(0);
+                }
+            }else if (commands[1].equals("43")){//收到音乐播放指令，转换成music可识别的指令
+                String str = "mtk_msctrl msctrl_apk 0 1 ";
+                String cmd = command.split(",")[2];
+                str = str+cmd+" 1 FF";
+                byte[] datas = new byte[0];
+                try {
+                    datas = str.getBytes("ASCII");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                RemoteMusicController.getInstance(mContext).onReceive(datas);
+                if (cmd.equals("2")){
+                    writeForRET("SET,"+commands[1]+",0");
+                }else
+                    writeForRET("SET,"+commands[1]+",1");
+            }
+
+        }else if (commands[0].contains("SEND")){
+            if (commands[1].equals("10")){//同步计步数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getStepsForDay(datas);
+                    writeForRET("GET,"+commands[1]);
+                }
+            }
+//            else if (commands[1].equals("11")){//同步计步详情数据
+//                if (commands.length>4){//有数据
+//                    if (steps == null){
+//                        steps = new ArrayList<>();
+//                        steps.add(command);
+//                    }else {
+//                        steps.add(command);
+//                    }
+//                    if (commands[2].equals(commands[3])){//接收结束
+//                        StringBuffer str = new StringBuffer();
+//                        for (int i = 0;i<steps.size();i++){
+//                            String strs[] = steps.get(i).split(",");
+//                            str.append(steps.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
+//                                    strs[3].length()+4));
+//                        }
+//                        if (reviceDataCallback!=null)
+//                            reviceDataCallback.getSteps(str.toString().split(","));
+//                        steps = null;
+//                    }
+//                    writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]);
+//                }
+//            }
+            else if (commands[1].equals("14")){//接受心率数据
+                if (commands.length>2){//有数据
+                    String datas[] = new String[commands.length-2];
+                    System.arraycopy(commands,2,datas,0,datas.length);
+                    if (reviceDataCallback!=null)
+                        reviceDataCallback.getHeart(datas);
+                    writeForRET("GET,"+14);
                 }
             }else if (commands[1].equals("20")){//接受心电数据
                 if (commands.length>4){//有数据
@@ -288,47 +431,6 @@ public class EXCDController extends Controller {
                         reviceDataCallback.getAnimalHeat(datas);
                     writeForRET("GET,"+commands[1]);
                 }
-            }else if (commands[1].equals("81")){//初始化缓存完毕
-                EventBus.getDefault().post(new UpdateView("3"));
-            }
-        }else if (commands[0].contains("SET")){//SET指令
-            if (commands[1].equals("14")){//操作相机指令
-                if (((MyApplication)mContext.getApplicationContext()).isCamerable())
-                if (commands[2].equals("1")){//打开相机
-                    Intent intent1=new Intent(mContext, CameraActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent1);
-                }else if (commands[2].equals("0")){//关闭相机
-                    if (onCameraListener!=null)
-                        onCameraListener.onCamera(0);
-                }else {//拍照
-                    if (onCameraListener!=null)
-                        onCameraListener.onCamera(1);
-                }
-                writeForRET("SET,"+commands[1]+","+commands[2]);
-            }else if (commands[1].equals("40")){//找手机
-                if (commands[2].equals("1")){//开始找手机
-                   if (reviceDataCallback!=null)
-                       reviceDataCallback.findPhone(1);
-                }else {
-                    if (reviceDataCallback!=null)
-                        reviceDataCallback.findPhone(0);
-                }
-            }else if (commands[1].equals("43")){//收到音乐播放指令，转换成music可识别的指令
-                String str = "mtk_msctrl msctrl_apk 0 1 ";
-                String cmd = command.split(",")[2];
-                str = str+cmd+" 1 FF";
-                byte[] datas = new byte[0];
-                try {
-                    datas = str.getBytes("ASCII");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                RemoteMusicController.getInstance(mContext).onReceive(datas);
-                if (cmd.equals("2")){
-                    writeForRET("SET,"+commands[1]+",0");
-                }else
-                    writeForRET("SET,"+commands[1]+",1");
             }
 
         }else if (commands[0].contains("RET")){//RET指令
@@ -342,6 +444,19 @@ public class EXCDController extends Controller {
     /**
      * 应用指令集
      * */
+
+    //使能SEND指令
+    public void writeForEnableSend(int state){
+        String str = "SET,15,"+state;
+        byte[] datas = new byte[0];
+        try {
+            datas = str.getBytes("ASCII");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        this.send(cmdHead+"0 0 8 ",datas,true,false,0);
+    }
+
     //心跳包
     public void writeForCheckVersion(){
         String str = "GET,0";

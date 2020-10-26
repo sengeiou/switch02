@@ -32,6 +32,7 @@ import com.szip.sportwatch.DB.dbModel.HealthyConfig;
 import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Interface.MyListener;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
+import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
 import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.MyApplication;
@@ -98,7 +99,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
 
     private ViewUtil viewUtil;
 
-    private BluetoothAdapter btAdapt;
+
 
     private HealthyConfig healthyConfig;
 
@@ -141,35 +142,13 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        if (app.isMtk())
-            EXCDController.getInstance().writeForCheckVersion();
-        else
-            BleClient.getInstance().writeForGetDeviceState();
         initData();
         if (conditionTv!=null)
             conditionTv.setSelected(true);
 
 
 
-        if (btAdapt == null)
-            btAdapt = BluetoothAdapter.getDefaultAdapter();
-        try {
-            if (app.getBtMac()!=null) {
-                BluetoothDevice btDev = btAdapt.getRemoteDevice(app.getBtMac());
-                Boolean returnValue = false;
-                if (btDev.getBondState() == BluetoothDevice.BOND_NONE) {
-                    //利用反射方法调用BluetoothDevice.createBond(BluetoothDevice remoteDevice);
-                    Method createBondMethod = BluetoothDevice.class
-                            .getMethod("createBond");
-                    Log.d("SZIP******", "开始配对");
-                    returnValue = (Boolean) createBondMethod.invoke(btDev);
-                }
-            }
-        }catch (IllegalArgumentException e){
-            Log.e("SZIP******",e.getMessage());
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -333,7 +312,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             ecgDataTv.setText("--Bpm");
         }
 
-
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into( ((CircularImageView)getView().findViewById(R.id.pictureIv)));
         else
@@ -348,6 +326,18 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdataView(ConnectState connectBean){
             initData();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdatePlan(PlanModel planModel){
+        if(planStepTv!=null){
+            try {
+                HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(planModel.getData()+"",1);
+                planStepTv.setText(String.format(Locale.ENGLISH,getString(R.string.planStep),planModel.getData()));
+            } catch (IOException e) {
+            }
+        }
     }
 
     @Override

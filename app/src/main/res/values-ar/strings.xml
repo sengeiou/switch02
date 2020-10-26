@@ -261,7 +261,7 @@
     <string name = "empty"> لا يمكن ترك التعليقات فارغة </string>
     <string name = "send_success"> بنجاح </string>
 
-    <string name = "measureUnit"> وحدة القياس </string>
+    <string name="measureUnit"> وحدة القياس </string>
     <string name = "metric"> النظام المتري </string>
     <string name = "british"> النظام البريطاني </string>
 

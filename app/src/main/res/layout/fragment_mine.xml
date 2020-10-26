@@ -66,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue"
                     android:textSize="13sp"
+                    android:gravity="right"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/device"
                     android:layout_toLeftOf="@+id/deviceNameTv"

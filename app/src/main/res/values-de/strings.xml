@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "app_name"> Ai Paote </string>
+    <string name = "app_name"> iSmarport </string>
 
-    <string name = "logo"> Willkommen bei Ai Paote </string>
+    <string name = "logo"> Willkommen bei iSmarport </string>
     <string name = "user"> Kontonummer </string>
     <string name = "phoneOrEmail"> Bitte geben Sie Ihr Telefon / Ihre E-Mail-Adresse </string> ein
     <string name = "password"> Passwort </string>
@@ -15,9 +15,9 @@
     <string name = "login"> login </string>
     <string name = "country"> Land / Region </string>
     <string name = "choseCountry"> Bitte wählen Sie ein Land / eine Region </string> aus
-    <string name = "send"> Bestätigungscode senden </string>
+    <string name = "send">Senden</string>
     <string name = "verification"> Bestätigungscode </string>
-    <string name = "enterVerification"> Bitte geben Sie den Bestätigungscode </string> ein
+    <string name = "enterVerification"> Bestätigungscode </string> ein
     <string name = "newPassword"> neues Passwort </string>
     <string name = "enterNewPassword"> Bitte geben Sie ein neues Passwort ein </string>
     <string name = "reset"> Passwort zurücksetzen </string>
@@ -118,13 +118,13 @@
     <string name = "touchAgain"> erneut drücken, um das Programm zu beenden </string>
 
 
-    <string name = "planStep"> Zielanzahl der Schritte% d </string>
+    <string name = "planStep"> Planen % d </string>
     <string name = "sleep"> sleep </string>
     <string name = "heart"> Herzfrequenz </string>
     <string name = "blood"> Blutdruck </string>
     <string name = "bloodo"> Blutsauerstoff </string>
     <string name = "animal"> Körpertemperatur </string>
-    <string name = "ecg"> EKG </string>
+    <string name = "ecg"> ECG </string>
     <string name = "check"> Ansicht </string>
     <string name = "perfect"> ausgezeichnet </string>
     <string name = "good"> good </string>
@@ -245,7 +245,7 @@
     <string name = "send_success"> erfolgreich übermittelt </string>
 
 
-    <string name = "measureUnit"> Maßeinheit </string>
+    <string name="measureUnit"> Maßeinheit </string>
     <string name = "metric"> Metriksystem </string>
     <string name = "british"> Britisches System </string>
 
@@ -256,28 +256,28 @@
     <string name = "bloodPressureReport"> Blutdruckbericht </string>
     <string name = "bloodOxygenReport"> Blutsauerstoffbericht </string>
     <string name = "animalHeatReport"> Körpertemperaturbericht </string>
-    <string name = "ecgReport"> EKG-Bericht </string>
-    <string name = "day"> Tag </string>
-    <string name = "week"> week </string>
-    <string name = "sun"> Sonntag </string>
-    <string name = "mon"> Montag </string>
-    <string name = "tues"> Dienstag </string>
-    <string name = "wed"> Mittwoch </string>
-    <string name = "thus"> Donnerstag </string>
-    <string name = "fri"> Freitag </string>
-    <string name = "sta"> Samstag </string>
+    <string name = "ecgReport"> ECG-Bericht </string>
+    <string name = "day"> Vom </string>
+    <string name = "week"> Wochen </string>
+    <string name = "sun"> Son </string>
+    <string name = "mon"> Mon </string>
+    <string name = "tues"> Die </string>
+    <string name = "wed"> Mit </string>
+    <string name = "thus"> Don </string>
+    <string name = "fri"> Fre </string>
+    <string name = "sta"> Sam </string>
     <string name = "today"> heute </string>
-    <string name = "month"> month </string>
-    <string name = "year"> year </string>
+    <string name = "month"> Monat </string>
+    <string name = "year"> Nián </string>
     <string name = "allStep"> Gesamtzahl der Schritte </string>
     <string name = "averageStep"> durchschnittliche Anzahl von Schritten </string>
     <string name = "allSleep"> Gesamtschlafzeit </string>
     <string name = "averageSleep"> durchschnittliche Schlafzeit </string>
     <string name = "light"> leichter Schlaf </string>
     <string name = "deep"> Tiefschlaf </string>
-    <string name = "lightTable"> flach </string>
-    <string name = "deepTable"> deep </string>
-    <string name = "averageHeart"> durchschnittliche Herzfrequenz </string>
+    <string name = "lightTable"> Flach </string>
+    <string name = "deepTable"> Tiefschlaf </string>
+    <string name = "averageHeart"> herzfrequenz </string>
     <string name = "minHeart"> minimale Herzfrequenz </string>
     <string name = "maxHeart"> maximale Herzfrequenz </string>
     <string name = "averageSBP"> durchschnittlicher systolischer Blutdruck </string>

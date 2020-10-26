@@ -42,7 +42,8 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
+//    private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -76,13 +77,14 @@ public class HttpMessgeUtil {
 
     private HttpMessgeUtil(Context context){
         mContext = context;
-        if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
-            language = "zh-CN";
-        }else if (context.getResources().getConfiguration().locale.getLanguage().equals("es")){
-            language = "es-ES";
-        }else{
-            language = "en-US";
-        }
+        language = context.getResources().getConfiguration().locale.getLanguage();
+//        if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
+//
+//        }else if (context.getResources().getConfiguration().locale.getLanguage().equals("es")){
+//            language = "es-ES";
+//        }else{
+//            language = "en-US";
+//        }
         time = DateUtil.getGMTWithString();
     }
 
@@ -832,7 +834,7 @@ public class HttpMessgeUtil {
                     saveDataUtil.saveSleepDataListData(response.getData().getSleepDataList());
 
                 if (response.getData().getStepDataList().size()!=0)
-                    saveDataUtil.saveStepDataListData(response.getData().getStepDataList());
+                    saveDataUtil.saveStepDataListDataFromWeb(response.getData().getStepDataList());
 
                 if (response.getData().getEcgDataList().size()!=0)
                     saveDataUtil.saveEcgDataListData(response.getData().getEcgDataList());
@@ -908,7 +910,7 @@ public class HttpMessgeUtil {
         editor.putBoolean("isBind",false);
         editor.putString("token",null);
         editor.commit();
-//        SaveDataUtil.newInstance().clearDB();
+        SaveDataUtil.newInstance().clearDB();
         MainService.getInstance().stopConnect();
         MathUitl.showToast(mContext,mContext.getString(R.string.tokenTimeOut));
         Intent intentmain=new Intent(mContext,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

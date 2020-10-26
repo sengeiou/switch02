@@ -247,7 +247,7 @@
     <string name = "send_success"> ส่งเรียบร้อยแล้ว </string>
 
 
-    <string name = "measureUnit"> หน่วยการวัด </string>
+    <string name="measureUnit"> หน่วยการวัด </string>
     <string name = "metric"> ระบบเมตริก </string>
     <string name = "british"> ระบบอังกฤษ </string>
 

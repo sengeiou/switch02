@@ -2,17 +2,22 @@ package com.szip.sportwatch;
 
 import android.app.Activity;
 import android.app.Application;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
@@ -36,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -78,20 +84,41 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     private String deviceNum;
 
     private boolean isMtk = true;
-
+    private boolean isFirst = true;
     private String BtMac;
+
+    private BluetoothAdapter btAdapt;
 
     public String getBtMac() {
         return BtMac;
     }
 
-    public void setBtMac(String btMac) {
+    public void setBtMac(final String btMac) {
         if (BtMac==null||!btMac.split(":")[0].equals(BtMac.split(":")[0])){
             String[] buff = btMac.split(":");
             BtMac = String.format("%02X:%02X:%02X:%02X:%02X:%02X",Integer.valueOf(buff[0],16),Integer.valueOf(buff[1],16),
                     Integer.valueOf(buff[2],16),Integer.valueOf(buff[3],16),Integer.valueOf(buff[4],16)
                     ,Integer.valueOf(buff[5],16));
             Log.d("SZIP******","MAC = "+BtMac);
+        }
+        if (btAdapt == null)
+            btAdapt = BluetoothAdapter.getDefaultAdapter();
+        try {
+            if (BtMac!=null) {
+                BluetoothDevice btDev = btAdapt.getRemoteDevice(BtMac);
+                Boolean returnValue = false;
+                if (btDev.getBondState() == BluetoothDevice.BOND_NONE) {
+                    //利用反射方法调用BluetoothDevice.createBond(BluetoothDevice remoteDevice);
+                    Method createBondMethod = BluetoothDevice.class
+                            .getMethod("createBond");
+                    Log.d("SZIP******", "开始配对");
+                    returnValue = (Boolean) createBondMethod.invoke(btDev);
+                }
+            }
+        }catch (IllegalArgumentException e){
+            Log.e("SZIP******",e.getMessage());
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -178,6 +205,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                     Log.i("SZIP******", " 返回到了 前台");
                     if(sharedPreferences==null)
                         sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+
                     //判断登录状态
                     String token = sharedPreferences.getString("token",null);
                     if (token==null){//未登录
@@ -185,6 +213,16 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                     }else {//已登录
                         startState = 0;
                     }
+                    if(isFirst){
+                        isFirst = false;
+                    }else {
+                        if (isMtk&&WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){
+                            EXCDController.getInstance().writeForEnableSend(1);
+                        }
+                    }
+
+
+
                 }
             }
 
@@ -207,6 +245,9 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 if (mFinalCount == 0) {
                     //说明从前台回到了后台
                     Log.i("SZIP******", " 切换到了 后台");
+                    if (isMtk&&WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){
+                        EXCDController.getInstance().writeForEnableSend(0);
+                    }
                 }
             }
 

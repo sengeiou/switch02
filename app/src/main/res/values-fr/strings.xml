@@ -4,7 +4,7 @@
     <string name="app_name">iSmarport</string>
 
     <!--Page de connexion / récupération de mot de passe / page d \'enregistrement-->
-    <string name="logo">Bienvenue à arpenter.</string>
+    <string name="logo">Bienvenue à iSmarport.</string>
     <string name="user">Numéro de compte</string>
     <string name="phoneOrEmail">Veuillez saisir votre téléphone / courriel</string>
     <string name="password">Mot de passe</string>
@@ -179,8 +179,8 @@
     <string name="sleepPlan">Objectif du sommeil</string>
     <string name="find">Chercher la montre</string>
     <string name="notification">Notification d \'application</string>
-    <string name="blePhone">Bluetooth</string>
-    <string name="blePhoto">Bluetooth</string>
+    <string name="blePhone">Appels bluetooth</string>
+    <string name="blePhoto">Photo de bluetooth</string>
     <string name="unit">formule unitaire</string>
     <string name="face">Changer de table</string>
     <string name="myDail">Ma montre.</string>
@@ -250,13 +250,13 @@
     <string name="ecgReport">Rapport</string>
     <string name="day">Jour</string>
     <string name="week">Périmètre</string>
-    <string name="sun">Dimanche</string>
-    <string name="mon">Lundi</string>
-    <string name="tues">Mardi</string>
-    <string name="wed">Mercredi</string>
-    <string name="thus">Jeudi</string>
-    <string name="fri">Vendredi</string>
-    <string name="sta">Samedi</string>
+    <string name="sun">Dim.</string>
+    <string name="mon">Lun.</string>
+    <string name="tues">Mar.</string>
+    <string name="wed">Mer.</string>
+    <string name="thus">Jeu.</string>
+    <string name="fri">Ven.</string>
+    <string name="sta">Sam.</string>
     <string name="today">Aujourd\'hui.</string>
     <string name="month">Mois</string>
     <string name="year">Année</string>
@@ -264,13 +264,13 @@
     <string name="averageStep">Nombre moyen de pas</string>
     <string name="allSleep">Temps total de sommeil</string>
     <string name="averageSleep">Temps moyen de sommeil</string>
-    <string name="light">Sleep.</string>
-    <string name="deep">Dors bien</string>
-    <string name="lightTable">Peu profond</string>
-    <string name="deepTable">Profond</string>
+    <string name="light">Hypselodoris</string>
+    <string name="deep">Profondeur dormir</string>
+    <string name="lightTable">faible</string>
+    <string name="deepTable">profondeur</string>
     <string name="averageHeart">Moyenne cardiaque</string>
     <string name="minHeart">Minimum Cardiac rate</string>
-    <string name="maxHeart">Max.</string>
+    <string name="maxHeart">Max Cardiac rate</string>
     <string name="averageSBP">Pression de compression moyenne</string>
     <string name="sbp">Compression</string>
     <string name="averageDBP">Pression moyenne</string>

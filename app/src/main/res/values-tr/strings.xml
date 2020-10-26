@@ -124,7 +124,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "blood"> kan basıncı </string>
     <string name = "bloodo"> kan oksijen </string>
     <string name = "animal"> vücut ısısı </string>
-    <string name = "ecg"> EKG </string>
+    <string name = "ecg"> ECG </string>
     <string name = "check"> görüntüle </string>
     <string name = "perfect"> mükemmel </string>
     <string name = "good"> iyi </string>
@@ -245,7 +245,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "send_success"> başarıyla gönderildi </string>
 
 
-    <string name = "measureUnit"> Ölçü birimi </string>
+    <string name="measureUnit"> Ölçü birimi </string>
     <string name = "metric"> Metrik sistem </string>
     <string name = "british"> İngiliz sistemi </string>
 
@@ -256,16 +256,16 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "bloodPressureReport"> kan basıncı raporu </string>
     <string name = "bloodOxygenReport"> kan oksijen raporu </string>
     <string name = "animalHeatReport"> vücut sıcaklığı raporu </string>
-    <string name = "ecgReport"> EKG raporu </string>
+    <string name = "ecgReport"> ECG raporu </string>
     <string name = "day"> Gün </string>
     <string name = "week"> hafta </string>
-    <string name = "sun"> Pazar </string>
-    <string name = "mon"> Pazartesi </string>
-    <string name = "tues"> Salı </string>
-    <string name = "wed"> Çarşamba </string>
-    <string name = "thus"> Perşembe </string>
-    <string name = "fri"> Cuma </string>
-    <string name = "sta"> Cumartesi </string>
+    <string name = "sun"> Pz </string>
+    <string name = "mon"> Pt </string>
+    <string name = "tues"> Sa </string>
+    <string name = "wed"> Ça </string>
+    <string name = "thus"> Pe </string>
+    <string name = "fri"> Cu </string>
+    <string name = "sta"> Ct </string>
     <string name = "today"> bugün </string>
     <string name = "month"> ay </string>
     <string name = "year"> yıl </string>

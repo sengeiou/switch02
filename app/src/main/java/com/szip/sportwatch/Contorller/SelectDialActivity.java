@@ -46,7 +46,7 @@ public class SelectDialActivity extends BaseActivity {
             R.raw.bg24,R.raw.bg25,R.raw.bg32,R.raw.bg26,R.raw.bg27,R.raw.bg28,R.raw.bg29,R.raw.bg30,R.raw.bg31,R.raw.bg10};
 
     private int[] clock_r = new int[]{1,2,3,4,5,6,7,8,9,8,10,11,11,12,11,13,14,28};
-    private int[] clock_c = new int[]{15,7,16,1,17,11,11,11,18,19,20,21,22,23,24,25,26,27};
+    private int[] clock_c = new int[]{15,7,16,11,17,11,11,11,18,19,20,21,22,23,24,25,26,27};
 
     private int pos = 0;
     private ImageView dialIv_r,dialIv_c;
@@ -65,6 +65,7 @@ public class SelectDialActivity extends BaseActivity {
         setContentView(R.layout.activity_select_dial);
         StatusBarCompat.translucentStatusBar(this,true);
         isCircle = ((MyApplication)getApplicationContext()).isCirlce();
+        EventBus.getDefault().register(this);
         initView();
         initEvent();
     }
@@ -73,14 +74,18 @@ public class SelectDialActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+        if(!isSendPic){
+            progress = 0;
+            ProgressHudModel.newInstance().diss();
+        }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 
     private void initEvent() {
         dialAdapter.setOnItemClickListener(new DialAdapter.OnItemClickListener() {
@@ -187,7 +192,7 @@ public class SelectDialActivity extends BaseActivity {
                             progress++;
                             ProgressHudModel.newInstance().setProgress(progress);
                         }
-                    },2000*(i+1));
+                    },500*(i+1));
                 }
             }
         }

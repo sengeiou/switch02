@@ -138,6 +138,7 @@ public class MainService extends Service {
                         EXCDController.getInstance().writeForSetLanuage("th_TH");
                     else if (str.equals("zh"))
                         EXCDController.getInstance().writeForSetLanuage("zh_CN");
+                    EXCDController.getInstance().writeForEnableSend(1);
                     EXCDController.getInstance().writeForSetDate();
                     EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
                     EXCDController.getInstance().writeForSetUnit(app.getUserInfo());

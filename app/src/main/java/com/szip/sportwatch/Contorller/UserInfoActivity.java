@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
@@ -594,7 +595,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         if (MainService.getInstance().getState()!=3){
             showToast(getString(R.string.syceError));
         }else {
-            EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+            if(app.isMtk()){
+                EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+            }else {
+//                BleClient.getInstance().writeForUpdateUserInfo(userInfo);
+            }
+
         }
         finish();
 

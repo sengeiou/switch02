@@ -74,6 +74,7 @@ public class DIYActivity extends BaseActivity {
         setContentView(R.layout.activity_diy);
         StatusBarCompat.translucentStatusBar(this,true);
         isCircle = ((MyApplication)getApplicationContext()).isCirlce();
+        EventBus.getDefault().register(this);
         initView();
         initEvent();
     }
@@ -81,13 +82,16 @@ public class DIYActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+        if(!isSendPic){
+            progress = 0;
+            ProgressHudModel.newInstance().diss();
+        }
     }
 
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 

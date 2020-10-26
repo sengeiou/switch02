@@ -63,17 +63,68 @@
                 android:textColor="@color/white"
                 android:text="--h--min"/>
 
+        </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/report_margin_parallel"
+            android:layout_marginRight="@dimen/report_margin_parallel">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/report_text_size_small"
+                android:textColor="@color/white"
+                android:text="@string/allSleep"/>
+
+
+            <LinearLayout
+                android:id="@+id/hintLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deep"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"/>
+
+                <View
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="#d1b3ff"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/light"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/report_margin_parallel"
-            android:textSize="@dimen/report_text_size_small"
-            android:textColor="@color/white"
-            android:text="@string/allSleep"/>
+
+
 
         <com.szip.sportwatch.View.ReportView
             android:id="@+id/tableView1"

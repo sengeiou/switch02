@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/login_icon"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="90dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/rayblue"
                 android:textColorLink="@color/lineBlue"
-                android:textSize="13sp"/>
+                android:textSize="11sp"/>
 
         </LinearLayout>
 

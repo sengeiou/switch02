@@ -4,7 +4,7 @@
     <string name="app_name">iSmarport</string>
 
     <!--로그 인 페이지/비밀번호 찾기 페이지/등록 페이지-->
-    <string name="logo">엘 프 트 에 오신 걸 환영 합 니 다.</string>
+    <string name="logo">iSmarport를 환영합니다.</string>
     <string name="user">계좌번호</string>
     <string name="phoneOrEmail">전화 / 메 일 을 입력 하 세 요.</string>
     <string name="password">비밀 번호</string>

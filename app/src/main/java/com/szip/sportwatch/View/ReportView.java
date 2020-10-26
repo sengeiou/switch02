@@ -296,10 +296,8 @@ public class ReportView extends View {
                     } else{
                         rectPaint.setColor(color1);
                         canvas.drawRoundRect(rectFS[i],mBarWidth/2,mBarWidth/2, rectPaint);//画第一段柱状图
-                        Log.d("SZIP******","DATA1 = "+datas1[i]+" ;top = "+rectFS[i].top);
                         if (datas2[i]!=0){//如果存在第二段柱状图，画第二段柱状图
                             rectPaint.setColor(color2);
-                            Log.d("SZIP******","DATA2 = "+datas2[i]+" ;top = "+rectFSBottom[i].top);
                             canvas.drawRoundRect(rectFSBottom[i],mBarWidth/2,mBarWidth/2, rectPaint);
                         }
                         if (datas2[i]!=0&&(rectFSBottom[i].top-rectFS[i].top)>=mBarWidth/2){//如果第一段数据比第二段数据高超过半个圆角，则补上直角
@@ -386,7 +384,9 @@ public class ReportView extends View {
                     top = datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
                             height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
                             height- textHeight- pad10-datas1[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
-                if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+
+                if (data_num==7&&(flag == 1||flag == 2)&&
+                        (height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)-top>15)){
                     top+=pad15;
                 }
                 rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
@@ -438,8 +438,8 @@ public class ReportView extends View {
     private String[] getYMsg(int maxValue){
         String[] yMsg= new String[yValueNum];
         if (yValueNum==2){
-            yMsg[0] = getContext().getString(R.string.lightTable);
-            yMsg[1] = getContext().getString(R.string.deepTable);
+            yMsg[0] = "";
+            yMsg[1] = "";
         }else {
             for (int i = 0;i<yValueNum;i++){
                 if(flag == 1)

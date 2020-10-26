@@ -244,7 +244,7 @@
     <string name = "empty"> نظرات نمی توانند خالی باشند </string>
     <string name = "send_success"> با موفقیت ارسال شد </string>
 
-    <string name = "measureUnit"> واحد اندازه گیری </string>
+    <string name="measureUnit"> واحد اندازه گیری </string>
     <string name = "metric"> سیستم متریک </string>
     <string name = "british"> سیستم انگلیس </string>
 

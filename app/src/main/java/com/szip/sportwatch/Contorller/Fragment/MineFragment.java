@@ -35,6 +35,7 @@ import com.szip.sportwatch.Contorller.UserInfoActivity;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
+import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
@@ -84,6 +85,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private int STEPFLAG = 1,SLEEPFLAG = 2;
     private int stepPlan = 0,sleepPlan = 0;
     private boolean unbind = false;
+    private boolean isUpdatePlan = false;
 
     /**
      * 下拉菜单实例
@@ -157,7 +159,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 app.getUserInfo().setDeviceCode(null);
                 MainService.getInstance().stopConnect();
                 MathUitl.saveInfoData(getContext(),app.getUserInfo()).commit();
-//                SaveDataUtil.newInstance().clearDB();
+                SaveDataUtil.newInstance().clearDB();
                 getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
             }else
                 stateTv.setText(getString(R.string.disConnect));
@@ -167,6 +169,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdatePlan(PlanModel planModel){
+       if(stepPlanTv!=null){
+           HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+           try {
+               isUpdatePlan = false;
+               HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(planModel.getData()+"",STEPFLAG);
+               stepPlan = Integer.valueOf(planModel.getData());
+           } catch (IOException e) {
+           }
+
+       }
+    }
 
     /**
      * 初始化下拉菜单
@@ -202,7 +217,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                             ProgressHudModel.newInstance().diss();
                             app.getUserInfo().setDeviceCode(null);
                             MainService.getInstance().stopConnect();
-//                            SaveDataUtil.newInstance().clearDB();
+                            SaveDataUtil.newInstance().clearDB();
                             getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
                         }
 
@@ -253,12 +268,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         //初始化选项数据
         window.getPickerView().setPicker(stepList);
         //设置默认选中的三级项目
-        window.setCurrentPositions(app.getUserInfo().getSex(), 0, 0);
+        window.setCurrentPositions(stepList.size()/2, 0, 0);
         //监听确定选择按钮
         window.setOnoptionsSelectListener(new OnOptionChangedListener() {
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
+                    isUpdatePlan = true;
                     HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
                     ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError),3000);
                     HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(stepList.get(option1),STEPFLAG);
@@ -426,7 +442,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 }
                 break;
             case R.id.blePhoneLl:
-                startActivity(new Intent(getActivity(), UpdateFirmwareActivity.class));
+                startActivity(new Intent(getActivity(), BluetoochCallActivity.class));
                 break;
             case R.id.unitLl:
                 startActivity(new Intent(getActivity(), UnitSelectActivity.class));
@@ -460,7 +476,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                                     SharedPreferences.Editor editor = sharedPreferencesp.edit();
                                     editor.putString("token",null);
                                     editor.commit();
-//                                    SaveDataUtil.newInstance().clearDB();
+                                    SaveDataUtil.newInstance().clearDB();
                                     Intent intent = new Intent();
                                     intent.setClass(getActivity(),LoginActivity.class);
                                     startActivity(intent);
@@ -477,11 +493,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         if (id == STEPFLAG){
             ProgressHudModel.newInstance().diss();
             stepPlanTv.setText(stepPlan+"");
-            app.getUserInfo().setStepsPlan(stepPlan);
-            if (MainService.getInstance().getState()!=3){
-                showToast(getString(R.string.syceError));
-            }else {
-                EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+            if(isUpdatePlan){
+                app.getUserInfo().setStepsPlan(stepPlan);
+                if (MainService.getInstance().getState()!=3){
+                    showToast(getString(R.string.syceError));
+                }else {
+                    EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+                }
             }
         }else if (id == SLEEPFLAG){
             ProgressHudModel.newInstance().diss();

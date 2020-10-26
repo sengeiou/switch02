@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Abbott</string>
+    <string name="app_name">iSmarport</string>
 
 
-    <string name = "logo"> Witamy w Ai Paote </string>
+    <string name = "logo"> Witamy w iSmarport </string>
     <string name = "user"> numer konta </string>
     <string name = "phoneOrEmail"> wprowadź swój telefon / adres e-mail </string>
     <string name = "password"> hasło </string>
@@ -173,17 +173,17 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
 
     <string name = "healthy"> zdrowie </string>
     <string name = "sport"> sport </string>
-    <string name = "mine"> My </string>
+    <string name = "mine"> moje </string>
     <string name = "touchAgain"> naciśnij ponownie, aby wyjść z programu </string>
 
 
-    <string name = "planStep"> docelowa liczba kroków% d </string>
+    <string name = "planStep"> Celem % d </string>
     <string name = "sleep"> uśpić </string>
     <string name = "heart"> tętno </string>
     <string name = "blood"> ciśnienie krwi </string>
     <string name = "bloodo"> tlen we krwi </string>
     <string name = "animal"> temperatura ciała </string>
-    <string name = "ecg"> EKG </string>
+    <string name = "ecg"> ECG </string>
     <string name = "check"> wyświetl </string>
     <string name = "perfect"> doskonale </string>
     <string name = "good"> dobrze </string>
@@ -253,21 +253,21 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
     <string name = "face"> przełącz wybieranie </string>
     <string name = "myDail"> Mój numer </string>
     <string name = "seeDail"> podgląd wybierania </string>
-    <string name = "diyDail"> niestandardowe </string>
+    <string name = "diyDail"> DIY </string>
     <string name = "diyDailing"> W zamian ... </string>
     <string name = "diyDailOK"> pomyślna wymiana </string>
     <string name = "diyDailError"> wymiana nie powiodła się, spróbuj ponownie </string>
     <string name = "upDownBackground"> ​​Prześlij zdjęcie w tle </string>
     <string name = "chooseClock"> Wybierz styl zegara </string>
     <string name = "clock"> styl zegara </string>
-    <string name = "background"> ​​prześlij tło </string>
+    <string name = "background"> prześlij tło </string>
     <string name = "about"> O </string>
     <string name = "logout"> wyloguj się </string>
     <string name = "me"> My </string>
     <string name = "set"> ustaw </string>
     <string name = "other"> inne </string>
-    <string name = "cancel"> anuluj </string>
-    <string name = "confirm"> OK </string>
+    <string name = "cancel"> Aanuluj </string>
+    <string name = "confirm"> Dobry </string>
     <string name = "tip"> monit </string>
     <string name = "delete"> Czy na pewno chcesz usunąć te dane ćwiczeń? </string>
     <string name = "unbind"> Czy na pewno chcesz usunąć powiązanie? </string>
@@ -307,7 +307,7 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name = "send_success"> przesłano pomyślnie </string>
 
 
-    <string name = "measureUnit"> Jednostka miary </string>
+    <string name="measureUnit"> Jednostka miary </string>
     <string name = "metric"> System metryczny </string>
     <string name = "british"> system brytyjski </string>
 
@@ -317,16 +317,16 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name = "bloodPressureReport"> raport ciśnienia krwi </string>
     <string name = "bloodOxygenReport"> raport tlenu we krwi </string>
     <string name = "animalHeatReport"> raport temperatury ciała </string>
-    <string name = "ecgReport"> raport EKG </string>
+    <string name = "ecgReport"> raport ECG </string>
     <string name = "day"> Dzień </string>
     <string name = "week"> tydzień </string>
-    <string name = "sun"> Niedziela </string>
-    <string name = "mon"> poniedziałek </string>
-    <string name = "tues"> wtorek </string>
-    <string name = "wed"> środa </string>
-    <string name = "thus"> czwartek </string>
-    <string name = "fri"> piątek </string>
-    <string name = "sta"> sobota </string>
+    <string name = "sun"> nie </string>
+    <string name = "mon"> pon </string>
+    <string name = "tues"> wto </string>
+    <string name = "wed"> śro </string>
+    <string name = "thus"> czw </string>
+    <string name = "fri"> pią </string>
+    <string name = "sta"> sob </string>
     <string name = "today"> dzisiaj </string>
     <string name = "month"> miesiąc </string>
     <string name = "year"> rok </string>

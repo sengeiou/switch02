@@ -114,10 +114,11 @@ public class CommandUtil {
             data[13] = (byte) (dateArray[4] & 0xFF);
             data[14] = (byte) (dateArray[5] & 0xFF);
             data[15] = (byte) (dateArray[6] & 0xFF);
-            data[16] = 0x12;
-            data[17] = 0x34;
-            data[18] = 0x56;
-            data[19] = 0x78;
+            data[16] = (byte) (dateArray[7] & 0xFF);
+            data[17] = 0x12;
+            data[18] = 0x34;
+            data[19] = 0x56;
+            data[20] = 0x78;
         }
 //        else if (syncType == SYNC_TYPE_USERINFO) {
 //            //全部转为国际单位制传到手表

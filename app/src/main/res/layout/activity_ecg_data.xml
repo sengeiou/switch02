@@ -135,7 +135,7 @@
                         android:layout_below="@id/averageTv1"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/report_text_size_small"
-                        android:text="@string/averageHeart"
+                        android:text="@string/heart_rateData"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"/>
 
@@ -230,8 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/report_text_size_small"
-                    android:text="@string/minHeart"/>
+                    android:textSize="@dimen/report_text_size_small" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -108,7 +108,7 @@
                         android:id="@+id/image2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_icon_steps"
+                        android:src="@mipmap/sport_icon_steps_w"
                         android:layout_gravity="center" />
 
 

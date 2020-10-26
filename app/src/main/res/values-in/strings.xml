@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">艾跑特</string>
+    <string name="app_name">iSmarport</string>
 
     <!--Halaman daftar masuk / halaman pemulihan sandi / halaman pendaftaran-->
-    <string name="logo">Selamat datang di Everett</string>
+    <string name="logo">Selamat datang di iSmarport</string>
     <string name="user">nomor rekening</string>
     <string name="phoneOrEmail">Silakan masukkan telepon / email Anda</string>
     <string name="password">sandi</string>
@@ -156,7 +156,7 @@
     <string name="upDownBackground">Silakan mengunggah gambar latar belakang</string>
     <string name="chooseClock">Silakan pilih gaya jam</string>
     <string name="clock">Gaya jam</string>
-    <string name="background">Memuat latar belakang</string>
+    <string name="background">Pilih foto</string>
     <string name="about">tentang</string>
     <string name="logout">Daftar keluar</string>
     <string name="me">saya</string>
@@ -195,7 +195,7 @@
 
     <!--Tentang antarmuka-->
     <string name="version">versi saat ini</string>
-    <string name="feedback">Feedback</string>
+    <string name="feedback">Balas balik</string>
     <string name="feedback_hint">Balas balik / pertanyaan Anda</string>
     <string name="tooLong">Teks yang Anda masukkan terlalu panjang</string>
     <string name="empty">Opisi tidak bisa kosong</string>
@@ -218,13 +218,13 @@
     <string name="ecgReport">Laporan ECG</string>
     <string name="day">hari</string>
     <string name="week">minggu</string>
-    <string name="sun">Minggu</string>
-    <string name="mon">Senin</string>
-    <string name="tues">Selasa</string>
-    <string name="wed">Rabu</string>
-    <string name="thus">Kamis</string>
-    <string name="fri">Jumat</string>
-    <string name="sta">Sabtu</string>
+    <string name="sun">Min</string>
+    <string name="mon">Sen</string>
+    <string name="tues">Sel</string>
+    <string name="wed">Rab</string>
+    <string name="thus">Kam</string>
+    <string name="fri">Jum</string>
+    <string name="sta">Sab</string>
     <string name="today">hari ini</string>
     <string name="month">bulan</string>
     <string name="year">tahun</string>

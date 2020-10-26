@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "app_name"> Ai Paote </string>
+    <string name = "app_name"> iSmarport </string>
 
 
-    <string name = "logo"> Selamat Datang di Ai Paote </string>
+    <string name = "logo"> Selamat Datang di iSmarport </string>
     <string name = "user"> nombor akaun </string>
     <string name = "phoneOrEmail"> sila masukkan telefon / e-mel anda </string>
     <string name = "password"> kata laluan </string>
@@ -115,10 +115,10 @@
 
     <string name = "healthy"> kesihatan </string>
     <string name = "sport"> sukan </string>
-    <string name = "mine"> My </string>
+    <string name = "mine"> Lombong </string>
     <string name = "touchAgain"> tekan sekali lagi untuk keluar dari program </string>
 
-    <string name = "planStep"> target bilangan langkah% d </string>
+    <string name = "planStep"> pelan % d </string>
     <string name = "sleep"> sleep </string>
     <string name = "heart"> degupan jantung </string>
     <string name = "blood"> tekanan darah </string>
@@ -202,14 +202,14 @@
     <string name = "upDownBackground"> ​​Sila muat naik gambar latar belakang </string>
     <string name = "chooseClock"> Pilih gaya jam </string>
     <string name = "clock"> gaya jam </string>
-    <string name = "background"> ​​muat naik latar belakang </string>
+    <string name = "background">Pilih foto</string>
     <string name = "about"> Tentang </string>
     <string name = "logout"> log keluar </string>
     <string name = "me"> My </string>
     <string name = "set"> set </string>
     <string name = "other"> lain </string>
     <string name = "cancel"> batalkan </string>
-    <string name = "confirm"> OK </string>
+    <string name = "confirm"> Baik </string>
     <string name = "tip"> prompt </string>
     <string name = "delete"> Adakah anda pasti mahu memadamkan data latihan ini? </string>
     <string name = "unbind"> Adakah anda pasti mahu melepaskannya? </string>
@@ -246,7 +246,7 @@
     <string name = "send_success"> berjaya dihantar </string>
 
 
-    <string name = "measureUnit"> Unit pengukuran </string>
+    <string name="measureUnit"> Unit pengukuran </string>
     <string name = "metric"> Sistem metrik </string>
     <string name = "british"> Sistem Inggeris </string>
 
@@ -257,16 +257,16 @@
     <string name = "bloodPressureReport"> laporan tekanan darah </string>
     <string name = "bloodOxygenReport"> laporan oksigen darah </string>
     <string name = "animalHeatReport"> laporan suhu badan </string>
-    <string name = "ecgReport"> Laporan EKG </string>
+    <string name = "ecgReport"> Laporan ECG </string>
     <string name = "day"> Hari </string>
     <string name = "week"> minggu </string>
-    <string name = "sun"> Ahad </string>
-    <string name = "mon"> Isnin </string>
-    <string name = "tues"> Selasa </string>
-    <string name = "wed"> Rabu </string>
-    <string name = "thus"> Khamis </string>
-    <string name = "fri"> Jumaat </string>
-    <string name = "sta"> Sabtu </string>
+    <string name = "sun"> Aha </string>
+    <string name = "mon"> Isn </string>
+    <string name = "tues"> Sel </string>
+    <string name = "wed"> Rab </string>
+    <string name = "thus"> Kha </string>
+    <string name = "fri"> Jum </string>
+    <string name = "sta"> Sab </string>
     <string name = "today"> hari ini </string>
     <string name = "month"> bulan </string>
     <string name = "year"> tahun </string>

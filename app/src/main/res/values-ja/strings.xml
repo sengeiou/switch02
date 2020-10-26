@@ -254,7 +254,13 @@
     <string name="tooLong">入力が長すぎる</string>
     <string name="empty">フィールドを空にすることはできません</string>
     <string name="send_success">正常に送信されました</string>
-        <string name="stepReport">ステップレポート</string>
+
+    <!--单位制式界面 Unit System Interface-->
+    <string name="measureUnit">計量単位</string>
+    <string name="metric">メートル制</string>
+    <string name="british">フートポンド法</string>
+
+    <string name="stepReport">ステップレポート</string>
     <string name="sleepReport">睡眠レポート</string>
     <string name="heartReport">心拍数レポート</string>
     <string name="bloodPressureReport">血圧レポート</string>
@@ -263,13 +269,13 @@
     <string name="ecgReport">ECGレポート</string>
     <string name="day">日</string>
     <string name="week">週間</string>
-    <string name="sun">太陽</string>
-    <string name="mon">月曜</string>
-    <string name="tues">火曜日</string>
-    <string name="wed">水曜日</string>
-    <string name="thus">木曜日</string>
-    <string name="fri">金曜日</string>
-    <string name="sta">土曜日</string>
+    <string name="sun">日</string>
+    <string name="mon">月</string>
+    <string name="tues">火</string>
+    <string name="wed">水</string>
+    <string name="thus">木</string>
+    <string name="fri">金</string>
+    <string name="sta">土</string>
     <string name="today">今天</string>
     <string name="month">月</string>
     <string name="year">年</string>

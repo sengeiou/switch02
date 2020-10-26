@@ -35,6 +35,7 @@ import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.UpdateSportView;
+import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.CommandUtil;
 import com.szip.sportwatch.Util.DataParser;
@@ -156,6 +157,10 @@ public class BleClient {
             }else{
                 Log.d("SZIP******","连接蓝牙失败");
                 connectState = 5;
+                isSync = false;
+                recvLength = 0;
+                recvState = 0;
+                pkg_dataLen = 0;
             }
         }
     };
@@ -182,6 +187,10 @@ public class BleClient {
             }else{
                 Log.d("SZIP******","断开");
                 connectState = 5;
+                isSync = false;
+                recvLength = 0;
+                recvState = 0;
+                pkg_dataLen = 0;
             }
             EventBus.getDefault().post(new ConnectState(connectState));
         }
@@ -331,6 +340,13 @@ public class BleClient {
                 }
 
             }
+            //测试数据
+//            Message message = mAnalysisHandler.obtainMessage();
+//            message.what = ANALYSIS_HANDLER_FLAG;
+//            message.obj = new byte[]{(byte) 0xAA,0x01,0x0C,0x00, (byte) 0x9B,0x7C, (byte) 0x92,0x5F,0x5F,0x01,0x00,0x00
+//                    ,0x4C,0x00,0x00,0x00, (byte) 0x96,0x0F,0x00,0x00,(byte) 0xAA,0x01,0x0C,0x00, (byte) 0xab, (byte) 0x8a, (byte)
+//                    0x92,0x5F,0x5F,0x02,0x00,0x00,0x4C,0x00,0x00,0x00, (byte) 0x96,0x0F,0x00,0x00,};
+//            mAnalysisHandler.sendMessage(message);
         }
     };
 
@@ -594,7 +610,12 @@ public class BleClient {
 
     public void writeForSyncTime(){
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
-                CommandUtil.getCommandbyteArray(0x30, 20, 12, true),bleWriteResponse);
+                CommandUtil.getCommandbyteArray(0x30, 21, 13, true),bleWriteResponse);
+    }
+
+    public void writeForUpdateUserInfo(UserInfo userInfo){
+        ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                CommandUtil.getCommandbyteArray(0x30, 21, 13, true),bleWriteResponse);
     }
 
     public void writeForGetDeviceState(){

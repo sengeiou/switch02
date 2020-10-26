@@ -71,14 +71,11 @@ public class SaveDataUtil {
                             public void processModel(StepData stepData, DatabaseWrapper wrapper) {
                                 StepData sqlData = SQLite.select()
                                         .from(StepData.class)
-                                        .where(StepData_Table.time.is(stepData.time),
-                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null) {//为null则代表数据库没有保存
-                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     stepData.save();
-                                }
-                                else {//不为null则代表数据库存在，进行更新
+                                } else {//不为null则代表数据库存在，进行更新
                                    sqlData.calorie = stepData.calorie;
                                    sqlData.distance = stepData.distance;
                                    sqlData.steps = stepData.steps;
@@ -100,6 +97,47 @@ public class SaveDataUtil {
                 }).build().execute();
     }
 
+
+    /**
+     * 批量保存计步数据（线上数据）
+     * */
+    public void saveStepDataListDataFromWeb(List<StepData> stepDataList){
+        FlowManager.getDatabase(AppDatabase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<StepData>() {
+                            @Override
+                            public void processModel(StepData stepData, DatabaseWrapper wrapper) {
+                                StepData sqlData = SQLite.select()
+                                        .from(StepData.class)
+                                        .where(StepData_Table.time.is(stepData.time))
+                                        .querySingle();
+                                if (sqlData == null){//为null则代表数据库没有保存
+                                    stepData.save();
+                                }
+                                else {//不为null则代表数据库存在，进行更新
+                                    sqlData.calorie = stepData.calorie;
+                                    sqlData.distance = stepData.distance;
+                                    sqlData.steps = stepData.steps;
+                                    if (sqlData.dataForHour == null)
+                                        sqlData.dataForHour = stepData.dataForHour;
+                                    sqlData.update();
+                                }
+                            }
+                        }).addAll(stepDataList).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                }).success(new Transaction.Success() {
+            @Override
+            public void onSuccess(Transaction transaction) {
+                Log.d("SZIP******","计步数据保存成功");
+                EventBus.getDefault().post(new ConnectState());
+            }
+        }).build().execute();
+    }
+
     /**
      * 批量保存详情计步
      * */
@@ -111,11 +149,9 @@ public class SaveDataUtil {
                             public void processModel(StepData stepData, DatabaseWrapper wrapper) {
                                 StepData sqlData = SQLite.select()
                                         .from(StepData.class)
-                                        .where(StepData_Table.time.is(stepData.time),
-                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
@@ -123,9 +159,7 @@ public class SaveDataUtil {
                                             !sqlData.dataForHour.equals(stepData.dataForHour)){
                                         int sql[] = new int[24];
                                         String[] sqlStr = sqlData.dataForHour.split(",");
-                                        Log.d("SZIP******","old stepStr = "+sqlData.dataForHour);
                                         int step[] = new int[24];
-                                        Log.d("SZIP******","new stepStr = "+stepData.dataForHour);
                                         String[] stepStr = stepData.dataForHour.split(",");
                                         for (int i = 0;i<sqlStr.length;i++){
                                             sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
@@ -171,45 +205,33 @@ public class SaveDataUtil {
                             public void processModel(StepData stepData, DatabaseWrapper wrapper) {
                                 StepData sqlData = SQLite.select()
                                         .from(StepData.class)
-                                        .where(StepData_Table.time.is(stepData.time),
-                                                StepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    stepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
+                                    Log.d("SZIP******","SAVE STEP");
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
-                                    if (sqlData.dataForHour != null&&
-                                            !sqlData.dataForHour.equals(stepData.dataForHour)){
-                                        int sql[] = new int[24];
-                                        String[] sqlStr = sqlData.dataForHour.split(",");
-                                        Log.d("SZIP******","old stepStr = "+sqlData.dataForHour);
-                                        int step[] = new int[24];
-                                        Log.d("SZIP******","new stepStr = "+stepData.dataForHour);
-                                        String[] stepStr = stepData.dataForHour.split(",");
-                                        for (int i = 0;i<sqlStr.length;i++){
-                                            sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
-                                        }
-                                        for (int i = 0;i<stepStr.length;i++){
-                                            step[Integer.valueOf(stepStr[i].substring(0,2))] = Integer.valueOf(stepStr[i].substring(3));
-                                        }
-                                        StringBuffer stepString = new StringBuffer();
-                                        for (int i = 0;i<24;i++){
-                                            if (sql[i]+step[i]!=0){
-                                                stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,sql[i]+step[i]));
-                                            }
-                                        }
-                                        sqlData.dataForHour = stepString.toString().substring(1);
-                                        sqlData.steps = stepData.steps;
-                                        sqlData.distance = stepData.distance;
-                                        sqlData.calorie = stepData.calorie;
-                                    }else{
-                                        sqlData.dataForHour = stepData.dataForHour;
-                                        sqlData.steps = stepData.steps;
-                                        sqlData.distance = stepData.distance;
-                                        sqlData.calorie = stepData.calorie;
+                                    int sql[] = new int[24];
+                                    String[] sqlStr = sqlData.dataForHour.split(",");
+                                    int step[] = new int[24];
+                                    String[] stepStr = stepData.dataForHour.split(",");
+                                    for (int i = 0;i<sqlStr.length;i++){
+                                        sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
                                     }
-
+                                    for (int i = 0;i<stepStr.length;i++){
+                                        step[Integer.valueOf(stepStr[i].substring(0,2))] = Integer.valueOf(stepStr[i].substring(3));
+                                    }
+                                    StringBuffer stepString = new StringBuffer();
+                                    for (int i = 0;i<24;i++){
+                                        if (sql[i]+step[i]!=0){
+                                            stepString.append(String.format(Locale.ENGLISH,",%02d:%d",i,sql[i]+step[i]));
+                                        }
+                                    }
+                                    sqlData.dataForHour = stepString.toString().substring(1);
+                                    sqlData.steps += stepData.steps;
+                                    sqlData.distance += stepData.distance;
+                                    sqlData.calorie += stepData.calorie;
                                     sqlData.update();
                                 }
                             }
@@ -239,15 +261,14 @@ public class SaveDataUtil {
                             public void processModel(SleepData sleepData, DatabaseWrapper wrapper) {
                                 SleepData sqlData = SQLite.select()
                                         .from(SleepData.class)
-                                        .where(SleepData_Table.time.is(sleepData.time),
-                                                SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(SleepData_Table.time.is(sleepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    sleepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     sleepData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     sqlData.deepTime = sleepData.deepTime;
                                     sqlData.lightTime = sleepData.lightTime;
+                                    sqlData.dataForHour = sleepData.dataForHour;
                                     sqlData.update();
                                 }
                             }
@@ -335,11 +356,9 @@ public class SaveDataUtil {
                             public void processModel(SleepData sleepData, DatabaseWrapper wrapper) {
                                 SleepData sqlData = SQLite.select()
                                         .from(SleepData.class)
-                                        .where(SleepData_Table.time.is(sleepData.time),
-                                                SleepData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(SleepData_Table.time.is(sleepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    sleepData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     sleepData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     sqlData.dataForHour = sleepData.dataForHour;
@@ -374,11 +393,9 @@ public class SaveDataUtil {
                             public void processModel(HeartData heartData, DatabaseWrapper wrapper) {
                                 HeartData sqlData = SQLite.select()
                                         .from(HeartData.class)
-                                        .where(HeartData_Table.time.is(heartData.time),
-                                                HeartData_Table.deviceCode.is(MyApplication.getInstance().getUserInfo().getBindId()))
+                                        .where(HeartData_Table.time.is(heartData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    heartData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     heartData.save();
                                 } else {//不为null则代表数据库存在，进行更新
                                     if (isAdd){
@@ -435,7 +452,6 @@ public class SaveDataUtil {
                                         .where(BloodPressureData_Table.time.is(bloodPressureData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    bloodPressureData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     bloodPressureData.save();
                                 }
                             }
@@ -468,7 +484,6 @@ public class SaveDataUtil {
                                         .where(BloodOxygenData_Table.time.is(bloodOxygenData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    bloodOxygenData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     bloodOxygenData.save();
                                 }
                             }
@@ -501,7 +516,6 @@ public class SaveDataUtil {
                                         .where(AnimalHeatData_Table.time.is(animalHeatData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    animalHeatData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     animalHeatData.save();
                                 }
                             }
@@ -534,7 +548,6 @@ public class SaveDataUtil {
                                         .where(EcgData_Table.time.is(ecgData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    ecgData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     ecgData.save();
                                 }
                             }
@@ -567,8 +580,6 @@ public class SaveDataUtil {
                                         .where(SportData_Table.time.is(sportData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    Log.d("SZIP******","SAVEID = "+MyApplication.getInstance().getUserInfo().getBindId());
-                                    sportData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
                                     sportData.save();
                                 }
                             }
@@ -595,7 +606,6 @@ public class SaveDataUtil {
                 .where(SportData_Table.time.is(sportData.time))
                 .querySingle();
         if (sqlData == null){//为null则代表数据库没有保存
-            sportData.deviceCode = MyApplication.getInstance().getUserInfo().getBindId();
             sportData.save();
             Log.d("SZIP******","sport数据保存成功 time = "+sportData.time+" ;distance = "+sportData.distance+" ;caloria = "+sportData.calorie+
                     " ;speed = "+sportData.speed+" ;sportTime = "+sportData.sportTime+" type = "+sportData.type);

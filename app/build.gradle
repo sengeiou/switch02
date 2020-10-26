@@ -24,15 +24,14 @@ android {
         applicationId "com.szip.sportwatch"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 16
-        versionName "1.14"
+        versionCode 18
+        versionName "1.18"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.szp
     }
     buildTypes {
         release {
             signingConfig signingConfigs.szp
-
         }
         debug {
             signingConfig signingConfigs.szp
