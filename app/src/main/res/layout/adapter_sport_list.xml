@@ -19,39 +19,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/item_margin_parallel"
+                android:layout_marginStart="@dimen/item_margin_parallel"
                 android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/typeIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/sport_list_icon_type"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="center"/>
 
                 <TextView
                     android:id="@+id/dataTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="28sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/rayblue"
-                    android:text="3.5"/>
+                    android:text="00:03:14"/>
 
-                <TextView
-                    android:id="@+id/unitTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/rayblue1"
-                    android:text="km"
-                    android:textSize="14dp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:paddingBottom="10dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingTop="10dp"
-                android:gravity="right">
+                android:gravity="end">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -64,13 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <ImageView
-                        android:id="@+id/typeIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_list_icon_type"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
+
 
                     <TextView
                         android:id="@+id/timeTv"
@@ -93,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:src="@mipmap/sport_list_icon_kcal"
                         android:layout_gravity="center"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginEnd="5dp"/>
 
 
                     <TextView
@@ -113,34 +108,7 @@
                         android:layout_height="wrap_content"
                         android:text="kcal"
                         android:textSize="12sp"
-                        android:layout_marginRight="5dp"
-                        android:textColor="@color/rayblue1"/>
-
-                    <ImageView
-                        android:id="@+id/buttonSecondIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_list_icon_time"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="5dp"/>
-
-                    <TextView
-                        android:id="@+id/buttonSecondTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="17sp"
-                        android:textColor="@color/rayblue"
-                        android:text="00:03:14"
-                        android:textStyle="bold"
-                        />
-
-                    <TextView
-                        android:id="@+id/buttonSecondUnitTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="kcal"
-                        android:textSize="12sp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:textColor="@color/rayblue1"/>
 
                 </LinearLayout>

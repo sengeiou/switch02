@@ -89,54 +89,48 @@
     <string name="slow">Terlalu lambat</string>
     <string name="higher">Di sisi tinggi</string>
     <string name="flat">Di sisi rendah</string>
-    <string name="head">Ini adalah pandangan utama</string>
     <string name="pull_to_refresh">Turunkan segar</string>
     <string name="release_to_refresh">Lepaskan segar sekarang</string>
     <string name="refreshing">Membarui</string>
     <string name="refresh_succeed">Pembaruan berhasil</string>
     <string name="refresh_fail">refresh gagal</string>
-    <string name="pullup_to_load">Tarik untuk memuat lebih</string>
-    <string name="release_to_load">Lepaskan muatan sekarang</string>
-    <string name="load_succeed">Memuatkan berhasil</string>
-    <string name="load_fail">Memuatkan gagal</string>
 
 
     <!--Antaramuka gerakan-->
     <string name="best">Rekaman terbaik di luar</string>
     <string name="history">Catatan pergerakan sejarah</string>
     <string name="track">Detail olahraga</string>
-    <string name="notrack">Tidak ada trajektori</string>
     <string name="speed">Langkah</string>
     <string name="kcal">Konsum</string>
     <string name="time">Durasi</string>
-    <string name="heart_rate">Kadar jantung (BPM)</string>
-    <string name="stride">Frekuensi langkah (langkah/s)</string>
+    <string name="heart_rate">Kadar jantung (bpm)</string>
+    <string name="stride">Frekuensi langkah (spm)</string>
+    <string name="cadence">Frekuensi langkah</string>
     <string name="distance">mileage(</string>
     <string name="speedData">Kecepatan rata-rata</string>
-    <string name="kcalData">Latihan konsumsi</string>
-    <string name="timeData">Durasi latihan</string>
     <string name="heart_rateData">Rata jantung rata</string>
     <string name="strideData">Frekuensi langkah rata-rata</string>
     <string name="distanceData">mileage</string>
     <string name="basket">Basket</string>
-    <string name="football">Football</string>
-    <string name="pingpong">Table Tennis</string>
+    <string name="football">Sepak bola</string>
+    <string name="pingpong">Ping-pong</string>
+    <string name="badminton">bulutangkis</string>
     <string name="mountain">Mountaineering</string>
     <string name="bike">Riding</string>
-    <string name="run">lari</string>
-    <string name="walk">berjalan kaki</string>
+    <string name="swim">Berenang</string>
+    <string name="walk">Berjalan kaki</string>
     <string name="treadmill">Treadmill</string>
     <string name="runWithout">Jalan di luar</string>
-    <string name="marathon">maraton</string>
-    <string name="sufing">surfing</string>
+    <string name="marathon">Maraton</string>
+    <string name="sufing">Surfing</string>
     <string name="shudu">kecepatan</string>
     <string name="averageShudu">kecepatan rata-rata</string>
-    <string name="boat">baris</string>
+    <string name="boat">Baris</string>
     <string name="altitude">ketinggian</string>
-    <string name="avarageAltitude">Tinggi rata-rata</string>
+    <string name="avarageAltitude">- naik ke ketinggian!</string>
     <string name="climb">Rock Climbing</string>
-    <string name="skii">skiing</string>
-    <string name="golf">golf</string>
+    <string name="skii">Skiing</string>
+    <string name="golf">Golf</string>
     <!--Halaman saya-->
     <string name="device">peralatan</string>
     <string name="stepPlan">Target langkah</string>
@@ -166,7 +160,6 @@
     <string name="confirm">menentukan</string>
     <string name="tip">Tip</string>
     <string name="delete">Anda yakin ingin menghapus data gerakan ini?</string>
-    <string name="unbind">Apakah Anda yakin Anda ingin melepaskan ikatan?</string>
     <string name="logoutTip">Kau yakin ingin keluar?</string>
     <string name="sendOK">Dikirim dengan sukses</string>
     <string name="searchDevice">Perangkat pencarian</string>
@@ -174,15 +167,11 @@
     <string name="connected">Tersambung</string>
     <string name="disConnect">Tidak terhubung</string>
     <string name="connectting">pada koneksi</string>
-    <string name="connect">Perangkat terhubung, silakan coba lagi nanti</string>
     <string name="syceError">Jika jam tidak terhubung, data akan disenkronisasi ke jam lain kali dia terhubung</string>
     <string name="unBind">Peranti tukar</string>
     <string name="unline">Matikan</string>
     <string name="line">Sambungkan jam tangan</string>
     <string name="addDevice">Tambah perangkat</string>
-    <string name="unbindSoon">Tolong lepaskan perangkatnya dulu</string>
-    <string name="lineError">Silakan matikan dan menyalakan Bluetooth dari ponsel atau memulai ulang jam</string>
-    <string name="tipUnit">Perhatian: Tinggi dan berat akan ditetapkan kembali ketika sistem unit ditukar</string>
 
 
     <!--Antaramuka panggilan Bluetooth-->
@@ -205,6 +194,7 @@
 
 -->
     <string name="measureUnit">Unit pengukuran</string>
+    <string name="tempUnit">Unit suhu</string>
     <string name="metric">Sistem metrik</string>
     <string name="british">Sistem Inggris</string>
 
@@ -234,8 +224,6 @@
     <string name="averageSleep">Waktu tidur rata-rata</string>
     <string name="light">Tidur ringan</string>
     <string name="deep">Tidur dalam</string>
-    <string name="lightTable">rendah</string>
-    <string name="deepTable">dalam</string>
     <string name="averageHeart">Rata jantung rata</string>
     <string name="minHeart">Kadar jantung minimum</string>
     <string name="maxHeart">Kadar jantung maksimum</string>
@@ -298,9 +286,10 @@
 \nKetika Anda klik "OK", Anda setuju dengan syarat kesepakatan.
 \nPolisi privasi pengguna terutama mengandung isi berikut:\n1.Kumpulkan, simpan dan berbagi data pribadi (avatar, gelaran, tinggi, berat badan, data latihan, dll.).\n2.Gunakan izin perangkat (lokasi, buku alamat, kamera, dll.)</string>
     <string name="crop_pic_failed">Gagal menangkap gambar, silakan pilih gambar format JPG!</string>
-    <string name="deviceOut">Perangkat tidak terikat</string>
     <string name="visiter">Mode turis tidak mendukung fitur ini</string>
     <string name="chooseJpg">Silakan pilih gambar dalam format JPG</string>
+    <string name="newVersion">Ada versi perangkat lunak baru yang terdeteksi.？</string>
+
 
     <!--Bahagian antaramuka-->
     <string name="planOK">Tujuan hari ini telah dicapai</string>
@@ -322,9 +311,6 @@
     <string name="passTimeData">Tingkat lewat: %.1f%%</string>
 
     <string name="bloodPressureData">Tekanan darah sistolik/diastolik rata</string>
-    <string name="shareSuccess">Bagi sukses</string>
-    <string name="shareCancel">Batalkan pembagian</string>
-    <string name="shareFail">Gagal berbagi</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -335,13 +321,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">Memuatkan</string>
     <string name="progress_dialog_message">Tunggu sebentar.&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -353,7 +336,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -364,10 +346,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Tombol lokasi ponsel anda telah terdeteksi tidak aktif. Untuk memastikan aplikasi berjalan dengan baik, silakan aktifkan tombol lokasi.</string>
+    <string name="speedPerHour">Per jam.</string>
+    <string name="training">Berlatih lari</string>
 
 </resources>

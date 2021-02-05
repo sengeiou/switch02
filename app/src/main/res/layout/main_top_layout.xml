@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@drawable/bg_text_tab"
-        android:layout_marginLeft="1.5dp"
+        android:layout_marginStart="1.5dp"
         android:textSize="@dimen/tab_text_size"
         android:layout_centerVertical="true"/>
 

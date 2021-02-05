@@ -2,16 +2,21 @@ package com.szip.sportwatch;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -33,6 +38,7 @@ import com.szip.sportwatch.Notification.MyNotificationReceiver;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.TopExceptionHandler;
 import com.zhy.http.okhttp.callback.GenericsCallback;
@@ -40,6 +46,7 @@ import com.zhy.http.okhttp.callback.GenericsCallback;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -88,6 +95,9 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     private String BtMac;
 
     private BluetoothAdapter btAdapt;
+
+    private boolean isNewVersion = false;
+    private String versionUrl = null;
 
     public String getBtMac() {
         return BtMac;
@@ -141,15 +151,21 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
          * */
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
+        LogUtil.getInstance().init(this);
+
         //初始化文件存储
         FileUtil.getInstance().initFile();
-
         //注册网络回调
         HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(this);
 
-        //初始化不推送的应用
-
-
+        if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+            NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            //只在Android O之上需要渠道，这里的第一个参数要和下面的channelId一样
+            NotificationChannel notificationChannel = new NotificationChannel("0103", "iSmarport", NotificationManager.IMPORTANCE_HIGH);
+            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，通知才能正常弹出
+            notificationChannel.setShowBadge(false);
+            manager.createNotificationChannel(notificationChannel);
+        }
         /**
          * 拿去本地缓存的数据
          * */
@@ -158,9 +174,11 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         isMtk = sharedPreferences.getBoolean("bleConfig",true);
         //获取上次退出之后剩余的倒计时上传时间
         updownTime = sharedPreferences.getInt("updownTime",3600);
-
+        //获取手机缓存的远程拍照状态
         camerable = sharedPreferences.getBoolean("camera",false);
-
+        //获取手机缓存的自动更新信息
+        isNewVersion = sharedPreferences.getBoolean("version",false);
+        versionUrl = sharedPreferences.getString("versionUrl",null);
         if (sharedPreferences.getBoolean("first",true)){
             initIgnoreList();
             sharedPreferences.edit().putBoolean("first",false).commit();
@@ -220,9 +238,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                             EXCDController.getInstance().writeForEnableSend(1);
                         }
                     }
-
-
-
                 }
             }
 
@@ -399,6 +414,10 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         return city;
     }
 
+    public float getElevation(){
+        return sharedPreferences.getFloat("elevation",1f);
+    }
+
     public void setWeatherModel(WeatherBean weatherBean) {
         try {
             Gson gson=new Gson();
@@ -409,6 +428,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             Log.d("SZIP******", "weather = "+array.toString());
             editor.putString("weatherList",array.toString());
             editor.putString("city",weatherBean.getData().getLocation().getCity());
+            editor.putFloat("elevation",weatherBean.getData().getLocation().getElevation());
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -482,6 +502,28 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     public void setMtk(String deviceName) {
         isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
         sharedPreferences.edit().putBoolean("bleConfig",isMtk).commit();
+    }
+
+
+    public boolean isNewVersion() {
+        return isNewVersion;
+    }
+
+    public void setNewVersion(boolean newVersion) {
+        isNewVersion = newVersion;
+        if (sharedPreferences!=null)
+            sharedPreferences.edit().putBoolean("version",newVersion).commit();
+
+    }
+
+    public String getVersionUrl() {
+        return versionUrl;
+    }
+
+    public void setVersionUrl(String versionUrl) {
+        this.versionUrl = versionUrl;
+        if (sharedPreferences!=null)
+            sharedPreferences.edit().putString("versionUrl",versionUrl).commit();
     }
 
     public boolean isMtk() {

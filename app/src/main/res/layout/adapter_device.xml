@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:paddingLeft="15dp">
+                android:paddingStart="15dp">
 
                 <TextView
                     android:id="@+id/deviceNameTv"

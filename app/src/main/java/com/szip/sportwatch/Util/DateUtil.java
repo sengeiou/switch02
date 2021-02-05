@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 import java.util.TimeZone;
 
 /**
@@ -235,6 +236,22 @@ public class DateUtil {
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
         return calendar.getTimeInMillis()/1000;
+    }
+
+    /**
+     * 获取当前日期00点的时间戳
+     * @param dateStr 日期
+     * @return 返回这一天0点到24点的时间戳
+     * */
+    public static long getSleepTimeScopeForDay(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time*1000);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        return hour>21?(calendar.getTimeInMillis()/1000+24*60*60):(calendar.getTimeInMillis()/1000);
     }
 
     public static long getTimeScope(String dateStr,String tag){

@@ -14,10 +14,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.szip.sportwatch.R;
 
@@ -66,6 +68,52 @@ public class ScreenCapture {
 		layout.setSystemUiVisibility(View.VISIBLE);
 		return filePath;
 	}
+
+	public static String  getScollerBitmap(Activity activity, ScrollView layout){
+
+		int h = 0;
+		// 获取listView实际高度
+		for (int i = 0; i < layout.getChildCount(); i++) {
+			h += layout.getChildAt(i).getHeight();
+			layout.getChildAt(i).setBackgroundResource(R.drawable.bg_color);
+		}
+
+		//SYSTEM_UI_FLAG_FULLSCREEN表示全屏的意思，也就是会将状态栏隐藏
+		//设置系统UI元素的可见性
+		layout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+		//启用或禁用绘图缓存
+		layout.setDrawingCacheEnabled(true);
+		//创建绘图缓存
+		layout.buildDrawingCache();
+		//拿到绘图缓存
+		Bitmap bitmap;
+		bitmap = Bitmap.createBitmap(layout.getWidth(), h,
+				Bitmap.Config.ARGB_8888);
+		final Canvas canvas = new Canvas(bitmap);
+		layout.draw(canvas);
+		String filePath = null;
+		try {
+			// 获取内置SD卡路径
+
+			String sdCardPath = activity.getExternalFilesDir(null).getPath();
+			File fileDir = new File(sdCardPath);
+			if (!fileDir.exists()) {
+				fileDir.mkdir();
+			}
+			// 图片文件路径
+			filePath= sdCardPath+"/"+getCurrentTime()+".jpg";
+			File file = new File(filePath);
+			FileOutputStream os = new FileOutputStream(file);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+		}
+		layout.destroyDrawingCache();
+		layout.setSystemUiVisibility(View.VISIBLE);
+		return filePath;
+	}
+
 	/**
 	 *获取当前时间
 	 * @return

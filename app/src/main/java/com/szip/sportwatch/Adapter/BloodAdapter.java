@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Model.DrawDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -81,8 +83,14 @@ public class BloodAdapter extends BaseAdapter{
                 holder.dataTv.setText(drawDataBeans.get(position).getValue()+70+"%");
                 holder.unitTv.setText("SaO2");
             }else {
-                holder.dataTv.setText(String.format(Locale.ENGLISH,"%.1f",(drawDataBeans.get(position).getValue()+340)/10f));
-                holder.unitTv.setText("℃");
+                if (MyApplication.getInstance().getUserInfo().getTempUnit()==0){
+                    holder.dataTv.setText(String.format(Locale.ENGLISH,"%.1f",(drawDataBeans.get(position).getValue()+340)/10f));
+                    holder.unitTv.setText("℃");
+                }else {
+                    holder.dataTv.setText(String.format(Locale.ENGLISH,"%.1f", MathUitl.c2f((drawDataBeans.get(position).getValue()+340)/10f)));
+                    holder.unitTv.setText("℉");
+                }
+
             }
         }
 

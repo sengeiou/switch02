@@ -310,6 +310,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         ((MyApplication)getApplicationContext()).setUserInfo(loginBean.getData().getUserInfo());
         editor.putString("password",passwordEt.getText().toString());
 
+
+        if (loginBean.getData().getUserInfo().getPhoneNumber()!=null||loginBean.getData().getUserInfo().getEmail()!=null){
+            //获取云端数据
+            try {
+                HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         startActivity(new Intent(mContext,MainActivity.class));
 
         editor.commit();

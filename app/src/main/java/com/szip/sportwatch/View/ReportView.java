@@ -79,6 +79,8 @@ public class ReportView extends View {
 
     private long reportDate = 0;//报告选中的日期，为0表示今天
 
+    private boolean isF = false;//是否用华氏度计数
+
     public ReportView(Context context, AttributeSet attrs){
         super(context,attrs);
         initConfig(context,attrs);
@@ -169,6 +171,12 @@ public class ReportView extends View {
         DrawStepTable(canvas);
     }
 
+
+    public void setF(boolean f) {
+        isF = f;
+        postInvalidate();
+    }
+
     /**
      * 画纵坐标
      * */
@@ -185,17 +193,27 @@ public class ReportView extends View {
                 diffCoordinate = ((float) height-pad5)/yValueNum;
             String[] yMsg = getYMsg(maxDraw);
             for(int i = 0; i<yValueNum; i++) {
-                if(isBar){
-                    if (yValueNum == 2){
-                        float levelCoordinate = tableHeight-diffCoordinate*(i+1);
-                        Path dashPath = new Path();
-                        dashPath.moveTo(yTextWidth, levelCoordinate);
-                        dashPath.lineTo(yTextWidth+tableWidth, levelCoordinate);
-                        canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
-                                levelCoordinate+ textHeight /2, textYPaint);
-                        canvas.drawPath(dashPath, paint);
+                    if(isBar){
+                        if (yValueNum == 2){
+                            float levelCoordinate = tableHeight-diffCoordinate*(i+1);
+                            Path dashPath = new Path();
+                            dashPath.moveTo(yTextWidth, levelCoordinate);
+                            dashPath.lineTo(yTextWidth+tableWidth, levelCoordinate);
+                            canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
+                                    levelCoordinate+ textHeight /2, textYPaint);
+                            canvas.drawPath(dashPath, paint);
+                        }else {
+                            float levelCoordinate = height- textHeight- pad10-pad5-diffCoordinate*(i+1);
+                            Path dashPath = new Path();
+                            dashPath.moveTo(yTextWidth, levelCoordinate+pad5);
+                            dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad5);
+                            canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
+                                    levelCoordinate+ textHeight /2+pad2*3, textYPaint);
+                            canvas.drawPath(dashPath, paint);
+                        }
+
                     }else {
-                        float levelCoordinate = height- textHeight- pad10-pad5-diffCoordinate*(i+1);
+                        float levelCoordinate = height-pad5-diffCoordinate*(i+1);
                         Path dashPath = new Path();
                         dashPath.moveTo(yTextWidth, levelCoordinate+pad5);
                         dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad5);
@@ -203,16 +221,6 @@ public class ReportView extends View {
                                 levelCoordinate+ textHeight /2+pad2*3, textYPaint);
                         canvas.drawPath(dashPath, paint);
                     }
-
-                }else {
-                    float levelCoordinate = height-pad5-diffCoordinate*(i+1);
-                    Path dashPath = new Path();
-                    dashPath.moveTo(yTextWidth, levelCoordinate+pad5);
-                    dashPath.lineTo(yTextWidth +tableWidth, levelCoordinate+pad5);
-                    canvas.drawText(yMsg[i], yTextWidth -textXPaint.measureText(yMsg[i], 0, yMsg[i].length())-pad2,
-                            levelCoordinate+ textHeight /2+pad2*3, textYPaint);
-                    canvas.drawPath(dashPath, paint);
-                }
             }
             if (yValueNum == 2){
                 Paint paint1 = new Paint();
@@ -300,7 +308,8 @@ public class ReportView extends View {
                             rectPaint.setColor(color2);
                             canvas.drawRoundRect(rectFSBottom[i],mBarWidth/2,mBarWidth/2, rectPaint);
                         }
-                        if (datas2[i]!=0&&(rectFSBottom[i].top-rectFS[i].top)>=mBarWidth/2){//如果第一段数据比第二段数据高超过半个圆角，则补上直角
+                        if (datas2[i]!=0&&(rectFSBottom[i].top-rectFS[i].top)>=mBarWidth/2&&
+                                (rectFSBottom[i].bottom-rectFSBottom[i].top)>=mBarWidth*1.5f){//如果第一段数据比第二段数据高超过半个圆角，则补上直角
                             RectF rectF= new RectF(rectFSBottom[i].left, rectFSBottom[i].top,
                                     rectFSBottom[i].right, rectFSBottom[i].top+mBarWidth);
                             canvas.drawRect(rectF, rectPaint);
@@ -441,21 +450,25 @@ public class ReportView extends View {
             yMsg[0] = "";
             yMsg[1] = "";
         }else {
-            for (int i = 0;i<yValueNum;i++){
-                if(flag == 1)
-                    yMsg[i] = String.format(Locale.ENGLISH,"%dk",(maxValue/yValueNum)*(i+1)/1000);
-                else if (flag == 2)
-                    yMsg[i] = String.format(Locale.ENGLISH,"%dh",(maxValue/yValueNum)*(i+1)/60);
-                else if (flag == 3)
-                    yMsg[i] = i == yValueNum-1?maxDraw+40+"":String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+40);
-                else if (flag == 4)
-                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+45);
-                else if (flag == 5)
-                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+70);
-                else if (flag == 6)
-                    yMsg[i] = String.format(Locale.ENGLISH,"%d",((maxValue/yValueNum)*(i+1)+340)/10);
-                else
-                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1));
+            for (int i = 0;i<yValueNum;i++) {
+                if (isF) {
+                    yMsg[i] = String.format("%d", (16 / yValueNum) * (i + 1) + 94);
+                } else {
+                    if (flag == 1)
+                        yMsg[i] = String.format(Locale.ENGLISH, "%dk", (maxValue / yValueNum) * (i + 1) / 1000);
+                    else if (flag == 2)
+                        yMsg[i] = String.format(Locale.ENGLISH, "%dh", (maxValue / yValueNum) * (i + 1) / 60);
+                    else if (flag == 3)
+                        yMsg[i] = i == yValueNum - 1 ? maxDraw + 40 + "" : String.format(Locale.ENGLISH, "%d", (maxValue / yValueNum) * (i + 1) + 40);
+                    else if (flag == 4)
+                        yMsg[i] = String.format(Locale.ENGLISH, "%d", (maxValue / yValueNum) * (i + 1) + 45);
+                    else if (flag == 5)
+                        yMsg[i] = String.format(Locale.ENGLISH, "%d", (maxValue / yValueNum) * (i + 1) + 70);
+                    else if (flag == 6)
+                        yMsg[i] = String.format(Locale.ENGLISH, "%d", ((maxValue / yValueNum) * (i + 1) + 340) / 10);
+                    else
+                        yMsg[i] = String.format(Locale.ENGLISH, "%d", (maxValue / yValueNum) * (i + 1));
+                }
             }
         }
 

@@ -20,16 +20,22 @@ import androidx.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.Model.HttpBean.CheckUpdateBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.View.MyAlerDialog;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -38,6 +44,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import okhttp3.Call;
 
 import static com.szip.sportwatch.MyApplication.FILE;
 
@@ -69,6 +77,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
 
         app = (MyApplication)getApplicationContext();
 
+//        Toast.makeText(this, FileUtil.getInstance().getPath(),Toast.LENGTH_SHORT).show();
         /**
          * 拿去本地缓存的数据
          * */
@@ -119,7 +128,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                             }
                         }
                     },this);
-        }else {
+        } else {
             /**
              * 获取权限·
              * */
@@ -151,8 +160,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                 }
             }
         }
-
-
     }
 
     @Override
@@ -245,10 +252,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
             getApplicationContext().startService(
                     new Intent(getApplicationContext(), MainService.class));
         }
+        LogUtil.getInstance().logd("SZIP******","初始化蓝牙");
     }
 
     private void initData() {
-        thread = new Thread(this);
+        thread = new Thread(WelcomeActivity.this);
         thread.start();
     }
 
@@ -266,26 +274,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     in.setClass(WelcomeActivity.this, MainActivity.class);
                     startActivity(in);
                     finish();
-//                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
-//                        //启动后台自动连接线程
-//                        if (WearableManager.getInstance().getConnectState()!=0){
-//                            BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-//                            BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-//                            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
-//                            WearableManager.getInstance().setRemoteDevice(device);
-//                            MainService.getInstance().startConnect();
-//                        }else
-//                            WearableManager.getInstance().scanDevice(true);
-//                        Intent guiIntent = new Intent();
-//                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
-//                        startActivity(guiIntent);
-//                        finish();
-//                    }else {//未绑定
-//                        Intent in = new Intent();
-//                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
-//                        startActivity(in);
-//                        finish();
-//                    }
                 }else if (app.getStartState() == 1){//未登录
                     Intent in = new Intent();
                     in.setClass(WelcomeActivity.this, LoginActivity.class);
@@ -303,46 +291,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     startActivity(in);
                     finish();
                 }
-//            else{
-//                if (app.getStartState() == 0){//已登录
-//                    if (app.getUserInfo().getDeviceCode()!=null){//已绑定
-//                        //启动后台自动连接线程
-//                        if (WearableManager.getInstance().getConnectState()!=0){
-//                            BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-//                            BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-//                            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(app.getUserInfo().getDeviceCode());
-//                            WearableManager.getInstance().setRemoteDevice(device);
-//                            MainService.getInstance().startConnect();
-//                        }else
-//                            WearableManager.getInstance().scanDevice(true);
-//                        Intent guiIntent = new Intent();
-//                        guiIntent.setClass(WelcomeActivity.this, MainActivity.class);
-//                        startActivity(guiIntent);
-//                        finish();
-//                    }else {//未绑定
-//                        Intent in = new Intent();
-//                        in.setClass(WelcomeActivity.this, SeachingActivity.class);
-//                        startActivity(in);
-//                        finish();
-//                    }
-//                }else if (app.getStartState() == 1){//未登录
-//                    Intent in = new Intent();
-//                    in.setClass(WelcomeActivity.this, LoginActivity.class);
-//                    startActivity(in);
-//                    finish();
-//                }else {//登陆过期
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showToast(getString(R.string.tokenTimeout));
-//                        }
-//                    });
-//                    Intent in = new Intent();
-//                    in.setClass(WelcomeActivity.this, LoginActivity.class);
-//                    startActivity(in);
-//                    finish();
-//                }
-//            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

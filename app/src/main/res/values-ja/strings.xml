@@ -135,41 +135,35 @@
     <string name="slow">スロー</string>
     <string name="higher">高い</string>
     <string name="flat">低</string>
-    <string name="head">ここはヘッドビューです</string>
     <string name="pull_to_refresh">プルダウンして更新</string>
     <string name="release_to_refresh">リリース後に更新</string>
     <string name="refreshing">更新しています...</string>
     <string name="refresh_succeed">更新しました</string>
     <string name="refresh_fail">更新に失敗しました</string>
-    <string name="pullup_to_load">プルアップしてさらに読み込む</string>
-    <string name="release_to_load">リリース直後の読み込み</string>
-    <string name="load_succeed">正常に読み込まれました</string>
-    <string name="load_fail">読み込みに失敗しました</string>
 
 
     <!--スポーツ-->
     <string name="best">屋外ランニングの個人記録</string>
     <string name="history">歴史的な動きの記録</string>
     <string name="track">スポーツ情報</string>
-    <string name="notrack">弾道なし</string>
     <string name="speed">速度</string>
     <string name="kcal">消費（kcal）</string>
     <string name="time">時間</string>
-    <string name="heart_rate">心拍数（Bpm）</string>
-    <string name="stride">ストライド（ステップ/秒）</string>
+    <string name="heart_rate">心拍数（bpm）</string>
+    <string name="stride">ストライド（spm）</string>
+    <string name="cadence">ストライド</string>
     <string name="distance">距離</string>
     <string name="speedData">平均速度</string>
-    <string name="kcalData">スポーツ消費</string>
-    <string name="timeData">スポーツタイム</string>
     <string name="heart_rateData">平均心拍数</string>
     <string name="strideData">平均ストライド</string>
     <string name="distanceData">距離</string>
     <string name="basket">バスケットボール</string>
     <string name="football">フットボール</string>
     <string name="pingpong">卓球</string>
+    <string name="badminton">バドミントン</string>
     <string name="mountain">山</string>
     <string name="bike">自転車</string>
-    <string name="run">走る</string>
+    <string name="swim">水泳</string>
     <string name="walk">徒歩</string>
     <string name="treadmill">ランニング？マシン
 
@@ -183,9 +177,7 @@
 
 </string>
     <string name="altitude">海抜</string>
-    <string name="avarageAltitude">平均海抜
-
-</string>
+    <string name="avarageAltitude">上昇高度</string>
     <string name="climb"> 岩を攀じる
 
 </string>
@@ -222,7 +214,6 @@
     <string name="confirm">確認</string>
     <string name="tip">ヒント</string>
     <string name="delete">このデータを削除してもよろしいですか？</string>
-    <string name="unbind">バインドを解除してもよろしいですか？</string>
     <string name="logoutTip">ログアウトしてもよろしいですか？</string>
     <string name="sendOK">正常に送信されました</string>
     <string name="searchDevice">デバイスを検索</string>
@@ -230,15 +221,11 @@
     <string name="connected">接続されています</string>
     <string name="disConnect">接続されていません</string>
     <string name="connectting">接続中</string>
-    <string name="connect">デバイスを接続しています。後でもう一度お試しください</string>
     <string name="syceError">時計が接続されていません。次に接続したときにデータが時計に同期されます</string>
     <string name="unBind">デバイスを交換</string>
     <string name="unline">切断する</string>
     <string name="line">時計を接続する</string>
     <string name="addDevice">デバイスを追加</string>
-    <string name="unbindSoon">最初にデバイスのバインドを解除してください</string>
-    <string name="lineError">接続は何度も失敗しました。モバイルデバイスのBluetoothを再起動するか、時計を再起動してください</string>
-    <string name="tipUnit">ヒントユニットの高さと重量がリセットされます</string>
 
 
     <!--Bluetooth通話インターフェース-->
@@ -257,6 +244,7 @@
 
     <!--单位制式界面 Unit System Interface-->
     <string name="measureUnit">計量単位</string>
+    <string name="tempUnit">温度単位</string>
     <string name="metric">メートル制</string>
     <string name="british">フートポンド法</string>
 
@@ -285,8 +273,6 @@
     <string name="averageSleep">平均睡眠時間</string>
     <string name="light">浅い眠り</string>
     <string name="deep">深い眠り</string>
-    <string name="lightTable">光</string>
-    <string name="deepTable">深い</string>
     <string name="averageHeart">平均心拍数</string>
     <string name="minHeart">最小心拍数</string>
     <string name="maxHeart">マックス。心拍数</string>
@@ -345,11 +331,12 @@
     <string name="loading">読み込み中...</string>
     <string name="privacyTip">ライバシー契約を明確に読みましたか？弊社の新規ユーザーとして登録することに同意しましたか？「確認」をクリックすると、契約条件に同意したことになります。\nユーザーのプライバシーポリシーには、主に次の1.個人情報（プロフィール写真、ニックネーム、身長、体重、スポーツデータなど）の収集、保存、共有が含まれます。2。デバイスのアクセス許可（場所、連絡先リスト、カメラなど）を使用する。</string>
     <string name="crop_pic_failed">画像のキャプチャに失敗しました。JPG/ PNG形式の画像を選択してください！</string>
-    <string name="deviceOut">バインドされていないデバイス</string>
     <string name="visiter">この機能はビジターモードではサポートされていません</string>
     <string name="chooseJpg">jpg形式の写真を選んでください</string>
+    <string name="newVersion">新しいソフトウェアのバージョンが検出され、現在更新されていますか?</string>
 
-        <!--共有インターフェース-->
+
+    <!--共有インターフェース-->
         <string name="planOK">今日の目標が達成されました</string>
     <string name="planNO">今日の目標は達成されませんでした</string>
     <string name="planStepShare">ターゲットステップ: %dsteps</string>
@@ -369,11 +356,8 @@
     <string name="passTimeData">合格率: %.1f%%</string>
 
     <string name="bloodPressureData">平均収縮期血圧/拡張期血圧</string>
-    <string name="shareSuccess">成功の共有</string>
-    <string name="shareCancel">共有をキャンセル</string>
-    <string name="shareFail">共有できませんでした</string>
 
-        <!-- Scan & Connect -->
+    <!-- Scan & Connect -->
         <string name="connect_error">Connect Error</string>
 
 
@@ -382,13 +366,10 @@
 
         <!-- SettingActivity -->
         <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">読み込み中</string>
     <string name="progress_dialog_message">お待ちください&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -400,7 +381,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -411,10 +391,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">携帯電話の位置スイッチがオンになっていないことを検知した場合、アプリが正常に動作するように位置スイッチをオンにしてください。</string>
+    <string name="speedPerHour">時速</string>
+    <string name="training">トレーニングで走る</string>
 
 </resources>

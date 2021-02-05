@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.StatusBarCompat;
+import com.szip.sportwatch.View.MyAlerDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,5 +51,29 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(new Intent(AboutActivity.this, FeedbackActivity.class));
             }
         });
+
+        findViewById(R.id.userNameRl).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.getInstance().isNewVersion()){
+                    MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.newVersion), getString(R.string.confirm), getString(R.string.cancel),
+                            false, new MyAlerDialog.AlerDialogOnclickListener() {
+                                @Override
+                                public void onDialogTouch(boolean flag) {
+                                    if (flag){
+                                        MyApplication.getInstance().setNewVersion(false);
+                                        MainService.getInstance().downloadFirmsoft(MyApplication.getInstance().getVersionUrl(),"iSmarport.apk");
+                                    }
+                                }
+                            },AboutActivity.this);
+                }
+            }
+        });
+
+        if(MyApplication.getInstance().isNewVersion()){
+            findViewById(R.id.updateView).setVisibility(View.VISIBLE);
+        }else {
+            findViewById(R.id.updateView).setVisibility(View.GONE);
+        }
     }
 }

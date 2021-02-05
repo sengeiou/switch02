@@ -3,11 +3,14 @@ package com.szip.sportwatch.Contorller;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,6 +34,7 @@ import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
@@ -84,7 +88,25 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
         initView();
         initEvent();
         checkPermission();
+        isLocServiceEnable(SeachingActivity.this);
+    }
 
+    private void isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!(gps || network)) {
+            MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.checkGPS), getString(R.string.confirm), getString(R.string.cancel),
+                    false, new MyAlerDialog.AlerDialogOnclickListener() {
+                        @Override
+                        public void onDialogTouch(boolean flag) {
+                            if (flag){
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(intent);
+                            }
+                        }
+                    },SeachingActivity.this);
+        }
     }
 
     private void checkPermission() {
@@ -149,14 +171,14 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
      * */
     private void searchDevice(boolean enable) {
         if (enable){
-            Log.d("SZIP******","开始搜索");
+            LogUtil.getInstance().logd("SZIP******","开始搜索");
             searchIv.startAnimation(rotateRight);
             mHandler.removeCallbacks(mStopRunnable);
             mHandler.postDelayed(mStopRunnable, 20*1000);
             deviceAdapter.clearList();
             WearableManager.getInstance().scanDevice(true);
         }else {
-            Log.d("SZIP******","搜索停止");
+            LogUtil.getInstance().logd("SZIP******","搜索停止");
             searchIv.clearAnimation();
             mHandler.removeCallbacks(mStopRunnable);
             WearableManager.getInstance().scanDevice(false);
@@ -199,7 +221,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                 ProgressHudModel.newInstance().show(SeachingActivity.this,getString(R.string.waitting)
                         ,getString(R.string.httpError),3000);
                 try {
-                    HttpMessgeUtil.getInstance(SeachingActivity.this).getBindDevice(device.getAddress(), new GenericsCallback<BindBean>(new JsonGenericsSerializator()) {
+                    HttpMessgeUtil.getInstance(SeachingActivity.this).getBindDevice(device.getAddress(),device.getName(), new GenericsCallback<BindBean>(new JsonGenericsSerializator()) {
                         @Override
                         public void onError(Call call, Exception e, int id) {
 
@@ -207,6 +229,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
 
                         @Override
                         public void onResponse(BindBean response, int id) {
+
                             //停止蓝牙扫描
                             searchDevice(false);
                             BluetoothDevice device = deviceAdapter.getDevice(selectPos);

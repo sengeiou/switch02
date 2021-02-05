@@ -38,6 +38,8 @@ public class ReportTableView extends View {
     private int yValueNum;//Y轴的个数
     private int flag;//图标类型 1：计步 2：睡眠 3：心率 4：血压 5：血氧
 
+    private boolean isF = false;//是否用华氏度计数
+
     public ReportTableView(Context context, AttributeSet attrs){
         super(context,attrs);
         initConfig(context,attrs);
@@ -47,6 +49,11 @@ public class ReportTableView extends View {
     public ReportTableView(Context context){
         super(context);
         initView();
+    }
+
+    public void setF(boolean f) {
+        isF = f;
+        postInvalidate();
     }
 
     private void initConfig(Context context, AttributeSet attrs){
@@ -97,10 +104,14 @@ public class ReportTableView extends View {
     private void DrawYView(Canvas canvas){
 
         textYPaint.setTextAlign(Paint.Align.LEFT);
+        if(isF){
+            textYPaint.setTextSize(MathUitl.dipToPx(8,getContext()));
+        }
         paint.setStrokeWidth(1f);
 
         float diffCoordinate = (tableHeight- textHeight)/yValueNum;
         String[] yMsg = getYMsg(maxValue);
+
         for(int i = 0; i<yValueNum; i++) {
             float levelCoordinate = tableHeight-diffCoordinate*(i+1);
             Path dashPath = new Path();
@@ -119,14 +130,19 @@ public class ReportTableView extends View {
     private String[] getYMsg(int maxValue){
         String[] yMsg= new String[yValueNum];
         for (int i = 0;i<yValueNum;i++){
-            if (flag == 4)
-                yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
-            else if (flag == 5)
-                yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
-            else if (flag == 6)
-                yMsg[i] = String.format("%d",((maxValue/yValueNum)*(i+1)+340)/10);
-            else
-                yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
+            if (isF){
+                yMsg[i] = String.format("%.1f",(14.4/yValueNum)*(i+1)+93.2);
+            }else {
+                if (flag == 4)
+                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                else if (flag == 5)
+                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
+                else if (flag == 6)
+                    yMsg[i] = String.format("%d",((maxValue/yValueNum)*(i+1)+340)/10);
+                else
+                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
+            }
+
         }
         return yMsg;
     }

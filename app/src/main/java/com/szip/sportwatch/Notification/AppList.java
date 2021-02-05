@@ -21,7 +21,7 @@ public final class AppList {
     // Debugging
     private static final String TAG = "AppManager/AppList";
 
-    private static final String SAVE_FILE_NAME = "AppList";
+    private static final String SAVE_FILE_NAME = "iSmarportAppList";
 
     public static final String MAX_APP = "MaxApp";
 
@@ -86,6 +86,14 @@ public final class AppList {
 
         if (mAppList == null) {
             mAppList = new HashMap<Object, Object>();
+            mAppList.put(10,"com.tencent.mobileqq");//QQ
+            mAppList.put(11,"com.tencent.mm");//微信
+            mAppList.put(12,"com.instagram.android");//instagram
+            mAppList.put(13,"com.twitter.android");//推特
+            mAppList.put(14,"com.whatsapp");//whatsapp
+            mAppList.put(15,"com.facebook.katana");//facebook
+            mAppList.put(16,"com.facebook.orca");//facebook message
+            mAppList.put("MaxApp",16);
         }
     }
 
@@ -103,7 +111,7 @@ public final class AppList {
         try {
             fileoutputstream = mContext.openFileOutput(SAVE_FILE_NAME, Context.MODE_PRIVATE);
             objectoutputstream = new ObjectOutputStream(fileoutputstream);
-            objectoutputstream.writeObject(mAppList);
+            objectoutputstream.writeObject(appList);
             objectoutputstream.close();
             fileoutputstream.close();
         } catch (IOException ioException) {

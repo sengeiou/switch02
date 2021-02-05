@@ -71,7 +71,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
     private void initData() {
         if (MyApplication.getInstance().isMtk()){
             if (MainService.getInstance().getState()==3){
-                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),40000);
+                ProgressHudModel.newInstance().show(this,getString(R.string.loading),getString(R.string.connect_error),50000);
                 EXCDController.getInstance().writeForSportIndex();
             }else {
                 dataList = LoadDataUtil.newInstance().getBestSportData(reportDate);
@@ -85,8 +85,6 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
                 Collections.sort(dataList);
             }
         }
-
-
     }
 
     private void updateView() {

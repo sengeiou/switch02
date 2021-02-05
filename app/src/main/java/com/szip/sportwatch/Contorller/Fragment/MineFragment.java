@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.Contorller.AboutActivity;
 import com.szip.sportwatch.Contorller.BluetoochCallActivity;
 import com.szip.sportwatch.Contorller.LoginActivity;
@@ -86,6 +87,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private int stepPlan = 0,sleepPlan = 0;
     private boolean unbind = false;
     private boolean isUpdatePlan = false;
+
+    private View updateView;
 
     /**
      * 下拉菜单实例
@@ -323,6 +326,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         stepPlanTv = getView().findViewById(R.id.stepPlanTv);
         sleepPlanTv = getView().findViewById(R.id.sleepPlanTv);
         blePhotoSwitch = getView().findViewById(R.id.blePhotoSwitch);
+        updateView = getView().findViewById(R.id.updateView);
+        if (app.isNewVersion()){
+            updateView.setVisibility(View.VISIBLE);
+        }else{
+            updateView.setVisibility(View.GONE);
+        }
+
         if (app.isCamerable())
             blePhotoSwitch.setChecked(true);
         else
@@ -438,7 +448,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                     showToast(getString(R.string.lostDevice));
                 else{
                     ((MainActivity)getActivity()).showMyToast(getString(R.string.sendOK));
-                    EXCDController.getInstance().writeForFindDevice();
+                    if (app.isMtk())
+                        EXCDController.getInstance().writeForFindDevice();
+                    else
+                        BleClient.getInstance().writeForFindWatch();
                 }
                 break;
             case R.id.blePhoneLl:
@@ -498,7 +511,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 if (MainService.getInstance().getState()!=3){
                     showToast(getString(R.string.syceError));
                 }else {
-                    EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+                    if (app.isMtk())
+                        EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
+                    else
+                        BleClient.getInstance().writeForUpdateUserInfo();
                 }
             }
         }else if (id == SLEEPFLAG){

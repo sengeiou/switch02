@@ -19,7 +19,6 @@
         <attr name="sweep_angle" format="integer"/>
         <attr name="current_value" format="float"/>
         <attr name="max_value" format="float"/>
-
     </declare-styleable>
 
     <declare-styleable name="HealthyProgressView">
@@ -60,6 +59,7 @@
         <attr name="size_text" format="dimension"/>
         <attr name="number_data" format="integer"/>
         <attr name="value_max" format="integer"/>
+        <attr name="flag_y" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="NoScrollViewPager">

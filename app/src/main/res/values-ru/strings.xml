@@ -124,41 +124,35 @@
     <string name="slow">Медленный</string>
     <string name="higher">Высокая</string>
     <string name="flat">Низкий</string>
-    <string name="head">Вот вид с головы</string>
     <string name="pull_to_refresh">Потяните вниз, чтобы обновить</string>
     <string name="release_to_refresh">Обновить после выпуска</string>
     <string name="refreshing">Обновление ...</string>
     <string name="refresh_succeed">Обновить успешно</string>
     <string name="refresh_fail">Не удалось обновит</string>
-    <string name="pullup_to_load">Потяните вверх, чтобы загрузить больше</string>
-    <string name="release_to_load">Загрузка сразу после выпуска</string>
-    <string name="load_succeed">Успешно загружено</string>
-    <string name="load_fail">Ошибка загрузки</string>
 
 
     <!--Виды спорта-->
     <string name="best">Личный рекорд по бегу на открытом воздухе</string>
     <string name="history">Историческая запись движения</string>
     <string name="track">Информация о спорте</string>
-    <string name="notrack">Нет траектории</string>
     <string name="speed">Скорость</string>
     <string name="kcal">Потреблено (ккал))</string>
     <string name="time">Время</string>
-    <string name="heart_rate">Частота пульса (уд / мин)(Bpm)</string>
-    <string name="stride">Шаг (шагов / с)</string>
+    <string name="heart_rate">Частота пульса (уд / мин)(bpm)</string>
+    <string name="stride">Шаг (spm)</string>
+    <string name="cadence">Шаг</string>
     <string name="distance">Расстояние(</string>
     <string name="speedData">Средняя скорость</string>
-    <string name="kcalData">Спорт Потребление</string>
-    <string name="timeData">Время спорта</string>
     <string name="heart_rateData">Средняя частота пульса</string>
     <string name="strideData">Средний шаг</string>
     <string name="distanceData">Расстояние</string>
     <string name="basket">Баскетбол</string>
     <string name="football">Футбол</string>
     <string name="pingpong">Настольный теннис</string>
+    <string name="badminton">Бадминтон.</string>
     <string name="mountain">Гора</string>
     <string name="bike">Езда на велосипеде</string>
-    <string name="run">Бегать</string>
+    <string name="swim">плава</string>
     <string name="walk">пешком</string>
     <string name="treadmill"> беговая дорожка</string>
     <string name="runWithout"> бег на открытом воздухе</string>
@@ -168,7 +162,7 @@
     <string name="averageShudu"> средняя скорость</string>
     <string name="boat"> гребля </string>
     <string name="altitude">высота</string>
-    <string name="avarageAltitude"> средняя высота</string>
+    <string name="avarageAltitude">Высота подъёма</string>
     <string name="climb"> скалолазание</string>
     <string name="skii">лыжи </string>
     <string name="golf">гольф</string>
@@ -201,7 +195,6 @@
     <string name="confirm">Подтвердить</string>
     <string name="tip">Наконечник</string>
     <string name="delete">Вы уверены, что хотите удалить эти данные?</string>
-    <string name="unbind">Вы уверены, что хотите отвязать？</string>
     <string name="logoutTip">Вы действительно хотите выйти?</string>
     <string name="sendOK">Успешно отправлено</string>
     <string name="searchDevice">Поиск на устройстве</string>
@@ -209,15 +202,11 @@
     <string name="connected">Связано</string>
     <string name="disConnect">Не подключен</string>
     <string name="connectting">Подключение</string>
-    <string name="connect">Устройство подключается, повторите попытку позже</string>
     <string name="syceError">Часы не подключены ， Данные будут синхронизированы с часами при следующем подключении</string>
     <string name="unBind">Заменить устройство</string>
     <string name="unline">Отключить</string>
     <string name="line">Подключите часы</string>
     <string name="addDevice">Добавить устройство</string>
-    <string name="unbindSoon">Пожалуйста, сначала отключите устройство</string>
-    <string name="lineError">Подключение много раз прерывалось. Пожалуйста, перезапустите bluetooth мобильного устройства или перезапустите часы</string>
-    <string name="tipUnit">Совет: высота и вес устройства будут сброшены.</string>
 
 
     <!--Интерфейс вызова Bluetooth-->
@@ -240,6 +229,7 @@
 
     <!--Интерфейс системы блока-->
     <string name="measureUnit">Единица измерения</string>
+    <string name="tempUnit">Единица температуры</string>
     <string name="metric">Метрическая</string>
     <string name="british">Имперский</string>
 
@@ -269,8 +259,6 @@
     <string name="averageSleep">Среднее время сна</string>
     <string name="light">Легкий сон</string>
     <string name="deep">Глубокий сон</string>
-    <string name="lightTable">Свет</string>
-    <string name="deepTable"> Глубокий</string>
     <string name="averageHeart">средн</string>
     <string name="minHeart">Минимум.</string>
     <string name="maxHeart">Максимум.</string>
@@ -327,9 +315,10 @@
     <string name="loading">Загружается ...</string>
     <string name="privacyTip">Вы ясно прочитали Соглашение о конфиденциальности? Вы согласились зарегистрироваться в качестве нового пользователя нашей компании? Нажимая «Подтвердить», вы соглашаетесь с условиями соглашения.。\nПолитика конфиденциальности пользователя в основном включает следующее: 1. Личную информацию (фото профиля Псевдоним 、 Рост 、 Вес 、 Спортивные данные и т. Д.). Сбор, сохранение и обмен 2. Разрешения для устройств (Местоположение ， Список контактов ， Камера и т. Д.).</string>
     <string name="crop_pic_failed">Не удалось выполнить захват изображения, выберите изображение в формате JPG / PNG!</string>
-    <string name="deviceOut">Несвязанное устройство</string>
     <string name="visiter">Эта функция не поддерживается в режиме посетителя.</string>
     <string name="chooseJpg"> Выберите рисунок в формате jpg </string>
+    <string name="newVersion">Обнаружили новую версию программного обеспечения.？</string>
+
 
     <!--Общий интерфейс-->
     <string name="planOK">Сегодняшняя цель достигнута</string>
@@ -351,9 +340,6 @@
     <string name="passTimeData">Скорость прохождения: %.1f%%</string>
 
     <string name="bloodPressureData">Среднее систолическое давление / диастолическое давление</string>
-    <string name="shareSuccess">Делиться успехом</string>
-    <string name="shareCancel">Отменить публикацию</string>
-    <string name="shareFail">Поделиться не удалось</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -364,13 +350,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">Загрузка</string>
     <string name="progress_dialog_message">Пожалуйста, подождите&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -382,7 +365,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -393,10 +375,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Чтобы убедиться, что приложение работает, пожалуйста, включите его.</string>
+    <string name="speedPerHour">скорост</string>
+    <string name="training">Бегом!</string>
 
 </resources>

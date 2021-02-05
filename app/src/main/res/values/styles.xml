@@ -39,11 +39,6 @@
         <!--使用方法： 在布局文件中给需要自定义控件中增加app:theme="@style/MySwitch"-->
     </style>
 
-    <style name="Dialog_Button">
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-    </style>
-
     <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/photo_choose_bg</item>
     </style>

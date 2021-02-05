@@ -9,11 +9,13 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.ScreenCapture;
 
 import java.io.File;
@@ -70,6 +72,36 @@ public class BaseActivity extends AppCompatActivity {
         oks.show(this);
     }
 
+    protected void shareShowLong(ScrollView view){
+        String str = ScreenCapture.getScollerBitmap
+                (this, view);
+        deleteStr = str;
+        OnekeyShare oks = new OnekeyShare();
+
+        oks.setCallback(callback);
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle("");
+
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("");
+
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImagePath(str);// 确保SDcard下面存在此张图片
+
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("");
+
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("");
+        // oks.setViewToShare(viewToShare);
+
+        // 启动分享GUI
+        oks.show(this);
+    }
+
     PlatformActionListener callback = new PlatformActionListener() {
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
@@ -96,7 +128,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("SZIP******","退出保存");
+        LogUtil.getInstance().logd("SZIP******","退出保存");
         getSharedPreferences(FILE,MODE_PRIVATE).edit().putInt("updownTime",((MyApplication)getApplication()).getUpdownTime()).commit();
     }
 

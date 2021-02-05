@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17sp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="5dp"
         android:textColor="@color/rayblue"/>
 
@@ -24,8 +24,8 @@
         android:id="@+id/sportList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/item_margin_parallel"
-        android:layout_marginRight="@dimen/item_margin_parallel"
+        android:layout_marginStart="@dimen/item_margin_parallel"
+        android:layout_marginEnd="@dimen/item_margin_parallel"
         android:divider="@null"
         android:listSelector="@android:color/transparent"/>
 

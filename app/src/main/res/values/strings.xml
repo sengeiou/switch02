@@ -133,52 +133,47 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="slow">Slow</string>
     <string name="higher">High</string>
     <string name="flat">Low</string>
-    <string name="head">Here Is HeadView</string>
     <string name="pull_to_refresh">Pull Down To Refresh</string>
     <string name="release_to_refresh">Refresh After Release</string>
     <string name="refreshing">Refreshing...</string>
     <string name="refresh_succeed">Refresh Successful</string>
     <string name="refresh_fail">Refresh Failed</string>
-    <string name="pullup_to_load"> Pull Up To Load More</string>
-    <string name="release_to_load">Loading Immediately After Release</string>
-    <string name="load_succeed">Loaded successfully</string>
-    <string name="load_fail">Failed To Load</string>
 
 
     <!--运动界面 Sports-->
-    <string name="best">Personal Record For Outdoor Running</string>
+    <string name="best">Best Sport Record</string>
     <string name="history">Historical Movement Record</string>
     <string name="track">Sport Information</string>
-    <string name="notrack">No Trajectory</string>
     <string name="speed">Speed</string>
     <string name="kcal">Consumed (kcal)</string>
     <string name="time">Time</string>
-    <string name="heart_rate">Heart Rate(Bpm)</string>
-    <string name="stride">Stride(Steps/s)</string>
+    <string name="heart_rate">Heart Rate(bpm)</string>
+    <string name="stride">Cadence(spm)</string>
+    <string name="cadence">Cadence</string>
     <string name="distance">Distance(</string>
     <string name="speedData">Average Speed</string>
-    <string name="kcalData">Sport Consume</string>
-    <string name="timeData">Sport Time</string>
     <string name="heart_rateData">Average Heart Rate</string>
-    <string name="strideData">Average Stride</string>
+    <string name="strideData">Average Cadence</string>
     <string name="distanceData">Distance</string>
     <string name="basket">Basketball</string>
     <string name="football">Football</string>
-    <string name="pingpong">Ping Pong</string>
+    <string name="pingpong">Table tennis</string>
+    <string name="badminton">Badminton</string>
     <string name="mountain">Mountain</string>
-    <string name="bike">Bike</string>
-    <string name="run">Run</string>
-    <string name="walk">徒步</string>
-    <string name="treadmill">跑步机</string>
-    <string name="runWithout">户外跑</string>
+    <string name="bike">Biking</string>
+    <string name="swim">Swimming</string>
+    <string name="walk">Walking</string>
+    <string name="treadmill">Indoor Running</string>
+    <string name="runWithout">Running</string>
     <string name="marathon">Marathon</string>
     <string name="sufing">Sufing</string>
     <string name="shudu">Speed</string>
     <string name="averageShudu">Average Speed</string>
     <string name="boat">Boating</string>
     <string name="altitude">Altitude</string>
-    <string name="avarageAltitude">Average Altitude</string>
-    <string name="climb">Climb</string>
+    <string name="speedPerHour">SpeedPerHour</string>
+    <string name="avarageAltitude">altitude</string>
+    <string name="climb">Climbing</string>
     <string name="skii">Skii</string>
     <string name="golf">Golf</string>
     <!--我的页面 Mine-->
@@ -190,7 +185,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="blePhone">Bluetooth Call</string>
     <string name="blePhoto">Bluetooth Camera</string>
     <string name="unit">Unit</string>
-    <string name="face">Dial</string>
+    <string name="face">Watch Face</string>
     <string name="myDail">My Dial</string>
     <string name="seeDail">Preview</string>
     <string name="diyDail">DIY</string>
@@ -210,7 +205,6 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="confirm">Confirm</string>
     <string name="tip">Tip</string>
     <string name="delete">Are You Sure You Want To Delete This Data？</string>
-    <string name="unbind">Are You Sure You Want To Unbind？</string>
     <string name="logoutTip">Are You Sure You Want To Log Out？</string>
     <string name="sendOK">Sent Successfully</string>
     <string name="searchDevice">Search Device</string>
@@ -218,15 +212,11 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="connected">Connected</string>
     <string name="disConnect">Not Connected</string>
     <string name="connectting">Connecting</string>
-    <string name="connect">Device Connecting, Please Try Again Later</string>
     <string name="syceError">Watch Is Not connected，Data Will Be Synced To The Watch The Next Time You Connect</string>
     <string name="unBind">Replace Device</string>
     <string name="unline">Disconnect</string>
     <string name="line">Connect The Watch</string>
     <string name="addDevice">Add Device</string>
-    <string name="unbindSoon">Please unbind device first</string>
-    <string name="lineError">The connection has failed many times. Please restart the bluetooth of the mobile device or restart the watch</string>
-    <string name="tipUnit">Tip: The unit height and weight will be reset</string>
 
     <!--蓝牙通话界面 Bluetooth Call Interface-->
     <string name="step1">1.Pair watch With Mobile Phone</string>
@@ -244,6 +234,7 @@ We recommend that minors encourage their parents or guardians to read this polic
 
     <!--单位制式界面 Unit System Interface-->
     <string name="measureUnit">Unit Of Measure</string>
+    <string name="tempUnit">Unit Of Temperature</string>
     <string name="metric">Metric</string>
     <string name="british">Imperial</string>
 
@@ -273,8 +264,6 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="averageSleep">Average Sleep Time</string>
     <string name="light">Light sleep</string>
     <string name="deep">Deep Sleep</string>
-    <string name="lightTable">Light</string>
-    <string name="deepTable">Deep</string>
     <string name="averageHeart">Average Heart Rate</string>
     <string name="minHeart">Min.Heart Rate</string>
     <string name="maxHeart">Max.Heart Rate</string>
@@ -328,10 +317,9 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="loading">Loading...</string>
     <string name="privacyTip">Have You Read The Privacy Agreement Clearly? Did You Agree To Register As A New User Of Our Company? When You Click "Confirm", You Agree To The Terms Of The Agreement.\nThe User Privacy Policy Mainly Includes The Following:\n1.Personal Information(Profile Photo、Nickname、Height、Weight、Sports Data, etc.)Collection, Save And Share。\n2.Device Permissions(Location，Contact List，Camera, etc.) Using</string>
     <string name="crop_pic_failed">Capture Image Failed, Please Choose JPG Format Picture!</string>
-    <string name="deviceOut">Unbound device</string>
     <string name="visiter">This feature is not supported in the visitor mode</string>
     <string name="chooseJpg">Please choose an image in JPG format</string>
-
+    <string name="newVersion">A new APP version has been detected. Do you want to update it now?</string>
 
     <!--分享界面 Sharing Interface-->
     <string name="planOK">Today\'s goal has been reached</string>
@@ -353,9 +341,6 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="passTimeData">Pass Rate: %.1f%%</string>
 
     <string name="bloodPressureData">Average Systolic pressure/Diastolic Pressure</string>
-    <string name="shareSuccess">Sharing Success</string>
-    <string name="shareCancel">Cancel Sharing</string>
-    <string name="shareFail">Share Failed</string>
     <!-- Scan & Connect -->
     <string name="connect_error">Connection Error</string>
 
@@ -365,13 +350,10 @@ We recommend that minors encourage their parents or guardians to read this polic
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">Loading</string>
     <string name="progress_dialog_message">Please Wait&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -383,7 +365,6 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -394,9 +375,7 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">It has been detected that the position switch of your mobile phone is not turned on. To ensure the normal operation of the application, please turn on the position switch.</string>
+    <string name="training">Training run</string>
 </resources>

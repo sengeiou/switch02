@@ -12,12 +12,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DrawHelper;
 import com.szip.sportwatch.Util.MathUitl;
 
-import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
@@ -40,8 +38,7 @@ public class SportReportView extends View {
     private int textColor,color1;//文字颜色,柱状图底色,柱状图颜色1,柱状图颜色2
     private float textSize;//字体大小
 
-    private int maxValue = 100;//最高的数据
-    private int maxDraw;
+
     private float mBarWidth = -1;//柱状图宽度
     private float mInterval = 0;//柱状图间隔
     private int data_num = 0;//默认一个屏幕里面画的数据数
@@ -52,9 +49,12 @@ public class SportReportView extends View {
     private int pad5;//5缩进量
     private int pad2;//2缩进量
 
-
+    private int sectionDraw = 3;//绘图区间的大小
+    private int maxDraw;//绘图区间的最大值
+    private int minDraw;//绘图区间的最小值
     private int yValueNum = 3;//Y轴的个数
 
+    private int flag = 0;//0 默认 1 速度（Y轴除10） 2 海拔（Y轴有负值）
 
     public SportReportView(Context context) {
         super(context);
@@ -76,7 +76,7 @@ public class SportReportView extends View {
         mBarWidth = a.getDimension(R.styleable.SportReportView_width_bar, MathUitl.dipToPx(10,getContext()));
         textSize = a.getDimension(R.styleable.SportReportView_size_text, MathUitl.dipToPx(15,getContext()));
         data_num = a.getInteger(R.styleable.SportReportView_number_data,7);
-        maxValue = a.getInteger(R.styleable.SportReportView_value_max,100);
+        flag = a.getInteger(R.styleable.SportReportView_flag_y,0);
         a.recycle();
         pad15 = MathUitl.dipToPx(15,context);
         pad10 = MathUitl.dipToPx(10,context);
@@ -111,8 +111,6 @@ public class SportReportView extends View {
         if (changed){
             width = getWidth();
             height = getHeight();
-            if (yValueAble)
-                yTextWidth = MathUitl.dipToPx(25,getContext());
             textHeight = MathUitl.dipToPx(6,getContext());
             valueWidth = width- yTextWidth;
             mInterval = (valueWidth -mBarWidth*data_num)/(data_num-1);
@@ -141,9 +139,8 @@ public class SportReportView extends View {
             DashPathEffect dashPathEffect = new DashPathEffect(new float[]{4,4},0);
             paint.setPathEffect(dashPathEffect);
             float diffCoordinate;
-
-                diffCoordinate = ((float) height-pad5)/yValueNum;
-            String[] yMsg = getYMsg(maxDraw);
+            diffCoordinate = ((float) height-pad5)/yValueNum;
+            String[] yMsg = getYMsg(sectionDraw);
             for(int i = 0; i<yValueNum; i++) {
                 float levelCoordinate = height-pad5-diffCoordinate*(i+1);
                 Path dashPath = new Path();
@@ -189,17 +186,16 @@ public class SportReportView extends View {
         if (datas ==null)
             datas = new int[data_num];
         RectF[] rectFS = new RectF[datas.length];
-        for (int i = 0; i< datas.length; i++){
+        for (int i = 0; i< datas.length; i++) {
             float x = yTextWidth +(yTextWidth ==0?pad15:(pad5))+(mInterval+mBarWidth)*i;
             float top;
-            if (datas[i] == 0)
+            if (datas[i] == minDraw)
                 top = height-mBarWidth;
             else
-                top = datas[i]/(float) maxDraw *(height-pad5)<mBarWidth?
-                        height-mBarWidth:height - datas[i]/(float) maxDraw *(height-pad5);
+                top = (datas[i]-minDraw)/(float) sectionDraw *(height-pad5)<mBarWidth?
+                        height-mBarWidth:height - (datas[i]-minDraw)/(float) sectionDraw *(height-pad5);
             rectFS[i] = new RectF(x, top, x+mBarWidth, height);
         }
-
         return rectFS;
     }
 
@@ -210,7 +206,13 @@ public class SportReportView extends View {
     private String[] getYMsg(int maxValue){
         String[] yMsg= new String[yValueNum];
         for (int i = 0;i<yValueNum;i++){
-                yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1));
+            if (flag == 1){
+                yMsg[i] = String.format(Locale.ENGLISH,"%.1f",((maxValue/yValueNum)*(i+1)+minDraw)/10f);
+            }else{
+                yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+minDraw);
+            }
+            if (yValueAble&&yTextWidth<textYPaint.measureText(yMsg[i]))
+                yTextWidth = textYPaint.measureText(yMsg[i])+pad2;
         }
         return yMsg;
     }
@@ -220,17 +222,26 @@ public class SportReportView extends View {
      * 添加数据
      * */
     public void addData(String[] list){
-        maxDraw = maxValue;
-        if (list!=null){
-            data_num = list.length;
-            datas = new int[list.length];
-            if(data_num<10)
-                data_num = 10;
-            for (int i = 0;i<list.length;i++){
-                datas[i] = Integer.valueOf(list[i]);
-                if (datas[i]> maxValue)
-                    if (datas[i]>maxDraw)
+
+        if (list!=null&&list.length!=0){
+            if (list.length==1&&list[0].equals("")){
+                datas = new int[0];
+                data_num = 0;
+            }else {
+                data_num = list.length;
+                datas = new int[list.length];
+                if(data_num<10)
+                    data_num = 10;
+                maxDraw = Integer.valueOf(list[0]);
+                minDraw = Integer.valueOf(list[0]);
+                for (int i = 0;i<list.length;i++){
+                    datas[i] = Integer.valueOf(list[i]);
+                    if (minDraw >datas[i])
+                        minDraw = datas[i];
+                    if (maxDraw <datas[i])
                         maxDraw = datas[i];
+                }
+                initTableData();
             }
         } else {
             datas = new int[0];
@@ -238,6 +249,21 @@ public class SportReportView extends View {
         }
         mInterval = (valueWidth -mBarWidth*data_num)/(data_num-1);
         postInvalidate();
+    }
+
+    /**
+     * 计算表格Y坐标区间的各项数据
+     * */
+    private void initTableData(){
+        sectionDraw = (int)((maxDraw - minDraw)*1.5);
+        if (sectionDraw == 0){//数据没有波动
+            sectionDraw = 3;
+            minDraw -= 1;
+        }else {
+            if (sectionDraw%3!=0)
+                sectionDraw += 3-sectionDraw%3;
+            minDraw = minDraw -(sectionDraw-(maxDraw - minDraw))/2;
+        }
     }
 
 }

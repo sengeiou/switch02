@@ -30,8 +30,8 @@ import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO_Table;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
-import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.LocalDate;
@@ -91,7 +91,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
                     @Override
                     public void onSuccess(Transaction transaction) {
-                        Log.d("SZIP******","计步数据保存成功");
+                        LogUtil.getInstance().logd("DATA******","计步数据保存成功");
                         EventBus.getDefault().post(new ConnectState());
                     }
                 }).build().execute();
@@ -132,7 +132,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","计步数据保存成功");
+                LogUtil.getInstance().logd("DATA******","计步数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -151,21 +151,23 @@ public class SaveDataUtil {
                                         .from(StepData.class)
                                         .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
+
                                 if (sqlData == null){//为null则代表数据库没有保存
                                     stepData.save();
                                 }
                                 else {//不为null则代表数据库存在，进行更新
                                     if (sqlData.dataForHour != null&&
                                             !sqlData.dataForHour.equals(stepData.dataForHour)){
+                                        LogUtil.getInstance().logd("DATA******","STEP D = "+sqlData.dataForHour);
                                         int sql[] = new int[24];
-                                        String[] sqlStr = sqlData.dataForHour.split(",");
+                                        String[] sqlStr = (sqlData.dataForHour == null)?new String[0]:(sqlData.dataForHour.split(","));
                                         int step[] = new int[24];
                                         String[] stepStr = stepData.dataForHour.split(",");
                                         for (int i = 0;i<sqlStr.length;i++){
-                                            sql[Integer.valueOf(sqlStr[i].substring(0,2))] = Integer.valueOf(sqlStr[i].substring(3));
+                                            sql[Integer.valueOf(sqlStr[i].split(":")[0])] = Integer.valueOf(sqlStr[i].split(":")[1]);
                                         }
                                         for (int i = 0;i<stepStr.length;i++){
-                                            step[Integer.valueOf(stepStr[i].substring(0,2))] = Integer.valueOf(stepStr[i].substring(3));
+                                            step[Integer.valueOf(stepStr[i].split(":")[0])] = Integer.valueOf(stepStr[i].split(":")[1]);
                                         }
                                         StringBuffer stepString = new StringBuffer();
                                         for (int i = 0;i<24;i++){
@@ -188,7 +190,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","计步详情数据保存成功");
+                LogUtil.getInstance().logd("DATA******","计步详情数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -208,12 +210,11 @@ public class SaveDataUtil {
                                         .where(StepData_Table.time.is(stepData.time))
                                         .querySingle();
                                 if (sqlData == null){//为null则代表数据库没有保存
-                                    Log.d("SZIP******","SAVE STEP");
                                     stepData.save();
-                                }
-                                else {//不为null则代表数据库存在，进行更新
+                                } else {//不为null则代表数据库存在，进行更新
+                                    LogUtil.getInstance().logd("DATA******","sql = "+sqlData.dataForHour+" ;step = "+stepData.dataForHour);
                                     int sql[] = new int[24];
-                                    String[] sqlStr = sqlData.dataForHour.split(",");
+                                    String[] sqlStr = (sqlData.dataForHour == null)?new String[0]:(sqlData.dataForHour.split(","));
                                     int step[] = new int[24];
                                     String[] stepStr = stepData.dataForHour.split(",");
                                     for (int i = 0;i<sqlStr.length;i++){
@@ -239,12 +240,12 @@ public class SaveDataUtil {
                 .error(new Transaction.Error() {
                     @Override
                     public void onError(Transaction transaction, Throwable error) {
-
+                        LogUtil.getInstance().logd("DATA******",error.getMessage());
                     }
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","计步详情数据保存成功");
+                LogUtil.getInstance().logd("DATA******","计步详情数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -281,7 +282,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","睡眠数据保存成功");
+                LogUtil.getInstance().logd("DATA******","睡眠数据保存成功");
             }
         }).build().execute();
     }
@@ -374,7 +375,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","睡眠详情保存成功");
+                LogUtil.getInstance().logd("DATA******","睡眠详情保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -413,7 +414,7 @@ public class SaveDataUtil {
                                         sqlData.heartArray = heartStr;
                                         sqlData.update();
                                     }else {
-                                        if (sqlData.heartArray.length()<heartData.heartArray.length()){
+                                        if (sqlData.getHeartArray().length()<heartData.getHeartArray().length()){
                                             sqlData.averageHeart = heartData.averageHeart;
                                             sqlData.heartArray = heartData.heartArray;
                                             sqlData.update();
@@ -431,7 +432,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","心率数据保存成功");
+                LogUtil.getInstance().logd("DATA******","心率数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -451,7 +452,7 @@ public class SaveDataUtil {
                                         .from(BloodPressureData.class)
                                         .where(BloodPressureData_Table.time.is(bloodPressureData.time))
                                         .querySingle();
-                                if (sqlData == null){//为null则代表数据库没有保存
+                                if (sqlData == null&&bloodPressureData.dbpDate!=0){//为null则代表数据库没有保存
                                     bloodPressureData.save();
                                 }
                             }
@@ -464,7 +465,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","血压数据保存成功");
+                LogUtil.getInstance().logd("DATA******","血压数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -483,7 +484,7 @@ public class SaveDataUtil {
                                         .from(BloodOxygenData.class)
                                         .where(BloodOxygenData_Table.time.is(bloodOxygenData.time))
                                         .querySingle();
-                                if (sqlData == null){//为null则代表数据库没有保存
+                                if (sqlData == null&&bloodOxygenData.bloodOxygenData!=0){//为null则代表数据库没有保存
                                     bloodOxygenData.save();
                                 }
                             }
@@ -496,7 +497,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","血氧数据保存成功");
+                LogUtil.getInstance().logd("DATA******","血氧数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -515,7 +516,7 @@ public class SaveDataUtil {
                                         .from(AnimalHeatData.class)
                                         .where(AnimalHeatData_Table.time.is(animalHeatData.time))
                                         .querySingle();
-                                if (sqlData == null){//为null则代表数据库没有保存
+                                if (sqlData == null&&animalHeatData.tempData!=0){//为null则代表数据库没有保存
                                     animalHeatData.save();
                                 }
                             }
@@ -528,7 +529,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","体温数据保存成功");
+                LogUtil.getInstance().logd("DATA******","体温数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -560,7 +561,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","ECG数据保存成功");
+                LogUtil.getInstance().logd("DATA******","ECG数据保存成功");
                 EventBus.getDefault().post(new ConnectState());
             }
         }).build().execute();
@@ -592,7 +593,7 @@ public class SaveDataUtil {
                 }).success(new Transaction.Success() {
             @Override
             public void onSuccess(Transaction transaction) {
-                Log.d("SZIP******","多运动数据保存成功");
+                LogUtil.getInstance().logd("DATA******","多运动数据保存成功");
             }
         }).build().execute();
     }
@@ -607,7 +608,7 @@ public class SaveDataUtil {
                 .querySingle();
         if (sqlData == null){//为null则代表数据库没有保存
             sportData.save();
-            Log.d("SZIP******","sport数据保存成功 time = "+sportData.time+" ;distance = "+sportData.distance+" ;caloria = "+sportData.calorie+
+            LogUtil.getInstance().logd("DATA******","sport数据保存成功 time = "+sportData.time+" ;distance = "+sportData.distance+" ;caloria = "+sportData.calorie+
                     " ;speed = "+sportData.speed+" ;sportTime = "+sportData.sportTime+" type = "+sportData.type);
         }
     }

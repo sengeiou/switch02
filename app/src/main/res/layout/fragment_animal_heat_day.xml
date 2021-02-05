@@ -13,8 +13,8 @@
         android:orientation="vertical"
         android:layout_weight="3"
         android:layout_marginTop="@dimen/report_margin"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin"
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin"
         android:background="@drawable/bg_report_orange1">
 
         <LinearLayout
@@ -53,6 +53,7 @@
             android:layout_height="match_parent">
 
             <com.szip.sportwatch.View.ReportTableView
+                android:id="@+id/tempReport"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/report_margin"
@@ -70,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/report_margin"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="20dp"
                 app:flag="6"
                 app:text_color="@color/white"
                 app:text_size="9sp"
@@ -90,15 +91,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="18.5dp"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin"
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin"
         >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@mipmap/br_timeline_top"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginStart="8dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -113,8 +114,8 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="1.1"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin">
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin">
 
         <ListView
             android:id="@+id/dataList"

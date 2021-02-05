@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">艾跑特</string>
+    <string name="app_name">iSmarport</string>
 
     <!--लॉगिन पेज:/पासवर्ड पृष्ठ पुनः प्राप्त करे/पंजीकरण पृष्ठ-->
     <string name="logo"> iSmarport में आपका स्वागत ह</string>
@@ -118,41 +118,35 @@
     <string name="slow">धीरे</string>
     <string name="higher">उच्च</string>
     <string name="flat"> कम</string>
-    <string name="head">यहाँ है हेड व्यू</string>
     <string name="pull_to_refresh">ताज़ा करने के लिए नीचे खींचो</string>
     <string name="release_to_refresh">रिलीज़ के बाद ताज़ा करें</string>
     <string name="refreshing">रिफ्रेशिंग ...</string>
     <string name="refresh_succeed">. ताज़ा सफल:</string>
     <string name="refresh_fail">ताज़ा विफल</string>
-    <string name="pullup_to_load"> अधिक लोड करने के लिए ऊपर खींचो</string>
-    <string name="release_to_load">रिलीज़ के तुरंत बाद लोड हो रहा ह</string>
-    <string name="load_succeed"> सफलतापूर्वक लोड किया गया</string>
-    <string name="load_fail">लोड करने में विफल</string>
 
 
     <!--खेल-->
     <string name="best">आउटडोर रनिंग के लिए व्यक्तिगत रिकॉर्ड</string>
     <string name="history">ऐतिहासिक आंदोलन रिकॉर्ड</string>
     <string name="track">खेल जानकारी</string>
-    <string name="notrack"> कोई प्रक्षेपवक्र</string>
     <string name="speed">गति</string>
     <string name="kcal">उपभोग किया गया (kcal)</string>
     <string name="time">समय:</string>
-    <string name="heart_rate">हृदय गति (Bpm)</string>
+    <string name="heart_rate">हृदय गति (bpm)</string>
     <string name="stride"> स्ट्राइड (स्टेप्स /s)</string>
+    <string name="cadence">Cadence</string>
     <string name="distance">दूरी(</string>
     <string name="speedData"> औसत गत</string>
-    <string name="kcalData">खेल का उपभोग</string>
-    <string name="timeData">स्पोर्ट टाइम:</string>
     <string name="heart_rateData">औसत हृदय गति</string>
     <string name="strideData">औसत स्ट्राइड</string>
     <string name="distanceData">दूरी</string>
     <string name="basket">बास्केटबॉल</string>
     <string name="football">फुटबॉल</string>
     <string name="pingpong">पिंग पोंग</string>
+    <string name="badminton">बैडमिंटन।</string>
     <string name="mountain"> माउंटेन:</string>
     <string name="bike"> बाइकिंग</string>
-    <string name="run"> रन</string>
+    <string name="swim">तैरना.</string>
     <string name="walk">पैरों पर</string>
     <string name="treadmill">ट्रेडमिल</string>
     <string name="runWithout">आउटडोर चल रहा है</string>
@@ -195,7 +189,6 @@
     <string name="confirm">पुष्टि करें</string>
     <string name="tip"> टिप</string>
     <string name="delete">क्या आप सुनिश्चित हैं कि आप इस डेटा को हटाना चाहते हैं?</string>
-    <string name="unbind">क्या आप निश्चित हैं कि आप अनबाइंड करना चाहते हैं?</string>
     <string name="logoutTip">क्या आप लॉग आउट करना चाहते हैं?</string>
     <string name="sendOK"> सफलतापूर्वक भेज दिया</string>
     <string name="searchDevice">डिवाइस खोजें</string>
@@ -203,15 +196,11 @@
     <string name="connected">जुड़े हुए</string>
     <string name="disConnect">जुड़े नहीं हैं</string>
     <string name="connectting">. कनेक्ट</string>
-    <string name="connect">डिवाइस कनेक्ट करना, कृपया बाद में पुन: प्रयास करे</string>
     <string name="syceError">घड़ी कनेक्टेड नहीं है Will डेटा अगली बार कनेक्ट होने वाले घड़ी के लिए सिंक किया जाएग</string>
     <string name="unBind">उपकरण बदले</string>
     <string name="unline">डिस्कनेक्ट</string>
     <string name="line">वॉच कनेक्ट करें</string>
     <string name="addDevice">डिवाइस जोड़े</string>
-    <string name="unbindSoon">कृपया पहले डिवाइस को अनबाइंड करे</string>
-    <string name="lineError">. कनेक्शन कई बार विफल हुआ है। कृपया मोबाइल डिवाइस के ब्लूटूथ को पुनरारंभ करें या घड़ी को पुनरारंभ करें</string>
-    <string name="tipUnit">युक्ति: इकाई ऊंचाई और वजन रीसेट हो जाएगा</string>
 
 
     <string name="step1">1.मोबाइल फोन के साथ जोड़ी घड़ी</string>
@@ -231,6 +220,7 @@
 
     <!--. यूनिट सिस्टम इंटरफ़ेस-->
     <string name="measureUnit">माप की इकाई</string>
+    <string name="tempUnit">तापमान की इकाई</string>
     <string name="metric">मीट्रिक</string>
     <string name="british">इंपीरियल</string>
 
@@ -260,8 +250,6 @@
     <string name="averageSleep">कुल नींद का समय</string>
     <string name="light">हल्की नींद</string>
     <string name="deep">गहरी नींद</string>
-    <string name="lightTable">लाइट</string>
-    <string name="deepTable">दीप</string>
     <string name="averageHeart">औसत हृदय गति</string>
     <string name="minHeart">मिन। हृदय गति</string>
     <string name="maxHeart">मैक्स। हृदय गति</string>
@@ -320,9 +308,9 @@
 1. व्यक्तिगत जानकारी (प्रोफाइल फोटो 、 उपनाम (ऊँचाई 、 वजन, खेल डेटा, आदि) संग्रह, सहेजें और साझा करें.
 2. डिवाइस अनुमतियाँ (स्थान List संपर्क सूची, कैमरा, आदि) का उपयोग करना</string>
     <string name="crop_pic_failed">कैद की गई छवि, कृपया JPG / PNG प्रारूप चित्र चुनें!</string>
-    <string name="deviceOut"> अनबाउंड डिवाइस</string>
     <string name="visiter"> यह सुविधा विज़िटर मोड में समर्थित नहीं ह</string>
     <string name="chooseJpg">कृपया jpg प्रारूप में एक चित्र चुनें</string>
+    <string name="newVersion">सॉफ्टवेयर का एक नया संस्करण का पता चला है, यह अब अद्यतन किया गया है?</string>
 
     <!--साझाकरण इंटरफ़ेस:-->
     <string name="planOK">आज का लक्ष्य पूरा हो चुका है</string>
@@ -344,9 +332,6 @@
     <string name="passTimeData">पारित दर: %.1f%%</string>
 
     <string name="bloodPressureData">औसत सिस्टोलिक दबाव / डायस्टोलिक दबाव</string>
-    <string name="shareSuccess">सफलता साझा करना</string>
-    <string name="shareCancel">रद्द करना: साझा करना</string>
-    <string name="shareFail">शेयर विफल</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -357,13 +342,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">लोड हो रहा ह</string>
     <string name="progress_dialog_message">कृपया प्रतीक्षा करें&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -375,7 +357,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -386,10 +367,8 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="speedPerHour">"  "</string>
+    <string name="training">" "</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.szip.sportwatch.Contorller.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +13,7 @@ import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.View.CircularImageView;
 
@@ -24,8 +26,8 @@ import java.util.Locale;
 public class SportFragment extends BaseFragment implements View.OnClickListener{
 
     private CircularImageView pictureIv;
-    private TextView userNameTv,distanceTv,speedTv,calorieTv,sportTimeTv,heartTv,strideTv,distanceTv1;
-
+    private TextView userNameTv, dataTv,speedTv,calorieTv,sportTimeTv,heartTv,strideTv,distanceTv1;
+    private ImageView sportTypeIv;
     private MyApplication app;
 
     @Override
@@ -48,6 +50,7 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
     }
 
     private void initEvent() {
+
         getView().findViewById(R.id.pictureIv).setOnClickListener(this);
         getView().findViewById(R.id.userNameTv).setOnClickListener(this);
         getView().findViewById(R.id.historyIv).setOnClickListener(this);
@@ -55,8 +58,9 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
 
     private void initView() {
         pictureIv = getView().findViewById(R.id.pictureIv);
+        sportTypeIv = getView().findViewById(R.id.sportTypeIv);
         userNameTv = getView().findViewById(R.id.userNameTv);
-        distanceTv = getView().findViewById(R.id.dataTv);
+        dataTv = getView().findViewById(R.id.dataTv);
         speedTv = getView().findViewById(R.id.speedTv);
         calorieTv = getView().findViewById(R.id.buttonFirstTv);
         sportTimeTv = getView().findViewById(R.id.buttonSecondTv);
@@ -70,24 +74,91 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
      * */
     private void initData() {
         SportData sportData = LoadDataUtil.newInstance().getBestSportData();
-
-        if (app.getUserInfo().getUnit().equals("metric")){
-            distanceTv1.setText(String.format(Locale.ENGLISH,"%.1f",sportData.distance/1f));
-            distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",sportData.distance/1f));
-            ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
-            ((TextView)getView().findViewById(R.id.deistanceUnitTv)).setText(getString(R.string.distance)+"m)");
+        int typeId = R.mipmap.sport_icon_type;
+        switch (sportData.type){
+            case 1:
+                typeId = R.mipmap.sport_best_walk;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                typeId = R.mipmap.sport_best_run;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                typeId = R.mipmap.sport_best_treadmill;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 4:
+                typeId = R.mipmap.sport_best_type_mountain;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                typeId = R.mipmap.sport_best_marathon;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                typeId = R.mipmap.sport_best_trainingrun;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.VISIBLE);
+                break;
+            case 9:
+                typeId = R.mipmap.sport_best_badminton;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 10:
+                typeId = R.mipmap.sport_best_type_basketball;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 11:
+                typeId = R.mipmap.sport_best_type_bike;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 12:
+                typeId = R.mipmap.sport_best_skiing;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 16:
+                typeId = R.mipmap.sport_best_type_pingpang;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 17:
+                typeId = R.mipmap.sport_best_type_football;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 18:
+                typeId = R.mipmap.sport_best_swim;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 19:
+                typeId = R.mipmap.sport_best_rock;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 20:
+                typeId = R.mipmap.sport_best_boating;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+            case 22:
+                typeId = R.mipmap.sport_best_surfing;
+                getView().findViewById(R.id.bottomLl).setVisibility(View.GONE);
+                break;
+        }
+        sportTypeIv.setImageResource(typeId);
+        dataTv.setText(String.format(Locale.ENGLISH,"%.1f",sportData.calorie/1000f));
+        if (app.getUserInfo().getUnit()==0){
+            distanceTv1.setText(String.format(Locale.ENGLISH,"%.2f",sportData.distance/1000f));
+            ((TextView)getView().findViewById(R.id.deistanceUnitTv)).setText(getString(R.string.distance)+"km)");
         } else{
-            distanceTv1.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance)));
-            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance)));
-            ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+            distanceTv1.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance*10)));
             ((TextView)getView().findViewById(R.id.deistanceUnitTv)).setText(getString(R.string.distance)+"Mi)");
         }
         speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",sportData.speed/60,sportData.speed%60));
-        calorieTv.setText(sportData.calorie+"");
+        calorieTv.setText(String.format(Locale.ENGLISH,"%.1f", sportData.calorie/1000f));
         sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
         heartTv.setText(sportData.heart+"");
         strideTv.setText(sportData.stride+"");
-
+        if (sportData.time!=0)
+            ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/DD HH:mm:ss"));
+        else
+            ((TextView)getView().findViewById(R.id.time)).setText("----/--/-- --:--:--");
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
         else

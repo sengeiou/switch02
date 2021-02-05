@@ -106,6 +106,7 @@ public class MyAlerDialog {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onclickListener.onDialogTouch(false);
                 alertDialog.dismiss();
             }
         });//取消按钮

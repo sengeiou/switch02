@@ -9,13 +9,15 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mediatek.ctrl.notification.NotificationController;
+import com.szip.sportwatch.BLE.BleClient;
+import com.szip.sportwatch.MyApplication;
 
 /**
  * This class will receive and process all new SMS.
  */
 public class SmsService extends BroadcastReceiver {
     // Debugging
-    private static final String TAG = "AppManager/SmsService";
+    private static final String TAG = "SmsServiceSZIP******";
 
     private static final String SMS_RECEIVED = "com.mtk.btnotification.SMS_RECEIVED";
 
@@ -61,8 +63,13 @@ public class SmsService extends BroadcastReceiver {
                         if ((msgbody != null) && (address != null)) {
                             Log.i(TAG, "SmsReceiver(),sendSmsMessage, msgbody = " + msgbody
                                     + ", address = " + address);
-                            NotificationController.getInstance(mContext).sendSmsMessage(msgbody,
-                                    address);
+                            if (MyApplication.getInstance().isMtk()){
+                                NotificationController.getInstance(mContext).sendSmsMessage(msgbody,
+                                        address);
+                            }else {
+                                BleClient.getInstance().writeForSendNotify(msgbody,
+                                        address,0);
+                            }
                             break;
                         }
                     }

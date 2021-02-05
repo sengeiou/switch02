@@ -135,41 +135,34 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "slow"> çok yavaş </string>
     <string name = "higher"> yüksek taraf </string>
     <string name = "flat"> düşük </string>
-    <string name = "head"> bu HeadView </string>
     <string name = "pull_to_refresh"> yenilemek için aşağı çekin </string>
     <string name = "release_to_refresh"> serbest bırak hemen yenile </string>
     <string name = "refreshing"> yenileniyor ... </string>
     <string name = "refresh_succeed"> başarıyla yenileyin </string>
     <string name = "refresh_fail"> yenileme başarısız oldu </string>
-    <string name = "pullup_to_load"> daha fazla yüklemek için yukarı çekin </string>
-    <string name = "release_to_load"> serbest bırak hemen yükle </string>
-    <string name = "load_succeed"> başarıyla yüklendi </string>
-    <string name = "load_fail"> yükleme hatası </string>
-
 
 
     <string name = "best"> Dış mekan koşusu için en iyi rekor </string>
     <string name = "history"> Spor kayıtlarının geçmişi </string>
     <string name = "track"> spor ayrıntıları </string>
-    <string name = "notrack"> hareket izi yok </string>
     <string name = "speed"> hız </string>
     <string name = "kcal"> tüketim (kcal) </string>
     <string name = "time"> süre </string>
-    <string name = "heart_rate"> Nabız (Bpm) </string>
-    <string name = "stride"> Adım frekansı (Adımlar / lar) </string>
+    <string name = "heart_rate"> Nabız (bpm) </string>
+    <string name = "stride">Adım frekansı (spm)</string>
+    <string name="cadence">Adım frekansı</string>
     <string name = "distance"> kilometre (</string>
     <string name = "speedData"> ortalama hız </string>
-    <string name = "kcalData"> spor tüketimi </string>
-    <string name = "timeData"> egzersiz süresi </string>
     <string name = "heart_rateData"> ortalama nabız </string>
     <string name = "strideData"> ortalama adım frekansı </string>
     <string name = "distanceData"> kilometre </string>
     <string name = "basket"> Basketbol </string>
     <string name = "football"> Futbol </string>
     <string name = "pingpong"> ping pong </string>
+    <string name="badminton">Badminton</string>
     <string name = "mountain"> dağcılık </string>
     <string name = "bike"> binicilik </string>
-    <string name = "run"> çalışıyor </string>
+    <string name="swim">Yüzme.</string>
     <string name = "walk"> yaya </string>
     <string name = "treadmill"> koşu bandı </string>
     <string name = "runWithout"> açık havada koşu </string>
@@ -179,7 +172,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "averageShudu"> ortalama hız </string>
     <string name = "boat"> tekne gezintisi </string>
     <string name = "altitude"> rakım </string>
-    <string name = "avarageAltitude"> ortalama rakım </string>
+    <string name = "avarageAltitude">Tırmanma yüksekliği</string>
     <string name = "climb"> Kaya tırmanışı </string>
     <string name = "skii"> Kayak </string>
     <string name = "golf"> Golf </string>
@@ -212,7 +205,6 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "confirm"> Tamam </string>
     <string name = "tip"> bilgi istemi </string>
     <string name = "delete"> Bu alıştırma verilerini silmek istediğinizden emin misiniz? </string>
-    <string name = "unbind"> Bağlamayı kaldırmak istediğinizden emin misiniz? </string>
     <string name = "logoutTip"> Çıkış yapmak istediğinizden emin misiniz? </string>
     <string name = "sendOK"> başarıyla gönderildi </string>
     <string name = "searchDevice"> arama cihazı </string>
@@ -220,15 +212,11 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "connected"> bağlandı </string>
     <string name = "disConnect"> bağlı değil </string>
     <string name = "connectting"> bağlanıyor </string>
-    <string name = "connect"> Cihaz bağlanıyor, lütfen daha sonra tekrar deneyin </string>
     <string name = "syceError"> Saat bağlı değil ve bir sonraki sefer bağlandığında veriler saatle senkronize edilecek </string>
     <string name = "unBind"> ekipmanı değiştir </string>
     <string name = "unline"> bağlantıyı kes </string>
     <string name = "line"> Saate bağlanın </string>
     <string name = "addDevice"> cihaz ekle </string>
-    <string name = "unbindSoon"> Lütfen önce ekipmanın bağlantısını kesin </string>
-    <string name = "lineError"> Birçok kez bağlantı kurulamadı, lütfen telefonun Bluetooth\'unu kapatıp açın veya saati yeniden başlatın </string>
-    <string name = "tipUnit"> Not: Birim sistemi değiştirildikten sonra boy ve ağırlık sıfırlanacaktır. </string>
 
 
     <string name = "step1"> 1. Saat ve cep telefonu arasında Bluetooth eşleştirmesi </string>
@@ -246,6 +234,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
 
     <string name="measureUnit"> Ölçü birimi </string>
+    <string name="tempUnit">Sıcaklık birimi</string>
     <string name = "metric"> Metrik sistem </string>
     <string name = "british"> İngiliz sistemi </string>
 
@@ -275,8 +264,6 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "averageSleep"> ortalama uyku süresi </string>
     <string name = "light"> hafif uyku </string>
     <string name = "deep"> Derin uyku </string>
-    <string name = "lightTable"> sığ </string>
-    <string name = "deepTable"> derin </string>
     <string name = "averageHeart"> ortalama nabız </string>
     <string name = "minHeart"> minimum kalp atış hızı </string>
     <string name = "maxHeart"> maksimum kalp atış hızı </string>
@@ -333,9 +320,10 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "loading"> yükleniyor ... </string>
     <string name = "privacyTip"> Ürünlerimizi kullanmadan önce, lütfen ilgili kullanıcı gizlilik sözleşmelerini dikkatlice okuyun ve tam olarak anlayın. \ n "Tamam" ı tıkladığınızda, anlaşmanın şartlarını kabul etmiş olursunuz. \ nKullanıcı gizlilik politikası esas olarak aşağıdaki içeriği içerir: \ n1. Kişisel bilgilerin (avatar, takma ad, boy, kilo, egzersiz verileri vb.) toplanması, depolanması ve paylaşılması. \ n2. Cihaz izinlerinin kullanımı (konum, adres defteri, kamera vb.) </string>
     <string name = "crop_pic_failed"> resmi engelleyemedi, lütfen jpg formatındaki resmi seçin! </string>
-    <string name = "deviceOut"> bağlı olmayan cihaz </string>
     <string name = "visiter"> Turist modu bu özelliği desteklemiyor </string>
     <string name = "chooseJpg"> Lütfen resimleri jpg biçiminde seçin </string>
+    <string name="newVersion">Yazılımın yeni bir sürümü algılandı, şimdi güncelleştirildi mi?</string>
+
 
     <string name = "planOK"> Bugünün hedefine ulaşıldı </string>
     <string name = "planNO"> Bugünün hedefine ulaşılmadı </string>
@@ -356,9 +344,6 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name = "passTimeData"> geçiş oranı:%.1f%%</string>
 
     <string name = "bloodPressureData"> ortalama sistolik / diyastolik kan basıncı </string>
-    <string name = "shareSuccess"> başarıyla paylaşıldı </string>
-    <string name = "shareCancel"> Paylaşımı iptal et </string>
-    <string name = "shareFail"> Paylaşım başarısız oldu </string>
 
     <!-- Tara ve Bağlan -->
     <string name="connect_error">Bağlantı Hatası</string>
@@ -369,13 +354,10 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
     <!-- Aktivite Ayarlama -->
     <string name="sms_preference_title">SMS hizmeti</string>
-    <string name="call_preference_title">Arama servisi</string>
     <string name="progress_dialog_title">Yükleniyor</string>
     <string name="progress_dialog_message">Lütfen bekle&#8230;</string>
 
     <!-- Bildirim Etkinliği Seçin -->
-    <string name="personal_apps_title">Kişisel uygulama</string>
-    <string name="system_apps_title">Sistem uygulaması</string>
 
 
     <!-- Hizmet -->
@@ -388,7 +370,6 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
 
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -399,10 +380,9 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Uygulamanın düzgün çalıştığından emin olmak için telefonunuzun konum anahtarının açık olmadığı algılandı, böylece konum anahtarını açın.</string>
+    <string name="speedPerHour">Hız</string>
+    <string name="training">Tren çalıştırmak için</string>
 
 </resources>

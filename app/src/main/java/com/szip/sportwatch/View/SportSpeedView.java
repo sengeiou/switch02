@@ -20,20 +20,24 @@ import com.szip.sportwatch.Util.MathUitl;
 
 import androidx.annotation.Nullable;
 
+import org.w3c.dom.Text;
+
 public class SportSpeedView extends View {
 
     private int width,height;//本页面宽，高
 
     private float textWidth = 0, textHeight = 0;//文字宽高
+    private float textWidth1 = 0, textHeight1 = 0;//文字宽高
 
     private Paint textPaint = new Paint();//X坐标画笔
+    private Paint textPaint1 = new Paint();//X坐标画笔
     private Paint backPaint = new Paint();//折线图画笔
     private Paint linePaint = new Paint();//折线图画笔
 
 
     private float textSize = 20;//字体大小
 
-    private int maxValue = 100;//最高的数据
+    private int maxValue = 1200;//最高的数据
     private int mBarWidth = 50;//柱状图宽度
     private int mInterval = 20;//柱状图间隔
     private int[] datas;//数据
@@ -54,15 +58,21 @@ public class SportSpeedView extends View {
     private void initView(){
 
 
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(textSize);
+        textPaint.setColor(Color.parseColor("#000000"));
+        textPaint.setStrokeWidth(10);
+        textPaint.setTextSize(30);
+
+
+        textPaint1.setColor(Color.parseColor("#ffffff"));
+        textPaint1.setStrokeWidth(10);
+        textPaint1.setTextSize(30);
 
         backPaint = new Paint();
         backPaint.setAntiAlias(true);
         backPaint.setStyle(Paint.Style.STROKE);
         backPaint.setStrokeCap(Paint.Cap.ROUND);
         backPaint.setStrokeWidth(mBarWidth);
-        backPaint.setColor(0xFFCECFD8);
+        backPaint.setColor(0x88CECFD8);
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
@@ -109,44 +119,53 @@ public class SportSpeedView extends View {
         if (datas.length!=0){
             for (int i = 0;i<datas.length;i++){
 
+                String speedStr = String.format("%02d'%02d''",datas[i]/60,datas[i]%60);
+                String numStr = (datas.length-(i+1))<=0?"<1":String.format("%d",datas.length-(i+1));
+                textWidth = textPaint.measureText(speedStr);
+                textWidth1 = textPaint1.measureText(numStr);
                 Path path = new Path();
                 path.moveTo(0+mBarWidth/2, (mBarWidth+mInterval)*i+mBarWidth/2);
-                path.lineTo(width-mBarWidth/2, (mBarWidth+mInterval)*i+mBarWidth/2);
+                path.lineTo(width-mBarWidth/2-textWidth, (mBarWidth+mInterval)*i+mBarWidth/2);
                 canvas.drawPath(path, backPaint);
 
                 path = new Path();
                 Shader mShader = new LinearGradient(0, mBarWidth, width*(datas[i]/(float)maxValue), mBarWidth,
-
                         new int[] { 0xFF2AD697, 0xFF08ADE9},
-
                         null, Shader.TileMode.REPEAT);
                 linePaint.setShader(mShader);
                 path.moveTo(0+mBarWidth/2, (mBarWidth+mInterval)*i+mBarWidth/2);
-                path.lineTo(width*(datas[i]/(float)maxValue)-mBarWidth/2, (mBarWidth+mInterval)*i+mBarWidth/2);
+                path.lineTo((width-textWidth)*(datas[i]/(float)maxValue)-mBarWidth/2, (mBarWidth+mInterval)*i+mBarWidth/2);
                 canvas.drawPath(path, linePaint);
+
+
+                canvas.drawText(speedStr,width-textWidth,(mBarWidth+mInterval)*i+35,
+                        textPaint);
+
+                canvas.drawText(numStr,textWidth1,(mBarWidth+mInterval)*i+35,
+                        textPaint1);
 
             }
         }
-
     }
-
 
     /**
      * 添加数据
      * */
     public void addData(String[] list){
         if (list!=null&&list.length!=0){
-            datas = new int[list.length];
-            for (int i = 0;i<list.length;i++){
-                datas[i] = Integer.valueOf(list[i]);
+            if (list.length==1&&list[0].equals("")){
+                datas = new int[0];
+            }else {
+                datas = new int[list.length];
+                for (int i = 0;i<list.length;i++){
+                    datas[i] = Integer.valueOf(list[i]);
                     if (datas[i]>maxValue)
                         maxValue = datas[i];
+                }
             }
         } else {
             datas = new int[0];
         }
         postInvalidate();
     }
-
-
 }

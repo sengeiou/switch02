@@ -135,40 +135,34 @@
     <string name = "slow"> zu langsam </string>
     <string name = "higher"> hohe Seite </string>
     <string name = "flat"> low </string>
-    <string name = "head"> Dies ist HeadView </string>
     <string name = "pull_to_refresh"> Zum Aktualisieren nach unten ziehen </string>
     <string name = "release_to_refresh"> sofort aktualisieren </string>
     <string name = "refreshing"> wird aktualisiert ... </string>
     <string name = "refresh_succeed"> erfolgreich aktualisieren </string>
     <string name = "refresh_fail"> Aktualisierung fehlgeschlagen </string>
-    <string name = "pullup_to_load"> hochziehen, um mehr zu laden </string>
-    <string name = "release_to_load"> sofort freigeben </string>
-    <string name = "load_succeed"> erfolgreich geladen </string>
-    <string name = "load_fail"> Ladefehler </string>
 
 
     <string name = "best"> Bester Rekord für das Laufen im Freien </string>
     <string name = "history"> Verlauf der Sportaufzeichnungen </string>
     <string name = "track"> Sportdetails </string>
-    <string name = "notrack"> keine Bewegungsspur </string>
     <string name = "speed"> Tempo </string>
     <string name = "kcal"> Verbrauch (kcal) </string>
     <string name = "time"> Dauer </string>
-    <string name = "heart_rate"> Herzfrequenz (Bpm) </string>
-    <string name = "stride"> Schrittfrequenz (Schritte / s) </string>
+    <string name = "heart_rate"> Herzfrequenz (bpm) </string>
+    <string name = "stride">Schrittfrequenz (spm)</string>
+    <string name="cadence">Schrittfrequenz</string>
     <string name = "distance"> Kilometerstand (</string>
     <string name = "speedData"> durchschnittliches Tempo </string>
-    <string name = "kcalData"> Sportkonsum </string>
-    <string name = "timeData"> Übungsdauer </string>
     <string name = "heart_rateData"> durchschnittliche Herzfrequenz </string>
     <string name = "strideData"> durchschnittliche Schrittfrequenz </string>
     <string name = "distanceData"> Kilometerstand </string>
     <string name = "basket"> Basketball </string>
     <string name = "football"> Fußball </string>
     <string name = "pingpong"> Tischtennis </string>
+    <string name="badminton">Das gefiederte teil</string>
     <string name = "mountain"> Bergsteigen </string>
     <string name = "bike"> fahren </string>
-    <string name = "run"> wird ausgeführt </string>
+    <string name="swim">schwimmen</string>
     <string name = "walk"> zu Fuß </string>
     <string name = "treadmill"> Laufband </string>
     <string name = "runWithout"> Laufen im Freien </string>
@@ -178,7 +172,7 @@
     <string name = "averageShudu"> Durchschnittsgeschwindigkeit </string>
     <string name = "boat"> Bootfahren </string>
     <string name = "altitude"> Höhe </string>
-    <string name = "avarageAltitude"> durchschnittliche Höhe </string>
+    <string name = "avarageAltitude">Steigen sie wieder hoch!</string>
     <string name = "climb"> Klettern </string>
     <string name = "skii"> Skifahren </string>
     <string name = "golf"> Golf </string>
@@ -211,7 +205,6 @@
     <string name = "confirm"> OK </string>
     <string name = "tip"> Eingabeaufforderung </string>
     <string name = "delete"> Möchten Sie diese Übungsdaten wirklich löschen? </string>
-    <string name = "unbind"> Möchten Sie wirklich die Bindung aufheben? </string>
     <string name = "logoutTip"> Möchten Sie sich wirklich abmelden? </string>
     <string name = "sendOK"> erfolgreich gesendet </string>
     <string name = "searchDevice"> Suchgerät </string>
@@ -219,16 +212,12 @@
     <string name = "connected"> wurde verbunden </string>
     <string name = "disConnect"> nicht verbunden </string>
     <string name = "connectting"> verbindet </string>
-    <string name = "connect"> Das Gerät stellt eine Verbindung her. Bitte versuchen Sie es später erneut. </string>
     <string name = "syceError"> Die Uhr ist nicht verbunden und die Daten werden mit der Uhr synchronisiert, wenn sie das nächste Mal verbunden wird </string>
     <string name = "unBind"> Gerät wechseln </string>
     <string name = "unline"> trennen </string>
     <string name = "line"> Stellen Sie eine Verbindung zur Uhr her </string>
     <string name = "addDevice"> Gerät hinzufügen </string>
-    <string name = "unbindSoon"> Bitte lösen Sie zuerst das Gerät </string>
-    <string name = "lineError"> Die Verbindung konnte mehrmals nicht hergestellt werden. Schalten Sie das Bluetooth des Telefons aus und wieder ein oder starten Sie die Uhr </string> neu
-    <string name = "tipUnit"> Hinweis: Die Größe und das Gewicht werden nach dem Umschalten des Einheitensystems zurückgesetzt. </string>
-
+    neu
 
 
     <string name = "step1"> 1. Bluetooth-Kopplung zwischen Uhr und Mobiltelefon </string>
@@ -246,6 +235,7 @@
 
 
     <string name="measureUnit"> Maßeinheit </string>
+    <string name="tempUnit">Jede temperatureinheit</string>
     <string name = "metric"> Metriksystem </string>
     <string name = "british"> Britisches System </string>
 
@@ -275,8 +265,6 @@
     <string name = "averageSleep"> durchschnittliche Schlafzeit </string>
     <string name = "light"> leichter Schlaf </string>
     <string name = "deep"> Tiefschlaf </string>
-    <string name = "lightTable"> Flach </string>
-    <string name = "deepTable"> Tiefschlaf </string>
     <string name = "averageHeart"> herzfrequenz </string>
     <string name = "minHeart"> minimale Herzfrequenz </string>
     <string name = "maxHeart"> maximale Herzfrequenz </string>
@@ -332,9 +320,10 @@
     <string name = "loading"> Laden ... </string>
     <string name = "privacyTip"> Bevor Sie unsere Produkte verwenden, lesen Sie bitte die relevanten Datenschutzvereinbarungen für Benutzer sorgfältig durch und verstehen Sie sie vollständig. \ nWenn Sie auf "OK" klicken, bedeutet dies, dass Sie den Bedingungen der Vereinbarung zugestimmt haben. \ nDie Datenschutzrichtlinie für Benutzer umfasst hauptsächlich den folgenden Inhalt: \ n1. Erfassung, Speicherung und Weitergabe persönlicher Informationen (Avatar, Spitzname, Größe, Gewicht, Trainingsdaten usw.). \ n2. Verwendung von Geräteberechtigungen (Standort, Adressbuch, Kamera usw.) </string>
     <string name = "crop_pic_failed"> konnte das Bild nicht abfangen, bitte wählen Sie das Bild im JPG-Format aus! </string>
-    <string name = "deviceOut"> ungebundenes Gerät </string>
     <string name = "visiter"> Der Touristenmodus unterstützt diese Funktion nicht </string>
     <string name = "chooseJpg"> Bitte wählen Sie Bilder im JPG-Format </string>
+    <string name="newVersion">Gibt es neue versionen? Ist das ein update?</string>
+
 
     <string name = "planOK"> Das heutige Ziel wurde erreicht </string>
     <string name = "planNO"> Das heutige Ziel wird nicht erreicht </string>
@@ -355,9 +344,6 @@
     <string name = "passTimeData"> Erfolgsrate:% .1f %% </string>
 
     <string name = "bloodPressureData"> durchschnittlicher systolischer / diastolischer Blutdruck </string>
-    <string name = "shareSuccess"> erfolgreich freigegeben </string>
-    <string name = "shareCancel"> Freigabe abbrechen </string>
-    <string name = "shareFail"> Freigabe fehlgeschlagen </string>
 
     <!-- Scannen und verbinden -->
     <string name="connect_error">Verbindungsfehler</string>
@@ -368,13 +354,10 @@
 
     <!-- Aktivität einstellen -->
     <string name="sms_preference_title">SMS-Dienst</string>
-    <string name="call_preference_title">Rufen Sie den Service an</string>
     <string name="progress_dialog_title">Wird geladen</string>
     <string name="progress_dialog_message">Warten Sie mal&#8230;</string>
 
     <!-- Wählen Sie Aktivität benachrichtigen -->
-    <string name="personal_apps_title">Persönliche App</string>
-    <string name="system_apps_title">System App</string>
 
 
     <!-- Bedienung -->
@@ -387,7 +370,6 @@
 
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -398,10 +380,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Das GPS ihres handys ist noch nicht an. Um sicherzustellen, dass die anwendung richtig läuft, stellen sie den navigationsbereich an.</string>
+    <string name="speedPerHour">Geschwindigkeit.</string>
+    <string name="training">Trainer. Lauftraining.</string>
 
 </resources>

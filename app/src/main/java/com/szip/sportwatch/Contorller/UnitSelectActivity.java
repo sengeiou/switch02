@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.UserInfo;
@@ -13,6 +14,7 @@ import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
@@ -25,9 +27,10 @@ import static com.szip.sportwatch.Util.HttpMessgeUtil.UPDATA_USERINFO;
 public class UnitSelectActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
     private MyApplication app;
-    private RadioGroup unitRg;
+    private RadioGroup unitRg,tempRg;
 
-    private String unit;//单位制式
+    private int unit;//单位制式
+    private int temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +57,20 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
         StatusBarCompat.translucentStatusBar(UnitSelectActivity.this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.unit));
         unitRg = findViewById(R.id.unitRg);
-        if (app.getUserInfo().getUnit().equals("metric")){
-            unit = "metric";
+        tempRg = findViewById(R.id.tempRg);
+        unit = app.getUserInfo().getUnit();
+        if (app.getUserInfo().getUnit()==0){
             unitRg.check(R.id.metricRb);
         }else {
-            unit = "british";
             unitRg.check(R.id.britishRb);
         }
 
-
+        temp = app.getUserInfo().getTempUnit();
+        if (app.getUserInfo().getTempUnit()==0){
+            tempRg.check(R.id.cRb);
+        }else {
+            tempRg.check(R.id.fRb);
+        }
     }
 
     private void initEvent() {
@@ -72,6 +80,10 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.britishTv).setOnClickListener(this);
         findViewById(R.id.metricRb).setOnClickListener(this);
         findViewById(R.id.britishRb).setOnClickListener(this);
+        findViewById(R.id.cTv).setOnClickListener(this);
+        findViewById(R.id.cRb).setOnClickListener(this);
+        findViewById(R.id.fTv).setOnClickListener(this);
+        findViewById(R.id.fRb).setOnClickListener(this);
     }
 
     @Override
@@ -83,32 +95,38 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
             case R.id.metricTv:
             case R.id.metricRb:
                 unitRg.check(R.id.metricRb);
-                unit = "metric";
+                unit = 0;
                 break;
             case R.id.britishTv:
             case R.id.britishRb:
                 unitRg.check(R.id.britishRb);
-                unit = "british";
+                unit = 1;
+                break;
+            case R.id.cTv:
+            case R.id.cRb:
+                tempRg.check(R.id.cRb);
+                temp = 0;
+                break;
+            case R.id.fTv:
+            case R.id.fRb:
+                tempRg.check(R.id.fRb);
+                temp = 1;
                 break;
             case R.id.rightIv:
-                Log.d("SZIP******","UNIT = "+unit+" ;unit = "+app.getUserInfo().getUnit());
-                if (unit.equals(app.getUserInfo().getUnit())){
+                LogUtil.getInstance().logd("SZIP******","UNIT = "+unit+" ;unit = "+app.getUserInfo().getUnit());
+                if (unit==app.getUserInfo().getUnit() && temp == app.getUserInfo().getTempUnit()){
                     showToast(getString(R.string.saved));
                     finish();
                 }else {//如果制式发生变化，则清空原来的数据
-                    UserInfo userInfo = app.getUserInfo();
                     HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
                     ProgressHudModel.newInstance().show(UnitSelectActivity.this,getString(R.string.waitting),getString(R.string.httpError),
                             3000);
                     try {
-                        HttpMessgeUtil.getInstance(this).postForSetUnit(unit);
-                        HttpMessgeUtil.getInstance(this).postForSetUserInfo(userInfo.getUserName(),
-                                userInfo.getSex()+"", userInfo.getBirthday(), null, null);
+                        HttpMessgeUtil.getInstance(this).postForSetUnit(unit+"",temp+"");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
                 break;
         }
     }
@@ -121,13 +139,15 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
         else {
             showToast(getString(R.string.saved));
             app.getUserInfo().setUnit(unit);
-            app.getUserInfo().setHeight(null);
-            app.getUserInfo().setWeight(null);
+            app.getUserInfo().setTempUnit(temp);
             MathUitl.saveInfoData(UnitSelectActivity.this,app.getUserInfo()).commit();
             if (MainService.getInstance().getState()!=3){
                 showToast(getString(R.string.syceError));
             }else {
-                EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+                if(app.isMtk())
+                    EXCDController.getInstance().writeForSetUnit(app.getUserInfo());
+                else
+                    BleClient.getInstance().writeForSetUnit();
             }
         }
     }

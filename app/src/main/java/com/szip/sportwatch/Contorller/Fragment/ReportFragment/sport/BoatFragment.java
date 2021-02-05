@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
@@ -15,9 +16,12 @@ import java.util.Locale;
 
 public class BoatFragment extends BaseFragment {
 
-    private TextView timeTv,dataTv,distanceTv,unitTv,heartTv, averageTv1;
-    private SportReportView tableView1;
+    private TextView timeTv,sportTimeTv,kcalTv,distanceTv,unitTv, averageTv1,averageTv2;
+    private SportReportView tableView1,tableView2;
     private SportData sportData;
+
+    private String[] heartArray = new String[0];
+    private String[] speedPerHourArray = new String[0];
 
 
     public BoatFragment(SportData sportData) {
@@ -37,26 +41,35 @@ public class BoatFragment extends BaseFragment {
 
     private void initView() {
         timeTv = getView().findViewById(R.id.timeTv);
-        dataTv = getView().findViewById(R.id.dataTv);
+        sportTimeTv = getView().findViewById(R.id.sportTimeTv);
         distanceTv = getView().findViewById(R.id.distanceTv);
         unitTv = getView().findViewById(R.id.unitTv);
-        heartTv = getView().findViewById(R.id.heartTv);
-        averageTv1 = getView().findViewById(R.id.averageTv1);
+        kcalTv = getView().findViewById(R.id.kcalTv);
         tableView1 = getView().findViewById(R.id.tableView1);
+        tableView2 = getView().findViewById(R.id.tableView2);
+        averageTv1 = getView().findViewById(R.id.averageTv1);
+        averageTv2 = getView().findViewById(R.id.averageTv2);
     }
 
     private void initData() {
+        heartArray = sportData.getHeartArray().split(",");
+        speedPerHourArray = sportData.getSpeedPerHourArray().split(",");
+
         timeTv.setText(DateUtil.getStringDateFromSecond(sportData.time,"MM/dd HH:mm:ss"));
-        dataTv.setText(sportData.step+"");
-        if (MyApplication.getInstance().getUserInfo().getUnit().equals("metric")){
+        sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportData.sportTime/3600,
+                sportData.sportTime%3600/60,sportData.sportTime%3600%60));
+        if (MyApplication.getInstance().getUserInfo().getUnit()==0){
             distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",sportData.distance/1000f));
             unitTv.setText("km");
         } else{
-            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance)));
-            unitTv.setText("Mi");
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance*10)));
+            unitTv.setText("mile");
         }
-        heartTv.setText(sportData.heart+"");
+        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f", sportData.calorie/1000f));
         averageTv1.setText(sportData.heart+"");
-        tableView1.addData(sportData.heartArray.equals("")?null:sportData.heartArray.split(","));
+        averageTv2.setText(String.format(Locale.ENGLISH,"%.1f",sportData.speedPerHour/10f));
+
+        tableView1.addData(heartArray);
+        tableView2.addData(speedPerHourArray);
     }
 }

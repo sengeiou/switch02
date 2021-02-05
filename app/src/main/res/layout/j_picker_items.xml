@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:gravity="right"
+            android:gravity="end"
             android:textStyle="bold"
             android:paddingTop="2dp"/>
 
@@ -50,7 +50,7 @@
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:gravity="right"
+            android:gravity="end"
             android:textStyle="bold"
             android:paddingTop="2dp" />
 

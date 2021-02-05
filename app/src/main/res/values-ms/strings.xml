@@ -135,41 +135,34 @@
     <string name = "slow"> terlalu perlahan </string>
     <string name = "higher"> sisi tinggi </string>
     <string name = "flat"> rendah </string>
-    <string name = "head"> ini adalah HeadView </string>
     <string name = "pull_to_refresh"> tarik ke bawah untuk memuat semula </string>
     <string name = "release_to_refresh"> lepaskan segera muat semula </string>
     <string name = "refreshing"> menyegarkan ... </string>
     <string name = "refresh_succeed"> berjaya disegarkan </string>
     <string name = "refresh_fail"> penyegaran gagal </string>
-    <string name = "pullup_to_load"> tarik ke atas untuk memuatkan lebih banyak </string>
-    <string name = "release_to_load"> lepaskan segera muatkan </string>
-    <string name = "load_succeed"> berjaya dimuat </string>
-    <string name = "load_fail"> kegagalan muat </string>
-
 
 
     <string name = "best"> Rekod terbaik untuk larian luar </string>
     <string name = "history"> Sejarah rekod sukan </string>
     <string name = "track"> butiran sukan </string>
-    <string name = "notrack"> tanpa jejak pergerakan </string>
     <string name = "speed"> laju </string>
     <string name = "kcal"> Penggunaan (kcal) </string>
     <string name = "time"> durasi </string>
-    <string name = "heart_rate"> Denyut jantung (Bpm) </string>
-    <string name = "stride"> Kekerapan langkah (Langkah / langkah) </string>
+    <string name = "heart_rate"> Denyut jantung (bpm) </string>
+    <string name = "stride">Kekerapan langkah (spm)</string>
+    <string name="cadence">Kekerapan langkah</string>
     <string name = "distance"> jarak tempuh (</string>
     <string name = "speedData"> kecepatan rata-rata </string>
-    <string name = "kcalData"> penggunaan sukan </string>
-    <string name = "timeData"> tempoh latihan </string>
     <string name = "heart_rateData"> kadar denyutan jantung rata-rata </string>
     <string name = "strideData"> rata-rata frekuensi langkah </string>
     <string name = "distanceData"> jarak tempuh </string>
     <string name = "basket"> Bola Keranjang </string>
     <string name = "football"> Bola Sepak </string>
     <string name = "pingpong"> ping pong </string>
+    <string name = "badminton">Badminton</string>
     <string name = "mountain"> pendakian gunung </string>
     <string name = "bike"> menunggang </string>
-    <string name = "run"> berjalan </string>
+    <string name="swim">Berenang.</string>
     <string name = "walk"> dengan berjalan kaki </string>
     <string name = "treadmill"> treadmill </string>
     <string name = "runWithout"> larian luar </string>
@@ -179,7 +172,7 @@
     <string name = "averageShudu"> kelajuan purata </string>
     <string name = "boat"> berperahu </string>
     <string name = "altitude"> ketinggian </string>
-    <string name = "avarageAltitude"> ketinggian rata-rata </string>
+    <string name = "avarageAltitude">Ketinggian pendakian</string>
     <string name = "climb"> Panjat tebing </string>
     <string name = "skii"> Bermain ski </string>
     <string name = "golf"> Golf </string>
@@ -212,7 +205,6 @@
     <string name = "confirm"> Baik </string>
     <string name = "tip"> prompt </string>
     <string name = "delete"> Adakah anda pasti mahu memadamkan data latihan ini? </string>
-    <string name = "unbind"> Adakah anda pasti mahu melepaskannya? </string>
     <string name = "logoutTip"> Adakah anda pasti mahu keluar? </string>
     <string name = "sendOK"> berjaya dihantar </string>
     <string name = "searchDevice"> cari peranti </string>
@@ -220,16 +212,11 @@
     <string name = "connected"> telah disambungkan </string>
     <string name = "disConnect"> tidak disambungkan </string>
     <string name = "connectting"> sedang bersambung </string>
-    <string name = "connect"> Peranti sedang disambungkan, sila cuba lagi nanti </string>
     <string name = "syceError"> Jam tidak disambungkan, dan data akan disegerakkan ke jam tangan ketika disambungkan lain kali </string>
     <string name = "unBind"> tukar peralatan </string>
     <string name = "unline"> putuskan sambungan </string>
     <string name = "line"> Sambungkan ke jam tangan </string>
     <string name = "addDevice"> tambahkan peranti </string>
-    <string name = "unbindSoon"> Tolong lepaskan peralatan terlebih dahulu </string>
-    <string name = "lineError"> Gagal menyambung berkali-kali, sila matikan dan hidupkan Bluetooth telefon atau mulakan semula jam tangan </string>
-    <string name = "tipUnit"> Catatan: Ketinggian dan berat akan diset semula setelah menukar sistem unit. </string>
-
 
 
     <string name = "step1"> 1. Pasangan Bluetooth antara jam tangan dan telefon bimbit </string>
@@ -247,6 +234,7 @@
 
 
     <string name="measureUnit"> Unit pengukuran </string>
+    <string name="tempUnit">Unit suhu</string>
     <string name = "metric"> Sistem metrik </string>
     <string name = "british"> Sistem Inggeris </string>
 
@@ -276,8 +264,6 @@
     <string name = "averageSleep"> rata-rata waktu tidur </string>
     <string name = "light"> tidur ringan </string>
     <string name = "deep"> Tidur nyenyak </string>
-    <string name = "lightTable"> dangkal </string>
-    <string name = "deepTable"> dalam </string>
     <string name = "averageHeart"> degupan jantung rata-rata </string>
     <string name = "minHeart"> denyut jantung minimum </string>
     <string name = "maxHeart"> denyut jantung maksimum </string>
@@ -332,9 +318,10 @@
     <string name = "loading"> memuat ... </string>
     <string name = "privacyTip"> Sebelum anda menggunakan produk kami, sila baca dengan teliti dan fahami sepenuhnya perjanjian privasi pengguna yang berkaitan. \ nBila anda mengklik "OK", ini bermaksud bahawa anda telah bersetuju dengan syarat-syarat perjanjian. \ n Dasar privasi pengguna terutamanya merangkumi kandungan berikut: \ n1. Pengumpulan, penyimpanan dan perkongsian maklumat peribadi (avatar, nama panggilan, tinggi, berat badan, data latihan, dll.). \ n2. Penggunaan izin perangkat (lokasi, buku alamat, kamera, dll.) </string>
     <string name = "crop_pic_failed"> gagal memintas gambar, sila pilih gambar format jpg! </string>
-    <string name = "deviceOut"> peranti yang tidak terikat </string>
     <string name = "visiter"> Mod pelancongan tidak menyokong ciri ini </string>
     <string name = "chooseJpg"> Sila pilih gambar dalam format jpg </string>
+    <string name="newVersion">Versi baru perisian telah dikesan, adakah ia dikemaskini sekarang?</string>
+
 
     <string name = "planOK"> Matlamat hari ini telah tercapai </string>
     <string name = "planNO"> Matlamat hari ini tidak tercapai </string>
@@ -355,9 +342,6 @@
     <string name = "passTimeData"> kadar lulus:% .1f %% </string>
 
     <string name = "bloodPressureData"> tekanan darah sistolik / diastolik rata-rata </string>
-    <string name = "shareSuccess"> berjaya dikongsi </string>
-    <string name = "shareCancel"> Batalkan perkongsian </string>
-    <string name = "shareFail"> Perkongsian gagal </string>
 
 
     <string name = "connect_error"> Ralat Sambungan </string>
@@ -367,13 +351,10 @@
 
     <!-- MenetapkanAktiviti -->
     <string name="sms_preference_title">Perkhidmatan SMS</string>
-    <string name="call_preference_title">Perkhidmatan panggilan</string>
     <string name="progress_dialog_title">Memuatkan</string>
     <string name="progress_dialog_message">Sila tunggu&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Aplikasi peribadi</string>
-    <string name="system_apps_title">Aplikasi sistem</string>
 
 
     <!-- Perkhidmatan -->
@@ -386,7 +367,6 @@
 
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -397,10 +377,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Suis kedudukan telefon anda telah dikesan tidak dihidupkan, supaya memastikan apl berfungsi dengan betul, hidupkan suis kedudukan.</string>
+    <string name="speedPerHour">Kelajuan</string>
+    <string name="training">Kereta api untuk berlari</string>
 
 </resources>

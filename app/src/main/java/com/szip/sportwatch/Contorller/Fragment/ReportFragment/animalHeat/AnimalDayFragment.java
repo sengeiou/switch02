@@ -7,16 +7,17 @@ import android.widget.TextView;
 
 import com.szip.sportwatch.Adapter.BloodAdapter;
 import com.szip.sportwatch.Contorller.AnimalHeatActivity;
-import com.szip.sportwatch.Contorller.AnimalHeatActivity;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.OnPageViewScorllAble;
 import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.View.ReportScorllView;
+import com.szip.sportwatch.View.ReportTableView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +36,7 @@ public class AnimalDayFragment extends BaseFragment implements View.OnClickListe
     private BloodAdapter adapter;
 
     private ReportDataBean reportDataBean;
+    private ReportTableView tempReport;
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +88,12 @@ public class AnimalDayFragment extends BaseFragment implements View.OnClickListe
     private void initView() {
         reportScorllView = getView().findViewById(R.id.reportView);
         reportScorllView.setOnPageViewScorllAble(this);
+        tempReport = getView().findViewById(R.id.tempReport);
+        if (MyApplication.getInstance().getUserInfo().getTempUnit()==0){
+            tempReport.setF(false);
+        }else {
+            tempReport.setF(true);
+        }
         listView = getView().findViewById(R.id.dataList);
         adapter = new BloodAdapter(reportDataBean.getDrawDataBeans(),2,getContext());
         listView.setAdapter(adapter);

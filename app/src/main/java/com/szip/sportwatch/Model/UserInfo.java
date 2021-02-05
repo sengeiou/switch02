@@ -16,14 +16,17 @@ public class UserInfo {
     private int sex;
     private String birthday;
     private String nation;
-    private String unit = "metric";
-    private String height;
-    private String weight;
+    private int unit;
+    private int height;
+    private int weight;
+    private int heightBritish;
+    private int weightBritish;
     private String blood;
     private String deviceCode;
     private String bindId;
     private int stepsPlan;
     private int sleepPlan;
+    private int tempUnit;
 
 
     public String getBindId() {
@@ -114,27 +117,27 @@ public class UserInfo {
         this.nation = nation;
     }
 
-    public String getUnit() {
+    public int getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(int unit) {
         this.unit = unit;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -176,5 +179,29 @@ public class UserInfo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTempUnit() {
+        return tempUnit;
+    }
+
+    public void setTempUnit(int tempUnit) {
+        this.tempUnit = tempUnit;
+    }
+
+    public int getHeightBritish() {
+        return heightBritish;
+    }
+
+    public void setHeightBritish(int heightBritish) {
+        this.heightBritish = heightBritish;
+    }
+
+    public int getWeightBritish() {
+        return weightBritish;
+    }
+
+    public void setWeightBritish(int weightBritish) {
+        this.weightBritish = weightBritish;
     }
 }

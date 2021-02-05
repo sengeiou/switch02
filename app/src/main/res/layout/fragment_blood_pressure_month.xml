@@ -13,8 +13,8 @@
         android:orientation="vertical"
         android:layout_weight="3"
         android:layout_marginTop="@dimen/report_margin"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin"
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin"
         android:background="@drawable/bg_report_green">
 
         <LinearLayout
@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp">
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#9ee6ef"
-                android:layout_marginLeft="@dimen/report_margin"
+                android:layout_marginStart="@dimen/report_margin"
                 android:text="@string/dbp"
                 android:textSize="13sp"/>
 
@@ -79,8 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/report_margin"
-            android:layout_marginRight="@dimen/report_margin_table_parallel"
-            android:layout_marginLeft="@dimen/report_margin_table_parallel"
+            android:layout_marginEnd="@dimen/report_margin_table_parallel"
+            android:layout_marginStart="@dimen/report_margin_table_parallel"
             app:flag="4"
             app:is_bar="true"
             app:bar_bg_color="#6fc4ed"
@@ -116,8 +116,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/report_margin"
-            android:layout_marginLeft="@dimen/report_margin"
+            android:layout_marginEnd="@dimen/report_margin"
+            android:layout_marginStart="@dimen/report_margin"
             android:background="@drawable/bg_item_normal">
 
             <RelativeLayout

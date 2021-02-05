@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/dailRl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:paddingRight="15dp">
+        android:layout_gravity="center"
+        android:paddingEnd="15dp">
 
         <View
             android:layout_width="100dp"
@@ -31,6 +30,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/select_view"/>
-    </RelativeLayout>
+    </FrameLayout>
 
-</RelativeLayout>
+</FrameLayout>

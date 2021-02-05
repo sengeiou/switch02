@@ -14,8 +14,8 @@
         android:background="@drawable/bg_report_blue"
         android:layout_weight="3"
         android:layout_marginTop="@dimen/report_margin"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin">
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/report_margin_parallel">
+            android:layout_marginStart="@dimen/report_margin_parallel">
 
 
             <TextView
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/report_margin_parallel"
+            android:layout_marginStart="@dimen/report_margin_parallel"
             android:textSize="@dimen/report_text_size_small"
             android:textColor="@color/white"
             android:text="@string/allStep"/>
@@ -117,8 +117,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/report_margin"
-            android:layout_marginLeft="@dimen/report_margin"
+            android:layout_marginEnd="@dimen/report_margin"
+            android:layout_marginStart="@dimen/report_margin"
             android:background="@drawable/bg_item_normal">
 
             <RelativeLayout
@@ -134,15 +134,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/steps_icon_cal"
-                    android:layout_marginLeft="@dimen/report_margin_parallel"
-                    android:layout_marginRight="@dimen/report_margin_parallel"
+                    android:layout_marginStart="@dimen/report_margin_parallel"
+                    android:layout_marginEnd="@dimen/report_margin_parallel"
                     android:layout_centerVertical="true"/>
 
                 <TextView
                     android:id="@+id/kcalTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/image"
+                    android:layout_toEndOf="@id/image"
                     android:textStyle="bold"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/report_text_size_mid"
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/image"
+                    android:layout_toEndOf="@+id/image"
                     android:layout_below="@id/kcalTv"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/report_text_size_small"
@@ -179,15 +179,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/steps_icon_distance"
-                    android:layout_marginLeft="@dimen/report_margin_parallel"
-                    android:layout_marginRight="@dimen/report_margin_parallel"
+                    android:layout_marginStart="@dimen/report_margin_parallel"
+                    android:layout_marginEnd="@dimen/report_margin_parallel"
                     android:layout_centerVertical="true"/>
 
                 <TextView
                     android:id="@+id/dataTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/image1"
+                    android:layout_toEndOf="@id/image1"
                     android:textStyle="bold"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/report_text_size_mid"
@@ -197,7 +197,7 @@
                     android:id="@+id/unitTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/image1"
+                    android:layout_toEndOf="@+id/image1"
                     android:layout_below="@id/dataTv"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/report_text_size_small"

@@ -147,41 +147,35 @@
     <string name="slow">איטי מדי.</string>
     <string name="higher">בצד הגבוה</string>
     <string name="flat">בצד הנמוך</string>
-    <string name="head">זהו מבט ראשי</string>
     <string name="pull_to_refresh">תוריד את החדשה</string>
     <string name="release_to_refresh">שחרר החדשה עכשיו</string>
     <string name="refreshing">מחדש</string>
     <string name="refresh_succeed">החדשה הצליחה</string>
     <string name="refresh_fail">החדשה נכשלה</string>
-    <string name="pullup_to_load">תמשוך למעלה כדי לטעון יותר</string>
-    <string name="release_to_load">משחרר את העמס עכשיו</string>
-    <string name="load_succeed">הצליח להטען</string>
-    <string name="load_fail">טענה נכשלה</string>
 
 
     <!--ממשק תנועה-->
     <string name="best">התקליט הפועל הכי טוב בחוץ</string>
     <string name="history">רשומות תנועה היסטוריות</string>
     <string name="track">פרטי ספורט</string>
-    <string name="notrack">אין מסלול</string>
     <string name="speed">צעד</string>
     <string name="kcal">להשתמש</string>
     <string name="time">משך</string>
-    <string name="heart_rate">קצב הלב (BPM)</string>
-    <string name="stride">תדר צעדים (צעדים / שנים)</string>
+    <string name="heart_rate">קצב הלב (bpm)</string>
+    <string name="stride">תדר צעדים (spm)</string>
+    <string name="cadence">תדר צעדים</string>
     <string name="distance">קילומטר(</string>
     <string name="speedData">מהירות ממוצעת</string>
-    <string name="kcalData">תרגיל צמיחה</string>
-    <string name="timeData">אורך התאמנות</string>
     <string name="heart_rateData">קצב לב ממוצע</string>
     <string name="strideData">תדר צעדים ממוצע</string>
     <string name="distanceData">קילומטר</string>
     <string name="basket">כדורסל</string>
     <string name="football">כדורגל</string>
     <string name="pingpong">טניס שולחן</string>
+    <string name="badminton">בדמינטון.</string>
     <string name="mountain">הרים</string>
     <string name="bike">נסיעה</string>
-    <string name="run">לרוץ</string>
+    <string name="swim">שחייה.</string>
     <string name="walk">ברגל</string>
     <string name="treadmill">TreadmillCity name (optional, probably does not need a translation)</string>
     <string name="runWithout">פועל בחוץ</string>
@@ -191,7 +185,6 @@
     <string name="averageShudu">מהירות ממוצעת</string>
     <string name="boat">שורה</string>
     <string name="altitude">גובה</string>
-    <string name="avarageAltitude">גובה ממוצעת</string>
     <string name="climb">טפסת סלע</string>
     <string name="skii">סקי</string>
     <string name="golf">גולף</string>
@@ -224,7 +217,6 @@
     <string name="confirm">קבע</string>
     <string name="tip">טיפים</string>
     <string name="delete">האם אתה בטוח שאתה רוצה למחוק את נתוני התנועה הזאת?</string>
-    <string name="unbind">אתה בטוח שאתה רוצה להתפרק?</string>
     <string name="logoutTip">אתה בטוח שאתה רוצה להתחבר?</string>
     <string name="sendOK">נשלח בהצלחה</string>
     <string name="searchDevice">מכשיר חיפוש</string>
@@ -232,22 +224,18 @@
     <string name="connected">מחובר</string>
     <string name="disConnect">לא מחובר</string>
     <string name="connectting">על קשר</string>
-    <string name="connect">מכשיר מחובר, אנא נסה שוב מאוחר יותר</string>
     <string name="syceError">אם השעון לא מחובר, המידע ייסנכרן לתוך השעון בפעם הבאה שהוא מחובר</string>
     <string name="unBind">מחליף מכשירים</string>
     <string name="unline">ניתק</string>
     <string name="line">מחבר את השעון</string>
     <string name="addDevice">תוסיף מכשיר</string>
-    <string name="unbindSoon">בבקשה פתח קודם את המכשיר</string>
-    <string name="lineError">בבקשה תכבה ותדליק את Bluetooth של הטלפון הנייד או תחיל מחדש את השעון</string>
-    <string name="tipUnit">Note: the height and weight will be reset when the unit system is switched</string>
 
 
     <!--ממשק שיחות Bluetooth-->
     <string name="step1">1.זוג Bluetooth בין שעון לטלפון נייד</string>
     <string name="step2">2.זוג Bluetooth בין שעון לטלפון נייד</string>
     <string name="str1">1)הכנס פונקציה Bluetooth בשעון\n2)מחפש מכשיר Bluetooth - בחר שם Bluetooth\n3)זוג עם טלפון נייד יכול לעשות שיחת Bluetooth עם שעון</string>
-    <string name="str2">1)הגדרות המערכת - Bluetooth - מכשיר זוג\n2)הגדרות המערכת - Bluetooth - מכשיר זוג。\n\nNote: after the pairing relationship is removed, the watch cannot use Bluetooth call function</string>
+    <string name="str2">1)הגדרות המערכת - Bluetooth - מכשיר זוג\n2)הגדרות המערכת - Bluetooth - מכשיר זוג.הערה: השעון אינו יכול להשתמש ב-Bluetooth שיחות לאחר ביטול שיוך\n\n</string>
 
     <!--על הממשך-->
     <string name="version">גרסה הנוכחית</string>
@@ -259,6 +247,7 @@
 
     <!--ממשק מערכת יחידה-->
     <string name="measureUnit">יחידת מדידה</string>
+    <string name="tempUnit">יחידת הטמפרטורה</string>
     <string name="metric">מערכת מטרית</string>
     <string name="british">מערכת בריטית</string>
 
@@ -288,8 +277,6 @@
     <string name="averageSleep">זמן שינה ממוצע</string>
     <string name="light">שינה קלה.</string>
     <string name="deep">שינה עמוקה</string>
-    <string name="lightTable">שטחים</string>
-    <string name="deepTable">עמוק</string>
     <string name="averageHeart">קצב לב ממוצע</string>
     <string name="minHeart">קצב לב מינימי</string>
     <string name="maxHeart">קצב לב מקסים</string>
@@ -310,7 +297,7 @@
     <!--עמוד מידע משתמש-->
     <string name="userInfo">מידע משתמש</string>
     <string name="picture">פורטרט ראש</string>
-    <string name="userName">כינוי?</string>
+    <string name="userName">כינוי</string>
     <string name="enterUserName">הכנס כינוי</string>
     <string name="nameLong">הכינוי לא יכול להעביר 12 אותיות</string>
     <string name="sex">מין</string>
@@ -346,9 +333,10 @@
     <string name="loading">מטען</string>
     <string name="privacyTip">לפני שאתה משתמש במוצרים שלנו, בבקשה לקרוא ולהבין לחלוטין את הסכם פרטיות המשתמש הרלוונטי.כשתלחץ על "בסדר", תסכים לתנאים של ההסכם.\מדיניות הפרטיות של המשתמשים כוללות בעיקר את התוכן הבא: 1. אסוף, אחסון וחלוק של נתונים אישיים (avatar, כינוי, גובה, משקל, נתוני התרגיל, jne.).\ N2. השימוש של רשויות המכשיר (מיקום, ספר כתובות, מצלמה, וכו. ב.)</string>
     <string name="crop_pic_failed">לא הצליח לתפוס תמונה, בבקשה בחר תמונה בצורת JPG!</string>
-    <string name="deviceOut">מכשיר לא מחובר</string>
     <string name="visiter">מצב טוריסטי לא תומך בתוכנית זו</string>
     <string name="chooseJpg">בבקשה בחר תמונה בצורה JPG</string>
+    <string name="newVersion">זוהתה גירסה חדשה של התוכנה, האם היא מתעדכנת כעת?</string>
+
 
     <!--משותף ממשק-->
     <string name="planOK">המטרה של היום הושגה</string>
@@ -370,9 +358,6 @@
     <string name="passTimeData">קצב העברה:f%%</string>
 
     <string name="bloodPressureData">לחץ דם סיסטולי / דיסטולי ממוצע</string>
-    <string name="shareSuccess">לחלוק הצלחה</string>
-    <string name="shareCancel">בוטל שיתוף</string>
-    <string name="shareFail">שיתוף נכשל</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -383,13 +368,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">מטען</string>
     <string name="progress_dialog_message">רגע אחד בבקשה&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -402,7 +384,6 @@
 
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -413,10 +394,10 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">מתג המיקום של הטלפון שלך זוהה כאפשרות שלא יו מופעל, לכן כדי להבטיח שהאפליקציה תתפקד כראוי, הפעל את מתג המיקום.</string>
+    <string name="avarageAltitude">גובה טיפוס</string>
+    <string name="speedPerHour">מהירות</string>
+    <string name="training">רכבת להפעלה</string>
 
 </resources>

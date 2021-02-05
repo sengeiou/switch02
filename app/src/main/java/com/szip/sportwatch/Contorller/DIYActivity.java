@@ -36,8 +36,6 @@ import java.io.FileInputStream;
 import java.util.Calendar;
 
 public class DIYActivity extends BaseActivity {
-
-
     private String tmpFile;
     private String fileName;
 
@@ -50,14 +48,16 @@ public class DIYActivity extends BaseActivity {
     private int[] clock_r = new int[]{R.mipmap.diy_preview_1_1,R.mipmap.diy_preview_2_1,R.mipmap.diy_preview_3_1,R.mipmap.diy_preview_4_1,
             R.mipmap.diy_preview_5_1,R.mipmap.diy_preview_6_1,R.mipmap.diy_preview_7_1,R.mipmap.diy_preview_9_1,
             R.mipmap.diy_preview_10_1,R.mipmap.diy_preview_11_1,R.mipmap.diy_preview_13_1,R.mipmap.diy_preview_14_1,R.mipmap.diy_28};
-
+//,R.mipmap.diy_29
+//            ,R.mipmap.diy_31,R.mipmap.diy_33
     private int[] clock_c = new int[]{R.mipmap.diy_preview_c_1_1,R.mipmap.diy_preview_c_2_1,R.mipmap.diy_preview_c_3_1,
             R.mipmap.diy_preview_c_4_1, R.mipmap.diy_preview_c_5_1,R.mipmap.diy_preview_c_6_1, R.mipmap.diy_preview_c_7_1,
             R.mipmap.diy_preview_c_8_1,R.mipmap.diy_preview_c_9_1, R.mipmap.diy_preview_c_10_1, R.mipmap.diy_preview_c_11_1,
-            R.mipmap.diy_preview_c_12_1,R.mipmap.diy_preview_c_13_1};
+            R.mipmap.diy_preview_c_12_1,R.mipmap.diy_preview_c_13_1,R.mipmap.diy_31,R.mipmap.diy_30,R.mipmap.diy_34};
 
     private int[] clock_num_r = new int[]{1,2,3,5,7,8,9,10,12,14,11,13,28};
-    private int[] clock_num_c = new int[]{15,25,11,17,18,19,20,21,22,23,24,26,27};
+//    ,29,31,33
+    private int[] clock_num_c = new int[]{15,25,11,17,18,19,20,21,22,23,24,26,27,31,30,34};
 
     private CircularImageView backgroundIv_c;
     private ImageView clockIv,backgroundIv_r;
@@ -257,35 +257,23 @@ public class DIYActivity extends BaseActivity {
                 }
                 byte[] datas = baos.toByteArray();
 
+                int num = datas.length/5;
 
-                int num = datas.length/PAGENUM;
-                num = datas.length%PAGENUM==0?num:num+1;
+                ProgressHudModel.newInstance().showWithPie(DIYActivity.this,getString(R.string.diyDailing),5,
+                        getString(R.string.diyDailError),60*1000);
 
-                ProgressHudModel.newInstance().showWithPie(DIYActivity.this,getString(R.string.diyDailing),num+7,
-                        getString(R.string.diyDailError),5*60*1000);
-
-                if (datas.length<=PAGENUM){
-                    EXCDController.getInstance().writeForSendImage(datas,1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
-                            MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
-                }else {
-                    byte[] newDatas;
-                    for (int i=0;i<datas.length;i+=PAGENUM){
-                        int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
-                        newDatas = new byte[len];
-                        System.arraycopy(datas,i,newDatas,0,len);
-                        EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,isCircle?clock_num_c[pos]:clock_num_r[pos],
-                                MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
+                byte[] newDatas;
+                for (int i=0;i<5;i++){
+                    if (i < 4){
+                        newDatas = new byte[num];
+                    }else {
+                        newDatas = new byte[datas.length-4*num];
                     }
+                    System.arraycopy(datas,i*num,newDatas,0,num);
+                    EXCDController.getInstance().writeForSendImage(newDatas,i+1,5,isCircle?clock_num_c[pos]:clock_num_r[pos],
+                            MathUitl.getClockStyle(isCircle?clock_num_c[pos]:clock_num_r[pos]));
                 }
-                for (int i=0;i<7;i++){
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progress++;
-                            ProgressHudModel.newInstance().setProgress(progress);
-                        }
-                    },5000*(i+1));
-                }
+
             }
         }
     }

@@ -53,6 +53,6 @@ public class GolfFragment extends BaseFragment {
         stepTv.setText(sportData.step+"");
         heartTv.setText(sportData.heart+"");
         averageTv1.setText(sportData.heart+"");
-        tableView1.addData(sportData.heartArray.equals("")?null:sportData.heartArray.split(","));
+        tableView1.addData(sportData.getHeartArray().equals("")?null:sportData.getHeartArray().split(","));
     }
 }

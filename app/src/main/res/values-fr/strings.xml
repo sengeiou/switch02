@@ -125,41 +125,35 @@
     <string name="slow">Trop lent</string>
     <string name="higher">Haut</string>
     <string name="flat">Bas</string>
-    <string name="head">Ici headview.</string>
     <string name="pull_to_refresh">Rafraîchir</string>
     <string name="release_to_refresh">Mise à jour immédiate</string>
     <string name="refreshing">Je suis en train de la rafraîchir.</string>
     <string name="refresh_succeed">Rafraîchissement</string>
     <string name="refresh_fail">Raté</string>
-    <string name="pullup_to_load">Chargement en haut</string>
-    <string name="release_to_load">Relâchez le chargement immédiat.</string>
-    <string name="load_succeed">Chargement réussit</string>
-    <string name="load_fail">Erreur de chargemen</string>
 
 
     <!--Interface mobile-->
     <string name="best">Record of Outdoor Run</string>
     <string name="history">Historique</string>
     <string name="track">Sport</string>
-    <string name="notrack">Trajectoire sans mouvement</string>
     <string name="speed">Synchronisation</string>
     <string name="kcal">Consommation</string>
     <string name="time">Durée</string>
     <string name="heart_rate">Taux cardiaque</string>
-    <string name="stride">Steps / s</string>
+    <string name="stride">Étape taux(spm)</string>
+    <string name="cadence">Étape taux</string>
     <string name="distance">Mile(</string>
     <string name="speedData">Vitesse moyenne</string>
-    <string name="kcalData">Consommation de mouvement</string>
-    <string name="timeData">Durée du mouvement</string>
     <string name="heart_rateData">Moyenne cardiaque</string>
     <string name="strideData">Average Step Frequency</string>
     <string name="distanceData">Mile</string>
     <string name="basket">Basket - ball</string>
     <string name="football">Football</string>
     <string name="pingpong">Tennis de table</string>
+    <string name="badminton">Badminton</string>
     <string name="mountain">Alpinisme</string>
     <string name="bike">à cheval</string>
-    <string name="run">Courir</string>
+    <string name="swim">La natation</string>
     <string name="walk">à pied</string>
     <string name="treadmill">Machine de course</string>
     <string name="runWithout">Outdoor Run</string>
@@ -169,7 +163,7 @@
     <string name="averageShudu">Vitesse moyenne</string>
     <string name="boat">Ramer</string>
     <string name="altitude">Altitude</string>
-    <string name="avarageAltitude">Altitude moyenne</string>
+    <string name="avarageAltitude">Hauteur de montée</string>
     <string name="climb">Escalade</string>
     <string name="skii">Ski</string>
     <string name="golf">Golf</string>
@@ -202,7 +196,6 @@
     <string name="confirm">Oui.</string>
     <string name="tip">Avertissement</string>
     <string name="delete">Voulez - vous vraiment supprimer les données de mouvement?</string>
-    <string name="unbind">Tu es sûr de vouloir rompre le lien?</string>
     <string name="logoutTip">Vous êtes sûr de vouloir quitter le site?？</string>
     <string name="sendOK">Transmission réussie</string>
     <string name="searchDevice">Dispositif de recherche</string>
@@ -210,15 +203,11 @@
     <string name="connected">Connecté</string>
     <string name="disConnect">Non connecté</string>
     <string name="connectting">Connexion en cours</string>
-    <string name="connect">Veuillez réessayer plus tard.</string>
     <string name="syceError">La montre n \'est pas connectée, les données seront synchronisées dans la montre lors de la prochaine connexion</string>
     <string name="unBind">Dispositif de commutation</string>
     <string name="unline">Déconnecter</string>
     <string name="line">Connection Watch</string>
     <string name="addDevice">Dispositif d \'ajout</string>
-    <string name="unbindSoon">Détachez le matériel..</string>
-    <string name="lineError">Si la connexion a échoué à plusieurs reprises, veuillez fermer le téléphone et ouvrir le Bluetooth ou redémarrer la montre</string>
-    <string name="tipUnit">Attention: la taille de l\'unité est changée et le poids sera remplacé.</string>
 
 
     <!--Bluetooth Communication Interface-->
@@ -237,6 +226,7 @@
 
     <!--Interface unitaire-->
     <string name="measureUnit">Unité de mesure</string>
+    <string name="tempUnit">Unité de température</string>
     <string name="metric">Système public</string>
     <string name="british">Anglais</string>
 
@@ -266,8 +256,6 @@
     <string name="averageSleep">Temps moyen de sommeil</string>
     <string name="light">Hypselodoris</string>
     <string name="deep">Profondeur dormir</string>
-    <string name="lightTable">faible</string>
-    <string name="deepTable">profondeur</string>
     <string name="averageHeart">Moyenne cardiaque</string>
     <string name="minHeart">Minimum Cardiac rate</string>
     <string name="maxHeart">Max Cardiac rate</string>
@@ -324,9 +312,10 @@
     <string name="loading">Chargement...</string>
     <string name="privacyTip">Avant d \'utiliser nos produits, lisez attentivement et comprenez bien les accords de confidentialité des utilisateurs.\nLorsque vous cliquez sur Oui, cela signifie que vous êtes d \'accord avec les termes du Protocole.\nLa politique de protection de la vie privée des utilisateurs comprend les éléments suivants::\n1.Collecte, conservation et partage de données personnelles (images, surnoms, taille, poids, données sportives, etc.).\n2.Utilisation des droits d \'équipement (emplacement, enregistrement de communications, appareil photo, etc.).</string>
     <string name="crop_pic_failed">Impossible d \'intercepter l\' image, sélectionnez l \'image en format JPG!</string>
-    <string name="deviceOut">Dispositif non lié</string>
     <string name="visiter">Le mode touristique ne supporte pas cette fonction</string>
     <string name="chooseJpg">Veuillez sélectionner l \'image au format JPG</string>
+    <string name="newVersion">Une nouvelle version du logiciel a été détectée?</string>
+
 
     <!--Interface de partage-->
     <string name="planOK">L\'objectif est atteint aujourd\'hui..</string>
@@ -347,9 +336,6 @@
     <string name="passTimeData">Taux de conformité: %.1f%%</string>
 
     <string name="bloodPressureData">Pression de compression moyenne</string>
-    <string name="shareSuccess">Partager le succès</string>
-    <string name="shareCancel">Désactiver le partage</string>
-    <string name="shareFail">Échec partagé</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -360,13 +346,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">Chargement</string>
     <string name="progress_dialog_message">Un instant.&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -378,7 +361,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -389,10 +371,9 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Il a été détecté que le commutateur de position de votre téléphone mobile n’était pas activé. pour s’assurer que l’application fonctionne correctement, allumez le commutateur de position.</string>
+    <string name="speedPerHour">La vitesse</string>
+    <string name="training">Parcours d’entraînement</string>
 
 </resources>

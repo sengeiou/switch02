@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.AlphaAnimation;
@@ -23,14 +25,20 @@ import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.Contorller.Fragment.HealthyFragment;
 import com.szip.sportwatch.Contorller.Fragment.MineFragment;
 import com.szip.sportwatch.Contorller.Fragment.SportFragment;
+import com.szip.sportwatch.Model.HttpBean.CheckUpdateBean;
 import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.MyApplication;
+import com.szip.sportwatch.Notification.NotificationView;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.HostTabView;
+import com.szip.sportwatch.View.MyAlerDialog;
 import com.szip.sportwatch.View.MyToastView;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,10 +51,11 @@ import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTabHost;
 
+import okhttp3.Call;
+
 public class MainActivity extends BaseActivity{
 
     private ArrayList<HostTabView> mTableItemList;
-    private Context mContext;
     private MyApplication app;
     private RelativeLayout layout;
     private boolean isVisiable = false;
@@ -65,7 +74,6 @@ public class MainActivity extends BaseActivity{
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         StatusBarCompat.translucentStatusBar(MainActivity.this,true);
-        mContext = this;
         app = (MyApplication) getApplicationContext();
         layout = findViewById(R.id.layout);
 
@@ -76,17 +84,68 @@ public class MainActivity extends BaseActivity{
             startActivity(bleIntent);
         }
 
+        checkUpdate();
         initBLE();
         initAnimation();
         initTabData();
         initHost();
         mTableItemList.get(1).setView(app.getSportVisiable());
+
+    }
+
+    private void checkUpdate() {
+        try {
+            String ver = getPackageManager().getPackageInfo("com.szip.sportwatch",
+                    0).versionName;
+            HttpMessgeUtil.getInstance(this).postForCheckUpdate(ver, new GenericsCallback<CheckUpdateBean>(new JsonGenericsSerializator()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+
+                @Override
+                public void onResponse(final CheckUpdateBean response, int id) {
+                    if (response.getCode() == 200){
+                        if (response.getData().getNewVersion()!=null){//有更新
+                            if (app.isNewVersion()){//之前已经提示过
+                                app.setNewVersion(true);
+                                app.setVersionUrl(response.getData().getNewVersion().getUrl());
+                            }else {//还未弹框提示过
+                                MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.newVersion), getString(R.string.confirm), getString(R.string.cancel),
+                                        false, new MyAlerDialog.AlerDialogOnclickListener() {
+                                            @Override
+                                            public void onDialogTouch(boolean flag) {
+                                                if (flag){
+                                                    app.setNewVersion(false);
+                                                    MainService.getInstance().downloadFirmsoft(response.getData().getNewVersion()
+                                                            .getUrl(),"iSmarport.apk");
+                                                }else {
+                                                    app.setNewVersion(true);
+                                                    app.setVersionUrl(response.getData().getNewVersion().getUrl());
+                                                }
+                                            }
+                                        },MainActivity.this);
+                            }
+                        }else {//无更新
+                            app.setNewVersion(false);
+                        }
+                        isLocServiceEnable(MainActivity.this);
+                    }
+                }
+            });
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            LogUtil.getInstance().logd("SZIP******","IOException = "+e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void initBLE() {
         if (app.getUserInfo().getDeviceCode()!=null){//已绑定
             //连接设备
-            Log.d("SZIP******","state = "+WearableManager.getInstance().getConnectState());
+            LogUtil.getInstance().logd("SZIP******","state = "+WearableManager.getInstance().getConnectState());
             if (MainService.getInstance().getState()==0){
                 MainService.getInstance().setConnectAble(true);
                 WearableManager.getInstance().scanDevice(true);
@@ -97,15 +156,24 @@ public class MainActivity extends BaseActivity{
                 WearableManager.getInstance().setRemoteDevice(device);
                 MainService.getInstance().startConnect();
             }
+        }
+    }
 
-            if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
-                //获取云端数据
-                try {
-                    HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    private void isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!(gps || network)) {
+            MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip), getString(R.string.checkGPS), getString(R.string.confirm), getString(R.string.cancel),
+                    false, new MyAlerDialog.AlerDialogOnclickListener() {
+                        @Override
+                        public void onDialogTouch(boolean flag) {
+                            if (flag){
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(intent);
+                            }
+                        }
+                    },MainActivity.this);
         }
     }
 
@@ -132,12 +200,12 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("SZIP******","MAIN DESTROY");
+        LogUtil.getInstance().logd("SZIP******","MAIN DESTROY");
         MainService.getInstance().stopConnect();
     }
 
     public void MyFinish(){
-        Log.d("SZIP******","MAIN DESTROY");
+        LogUtil.getInstance().logd("SZIP******","MAIN DESTROY");
         MainService.getInstance().stopConnect();
         finish();
     }

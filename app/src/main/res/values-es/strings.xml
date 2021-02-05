@@ -134,53 +134,47 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="slow">Lento</string>
     <string name="higher">Alto</string>
     <string name="flat">Baja</string>
-    <string name="head">Aquí está la vista de la cabeza</string>
     <string name="pull_to_refresh">Tire hacia abajo para actualizar</string>
     <string name="release_to_refresh">Actualizar después del lanzamiento</string>
     <string name="refreshing">Refrescante ...</string>
     <string name="refresh_succeed">Actualización exitosa</string>
     <string name="refresh_fail">Actualización fallida</string>
-    <string name="pullup_to_load"> Tire hacia arriba para cargar más</string>
-    <string name="release_to_load">Carga inmediatamente después del lanzamiento</string>
-    <string name="load_succeed">Cargado con éxito</string>
-    <string name="load_fail">Error al cargar</string>
 
 
     <!--运动界面 Deportes-->
     <string name="best">Mejor récord para correr al aire libre</string>
     <string name="history">Registro de movimiento histórico</string>
     <string name="track">Información deportiva</string>
-    <string name="notrack">Sin trayectoria</string>
     <string name="speed">Velocidad</string>
     <string name="kcal">Consumir (kcal)</string>
     <string name="time">Hora</string>
     <string name="heart_rate">Frecuencia cardíaca</string>
-    <string name="stride">Zancada (pasos / s)</string>
+    <string name="stride">Zancada (spm)</string>
+    <string name="cadence">Zancada</string>
     <string name="distance">Distancia(</string>
     <string name="speedData">Velocidad media</string>
-    <string name="kcalData">Deporte Consumo</string>
-    <string name="timeData">Hora del deporte</string>
     <string name="heart_rateData">Frecuencia cardíaca media</string>
     <string name="strideData">Zancada promedio</string>
     <string name="distanceData">Distancia</string>
     <string name="basket">Baloncesto</string>
     <string name="football">Fútbol</string>
     <string name="pingpong">Pelota de Pingpong</string>
+    <string name="badminton">Badminton</string>
     <string name="mountain">Montaña</string>
     <string name="bike">Ciclismo</string>
-    <string name="run">Ejecutar</string>
-    <string name="walk">徒步</string>
-    <string name="treadmill">跑步机</string>
-    <string name="runWithout">户外跑</string>
-    <string name="marathon">马拉松</string>
-    <string name="sufing">冲浪</string>
-    <string name="shudu">速度</string>
-    <string name="averageShudu">平均速度</string>
+    <string name="swim">nadar</string>
+    <string name="walk">A pie</string>
+    <string name="treadmill">Correr en la ciudad</string>
+    <string name="runWithout">Correr al aire libre</string>
+    <string name="marathon">maratón</string>
+    <string name="sufing">surf</string>
+    <string name="shudu">velocidad</string>
+    <string name="averageShudu">Velocidad media</string>
     <string name="boat">Boating</string>
-    <string name="altitude">海拔</string>
-    <string name="avarageAltitude">平均海拔</string>
-    <string name="climb">攀岩</string>
-    <string name="skii">滑雪</string>
+    <string name="altitude">elevación</string>
+    <string name="avarageAltitude">Altura de ascenso</string>
+    <string name="climb">Escalada.</string>
+    <string name="skii">esquí</string>
     <string name="golf">Golf</string>
     <!--我的页面 Mine-->
     <string name="device">Dispositivo</string>
@@ -211,7 +205,6 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="confirm">Confirmar</string>
     <string name="tip">Consejo</string>
     <string name="delete">¿Estás seguro de que quieres eliminar estos datos?</string>
-    <string name="unbind">¿Estás seguro de que quieres desvincularte?</string>
     <string name="logoutTip">¿Está seguro de que desea cerrar la sesión?</string>
     <string name="sendOK">Enviado con éxito</string>
     <string name="searchDevice">Dispositivo de búsqueda</string>
@@ -219,15 +212,11 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="connected">Conectado</string>
     <string name="disConnect">No conectado</string>
     <string name="connectting">Conectando</string>
-    <string name="connect">Conexión del dispositivo, inténtelo de nuevo más tarde</string>
     <string name="syceError">El reloj no está conectado, los datos se sincronizarán con el reloj la próxima vez que se conecte</string>
     <string name="unBind">Reemplazar dispositivo</string>
     <string name="unline">Desconectar</string>
     <string name="line">Conecte el reloj</string>
     <string name="addDevice">Agregar dispositivo</string>
-    <string name="unbindSoon">Desvincula el dispositivo primero</string>
-    <string name="lineError">La conexión ha fallado muchas veces. Reinicie el bluetooth del teléfono móvil o reinicie el reloj</string>
-    <string name="tipUnit">Consejo:La altura y el peso de la unidad se restablecerán</string>
 
     <!--蓝牙通话界面 Interfaz de llamada Bluetooth-->
     <string name="step1">1.Ver Paire con teléfono móvil</string>
@@ -245,6 +234,7 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
 
     <!--单位制式界面 Interfaz del sistema de la unidad-->
     <string name="measureUnit">Unidad de medida</string>
+    <string name="tempUnit">Unidad de temperatura</string>
     <string name="metric">Métrica</string>
     <string name="british">Imperial</string>
 
@@ -274,8 +264,6 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="averageSleep">Tiempo promedio de sueño</string>
     <string name="light">Sueño Ligero</string>
     <string name="deep">Sueño Profundo</string>
-    <string name="lightTable">L</string>
-    <string name="deepTable">P</string>
     <string name="averageHeart">Frecuencia cardíaca media</string>
     <string name="minHeart">Frecuencia cardíaca mínima</string>
     <string name="maxHeart"> Frecuencia cardíaca máxima</string>
@@ -329,9 +317,9 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="loading">Cargando...</string>
     <string name="privacyTip">¿Ha leído claramente el Acuerdo de privacidad? ¿Está de acuerdo en registrarse como nuevo usuario de nuestra empresa? Cuando hace clic en "Confirmar", significa que acepta los términos del acuerdo.La Política de privacidad del usuario incluye principalmente lo siguiente 1. Información personal (foto de perfil, apodo, altura, peso, datos deportivos, etc.), recopilación, guardar y compartir 2. Permisos del dispositivo (ubicación, lista de contactos, cámara, etc.) Utilizando</string>
     <string name="crop_pic_failed">No se pudo capturar la imagen, elija la imagen en formato JPG / PNG!</string>
-    <string name="deviceOut">Dispositivo no consolidado</string>
     <string name="visiter">Esta función no se admite en el modo de visitante</string>
     <string name="chooseJpg">Elija una imagen en formato JPG</string>
+    <string name="newVersion">Se ha detectado una nueva versión del software?</string>
 
     <!--分享界面 Interfaz para compartir-->
     <string name="planOK">Se ha alcanzado la meta de hoy</string>
@@ -353,9 +341,6 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="passTimeData">Tasa de aprobación: %.1f%%</string>
 
     <string name="bloodPressureData">Presión sistólica promedio / presión diastólica</string>
-    <string name="shareSuccess">Compartiendo el éxito</string>
-    <string name="shareCancel">Cancelar compartir</string>
-    <string name="shareFail">Error al compartir</string>
     <!-- Scan & Connect -->
     <string name="connect_error">Error de conexión</string>
 
@@ -365,13 +350,10 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">Servicio de SMS</string>
-    <string name="call_preference_title">Llamar al servicio</string>
     <string name="progress_dialog_title">Carga</string>
     <string name="progress_dialog_message">Espere&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Aplicación personal</string>
-    <string name="system_apps_title">Aplicación del sistema</string>
 
 
     <!-- Service -->
@@ -383,7 +365,6 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="operate_error">Fallido</string>
 
     <!--固件升级-->
-    <string name="update_fota">Actualización de Firmwares</string>
     <string name="trigger_failed_due_to_low_battery">Baja batería del reloj, inténtelo de nuevo después de la carga</string>
     <string name="update_failed">Se actualiza el reloj con fracaso, ¡Por favor, inténtelo de nuevo más tarde!</string>
     <string name="send_firmware_date_success">¡Se envían los datos con éxito!！</string>
@@ -394,10 +375,9 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="bt_disconnected_while_transfer">¡Bluetooth desconectado!</string>
     <string name="download_succeed_via_bt">Enviar completado, ¡espere hasta que se actualice con éxito!</string>
     <string name="updated_firmware">Se actualiza con éxito</string>
-    <string name="notice_need_write_external_storage_permission">Otorgue autoridades para la tarjeta de memoria en el "Ajuste"</string>
-    <string name="apply_write_external_storage_permission">La aplicación requiere autoridades para operar su tarjeta de memoria, para guardar el archivo de firmwares</string>
-    <string name="get_app_permission">Permita las autoridades para la aplicación</string>
     <string name="warning_updating_text">Actualizando, espere hasta terminar la actualización o acabar el tiempo (%1$d minutos)</string>
-    <string name="external_storage_unactivity">Indisponible tarjeta de memoria</string>
+    <string name="checkGPS">Se ha detectado que el interruptor de posición de su teléfono no está activado. para asegurarse de que la aplicación funciona correctamente, encienda el interruptor de posición.</string>
+    <string name="speedPerHour">viajan</string>
+    <string name="training">Carrera de entrenamiento</string>
 
 </resources>

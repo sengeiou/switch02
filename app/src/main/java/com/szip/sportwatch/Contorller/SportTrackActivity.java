@@ -6,10 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BadmintonFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BasketballFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BikeFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.BoatFragment;
@@ -23,6 +25,7 @@ import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.PingpangFrag
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.RunFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SkiiFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SurfingFragment;
+import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.SwimFragment;
 import com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport.TreadmillFragment;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
@@ -46,6 +49,8 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
 
     private SportData sportData;
 
+    private ScrollView view;
+    private BaseFragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,6 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
-        BaseFragment fragment = null;
         switch (sportData.type){
             case 1:
                 fragment = new OnfootFragment(sportData);
@@ -80,8 +84,11 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
             case 5:
                 fragment = new MarathonFragment(sportData);
                 break;
+            case 9:
+                fragment = new BadmintonFragment(sportData);
+                break;
             case 10:
-                fragment = new BasketballFragment();
+                fragment = new BasketballFragment(sportData);
                 break;
             case 11:
                 fragment = new BikeFragment(sportData);
@@ -90,10 +97,13 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
                 fragment = new SkiiFragment(sportData);
                 break;
             case 16:
-                fragment = new PingpangFragment();
+                fragment = new PingpangFragment(sportData);
                 break;
             case 17:
-                fragment = new FootballFragment();
+                fragment = new FootballFragment(sportData);
+                break;
+            case 18:
+                fragment = new SwimFragment(sportData);
                 break;
             case 19:
                 fragment = new ClimbFragment(sportData);
@@ -141,10 +151,10 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         100);
             }else {
-                shareShow(findViewById(R.id.reportLl));
+                shareShowLong((ScrollView)fragment.getView().findViewById(R.id.scrollId));
             }
         }else {
-            shareShow(findViewById(R.id.reportLl));
+            shareShowLong((ScrollView) fragment.getView().findViewById(R.id.scrollId));
         }
     }
 }

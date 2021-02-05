@@ -137,7 +137,7 @@ public class ViewUtil{
             ((TextView)textView).setText(context.getString(R.string.bad));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.badT));
             textView.setBackground(context.getResources().getDrawable(R.drawable.bg_healthy_bad));
-        }else if (sleep/480f<0.6f){
+        }else if (sleep/480f<0.8f){
             ((TextView)textView).setText(context.getString(R.string.good));
             ((TextView)textView).setTextColor(context.getResources().getColor(R.color.normalT));
             textView.setBackground(context.getResources().getDrawable(R.drawable.bg_healthy_normal));

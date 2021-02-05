@@ -23,8 +23,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Interface.OnCameraListener;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
@@ -69,7 +71,10 @@ public class CameraActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EXCDController.getInstance().setOnCameraListener(onCameraListener);
+        if (MyApplication.getInstance().isMtk())
+            EXCDController.getInstance().setOnCameraListener(onCameraListener);
+        else
+            BleClient.getInstance().setOnCameraListener(onCameraListener);
         if (sm == null) {
             sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         }
@@ -80,7 +85,10 @@ public class CameraActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        EXCDController.getInstance().setOnCameraListener(null);
+        if (MyApplication.getInstance().isMtk())
+            EXCDController.getInstance().setOnCameraListener(null);
+        else
+            BleClient.getInstance().setOnCameraListener(null);
         if (sm == null) {
             sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         }
@@ -132,25 +140,19 @@ public class CameraActivity extends BaseActivity {
                             // 从Camera捕获图片
                             mCamera.takePicture(null, null, mPicture);
                             final AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                            final int volume = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
-                            am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
                             if (mediaPlayer==null){
                                 mediaPlayer = MediaPlayer.create(CameraActivity.this, R.raw.camera);
                                 mediaPlayer.start();
-                                mediaPlayer.setVolume(0.5f,0.5f);
                                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                     @Override
                                     public void onCompletion(MediaPlayer mp) {
-                                        am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                                         mediaPlayer = null;
                                     }
                                 });
                             }
-
                         }
                     });
                 }
-
             }
         }
     };

@@ -64,13 +64,13 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     private void updateView() {
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
-        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue2()/10f));
-        if (((MyApplication)getActivity().getApplicationContext()).getUserInfo().getUnit().equals("metric")){
-            distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue1()/10f));
-            ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",reportDataBean.getValue2()/1000f));
+        if (((MyApplication)getActivity().getApplicationContext()).getUserInfo().getUnit()==0){
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",reportDataBean.getValue1()/10000f));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("km");
         } else{
-            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(reportDataBean.getValue1()/10)));
-            ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+            distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(reportDataBean.getValue1())));
+            ((TextView)getView().findViewById(R.id.unitTv)).setText("mile");
         }
         if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));

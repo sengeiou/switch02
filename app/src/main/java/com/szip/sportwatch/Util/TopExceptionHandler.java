@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 
 import java.io.FileOutputStream;
@@ -21,6 +22,8 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
         this.mContext = context;
     }
+
+
 
     public void uncaughtException(Thread t, Throwable e) {
         StackTraceElement[] arr = e.getStackTrace();
@@ -47,7 +50,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         try {
             HttpMessgeUtil.getInstance(mContext.getApplicationContext()).postAppCrashLog("iSmarport",mContext.getApplicationContext().
-                    getPackageManager().getPackageInfo("com.szip.sleepee", 0).versionName, Build.BRAND+ Build.MODEL,report);
+                    getPackageManager().getPackageInfo("com.szip.sportwatch", 0).versionName, Build.BRAND+ Build.MODEL,report);
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (PackageManager.NameNotFoundException e1) {

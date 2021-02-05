@@ -17,6 +17,7 @@ import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.HttpBean.BindBean;
+import com.szip.sportwatch.Model.HttpBean.CheckUpdateBean;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
 import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
@@ -42,8 +43,8 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
-//    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+//    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
+    private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -77,14 +78,8 @@ public class HttpMessgeUtil {
 
     private HttpMessgeUtil(Context context){
         mContext = context;
-        language = context.getResources().getConfiguration().locale.getLanguage();
-//        if (context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
-//
-//        }else if (context.getResources().getConfiguration().locale.getLanguage().equals("es")){
-//            language = "es-ES";
-//        }else{
-//            language = "en-US";
-//        }
+        language = context.getResources().getConfiguration().locale.getLanguage()+"-"+
+                context.getResources().getConfiguration().locale.getCountry();
         time = DateUtil.getGMTWithString();
     }
 
@@ -188,7 +183,7 @@ public class HttpMessgeUtil {
      * @param password               密码
      * */
     private void _postLogin(String type,String areaCode, String phoneNumber, String email, String password,String phoneId,String phoneSystem)throws IOException{
-        String url = this.url+"user/login";
+        String url = this.url+"v2/user/login";
         OkHttpUtils
                 .jpost()
                 .url(url)
@@ -274,7 +269,7 @@ public class HttpMessgeUtil {
      * 获取个人信息
      * */
     private void _getForGetInfo()throws IOException{
-        String url = this.url+"user/getUserInfo";
+        String url = this.url+"v2/user/getUserInfo";
         OkHttpUtils
                 .get()
                 .url(url)
@@ -294,8 +289,9 @@ public class HttpMessgeUtil {
      * @param height           身高
      * @param weight           体重
      * */
-    private void _postForSetUserInfo(String name,String sex,String birthday,String height,String weight)throws IOException{
-        String url = this.url+"user/updateUserInfo";
+    private void _postForSetUserInfo(String name,String sex,String birthday,String height,String weight,
+                                     String heightBritish,String weightBritish)throws IOException{
+        String url = this.url+"v2/user/updateUserInfo";
         OkHttpUtils
                 .jpost()
                 .url(url)
@@ -311,6 +307,8 @@ public class HttpMessgeUtil {
                 .addParams("nation","")
                 .addParams("height",height)
                 .addParams("weight",weight)
+                .addParams("heightBritish",heightBritish)
+                .addParams("weightBritish",weightBritish)
                 .addParams("blood","")
                 .build()
                 .execute(baseApiGenericsCallback);
@@ -344,8 +342,8 @@ public class HttpMessgeUtil {
                 .execute(baseApiGenericsCallback);
     }
 
-    private void _postForSetUnit(String unit)throws IOException{
-        String url = this.url+"user/setUnit";
+    private void _postForSetUnit(String unit,String temp)throws IOException{
+        String url = this.url+"v2/user/setUnit";
         OkHttpUtils
                 .jpost()
                 .url(url)
@@ -353,8 +351,23 @@ public class HttpMessgeUtil {
                 .addHeader("token",token)
                 .addHeader("Accept-Language",language)
                 .addParams("unit",unit)
+                .addParams("tempUnit",temp)
                 .build()
                 .execute(baseApiGenericsCallback);
+    }
+
+    private void _postForCheckUpdate(String var ,GenericsCallback<CheckUpdateBean> callback)throws IOException{
+        String url = this.url+"comm/checkUpdate";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("token",token)
+                .addHeader("Accept-Language",language)
+                .addParams("phoneSystem","android")
+                .addParams("currentVersion",var)
+                .build()
+                .execute(callback);
     }
 
 //    /**
@@ -472,7 +485,7 @@ public class HttpMessgeUtil {
     /**
      * 绑定设备
      * */
-    private void _getBindDevice(String deviceCode, GenericsCallback<BindBean> callback)throws IOException{
+    private void _getBindDevice(String deviceCode,String product, GenericsCallback<BindBean> callback)throws IOException{
         String url = this.url+"device/bindDevice";
         OkHttpUtils
                 .get()
@@ -481,6 +494,7 @@ public class HttpMessgeUtil {
                 .addHeader("token",token)
                 .addHeader("Accept-Language",language)
                 .addParams("deviceCode",deviceCode)
+                .addParams("product",product)
                 .build()
                 .execute(callback);
     }
@@ -622,8 +636,9 @@ public class HttpMessgeUtil {
 //        _getForUpdata(hardwareVersion,id);
 //    }
 
-    public void postForSetUserInfo(String name,String sex,String birthday,String height,String weight)throws IOException{
-        _postForSetUserInfo(name,sex,birthday,height,weight);
+    public void postForSetUserInfo(String name,String sex,String birthday,String height,String weight,
+                                   String heightBritish,String weightBritish)throws IOException{
+        _postForSetUserInfo(name,sex,birthday,height,weight,heightBritish, weightBritish);
     }
 
     public void getForGetInfo()throws IOException{
@@ -638,8 +653,8 @@ public class HttpMessgeUtil {
         _postForSetSleepPlan(sleepPlan,id);
     }
 
-    public void postForSetUnit(String unit)throws IOException{
-        _postForSetUnit(unit);
+    public void postForSetUnit(String unit,String temp)throws IOException{
+        _postForSetUnit(unit,temp);
     }
 //    public void postForBindEmail(String email,String verifyCode,int id)throws IOException{
 //        _postForBindEmail(email,verifyCode,id);
@@ -661,8 +676,8 @@ public class HttpMessgeUtil {
 //        _postForChangePassword(currentPassword,newPassword,id);
 //    }
 //
-    public void getBindDevice(String deviceCode,GenericsCallback<BindBean> callback)throws IOException{
-        _getBindDevice(deviceCode,callback);
+    public void getBindDevice(String deviceCode,String product,GenericsCallback<BindBean> callback)throws IOException{
+        _getBindDevice(deviceCode,product,callback);
     }
 
     public void getUnbindDevice()throws IOException{
@@ -709,6 +724,9 @@ public class HttpMessgeUtil {
         _getWeather(lat,lon,callback);
     }
 
+    public void postForCheckUpdate(String var ,GenericsCallback<CheckUpdateBean> callback)throws IOException{
+        _postForCheckUpdate(var,callback);
+    }
     /**
      * 接口回调
      * */
@@ -745,7 +763,8 @@ public class HttpMessgeUtil {
         public void onResponse(CheckVerificationBean response, int id) {
             if (response.getCode() == 200){
                 if (response.getData().isValid()){
-                    httpCallbackWithBase.onCallback(null,0);
+                    if (httpCallbackWithBase!=null)
+                        httpCallbackWithBase.onCallback(new BaseApi(),0);
                 }
             }else if (response.getCode() == 401){
                 tokenTimeOut();

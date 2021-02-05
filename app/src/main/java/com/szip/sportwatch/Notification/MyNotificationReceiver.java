@@ -1,9 +1,11 @@
 package com.szip.sportwatch.Notification;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -15,6 +17,7 @@ import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.ctrl.notification.NotificationData;
 import com.szip.sportwatch.MyApplication;
+import com.szip.sportwatch.Util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2019/12/27.
  */
-
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MyNotificationReceiver extends NotificationListenerService{
 
     private NotificationDataManager notificationDataManager = null;
@@ -40,12 +43,13 @@ public class MyNotificationReceiver extends NotificationListenerService{
         super.onCreate();
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         Log.i("notify******","Notification Posted, " + "ID: " + sbn.getId() + ", Package: "
                 + sbn.getPackageName());
         configureMusicControl(sbn.getPackageName());
-        Log.d("notify******", "sdk version is " + android.os.Build.VERSION.SDK_INT);
+        LogUtil.getInstance().logd("notify******", "sdk version is " + android.os.Build.VERSION.SDK_INT);
         if(android.os.Build.VERSION.SDK_INT  < 18){
             Log.i("notify******","Android platform version is lower than 18.");
             return;
@@ -59,6 +63,7 @@ public class MyNotificationReceiver extends NotificationListenerService{
         Log.i("notify******","packagename = " + sbn.getPackageName() + "tag = " +sbn.getTag()+"Id = " + sbn.getId());
         NotificationData notificationData = notificationDataManager.getNotificationData(
                 notification, sbn.getPackageName(),sbn.getTag(),sbn.getId());
+
         notificationDataManager.sendNotificationData(notificationData);
     }
 
@@ -72,7 +77,7 @@ public class MyNotificationReceiver extends NotificationListenerService{
             ResolveInfo localResolveInfo = localList.get(i);
             String pack = localResolveInfo.activityInfo.packageName;
             if (pack.equals(packageName)){
-                Log.d("notify******","set musice = "+pack);
+                LogUtil.getInstance().logd("notifySZIP******","set musice = "+pack);
                 RemoteMusicController.getInstance(MyApplication.getInstance()).setMusicApp(pack);
             }
 

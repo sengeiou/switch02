@@ -194,40 +194,34 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
     <string name = "slow"> zbyt wolno </string>
     <string name = "higher"> wysoka strona </string>
     <string name = "flat"> niski </string>
-    <string name = "head"> to jest HeadView </string>
     <string name = "pull_to_refresh"> pociągnij w dół, aby odświeżyć </string>
     <string name = "release_to_refresh"> wydanie natychmiastowe odświeżenie </string>
     <string name = "refreshing"> się odświeża ... </string>
     <string name = "refresh_succeed"> odświeżono pomyślnie </string>
     <string name = "refresh_fail"> odświeżenie nie powiodło się </string>
-    <string name = "pullup_to_load"> podciągnij, aby załadować więcej </string>
-    <string name = "release_to_load"> zwolnij natychmiast załaduj </string>
-    <string name = "load_succeed"> wczytano pomyślnie </string>
-    <string name = "load_fail"> błąd ładowania </string>
 
 
     <string name = "best"> Najlepszy rekord do biegania na świeżym powietrzu </string>
     <string name = "history"> Historia rekordów sportowych </string>
     <string name = "track"> szczegóły sportowe </string>
-    <string name = "notrack"> brak ścieżki ruchu </string>
     <string name = "speed"> tempo </string>
     <string name = "kcal"> zużycie (kcal) </string>
     <string name = "time"> czas trwania </string>
-    <string name = "heart_rate"> Tętno (Bpm) </string>
-    <string name = "stride"> Częstotliwość kroków (kroki / s) </string>
+    <string name = "heart_rate"> Tętno (bpm) </string>
+    <string name = "stride">Częstotliwość kroków (spm)</string>
+    <string name="cadence">Częstotliwość kroków</string>
     <string name = "distance"> przebieg (</string>
     <string name = "speedData"> średnie tempo </string>
-    <string name = "kcalData"> spożycie sportu </string>
-    <string name = "timeData"> czas trwania ćwiczenia </string>
     <string name = "heart_rateData"> średnie tętno </string>
     <string name = "strideData"> średnia częstotliwość kroków </string>
     <string name = "distanceData"> przebieg </string>
     <string name = "basket"> Koszykówka </string>
     <string name = "football"> Piłka nożna </string>
     <string name = "pingpong"> ping pong </string>
+    <string name = "badminton">Badminton</string>
     <string name = "mountain"> wspinaczka górska </string>
     <string name = "bike"> jazda </string>
-    <string name = "run"> działa </string>
+    <string name="swim">Pływanie.</string>
     <string name = "walk"> pieszo </string>
     <string name = "treadmill"> bieżnia </string>
     <string name = "runWithout"> bieganie na świeżym powietrzu </string>
@@ -236,8 +230,8 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
     <string name = "shudu"> prędkość </string>
     <string name = "averageShudu"> średnia prędkość </string>
     <string name = "boat"> pływanie łódką </string>
-    <string name = "altitude"> altitude </string>
-    <string name = "avarageAltitude"> średnia wysokość </string>
+    <string name = "altitude">Wysokość</string>
+    <string name = "avarageAltitude">Wysokość wspinaczki</string>
     <string name = "climb"> Wspinaczka skałkowa </string>
     <string name = "skii"> Narciarstwo </string>
     <string name = "golf"> Golf </string>
@@ -270,7 +264,6 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
     <string name = "confirm"> Dobry </string>
     <string name = "tip"> monit </string>
     <string name = "delete"> Czy na pewno chcesz usunąć te dane ćwiczeń? </string>
-    <string name = "unbind"> Czy na pewno chcesz usunąć powiązanie? </string>
     <string name = "logoutTip"> Czy na pewno chcesz się wylogować? </string>
     <string name = "sendOK"> pomyślnie wysłano </string>
     <string name = "searchDevice"> szukaj urządzenia </string>
@@ -278,15 +271,11 @@ Jeśli nadal korzystasz z naszych usług, zgadzasz się na związanie niniejszą
     <string name = "connected"> została połączona </string>
     <string name = "disConnect"> nie połączony </string>
     <string name = "connectting"> łączy się </string>
-    <string name = "connect"> Urządzenie się łączy, spróbuj ponownie później </string>
     <string name = "syceError"> Zegarek nie jest podłączony, a dane zostaną zsynchronizowane z zegarkiem przy następnym podłączeniu </string>
     <string name = "unBind"> przełącz sprzęt </string>
     <string name = "unline"> odłącz </string>
     <string name = "line"> Połącz się z zegarkiem </string>
     <string name = "addDevice"> dodaj urządzenie </string>
-    <string name = "unbindSoon"> Najpierw odłącz sprzęt </string>
-    <string name = "lineError"> Wiele razy nie udało się połączyć, wyłącz i włącz Bluetooth telefonu lub uruchom ponownie zegarek </string>
-    <string name = "tipUnit"> Uwaga: wysokość i waga zostaną zresetowane po zmianie systemu jednostek. </string>
 
 
     <string name = "step1"> 1. Parowanie Bluetooth między zegarkiem a telefonem komórkowym </string>
@@ -308,6 +297,7 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
 
 
     <string name="measureUnit"> Jednostka miary </string>
+    <string name="tempUnit">Jednostka temperatury</string>
     <string name = "metric"> System metryczny </string>
     <string name = "british"> system brytyjski </string>
 
@@ -336,8 +326,6 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name = "averageSleep"> średni czas snu </string>
     <string name = "light"> lekki sen </string>
     <string name = "deep"> Głęboki sen </string>
-    <string name = "lightTable"> płytkie </string>
-    <string name = "deepTable"> głęboko </string>
     <string name = "averageHeart"> średnie tętno </string>
     <string name = "minHeart"> minimalne tętno </string>
     <string name = "maxHeart"> maksymalne tętno </string>
@@ -391,10 +379,9 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name = "loading"> ładowanie ... </string>
     <string name = "privacyTip"> Przed skorzystaniem z naszych produktów należy uważnie przeczytać i w pełni zrozumieć odpowiednie umowy dotyczące prywatności użytkownika. \ nKiedyKlikasz „OK”, aby zaznaczyć, że zgadzasz się z warunkami umowy. \ nPolityka prywatności użytkownika obejmuje głównie: \ n1. Dane osobowe (awatar, pseudonim,Dane dotyczące wzrostu, wagi, ćwiczeń itp.) Gromadzenie, przechowywanie i udostępnianie. \ n2. Korzystanie z uprawnień urządzenia (lokalizacja, książka adresowa, kamera itp.) </string>
     <string name = "crop_pic_failed"> nie przechwycił obrazu, wybierz obraz w formacie jpg! </string>
-    <string name = "deviceOut"> niezwiązane urządzenie </string>
     <string name = "visiter"> Tryb turystyczny nie obsługuje tej funkcji </string>
     <string name = "chooseJpg"> Wybierz zdjęcia w formacie jpg </string>
-
+    <string name="newVersion">Nowa wersja oprogramowania została wykryta, jest ono zaktualizowane teraz?</string>
 
     <string name = "planOK"> Dzisiejszy cel został osiągnięty </string>
     <string name = "planNO"> Dzisiejszy cel nie został osiągnięty </string>
@@ -415,9 +402,6 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name = "passTimeData"> zdawalność:% .1f %% </string>
 
     <string name = "bloodPressureData"> średnie skurczowe / rozkurczowe ciśnienie krwi </string>
-    <string name = "shareSuccess"> pomyślnie udostępniony </string>
-    <string name = "shareCancel"> Anuluj udostępnianie </string>
-    <string name = "shareFail"> Udostępnianie nie powiodło się </string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Błąd połączenia</string>
@@ -428,13 +412,10 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">Usługa SMS</string>
-    <string name="call_preference_title">Wezwij serwis</string>
     <string name="progress_dialog_title">Ładowanie</string>
     <string name="progress_dialog_message">Proszę czekać&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Aplikacja osobista</string>
-    <string name="system_apps_title">Aplikacja systemowa</string>
 
 
     <!-- Service -->
@@ -446,7 +427,6 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name="operate_error">Niepowodzenie</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -457,10 +437,9 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Wykryto, że przełącznik pozycji telefonu nie jest włączony, więc aby upewnić się, że aplikacja działa poprawnie, włącz przełącznik pozycyjny.</string>
+    <string name="speedPerHour">Prędkość</string>
+    <string name="training">Pociąg do uruchomienia</string>
 
 </resources>

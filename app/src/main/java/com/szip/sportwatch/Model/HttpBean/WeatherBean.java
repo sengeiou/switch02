@@ -27,6 +27,11 @@ public class WeatherBean extends BaseApi{
     public class Location{
         private String country;
         private String city;
+        private float elevation;
+
+        public float getElevation() {
+            return elevation;
+        }
 
         public String getCountry() {
             return country;

@@ -302,9 +302,12 @@ public class MathUitl {
 
     public static String getKeyFromValue(CharSequence charSequence) {
         Map<Object, Object> appList = AppList.getInstance().getAppList();
+        for (Object ob:appList.keySet()){
+            Log.d("key******","key = "+ob.toString()+" ;value = "+appList.get(ob).toString());
+        }
         Set<?> set = appList.entrySet();
         Iterator<?> it = set.iterator();
-        String key = null;
+        String key = "";
         while (it.hasNext()) {
             @SuppressWarnings("rawtypes")
             Map.Entry entry = (Map.Entry) it.next();
@@ -379,13 +382,38 @@ public class MathUitl {
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 英制转公制
-     * */
-    public static int british2Metric(int height){
+
+    public static int inch2Cm(int height){
         float data = (height / 0.3937008f);
         return (int)data+(data-(int)data>0.44444?1:0);
     }
+
+
+    public static int cm2Inch(int height){
+        int data;
+        data = (int)(height * 0.3937008);
+        return data;
+    }
+
+
+    public static int kg2Pound(int weight){
+        float data;
+        data = (int)(weight / 0.4536);
+        return (int)data+(data-(int)data>0.44444?1:0);
+    }
+
+    public static float c2f(float temp){
+        int data;
+        data = (int)((temp * 1.8+32)*10);
+        return data/10f;
+    }
+
+    public static int pound2Kg(int weight){
+        int data;
+        data = (int)(weight * 0.4536);
+        return data;
+    }
+
 
     /**
      * 英制转公制
@@ -399,19 +427,11 @@ public class MathUitl {
     /**
      * 公制转英制
      * */
-    public static int metric2British(int height){
-        int data;
-        data = (int)(height * 0.3937008);
-        return data;
-    }
-
-    /**
-     * 公制转英制
-     * */
-    public static float metric2Miles(int height){
-        float data;
-        data = height * 0.0006214f;
-        return data;
+    public static double metric2Miles(int height){
+//        int data;
+//        data = ;
+//        Log.d("SZIP******","height = "+height+" ;mile = "+(height *  0.00006214));
+        return (height *  0.00006214);
     }
 
     /**
@@ -610,7 +630,7 @@ public class MathUitl {
                 JSONObject object = new JSONObject();
                 object.put("time",heartDataList.get(i).time);
                 object.put("averageHeart",heartDataList.get(i).averageHeart);
-                object.put("heartArray",heartDataList.get(i).heartArray);
+                object.put("heartArray",heartDataList.get(i).getHeartArray());
                 array.put(object);
             }
             data.put("heartDataList",array);
@@ -629,14 +649,25 @@ public class MathUitl {
             array = new JSONArray();
             for (int i = 0;i<sportDataList.size();i++){
                 JSONObject object = new JSONObject();
+                object.put("type",sportDataList.get(i).type);
                 object.put("time",sportDataList.get(i).time);
                 object.put("sportTime",sportDataList.get(i).sportTime);
                 object.put("distance",sportDataList.get(i).distance);
                 object.put("calorie",sportDataList.get(i).calorie);
                 object.put("speed",sportDataList.get(i).speed);
-                object.put("type",sportDataList.get(i).type);
+                object.put("speedArray",sportDataList.get(i).speedArray);
                 object.put("heart",sportDataList.get(i).heart);
+                object.put("heartArray",sportDataList.get(i).heartArray);
                 object.put("stride",sportDataList.get(i).stride);
+                object.put("strideArray",sportDataList.get(i).strideArray);
+                object.put("step",sportDataList.get(i).step);
+                object.put("altitude",sportDataList.get(i).altitude);
+                object.put("altitudeArray",sportDataList.get(i).altitudeArray);
+                object.put("temp",sportDataList.get(i).temp);
+                object.put("tempArray",sportDataList.get(i).tempArray);
+                object.put("height",sportDataList.get(i).height);
+                object.put("speedPerHour",sportDataList.get(i).speedPerHour);
+                object.put("speedPerHourArray",sportDataList.get(i).speedPerHourArray);
                 array.put(object);
             }
             data.put("sportDataList",array);
@@ -709,9 +740,12 @@ public class MathUitl {
         editor.putString("phoneNumber",info.getPhoneNumber());
         editor.putString("email",info.getEmail());
         editor.putString("userName",info.getUserName());
-        editor.putString("height",info.getHeight());
-        editor.putString("weight",info.getWeight());
-        editor.putString("unit",info.getUnit());
+        editor.putInt("height1",info.getHeight());
+        editor.putInt("weight1",info.getWeight());
+        editor.putInt("heightBritish",info.getHeightBritish());
+        editor.putInt("weightBritish",info.getWeightBritish());
+        editor.putInt("unit1",info.getUnit());
+        editor.putInt("temp",info.getTempUnit());
         editor.putInt("sex",info.getSex());
         editor.putInt("stepsPlan",info.getStepsPlan());
         editor.putInt("sleepPlan",info.getSleepPlan());
@@ -726,9 +760,12 @@ public class MathUitl {
         UserInfo info = new UserInfo();
         info.setBirthday(sharedPreferences.getString("birthday",""));
         info.setUserName(sharedPreferences.getString("userName","ipt"));
-        info.setHeight(sharedPreferences.getString("height",null));
-        info.setWeight(sharedPreferences.getString("weight",null));
-        info.setUnit(sharedPreferences.getString("unit","metric"));
+        info.setHeight(sharedPreferences.getInt("height1",0));
+        info.setWeight(sharedPreferences.getInt("weight1",0));
+        info.setHeightBritish(sharedPreferences.getInt("heightBritish",0));
+        info.setWeightBritish(sharedPreferences.getInt("weightBritish",0));
+        info.setUnit(sharedPreferences.getInt("unit1",0));
+        info.setTempUnit(sharedPreferences.getInt("temp",0));
         info.setSex(sharedPreferences.getInt("sex",1));
         info.setStepsPlan(sharedPreferences.getInt("stepsPlan",6000));
         info.setSleepPlan(sharedPreferences.getInt("sleepPlan",480));
@@ -750,6 +787,7 @@ public class MathUitl {
             case 22:
             case 25:
             case 26:
+            case 31:
                 return 0;
             default:
                 return 1;
@@ -759,7 +797,7 @@ public class MathUitl {
     public static boolean isJpgFile(Cursor cursor){
         String res = null;
 
-        if(cursor.moveToFirst()){;
+        if(cursor.moveToFirst()){
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             res = cursor.getString(column_index);
         }

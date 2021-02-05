@@ -8,7 +8,9 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Service.MainService;
+import com.szip.sportwatch.Util.LogUtil;
 
 
 public class UtilBroadcat extends BroadcastReceiver {
@@ -29,26 +31,26 @@ public class UtilBroadcat extends BroadcastReceiver {
                     BluetoothAdapter.ERROR);
             switch (state) {
                 case BluetoothAdapter.STATE_OFF:
-                    Log.d("aaa", "STATE_OFF 手机蓝牙关闭");
+                    LogUtil.getInstance().logd("aaa", "STATE_OFF 手机蓝牙关闭");
                     Intent bleIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     bleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(bleIntent);
                     break;
                 case BluetoothAdapter.STATE_TURNING_OFF:
-                    Log.d("aaa", "STATE_TURNING_OFF 手机蓝牙正在关闭");
+                    LogUtil.getInstance().logd("aaa", "STATE_TURNING_OFF 手机蓝牙正在关闭");
                     break;
                 case BluetoothAdapter.STATE_ON:
-                    Log.d("aaa", "STATE_ON 手机蓝牙开启");
+                    LogUtil.getInstance().logd("aaa", "STATE_ON 手机蓝牙开启");
                     MainService.getInstance().setConnectAble(true);
                     MainService.getInstance().stopConnect();
                     WearableManager.getInstance().scanDevice(true);
                     break;
                 case BluetoothAdapter.STATE_TURNING_ON:
-                    Log.d("aaa", "STATE_TURNING_ON 手机蓝牙正在开启");
+                    LogUtil.getInstance().logd("aaa", "STATE_TURNING_ON 手机蓝牙正在开启");
                     break;
             }
         }else if (intent.getAction().equals("android.intent.action.ACTION_SHUTDOWN")){
-            Log.d("SZIP******","关机");
+            LogUtil.getInstance().logd("SZIP******","关机");
             WearableManager.getInstance().disconnect();
         }
     }

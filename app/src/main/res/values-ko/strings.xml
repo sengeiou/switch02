@@ -119,41 +119,35 @@
     <string name="slow">너무 느리다.</string>
     <string name="higher">너무 높다.</string>
     <string name="flat">너무 낮다.</string>
-    <string name="head">여 기 는 HeadView 입 니 다.</string>
     <string name="pull_to_refresh">드 롭 다운 리 셋</string>
     <string name="release_to_refresh">시전 즉시 갱신</string>
     <string name="refreshing">리 셋 중...</string>
     <string name="refresh_succeed">리 셋 성공</string>
     <string name="refresh_fail">리 셋 실패</string>
-    <string name="pullup_to_load">올 리 고 올 리 고 더 올 리 고.</string>
-    <string name="release_to_load">방출 즉시 로드</string>
-    <string name="load_succeed">로 딩 성공</string>
-    <string name="load_fail">로 딩 실패</string>
 
 
     <!--운동 인터페이스-->
     <string name="best">아웃 도 어 최 적의 기록.</string>
     <string name="history">역사 운동 기록</string>
     <string name="track">운동 정보</string>
-    <string name="notrack">운동 정보</string>
     <string name="speed">배 속</string>
     <string name="kcal">소모 (kcal)</string>
     <string name="time">시간 이 길다.</string>
-    <string name="heart_rate">심장 박동 수 (Bpm)</string>
-    <string name="stride">주파수 (Steps / s)</string>
+    <string name="heart_rate">심장 박동 수 (bpm)</string>
+    <string name="stride">주파수 (spm)</string>
+    <string name="cadence">주파수</string>
     <string name="distance">거리</string>
     <string name="speedData">평균 배 속</string>
-    <string name="kcalData">운동 소모</string>
-    <string name="timeData">평균 시간</string>
     <string name="heart_rateData"> 평균 심장 박동 수</string>
     <string name="strideData">평균 주파수</string>
     <string name="distanceData">노정.</string>
     <string name="basket">농구</string>
     <string name="football">축구.</string>
     <string name="pingpong">탁구.</string>
+    <string name="badminton">배드민턴</string>
     <string name="mountain">등산 하 다.</string>
     <string name="bike">자전 거 를 타다.</string>
-    <string name="run">달리기</string>
+    <string name="swim">수영</string>
     <string name="walk">도보 하 다.</string>
     <string name="treadmill">러 닝 머 신</string>
     <string name="runWithout">야외 달리기</string>
@@ -163,7 +157,7 @@
     <string name="averageShudu">평균 속도</string>
     <string name="boat">배 를 젓다.</string>
     <string name="altitude">해발</string>
-    <string name="avarageAltitude">평균 해발</string>
+    <string name="avarageAltitude">고도 상승</string>
     <string name="climb">암벽 을 타다.</string>
     <string name="skii">스키</string>
     <string name="golf">골프</string>
@@ -196,7 +190,6 @@
     <string name="confirm">확정 하 다.</string>
     <string name="tip">제시 하 다.</string>
     <string name="delete"> 이 운동 데 이 터 를 삭제 하 시 겠 습 니까?</string>
-    <string name="unbind">귀속 을 해제 하 시 겠 습 니까?</string>
     <string name="logoutTip">로그 인 을 종료 하 시 겠 습 니까?</string>
     <string name="sendOK">발송 성공</string>
     <string name="searchDevice">검색 장치</string>
@@ -204,15 +197,11 @@
     <string name="connected">연결 됨</string>
     <string name="disConnect">연결 되 지 않 음</string>
     <string name="connectting">연결 중</string>
-    <string name="connect">장치 연결 중, 잠시 후 다시 시도 해 주세요.</string>
     <string name="syceError">손목시계 가 연결 되 지 않 아 데이터 가 다음 연결 시 손목시계 에 동기 화 될 것 이다</string>
     <string name="unBind">스 위칭 장치</string>
     <string name="unline">연결 을 끊다</string>
     <string name="line">시 계 를 연결 하 다.</string>
     <string name="addDevice">장치 추가</string>
-    <string name="unbindSoon">우선 묶 는 장 치 를 풀 어 주세요.</string>
-    <string name="lineError">여러 번 접속 에 실 패 했 습 니 다. 휴대폰 블 루 투 스 를 켜 거나 시 계 를 다시 켜 주세요.</string>
-    <string name="tipUnit">주의: 단위 제식 키 를 바 꾸 면 체중 이 초기 화 됩 니 다.</string>
 
 
     <!--블 루 투 스 통화 창-->
@@ -239,6 +228,7 @@
 
     <!--단위 제식 인터페이스-->
     <string name="measureUnit">도량 단위</string>
+    <string name="tempUnit">온도 단위</string>
     <string name="metric">미터법</string>
     <string name="british">영제</string>
 
@@ -268,8 +258,6 @@
     <string name="averageSleep">평균 수면 시간</string>
     <string name="light">얕 은 잠</string>
     <string name="deep">깊 은 잠</string>
-    <string name="lightTable">얕다.</string>
-    <string name="deepTable">깊다.</string>
     <string name="averageHeart">평균 심장 박동 수</string>
     <string name="minHeart">최소 심 박 률</string>
     <string name="maxHeart">최대 심장 박동 수</string>
@@ -344,11 +332,10 @@
 
 </string>
     <string name="crop_pic_failed">그림 캡 처 실패, jpg 형식 그림 을 선택 하 세 요!</string>
-    <string name="deviceOut">연결 되 지 않 은 장치</string>
     <string name="visiter">관광객 모드 는 이 기능 을 지원 하지 않 습 니 다</string>
-    <string name="chooseJpg">jpg 형식의 그림 을 선택 하 세 요
+    <string name="chooseJpg">jpg 형식의 그림 을 선택 하 세 요</string>
+    <string name="newVersion">새로운 소프트웨어 버전이 발견되었습니다. 지금 업데이트하시겠습니까?</string>
 
-</string>
 
     <!--공유 인터페이스-->
     <string name="planOK">오늘 목표 달성</string>
@@ -372,9 +359,6 @@
     <string name="passTimeData">합격 율: %.1f%%</string>
 
     <string name="bloodPressureData">평균 수축 기압.</string>
-    <string name="shareSuccess">성공 을 함께 나누다</string>
-    <string name="shareCancel">공유 취소</string>
-    <string name="shareFail">공유 실패</string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">Connect Error</string>
@@ -385,13 +369,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">SMS service</string>
-    <string name="call_preference_title">Call service</string>
     <string name="progress_dialog_title">로드 중</string>
     <string name="progress_dialog_message">잠시 만 요.&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Personal app</string>
-    <string name="system_apps_title">System app</string>
 
 
     <!-- Service -->
@@ -403,7 +384,6 @@
     <string name="operate_error">Failed</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -414,9 +394,8 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">핸드폰의 위치 스위치가 켜져 있지 않은 것이 확인되었습니다. 정상 사용을 위해서 위치 스위치를 눌러 주십시오.</string>
+    <string name="speedPerHour">시속</string>
+    <string name="training">달리기를 훈련하다</string>
 </resources>

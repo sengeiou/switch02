@@ -136,41 +136,34 @@
     <string name = "slow"> ช้าเกินไป </string>
     <string name = "higher"> ด้านสูง </string>
     <string name = "flat"> ต่ำ </string>
-    <string name = "head"> นี่คือ HeadView </string>
     <string name = "pull_to_refresh"> ดึงลงเพื่อรีเฟรช </string>
     <string name = "release_to_refresh"> รีเฟรชทันที </string>
     <string name = "refreshing"> กำลังรีเฟรช ... </string>
     <string name = "refresh_succeed"> รีเฟรชสำเร็จ </string>
     <string name = "refresh_fail"> รีเฟรชล้มเหลว </string>
-    <string name = "pullup_to_load"> ดึงขึ้นเพื่อโหลดเพิ่มเติม </string>
-    <string name = "release_to_load"> ปล่อยโหลดทันที </string>
-    <string name = "load_succeed"> สำเร็จ </string>
-    <string name = "load_fail"> โหลดล้มเหลว </string>
-
 
 
     <string name = "best"> สถิติที่ดีที่สุดสำหรับการวิ่งกลางแจ้ง </string>
     <string name = "history"> ประวัติบันทึกกีฬา </string>
     <string name = "track"> รายละเอียดกีฬา </string>
-    <string name = "notrack"> ไม่มีการติดตามการเคลื่อนไหว </string>
     <string name = "speed"> ก้าว </string>
     <string name = "kcal"> การบริโภค (kcal) </string>
     <string name = "time"> ระยะเวลา </string>
-    <string name = "heart_rate"> อัตราการเต้นของหัวใจ (Bpm) </string>
+    <string name = "heart_rate"> อัตราการเต้นของหัวใจ (bpm) </string>
     <string name = "stride"> ความถี่ขั้นตอน (Steps / s) </string>
+    <string name="cadence">Cadence</string>
     <string name = "distance"> ระยะทาง (</string>
     <string name = "speedData"> ก้าวเฉลี่ย </string>
-    <string name = "kcalData"> การใช้กีฬา </string>
-    <string name = "timeData"> ระยะเวลาการออกกำลังกาย </string>
     <string name = "heart_rateData"> อัตราการเต้นของหัวใจเฉลี่ย </string>
     <string name = "strideData"> ความถี่ในการก้าวเฉลี่ย </string>
     <string name = "distanceData"> ระยะทาง </string>
     <string name = "basket"> บาสเก็ตบอล </string>
     <string name = "football"> ฟุตบอล </string>
     <string name = "pingpong"> ปิงปอง </string>
+    <string name="badminton">Badminton</string>
     <string name = "mountain"> ปีนเขา </string>
     <string name = "bike"> ขี่ </string>
-    <string name = "run"> กำลังทำงาน </string>
+    <string name="swim">สระ ว่าย น้ำ</string>
     <string name = "walk"> เดินเท้า </string>
     <string name = "treadmill"> ลู่วิ่ง </string>
     <string name = "runWithout"> วิ่งกลางแจ้ง </string>
@@ -213,7 +206,6 @@
     <string name = "confirm"> ตกลง </string>
     <string name = "tip"> พร้อมต์ </string>
     <string name = "delete"> แน่ใจไหมว่าต้องการลบข้อมูลการออกกำลังกายนี้ </string>
-    <string name = "unbind"> แน่ใจหรือไม่ว่าต้องการเลิกผูก </string>
     <string name = "logoutTip"> แน่ใจไหมว่าต้องการออกจากระบบ </string>
     <string name = "sendOK"> ส่งสำเร็จ </string>
     <string name = "searchDevice"> อุปกรณ์ค้นหา </string>
@@ -221,16 +213,11 @@
     <string name = "connected"> แล้ว </string>
     <string name = "disConnect"> ไม่ได้เชื่อมต่อ </string>
     <string name = "connectting"> กำลังเชื่อมต่อ </string>
-    <string name = "connect"> อุปกรณ์กำลังเชื่อมต่อโปรดลองอีกครั้งในภายหลัง </string>
     <string name = "syceError"> นาฬิกาไม่ได้เชื่อมต่อและข้อมูลจะถูกซิงโครไนซ์กับนาฬิกาเมื่อมีการเชื่อมต่อในครั้งต่อไป </string>
     <string name = "unBind"> เปลี่ยนอุปกรณ์ </string>
     <string name = "unline"> ยกเลิกการเชื่อมต่อ </string>
     <string name = "line"> เชื่อมต่อกับนาฬิกา </string>
     <string name = "addDevice"> เพิ่มอุปกรณ์ </string>
-    <string name = "unbindSoon"> โปรดเลิกผูกอุปกรณ์ก่อน </string>
-    <string name = "lineError"> เชื่อมต่อไม่สำเร็จหลายครั้งโปรดปิดและเปิดบลูทู ธ ของโทรศัพท์หรือรีสตาร์ทนาฬิกา </string>
-    <string name = "tipUnit"> หมายเหตุ: ความสูงและน้ำหนักจะถูกรีเซ็ตหลังจากเปลี่ยนระบบหน่วย </string>
-
 
 
     <string name = "step1"> 1. การจับคู่บลูทู ธ ระหว่างนาฬิกากับโทรศัพท์มือถือ </string>
@@ -248,6 +235,7 @@
 
 
     <string name="measureUnit"> หน่วยการวัด </string>
+    <string name="tempUnit">Unit Of Temperature</string>
     <string name = "metric"> ระบบเมตริก </string>
     <string name = "british"> ระบบอังกฤษ </string>
 
@@ -277,8 +265,6 @@
     <string name = "averageSleep"> เวลานอนเฉลี่ย </string>
     <string name = "light"> นอนเบา </string>
     <string name = "deep"> หลับสนิท </string>
-    <string name = "lightTable"> ตื้น </string>
-    <string name = "deepTable"> ลึก </string>
     <string name = "averageHeart"> อัตราการเต้นของหัวใจเฉลี่ย </string>
     <string name = "minHeart"> อัตราการเต้นของหัวใจขั้นต่ำ </string>
     <string name = "maxHeart"> อัตราการเต้นของหัวใจสูงสุด </string>
@@ -332,9 +318,10 @@
     <string name = "loading"> กำลังโหลด ... </string>
     <string name = "privacyTip"> ก่อนที่คุณจะใช้ผลิตภัณฑ์ของเราโปรดอ่านอย่างละเอียดและเข้าใจข้อตกลงความเป็นส่วนตัวของผู้ใช้ที่เกี่ยวข้อง \ n เมื่อคุณคลิก "ตกลง" หมายความว่าคุณได้ยอมรับเงื่อนไขของข้อตกลงแล้ว \ n นโยบายความเป็นส่วนตัวของผู้ใช้ส่วนใหญ่ประกอบด้วยเนื้อหาต่อไปนี้: \ n1. การรวบรวมการจัดเก็บและการแบ่งปันข้อมูลส่วนบุคคล (อวาตาร์ชื่อเล่นส่วนสูงน้ำหนักข้อมูลการออกกำลังกาย ฯลฯ ) \ n2. การใช้สิทธิ์ของอุปกรณ์ (ตำแหน่งที่ตั้งสมุดที่อยู่กล้องถ่ายรูป ฯลฯ ) </string>
     <string name = "crop_pic_failed"> ล้มเหลวในการดักจับรูปภาพโปรดเลือกรูปภาพในรูปแบบ jpg! </string>
-    <string name = "deviceOut"> อุปกรณ์ที่ไม่ถูกผูกไว้ </string>
     <string name = "visiter"> โหมดนักท่องเที่ยวไม่รองรับคุณลักษณะนี้ </string>
     <string name = "chooseJpg"> โปรดเลือกรูปภาพในรูปแบบ jpg </string>
+    <string name="newVersion">检测到有新的软件版本，是否现在更新？</string>
+
 
     <string name = "planOK"> บรรลุเป้าหมายของวันนี้แล้ว </string>
     <string name = "planNO"> เป้าหมายของวันนี้ไม่ถึง </string>
@@ -355,9 +342,6 @@
     <string name = "passTimeData"> อัตราการส่งผ่าน:% .1f %% </string>
 
     <string name = "bloodPressureData"> ความดันโลหิตเฉลี่ย systolic / diastolic </string>
-    <string name = "shareSuccess"> แชร์สำเร็จ </string>
-    <string name = "shareCancel"> ยกเลิกการแบ่งปัน </string>
-    <string name = "shareFail"> การแบ่งปันล้มเหลว </string>
 
     <!-- สแกนและเชื่อมต่อ -->
     <string name="connect_error">ข้อผิดพลาดในการเชื่อมต่อ</string>
@@ -368,13 +352,10 @@
 
     <!-- การตั้งค่ากิจกรรม -->
     <string name="sms_preference_title">บริการ SMS</string>
-    <string name="call_preference_title">บริการโทร</string>
     <string name="progress_dialog_title">กำลังโหลด</string>
     <string name="progress_dialog_message">กรุณารอสักครู่ &#8230;</string>
 
     <!-- เลือกแจ้งกิจกรรม -->
-    <string name="personal_apps_title">แอปส่วนตัว</string>
-    <string name="system_apps_title">แอประบบ</string>
 
 
     <!-- บริการ -->
@@ -387,7 +368,6 @@
 
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -398,10 +378,8 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="speedPerHour">"  "</string>
+    <string name="training">" "</string>
 
 </resources>

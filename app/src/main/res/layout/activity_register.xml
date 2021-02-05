@@ -24,7 +24,7 @@
             android:id="@+id/backIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel"
             android:layout_marginTop="40dp"
             android:src="@mipmap/registor_icon_back" />
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registerTitle"
-            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel"
             android:layout_marginTop="@dimen/register_margin_each_model"
             android:textColor="@color/rayblue"
             android:textSize="26sp"/>
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/country"
-            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel"
             android:layout_marginTop="@dimen/register_margin_each_model"
             android:textSize="@dimen/register_text_size"
             android:textColor="@color/rayblue"/>
@@ -53,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_edit_height"
             android:orientation="horizontal"
-            android:layout_marginRight="@dimen/register_margin_parallel"
-            android:layout_marginLeft="@dimen/register_margin_parallel">
+            android:layout_marginEnd="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel">
 
             <TextView
                 android:id="@+id/countryTv"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+86"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/register_text_size"
                 android:textColor="@color/rayblue"/>
@@ -86,7 +86,7 @@
             android:id="@+id/userTipTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel"
             android:text="@string/user"
             android:layout_marginTop="@dimen/register_margin_each_model"
             android:textSize="@dimen/register_text_size"
@@ -95,8 +95,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_edit_height"
-            android:layout_marginRight="@dimen/register_margin_parallel"
-            android:layout_marginLeft="@dimen/register_margin_parallel">
+            android:layout_marginEnd="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel">
 
             <EditText
                 android:id="@+id/userEt"
@@ -120,7 +120,7 @@
             android:id="@+id/verifyCodeTipTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel"
             android:text="@string/verification"
             android:layout_marginTop="@dimen/register_margin_each_model"
             android:textSize="@dimen/register_text_size"
@@ -129,8 +129,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_edit_height"
-            android:layout_marginRight="@dimen/register_margin_parallel"
-            android:layout_marginLeft="@dimen/register_margin_parallel">
+            android:layout_marginEnd="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel">
 
             <EditText
                 android:id="@+id/verifyCodeEt"
@@ -142,7 +142,7 @@
                 android:textSize="@dimen/register_text_size"
                 android:textColorHint="@color/gray"
                 android:inputType="number"
-                android:layout_toLeftOf="@id/sendTv"/>
+                android:layout_toStartOf="@id/sendTv"/>
 
 
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/send"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/register_text_size"
                 android:textColor="@color/rayblue"/>
@@ -166,8 +166,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/register_margin_parallel"
-            android:layout_marginLeft="@dimen/register_margin_parallel">
+            android:layout_marginEnd="@dimen/register_margin_parallel"
+            android:layout_marginStart="@dimen/register_margin_parallel">
 
             <Button
                 android:id="@+id/nextBtn"
@@ -187,6 +187,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/login_bg"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

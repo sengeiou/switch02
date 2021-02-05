@@ -152,40 +152,34 @@
     <string name = "slow"> بطيء جدًا </string>
     <string name = "higher"> الجانب العلوي </string>
     <string name = "flat"> منخفض </string>
-    <string name = "head"> هذا هو HeadView </string>
     <string name = "pull_to_refresh"> اسحب لأسفل للتحديث </string>
     <string name = "release_to_refresh"> حرر التحديث فورًا </string>
     <string name = "refreshing"> قيد التحديث ... </string>
     <string name = "refresh_succeed"> التحديث بنجاح </string>
     <string name = "refresh_fail"> فشل التحديث </string>
-    <string name = "pullup_to_load"> اسحب لتحميل المزيد </string>
-    <string name = "release_to_load"> حرر التحميل فورًا </string>
-    <string name = "load_succeed"> تم تحميله بنجاح </string>
-    <string name = "load_fail"> فشل التحميل </string>
 
 
     <string name = "best"> أفضل سجل للجري في الهواء الطلق </string>
     <string name = "history"> تاريخ السجلات الرياضية </string>
     <string name = "track"> تفاصيل الرياضة </string>
-    <string name = "notrack"> لا يوجد مسار حركة </string>
     <string name = "speed"> وتيرة </string>
     <string name = "kcal"> الاستهلاك (kcal) </string>
     <string name = "time"> المدة </string>
     <string name = "heart_rate"> معدل ضربات القلب (نبضة في الدقيقة) </string>
     <string name = "stride"> تردد الخطوة (الخطوات / الخطوات) </string>
+    <string name = "cadence"> تردد الخطوة </string>
     <string name = "distance"> الأميال (</string>
     <string name = "speedData"> متوسط ​​السرعة </string>
-    <string name = "kcalData"> استهلاك الرياضة </string>
-    <string name = "timeData"> مدة التمرين </string>
     <string name = "heart_rateData"> متوسط ​​معدل ضربات القلب </string>
     <string name = "strideData"> متوسط ​​تردد الخطوات </string>
     <string name = "distanceData"> الأميال </string>
     <string name = "basket"> كرة السلة </string>
     <string name = "football"> كرة القدم </string>
     <string name = "pingpong"> بينج بونج </string>
+    <string name="badminton">كرة الريشة</string>
     <string name = "mountain"> تسلق الجبال </string>
     <string name = "bike"> ركوب </string>
-    <string name = "run"> تشغيل </string>
+    <string name="swim">السباحة</string>
     <string name = "walk"> سيرًا على الأقدام </string>
     <string name = "treadmill"> جهاز المشي </string>
     <string name = "runWithout"> الجري في الهواء الطلق </string>
@@ -195,7 +189,6 @@
     <string name = "averageShudu"> متوسط ​​السرعة </string>
     <string name = "boat"> القوارب </string>
     <string name = "altitude"> الارتفاع </string>
-    <string name = "avarageAltitude"> متوسط ​​الارتفاع </string>
     <string name = "climb"> تسلق الصخور </string>
     <string name = "skii"> التزلج </string>
     <string name = "golf"> Golf </string>
@@ -228,7 +221,6 @@
     <string name = "confirm"> موافق </string>
     <string name = "tip"> موجه </string>
     <string name = "delete"> هل أنت متأكد أنك تريد حذف هذا الجزء من بيانات التمرين؟ </string>
-    <string name = "unbind"> هل أنت متأكد أنك تريد إلغاء الربط؟ </string>
     <string name = "logoutTip"> هل أنت متأكد أنك تريد تسجيل الخروج؟ </string>
     <string name = "sendOK"> تم الإرسال بنجاح </string>
     <string name = "searchDevice"> جهاز البحث </string>
@@ -236,16 +228,11 @@
     <string name = "connected"> تم توصيله </string>
     <string name = "disConnect"> غير متصل </string>
     <string name = "connectting"> متصل </string>
-    <string name = "connect"> الجهاز متصل ، الرجاء المحاولة مرة أخرى لاحقًا </string>
     <string name = "syceError"> الساعة غير متصلة ، وستتم مزامنة البيانات مع الساعة عند توصيلها في المرة القادمة </string>
     <string name = "unBind"> تبديل المعدات </string>
     <string name = "unline"> قطع الاتصال </string>
     <string name = "line"> الاتصال بالساعة </string>
     <string name = "addDevice"> إضافة جهاز </string>
-    <string name = "unbindSoon"> الرجاء فك ربط الجهاز أولاً </string>
-    <string name = "lineError"> فشل الاتصال عدة مرات ، يرجى إيقاف تشغيل الهاتف وتشغيله على بلوتوث أو إعادة تشغيل الساعة </string>
-    <string name = "tipUnit"> ملاحظة: ستتم إعادة ضبط الطول والوزن بعد تبديل نظام الوحدة. </string>
-
 
 
     <string name = "step1"> 1. اقتران Bluetooth بين الساعة والهاتف المحمول </string>
@@ -262,6 +249,7 @@
     <string name = "send_success"> بنجاح </string>
 
     <string name="measureUnit"> وحدة القياس </string>
+    <string name="tempUnit">وحدة الحرارة</string>
     <string name = "metric"> النظام المتري </string>
     <string name = "british"> النظام البريطاني </string>
 
@@ -290,8 +278,6 @@
     <string name = "averageSleep"> متوسط ​​وقت النوم </string>
     <string name = "light"> سكون خفيف </string>
     <string name = "deep"> نوم عميق </string>
-    <string name = "lightTable"> ضحل </string>
-    <string name = "deepTable"> عميق </string>
     <string name = "averageHeart"> متوسط ​​معدل ضربات القلب </string>
     <string name = "minHeart"> الحد الأدنى لمعدل ضربات القلب </string>
     <string name = "maxHeart"> أقصى معدل لضربات القلب </string>
@@ -346,9 +332,9 @@
     <string name = "loading"> جارٍ التحميل ... </string>
     <string name = "privacyTip"> قبل استخدام منتجاتنا ، يرجى قراءة اتفاقيات خصوصية المستخدم ذات الصلة بعناية وفهمها تمامًا. \ n عند النقر فوق "موافق" ، فهذا يعني أنك وافقت على شروط الاتفاقية. \ n يتضمن نهج خصوصية المستخدم بشكل أساسي المحتوى التالي: \ n1. جمع المعلومات الشخصية وتخزينها ومشاركتها (الصورة الرمزية ، واللقب ، والطول ، والوزن ، وبيانات التمرين ، وما إلى ذلك). \ n2. استخدام أذونات الجهاز (الموقع ، دفتر العناوين ، الكاميرا ، إلخ) </string>
     <string name = "crop_pic_failed"> فشل في اعتراض الصورة ، يرجى تحديد صورة تنسيق jpg! </string>
-    <string name = "deviceOut"> جهاز غير منضم </string>
     <string name = "visiter"> لا يدعم الوضع السياحي هذه الميزة </string>
     <string name = "chooseJpg"> يرجى تحديد الصور بتنسيق jpg </string>
+    <string name="newVersion">تم الكشف عن نسخة جديدة من البرمجيات، هل يتم تحديثها الآن؟</string>
 
     <string name = "planOK"> تم الوصول إلى هدف اليوم </string>
     <string name = "planNO"> لم يتم تحقيق هدف اليوم </string>
@@ -369,9 +355,6 @@
     <string name = "passTimeData"> معدل النجاح:٪ .1f ٪٪ </string>
 
     <string name = "bloodPressureData"> متوسط ​​ضغط الدم الانقباضي / الانبساطي </string>
-    <string name = "shareSuccess"> تمت مشاركته بنجاح </string>
-    <string name = "shareCancel"> إلغاء المشاركة </string>
-    <string name = "shareFail"> فشلت المشاركة </string>
 
     <!-- Scan & Connect -->
     <string name="connect_error">خطأ في الاتصال</string>
@@ -382,13 +365,10 @@
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">خدمة الرسائل القصيرة</string>
-    <string name="call_preference_title">خدمة الدعوة</string>
     <string name="progress_dialog_title">جار التحميل</string>
     <string name="progress_dialog_message">ارجوك انتظر&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">التطبيق الشخصي</string>
-    <string name="system_apps_title">تطبيق النظام</string>
 
 
     <!-- Service -->
@@ -400,7 +380,6 @@
     <string name="operate_error">فشل</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -411,10 +390,10 @@
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">اكتشف مفتاح الموقع في هاتفك غير مفتوح، يرجى تشغيل مفتاح الموقع للتأكد من أن التطبيق يعمل بشكل صحيح.</string>
+    <string name="avarageAltitude">إرتفع</string>
+    <string name="speedPerHour">بسرعة</string>
+    <string name="training">التدريب الجري</string>
 
 </resources>

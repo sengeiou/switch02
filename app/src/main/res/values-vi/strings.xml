@@ -194,41 +194,34 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
     <string name = "slow"> quá chậm </string>
     <string name = "higher"> cao </string>
     <string name = "flat"> thấp </string>
-    <string name = "head"> đây là HeadView </string>
     <string name = "pull_to_refresh"> kéo xuống để làm mới </string>
     <string name = "release_to_refresh"> phát hành làm mới ngay lập tức </string>
     <string name = "refreshing"> đang làm mới ... </string>
     <string name = "refresh_succeed"> làm mới thành công </string>
     <string name = "refresh_fail"> làm mới không thành công </string>
-    <string name = "pullup_to_load"> kéo lên để tải thêm </string>
-    <string name = "release_to_load"> tải xuống ngay lập tức </string>
-    <string name = "load_succeed"> đã tải thành công </string>
-    <string name = "load_fail"> lỗi tải </string>
-
 
 
     <string name = "best"> Kỷ lục tốt nhất khi chạy ngoài trời </string>
     <string name = "history"> Lịch sử các kỷ lục thể thao </string>
     <string name = "track"> chi tiết thể thao </string>
-    <string name = "notrack"> không có rãnh chuyển động </string>
     <string name = "speed"> nhịp độ </string>
     <string name = "kcal"> tiêu thụ (kcal) </string>
     <string name = "time"> thời lượng </string>
-    <string name = "heart_rate"> Nhịp tim (Bpm) </string>
-    <string name = "stride"> Tần suất bước (Số bước / s) </string>
-    <string name = "distance"> mileage (</string>
+    <string name = "heart_rate"> Nhịp tim (bpm) </string>
+    <string name = "stride">Tần suất bước (spm)</string>
+    <string name="cadence">Tần suất bước</string>
+    <string name = "distance"> mileage </string>
     <string name = "speedData"> nhịp độ trung bình </string>
-    <string name = "kcalData"> tiêu thụ thể thao </string>
-    <string name = "timeData"> thời lượng bài tập </string>
     <string name = "heart_rateData"> nhịp tim trung bình </string>
     <string name = "strideData"> tần suất sải chân trung bình </string>
     <string name = "distanceData"> số dặm </string>
     <string name = "basket"> Bóng rổ </string>
     <string name = "football"> Bóng đá </string>
     <string name = "pingpong"> bóng bàn </string>
+    <string name="badminton">Cầu lông</string>
     <string name = "mountain"> leo núi </string>
     <string name = "bike"> cưỡi </string>
-    <string name = "run"> đang chạy </string>
+    <string name="swim">Bơi lội</string>
     <string name = "walk"> đi bộ </string>
     <string name = "treadmill"> máy chạy bộ </string>
     <string name = "runWithout"> chạy ngoài trời </string>
@@ -238,7 +231,7 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
     <string name = "averageShudu"> tốc độ trung bình </string>
     <string name = "boat"> chèo thuyền </string>
     <string name = "altitude"> độ cao </string>
-    <string name = "avarageAltitude"> độ cao trung bình </string>
+    <string name = "avarageAltitude">Bay cao lên</string>
     <string name = "climb"> Leo núi </string>
     <string name = "skii"> Trượt tuyết </string>
     <string name = "golf"> Chơi gôn </string>
@@ -271,7 +264,6 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
     <string name = "confirm"> Chắc chắn </string>
     <string name = "tip"> lời nhắc </string>
     <string name = "delete"> Bạn có chắc chắn muốn xóa phần dữ liệu bài tập này không? </string>
-    <string name = "unbind"> Bạn có chắc chắn muốn hủy liên kết không? </string>
     <string name = "logoutTip"> Bạn có chắc chắn muốn đăng xuất không? </string>
     <string name = "sendOK"> đã gửi thành công </string>
     <string name = "searchDevice"> thiết bị tìm kiếm </string>
@@ -279,15 +271,11 @@ Nếu bạn tiếp tục sử dụng dịch vụ của chúng tôi, bạn đồn
     <string name = "connected"> đã được kết nối </string>
     <string name = "disConnect"> không được kết nối </string>
     <string name = "connectting"> đang kết nối </string>
-    <string name = "connect"> Thiết bị đang kết nối, vui lòng thử lại sau </string>
     <string name = "syceError"> Đồng hồ chưa được kết nối và dữ liệu sẽ được đồng bộ hóa với đồng hồ khi nó được kết nối vào lần sau </string>
     <string name = "unBind"> chuyển đổi thiết bị </string>
     <string name = "unline"> ngắt kết nối </string>
     <string name = "line"> Kết nối với đồng hồ </string>
     <string name = "addDevice"> thêm thiết bị </string>
-    <string name = "unbindSoon"> Trước tiên, vui lòng hủy liên kết thiết bị </string>
-    <string name = "lineError"> Không kết nối được nhiều lần, vui lòng tắt và bật Bluetooth của điện thoại hoặc khởi động lại đồng hồ </string>
-    <string name = "tipUnit"> Lưu ý: Chiều cao và cân nặng sẽ được đặt lại sau khi chuyển đổi hệ thống đơn vị. </string>
 
     <string name = "step1"> 1. Ghép nối Bluetooth giữa đồng hồ và điện thoại di động </string>
     <string name = "step2"> 2. Nâng cao mối quan hệ phù hợp </string>
@@ -308,6 +296,7 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
 
 
     <string name="measureUnit"> Đơn vị đo </string>
+    <string name="tempUnit">Đơn vị nhiệt độ</string>
     <string name = "metric"> Hệ thống số liệu </string>
     <string name = "british"> Hệ thống của Anh </string>
 
@@ -337,8 +326,6 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name = "averageSleep"> thời gian ngủ trung bình </string>
     <string name = "light"> ngủ nhẹ </string>
     <string name = "deep"> Ngủ sâu </string>
-    <string name = "lightTable"> cạn </string>
-    <string name = "deepTable"> sâu </string>
     <string name = "averageHeart"> nhịp tim trung bình </string>
     <string name = "minHeart"> nhịp tim tối thiểu </string>
     <string name = "maxHeart"> nhịp tim tối đa </string>
@@ -397,9 +384,9 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
         Bạn nhấp vào "OK" để cho biết rằng bạn đã đồng ý với các điều khoản của thỏa thuận. \ nChính sách bảo mật của người dùng chủ yếu bao gồm những điều sau: \ n1. Thông tin cá nhân (hình đại diện, biệt hiệu,
         Dữ liệu về chiều cao, cân nặng, bài tập, v.v.) thu thập, lưu trữ và chia sẻ. \ n2. Sử dụng các quyền của thiết bị (vị trí, sổ địa chỉ, máy ảnh, v.v.) </string>
     <string name = "crop_pic_failed"> không chặn được ảnh, vui lòng chọn ảnh định dạng jpg! </string>
-    <string name = "deviceOut"> thiết bị không liên kết </string>
     <string name = "visiter"> Chế độ khách du lịch không hỗ trợ tính năng này </string>
     <string name = "chooseJpg"> Vui lòng chọn ảnh ở định dạng jpg </string>
+    <string name="newVersion">检测到有新的软件版本，是否现在更新？</string>
 
 
     <string name = "planOK"> Đã đạt được mục tiêu của ngày hôm nay </string>
@@ -421,9 +408,6 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name = "passTimeData"> tỷ lệ vượt qua:% .1f %% </string>
 
     <string name = "bloodPressureData"> huyết áp tâm thu / huyết áp tâm trương trung bình </string>
-    <string name = "shareSuccess"> đã chia sẻ thành công </string>
-    <string name = "shareCancel"> Hủy chia sẻ </string>
-    <string name = "shareFail"> Chia sẻ không thành công </string>
 
 
     <string name = "connect_error"> Lỗi kết nối </string>
@@ -433,14 +417,10 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
 
     <!-- SettingActivity -->
     <string name="sms_preference_title">Dịch vụ SMS</string>
-    <string name="call_preference_title">Dịch vụ cuộc gọi</string>
     <string name="progress_dialog_title">Đang tải</string>
     <string name="progress_dialog_message">vui lòng đợi&#8230;</string>
 
     <!-- SelectNotifiActivity -->
-    <string name="personal_apps_title">Ứng dụng cá nhân</string>
-    <string name="system_apps_title">Ứng dụng hệ thống
-</string>
 
 
     <!-- Service -->
@@ -452,7 +432,6 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name="operate_error">Thất bại</string>
 
     <!--固件升级-->
-    <string name="update_fota">Firmware upgrade</string>
     <string name="trigger_failed_due_to_low_battery">The battery of watch is low. Please try it again after charging!</string>
     <string name="update_failed">Watch upgrade failed,Please try again later!</string>
     <string name="send_firmware_date_success">Succeed in data transmition!</string>
@@ -463,9 +442,8 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name="bt_disconnected_while_transfer">Bluetooth connection is broken!</string>
     <string name="download_succeed_via_bt">Send completed, please wait for upgrade!</string>
     <string name="updated_firmware">Update successfully!</string>
-    <string name="notice_need_write_external_storage_permission">Please give the permission for the memory card of application and operation in "Setting".</string>
-    <string name="apply_write_external_storage_permission">The application requires permission to operate your memory card to save the firmware file.</string>
-    <string name="get_app_permission">Please allow application permission</string>
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
-    <string name="external_storage_unactivity">Memory card isn\'t available</string>
+    <string name="checkGPS">Phát hiện vị trí chuyển đổi điện thoại di động của bạn không được bật, để đảm bảo rằng các ứng dụng hoạt động, xin vui lòng bật chuyển đổi vị trí.</string>
+    <string name="speedPerHour">Tốc độ</string>
+    <string name="training">Đào tạo chạy</string>
 </resources>

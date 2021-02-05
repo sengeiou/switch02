@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller.Fragment.ReportFragment.sport;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
@@ -15,8 +16,8 @@ import com.szip.sportwatch.View.SportSpeedView;
 import java.util.Locale;
 
 public class ClimbFragment extends BaseFragment {
-    private TextView timeTv,dataTv,heightTv,unitTv,heartTv,averageTv1;
-    private SportReportView tableView1;
+    private TextView timeTv,kcalTv,sportTimeTv,averageTv1,averageTv2;
+    private SportReportView tableView1, tableView2;
     private SportData sportData;
 
     public ClimbFragment(SportData sportData) {
@@ -36,27 +37,24 @@ public class ClimbFragment extends BaseFragment {
 
     private void initView() {
         timeTv = getView().findViewById(R.id.timeTv);
-        dataTv = getView().findViewById(R.id.dataTv);
-        heightTv = getView().findViewById(R.id.heightTv);
-        unitTv = getView().findViewById(R.id.unitTv);
-        heartTv = getView().findViewById(R.id.heartTv);
+        sportTimeTv = getView().findViewById(R.id.sportTimeTv);
+        kcalTv = getView().findViewById(R.id.kcalTv);
         averageTv1 = getView().findViewById(R.id.averageTv1);
+        averageTv2 = getView().findViewById(R.id.averageTv2);
         tableView1 = getView().findViewById(R.id.tableView1);
+        tableView2 = getView().findViewById(R.id.tableView2);
     }
 
     private void initData() {
         timeTv.setText(DateUtil.getStringDateFromSecond(sportData.time,"MM/dd HH:mm:ss"));
-        dataTv.setText(sportData.step+"");
-        if (MyApplication.getInstance().getUserInfo().getUnit().equals("metric")){
-            heightTv.setText(String.format(Locale.ENGLISH,"%.2f",sportData.distance/1000f));
-            unitTv.setText("km");
-        } else{
-            heightTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(sportData.distance)));
-            unitTv.setText("Mi");
-        }
-        heartTv.setText(sportData.heart+"");
+        sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportData.sportTime/3600,
+                sportData.sportTime%3600/60,sportData.sportTime%3600%60));
+        kcalTv.setText(String.format(Locale.ENGLISH,"%.1f", sportData.calorie/1000f));
         averageTv1.setText(sportData.heart+"");
-        tableView1.addData(sportData.heartArray.equals("")?null:sportData.heartArray.split(","));
+        tableView1.addData(sportData.getHeartArray().equals("")?null:sportData.getHeartArray().split(","));
+        averageTv2.setText(sportData.height+"");
+        tableView2.addData(sportData.getAltitudeArray().equals("")?null:sportData.getAltitudeArray().split(","));
+
     }
 
 }

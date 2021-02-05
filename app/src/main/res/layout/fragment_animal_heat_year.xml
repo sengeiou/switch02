@@ -13,8 +13,8 @@
         android:orientation="vertical"
         android:layout_weight="3"
         android:layout_marginTop="@dimen/report_margin"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin"
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin"
         android:background="@drawable/bg_report_orange1">
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/report_margin_parallel"
+            android:layout_marginStart="@dimen/report_margin_parallel"
             android:layout_marginTop="@dimen/report_margin_parallel"
             android:layout_marginBottom="@dimen/report_margin">
 
@@ -55,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/report_margin"
-            android:layout_marginRight="@dimen/report_margin_table_parallel"
-            android:layout_marginLeft="@dimen/report_margin_table_parallel"
+            android:layout_marginEnd="@dimen/report_margin_table_parallel"
+            android:layout_marginStart="@dimen/report_margin_table_parallel"
             app:flag="6"
             app:is_bar="true"
             app:bar_bg_color="#EF888E"
@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/report_margin"
-            android:layout_marginLeft="@dimen/report_margin"
+            android:layout_marginEnd="@dimen/report_margin"
+            android:layout_marginStart="@dimen/report_margin"
             android:background="@drawable/bg_item_normal">
 
             <RelativeLayout

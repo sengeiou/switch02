@@ -132,40 +132,34 @@
     <string name="slow">過緩</string>
     <string name="higher">偏高</string>
     <string name="flat">偏低</string>
-    <string name="head">這裡是HeadView</string>
     <string name="pull_to_refresh">下拉刷新</string>
     <string name="release_to_refresh">釋放立即刷新</string>
     <string name="refreshing">正在刷新...</string>
     <string name="refresh_succeed">刷新成功</string>
     <string name="refresh_fail">刷新失敗</string>
-    <string name="pullup_to_load">上拉加載更多</string>
-    <string name="release_to_load">釋放立即加載</string>
-    <string name="load_succeed">加載成功</string>
-    <string name="load_fail">加載失敗</string>
 
     <!--運動界面-->
-    <string name="best">戶外跑最佳記錄</string>
+    <string name="best">最佳記錄</string>
     <string name="history">歷史運動記錄</string>
     <string name="track">運動詳情</string>
-    <string name="notrack">無運動軌跡</string>
     <string name="speed">配速</string>
     <string name="kcal">消耗(kcal)</string>
     <string name="time">時長</string>
-    <string name="heart_rate">心率(Bpm)</string>
-    <string name="stride">步頻(Steps/s)</string>
+    <string name="heart_rate">心率(bpm)</string>
+    <string name="stride">步頻(spm)</string>
+    <string name="cadence">步頻</string>
     <string name="distance">里程(</string>
     <string name="speedData">平均配速</string>
-    <string name="kcalData">運動消耗</string>
-    <string name="timeData">運動時長</string>
     <string name="heart_rateData">平均心率</string>
     <string name="strideData">平均步頻</string>
     <string name="distanceData">里程</string>
     <string name="basket">籃球</string>
     <string name="football">足球</string>
     <string name="pingpong">乒乓球</string>
+    <string name="badminton">羽毛球</string>
     <string name="mountain">登山</string>
     <string name="bike">騎行</string>
-    <string name="run">跑步</string>
+    <string name="swim">游泳</string>
     <string name="walk">徒步</string>
     <string name="treadmill">跑步機</string>
     <string name="runWithout">戶外跑</string>
@@ -175,7 +169,7 @@
     <string name="averageShudu">平均速度</string>
     <string name="boat">划船</string>
     <string name="altitude">海拔</string>
-    <string name="avarageAltitude">平均海拔</string>
+    <string name="avarageAltitude">爬升高度</string>
     <string name="climb">攀岩</string>
     <string name="skii">滑雪</string>
     <string name="golf">高爾夫</string>
@@ -208,7 +202,6 @@
     <string name="confirm">確定</string>
     <string name="tip">提示</string>
     <string name="delete">確定要刪除這條運動數據嗎？ </string>
-    <string name="unbind">確定要解除綁定嗎？ </string>
     <string name="logoutTip">確定要退出登錄嗎？ </string>
     <string name="sendOK">發送成功</string>
     <string name="searchDevice">搜索設備</string>
@@ -216,15 +209,11 @@
     <string name="connected">已連接</string>
     <string name="disConnect">未連接</string>
     <string name="connectting">正在連接</string>
-    <string name="connect">設備連接中，請稍後重試</string>
     <string name="syceError">手錶未連接，數據將會再下次連接時將數據同步進手錶</string>
     <string name="unBind">切換設備</string>
     <string name="unline">斷開連接</string>
     <string name="line">連接手錶</string>
     <string name="addDevice">添加設備</string>
-    <string name="unbindSoon">請先解綁設備</string>
-    <string name="lineError">多次連接失敗，請關閉再打開手機的藍牙或者重啟手錶</string>
-    <string name="tipUnit">注意:切換了單位制式身高體重將會被重置</string>
 
 
     <!--藍牙通話界面-->
@@ -272,8 +261,6 @@
     <string name="averageSleep">平均睡眠時間</string>
     <string name="light">淺睡</string>
     <string name="deep">深睡</string>
-    <string name="lightTable">淺</string>
-    <string name="deepTable">深</string>
     <string name="averageHeart">平均心率</string>
     <string name="minHeart">最小心率</string>
     <string name="maxHeart">最大心率</string>
@@ -330,9 +317,10 @@
     <string name="loading">加載中...</string>
     <string name="privacyTip">在您使用我們的產品之前，請先認真閱讀並充分理解相關用戶隱私協議。 \n當您點擊"確定"即表示你已經同意該協議的條款。 \n用戶隱私政策主要包括以下內容:\n1.個人資料(頭像、暱稱、身高、體重、運動數據等)的收集，保存和分享。 \n2.設備權限(位置，通訊錄，相機等)的使用</string>
     <string name="crop_pic_failed">截取圖像失敗，請選擇jpg格式圖片！ </string>
-    <string name="deviceOut">未綁定設備</string>
     <string name="visiter">遊客模式不支持此功能</string>
     <string name="chooseJpg">請選擇jpg格式的圖片</string>
+    <string name="newVersion">檢測到有新的軟件版本，是否現在更新？</string>
+
 
     <!--分享界面-->
     <string name="planOK">今日目標已達成</string>
@@ -354,9 +342,6 @@
     <string name="passTimeData">合格率: %.1f%%</string>
 
     <string name="bloodPressureData">平均收縮壓/舒張壓</string>
-    <string name="shareSuccess">分享成功</string>
-    <string name="shareCancel">取消分享</string>
-    <string name="shareFail">分享失敗</string>
 
     <!-- 掃描並連接 -->
     <string name="connect_error">連接錯誤</string>
@@ -367,13 +352,10 @@
 
     <!-- 設置活動 -->
     <string name="sms_preference_title">短信服務</string>
-    <string name="call_preference_title">通話服務</string>
     <string name="progress_dialog_title">加載中</string>
     <string name="progress_dialog_message">請稍等&#8230;</string>
 
     <!-- 選擇通知活動 -->
-    <string name="personal_apps_title">個人應用</string>
-    <string name="system_apps_title">系統應用</string>
 
 
     <!-- 服務 -->
@@ -383,5 +365,8 @@
     <string name="pleaseconnectcharger">電池電量不足，請連接充電器</string>
 
     <string name="operate_error">失敗</string>
+    <string name="checkGPS">檢測到您手機的位置開關未打開，爲確保應用正常運行，請打開位置開關。</string>
+    <string name="speedPerHour">時速</string>
+    <string name="training">訓練跑</string>
 
 </resources>

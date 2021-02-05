@@ -6,15 +6,21 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.szip.sportwatch.BLE.BleClient;
@@ -41,6 +47,7 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LocationUtil;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ViewUtil;
 import com.szip.sportwatch.View.CircularImageView;
@@ -55,11 +62,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import okhttp3.Call;
 
+import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static com.szip.sportwatch.MyApplication.FILE;
 
@@ -111,7 +120,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
         app = (MyApplication) getActivity().getApplicationContext();
-
         initView();
         initEvent();
         initWeather();
@@ -122,8 +130,8 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(FILE,MODE_PRIVATE);
         long time = sharedPreferences.getLong("weatherTime",0);
         if (Calendar.getInstance().getTimeInMillis()-time>60*60*1000){
-            Log.d("LOCATION******","开始定位");
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            LogUtil.getInstance().logd("LOCATION******","开始定位");
+            locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
             LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
         }
     }
@@ -131,7 +139,11 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
 
     private void updataWeatherView() {
         if(app.getWeatherModel()!=null&&app.getCity()!=null){
-            tempTv.setText(String.format(Locale.ENGLISH,"%d~%d℃",(int)app.getWeatherModel().get(0).getLow(),(int)app.getWeatherModel().get(0).getHigh()));
+            if(app.getUserInfo().getTempUnit()==0)
+                tempTv.setText(String.format(Locale.ENGLISH,"%d~%d℃",(int)app.getWeatherModel().get(0).getLow(),(int)app.getWeatherModel().get(0).getHigh()));
+            else
+                tempTv.setText(String.format(Locale.ENGLISH,"%d~%d℉",(int)MathUitl.c2f(app.getWeatherModel().get(0).getLow()),
+                        (int)MathUitl.c2f(app.getWeatherModel().get(0).getHigh())));
             Glide.with(getActivity()).load(app.getWeatherModel().get(0).getIconUrl()).into(weatherIv);
             conditionTv.setText(app.getCity()+" "+app.getWeatherModel().get(0).getText());
             conditionTv.setSelected(true);
@@ -145,10 +157,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         initData();
         if (conditionTv!=null)
             conditionTv.setSelected(true);
-
-
-
-
     }
 
     @Override
@@ -156,6 +164,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         super.onPause();
         EventBus.getDefault().unregister(this);
     }
+
 
     private void initView() {
         ((PullToRefreshLayout) getView().findViewById(R.id.refresh_view))
@@ -249,31 +258,36 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             stepPb.setMaxValues(app.getUserInfo().getStepsPlan());
             stepPb.setCurrentValues(healthyDataModel.getStepsData());
             stepTv.setText(healthyDataModel.getStepsData()+"");
-            if (app.getUserInfo().getUnit().equals("metric")){
-                distanceTv.setText(String.format(Locale.ENGLISH,"%.1f",healthyDataModel.getDistanceData()/10f));
-                ((TextView)getView().findViewById(R.id.unitTv)).setText("m");
+            if (app.getUserInfo().getUnit()==0){
+                distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",healthyDataModel.getDistanceData()/10000f));
+                ((TextView)getView().findViewById(R.id.unitTv)).setText("km");
             } else{
-                distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",MathUitl.metric2Miles(healthyDataModel.getDistanceData()/10)));
-                ((TextView)getView().findViewById(R.id.unitTv)).setText("Mi");
+                distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",MathUitl.metric2Miles(healthyDataModel.getDistanceData())));
+                ((TextView)getView().findViewById(R.id.unitTv)).setText("mile");
             }
-            kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",healthyDataModel.getKcalData()/10f));
+            kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",healthyDataModel.getKcalData()/1000f));
             planStepTv.setText(String.format(Locale.ENGLISH,getString(R.string.planStep),app.getUserInfo().getStepsPlan()));
-            stepRadioTv.setText(String.format(Locale.ENGLISH,"%.1f%%",healthyDataModel.getStepsData()/(float)app.getUserInfo().getStepsPlan()*100));
+            stepRadioTv.setText(String.format(Locale.ENGLISH,"%.1f%%",(healthyDataModel.getStepsData()
+                    /(float)app.getUserInfo().getStepsPlan()*100)>100?100:healthyDataModel.getStepsData()
+                    /(float)app.getUserInfo().getStepsPlan()*100));
         }
 
         if (healthyDataModel.getAllSleepData()!=0){
-            sleepDataTv.setText(String.format(Locale.ENGLISH,"%.1fh/%.1fh",healthyDataModel.getAllSleepData()/60f,app.getUserInfo().getSleepPlan()/60f));
+            sleepDataTv.setText(String.format(Locale.ENGLISH,"%dh%dmin/%dh%dmin",
+                    healthyDataModel.getAllSleepData()/60,healthyDataModel.getAllSleepData()%60,
+                    app.getUserInfo().getSleepPlan()/60,app.getUserInfo().getSleepPlan()%60));
         }else{
-            sleepDataTv.setText(String.format(Locale.ENGLISH,"%.1fh/%.1fh",0f,app.getUserInfo().getSleepPlan()/60f));
+            sleepDataTv.setText(String.format(Locale.ENGLISH,"0h0min/%dh%dmin",
+                    app.getUserInfo().getSleepPlan()/60,app.getUserInfo().getSleepPlan()%60));
         }
         sleepPv.setSleepData(healthyDataModel.getAllSleepData()/(float)app.getUserInfo().getSleepPlan(),
                 healthyDataModel.getAllSleepData(),healthyDataModel.getLightSleepData());
         viewUtil.setSleepView(healthyDataModel.getAllSleepData(),getView().findViewById(R.id.sleepStateTv));
 
         if (healthyDataModel.getHeartData()!=0){
-            heartDataTv.setText(healthyDataModel.getHeartData()+"Bpm");
+            heartDataTv.setText(healthyDataModel.getHeartData()+"bpm");
         }else {
-            heartDataTv.setText("--Bpm");
+            heartDataTv.setText("--bpm");
         }
         viewUtil.setHeartView(healthyDataModel.getHeartData(), getView().findViewById(R.id.heartStateTv),
                 getView().findViewById(R.id.heartPv));
@@ -298,18 +312,21 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
 
 
         if (healthyDataModel.getAnimalHeatData()!=0){
-            animalHeatDataTv.setText(String.format(Locale.ENGLISH,"%.1f℃",healthyDataModel.getAnimalHeatData()/10f));
+            if (app.getUserInfo().getTempUnit()==0)
+                animalHeatDataTv.setText(String.format(Locale.ENGLISH,"%.1f℃",healthyDataModel.getAnimalHeatData()/10f));
+            else
+                animalHeatDataTv.setText(String.format(Locale.ENGLISH,"%.1f℉",MathUitl.c2f(healthyDataModel.getAnimalHeatData()/10f)));
         }else {
-            animalHeatDataTv.setText("--℃");
+            animalHeatDataTv.setText("--");
         }
         viewUtil.setAnimalHeatView(healthyDataModel.getAnimalHeatData(),getView().findViewById(R.id.animalHeatStateTv),
                 getView().findViewById(R.id.animalHeatPv));
 
 
         if (healthyDataModel.getEcgData()!=0){
-            ecgDataTv.setText(healthyDataModel.getEcgData()+"Bpm");
+            ecgDataTv.setText(healthyDataModel.getEcgData()+"bpm");
         }else {
-            ecgDataTv.setText("--Bpm");
+            ecgDataTv.setText("--bpm");
         }
 
         if (app.getUserInfo().getAvatar()!=null)
@@ -371,22 +388,26 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(getActivity(), EcgListActivity.class));
                 break;
             case R.id.weatherLl:
-                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
                 LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
                 getView().findViewById(R.id.weatherLl).setClickable(false);
                 break;
         }
     }
 
+    private Sensor mPressure = null;
+    private SensorManager sensorManager = null;
+
+
 
     private LocationManager locationManager;
+    private LocationProvider locationProvider;
     private GpsStatus.Listener myListener = new GpsStatus.Listener() {
         @Override
         public void onGpsStatusChanged(int i) {
 
         }
     };
-
 
     //监听GPS位置改变后得到新的经纬度
     private LocationListener locationListener = new LocationListener() {
@@ -395,7 +416,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             if (location != null) {
                 //获取国家，省份，城市的名称
                 Log.e("location******", location.toString());
-
                 try {
                     HttpMessgeUtil.getInstance(getActivity()).getWeather(location.getLatitude()+"", location.getLongitude()+"",
                             new GenericsCallback<WeatherBean>(new JsonGenericsSerializator()) {
@@ -417,7 +437,13 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                                                     public void run() {
                                                         getView().findViewById(R.id.weatherLl).setClickable(true);
                                                         updataWeatherView();
-                                                        EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),app.getCity());
+                                                        if (app.isMtk())
+                                                            EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),app.getCity());
+                                                        else{
+                                                            BleClient.getInstance().writeForSetWeather(app.getWeatherModel());
+                                                            BleClient.getInstance().writeForSetElevation();
+                                                        }
+
                                                     }
                                                 });
                                             }

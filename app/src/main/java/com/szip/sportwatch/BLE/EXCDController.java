@@ -10,13 +10,15 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
 import android.util.Log;
-
+import android.text.format.DateFormat;
 import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.wearable.Controller;
 import com.szip.sportwatch.Contorller.CameraActivity;
+import com.szip.sportwatch.Contorller.EcgListActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
+import com.szip.sportwatch.Model.EvenBusModel.UnitModel;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
@@ -24,6 +26,7 @@ import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 
 import org.greenrobot.eventbus.EventBus;
@@ -128,7 +131,7 @@ public class EXCDController extends Controller {
                 String animalHeat = null;
                 if(commands.length>23)
                     animalHeat = commands[23];
-                Log.d("SZIP******","animal = "+animalHeat);
+                LogUtil.getInstance().logd("SZIP******","animal = "+animalHeat);
                 if (reviceDataCallback!=null)
                     reviceDataCallback.checkVersion(!step[0].equals("0"),!step[1].equals("0"),
                             !sleep[0].equals("0"),!sleep[1].equals("0"),!heart.equals("0"),
@@ -153,12 +156,12 @@ public class EXCDController extends Controller {
                     if (commands[2].equals(commands[3])){//接收结束
                         StringBuffer str = new StringBuffer();
                         for (int i = 0;i<steps.size();i++){
-                            Log.d("SZIP******","STEP = "+steps.get(i));
+                            LogUtil.getInstance().logd("SZIP******","STEP = "+steps.get(i));
                             String strs[] = steps.get(i).split(",");
                             str.append(steps.get(i).substring(strs[0].length()+strs[1].length()+strs[2].length()+
                                     strs[3].length()+4));
                         }
-                        Log.d("SZIP******","STEP str = "+str);
+                        LogUtil.getInstance().logd("SZIP******","STEP str = "+str);
                         if (reviceDataCallback!=null)
                             reviceDataCallback.getSteps(str.toString().split(","));
                         steps = null;
@@ -214,6 +217,7 @@ public class EXCDController extends Controller {
                     EventBus.getDefault().post(new UpdateReport());
                 }
             }else if (commands[1].equals("18")){
+                writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
                 if (commands.length>6){//有数据
                     if (sports == null){
                         sports = new ArrayList<>();
@@ -239,7 +243,6 @@ public class EXCDController extends Controller {
                         }
                         sports = null;
                     }
-                    writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
                 }else {
                     if (sportList.size()!=0){
                         writeForSport(sportList.get(0));
@@ -247,7 +250,6 @@ public class EXCDController extends Controller {
                     }else {
                         EventBus.getDefault().post(new UpdateReport());
                     }
-                    writeForRET("GET,"+commands[1]+","+commands[2]+","+commands[3]+","+commands[4]);
                 }
             }else if (commands[1].equals("20")){//接受心电数据
                 if (commands.length>4){//有数据
@@ -299,7 +301,7 @@ public class EXCDController extends Controller {
                 EventBus.getDefault().post(new UpdateView("3"));
             }
         }else if (commands[0].contains("SET")){//SET指令
-            if (commands[1].equals("10")){//操作相机指令
+            if (commands[1].equals("10")){//设置计步目标
                 UserInfo userInfo =((MyApplication)mContext.getApplicationContext()).getUserInfo();
                 if (userInfo!=null&&commands[2]!=null) {
                     String [] datas = commands[2].split("\\|");
@@ -321,6 +323,15 @@ public class EXCDController extends Controller {
                         onCameraListener.onCamera(1);
                 }
                 writeForRET("SET,"+commands[1]+","+commands[2]);
+            }else if (commands[1].equals("35")){//同步单位制式
+                UserInfo userInfo =((MyApplication)mContext.getApplicationContext()).getUserInfo();
+                if (userInfo!=null&&commands[2]!=null) {
+                    String [] datas = commands[2].split("\\|");
+                    userInfo.setUnit(Integer.valueOf(datas[0]));
+                    userInfo.setTempUnit(Integer.valueOf(datas[1]));
+                    EventBus.getDefault().post(new UnitModel());
+                }
+                writeForRET("SET,"+commands[1]);
             }else if (commands[1].equals("40")){//找手机
                 if (commands[2].equals("1")){//开始找手机
                    if (reviceDataCallback!=null)
@@ -472,7 +483,7 @@ public class EXCDController extends Controller {
     //同步语言
     public void writeForSetLanuage(String lanuage){
         String str = "SET,44,"+lanuage;
-        Log.d("lanuage******","str = "+str);
+        LogUtil.getInstance().logd("lanuage******","str = "+str);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -504,6 +515,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //日均睡眠数据
     public void writeForGetDaySleep(){
         String str = "GET,12";
@@ -515,6 +527,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //日详情睡眠
     public void writeForGetSleep(){
         String str = "GET,13";
@@ -526,6 +539,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //获取心率
     public void writeForGetHeart(){
         String str = "GET,14";
@@ -537,6 +551,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //获取运动数据索引
     public void writeForGetSportPosition(){
         String str = "GET,17";
@@ -548,6 +563,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 8 ",datas,true,false,0);
     }
+
     //获取运动数据
     public void writeForGetSportData(int index){
         String str = String.format(Locale.ENGLISH,"GET,18,%d",index);
@@ -559,6 +575,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 8 ",datas,true,false,0);
     }
+
     //获取血压数据
     public void writeForGetBloodPressure(){
         String str = "GET,51";
@@ -570,6 +587,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //获取血氧数据
     public void writeForGetBloodOxygen(){
         String str = "GET,52";
@@ -581,6 +599,7 @@ public class EXCDController extends Controller {
         }
         this.send(cmdHead+"0 0 6 ",datas,true,false,0);
     }
+
     //获取ecg数据
     public void writeForGetEcg(){
         String str = "GET,20";
@@ -608,8 +627,9 @@ public class EXCDController extends Controller {
     //设置时间
     public void writeForSetDate(){
         int gmt = DateUtil.getGMT();
-        String str = "SET,45,1|"+(gmt>0?"+":"-")+String.format(Locale.ENGLISH,"%04.1f|%d",Math.abs(gmt)/60f, Calendar.getInstance().getTimeInMillis()/1000);
-        Log.d("SZIP******","DATA STR = "+str);
+        boolean is24Hour = DateFormat.is24HourFormat(MyApplication.getInstance());
+        String str = "SET,45,"+(is24Hour?"1|":"0|")+(gmt>0?"+":"-")+String.format(Locale.ENGLISH,"%04.1f|%d",Math.abs(gmt)/60f, Calendar.getInstance().getTimeInMillis()/1000);
+        LogUtil.getInstance().logd("SZIP******","DATA STR = "+str);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -620,37 +640,30 @@ public class EXCDController extends Controller {
     }
 
     public void writeForSetUnit(UserInfo info){
-        String str = "SET,35,"+(info.getUnit().equals("metric")?"0":"1");
+        String str = "SET,35,"+(info.getUnit()+"")+(","+info.getTempUnit());
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.send(cmdHead+"0 0 8 ",datas,true,false,0);
+        this.send(cmdHead+"0 0 10 ",datas,true,false,0);
     }
 
     //设置个人信息
     public void writeForSetInfo(UserInfo info){
-        int height = 60;
-        if (info.getHeight()!=null){
-            height = Integer.valueOf(info.getHeight().substring(0,info.getHeight().length()-2));
-            if(info.getHeight().indexOf("cm")<0){
-                height = MathUitl.british2Metric(height);
-            }
+        int height;
+        int weight;
+        if(info.getUnit()==1){
+            height = info.getHeightBritish()!=0?MathUitl.inch2Cm(info.getHeightBritish()):66;
+            weight = info.getWeightBritish()!=0?MathUitl.pound2Kg(info.getWeightBritish()):132;
+        }else {
+            height = info.getHeight()!=0?info.getHeight():170;
+            weight = info.getWeight()!=0?info.getWeight():60;
         }
-
-        int weight = 170;
-        if (info.getWeight()!=null){
-            weight = Integer.valueOf(info.getWeight().substring(0,info.getWeight().length()-2));
-            if(info.getWeight().indexOf("kg")<0){
-                weight = MathUitl.british2MetricWeight(weight);
-            }
-        }
-
         String str = "SET,10,"+String.format(Locale.ENGLISH,"%d|%d|%d|%d",info.getStepsPlan(),info.getSex(),height,weight);
 
-        Log.d("SZIP******","STR = "+str);
+        LogUtil.getInstance().logd("SZIP******","STR = "+str);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
@@ -687,14 +700,13 @@ public class EXCDController extends Controller {
     //获取运动数据
     public void writeForSport(String index){
         String str = "GET,18,"+index;
-        Log.d("SZIP******","sport index = "+index);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.send(cmdHead+"0 0 8 ",datas,true,false,0);
+        this.send(cmdHead+String.format("0 0 %d ",str.length()),datas,true,false,0);
     }
 
     //同步天气
@@ -714,7 +726,7 @@ public class EXCDController extends Controller {
 
             datas = str.getBytes();
 
-            Log.d("SZIP******","DATA = "+new String(datas));
+            LogUtil.getInstance().logd("SZIP******","DATA = "+new String(datas));
             this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",datas.length),datas,true,false,0);
         }
     }
@@ -745,8 +757,7 @@ public class EXCDController extends Controller {
         System.arraycopy(datas,0,newDatas,0,datas.length);
         System.arraycopy(image,0,newDatas,datas.length,image.length);
         newDatas[newDatas.length-1] = 59;
-        Log.d("SZIP******","DATA = "+new String(newDatas));
-        Log.d("SZIP******","date len = "+image.length);
+        LogUtil.getInstance().logd("SZIP******","SEND IMAGE = "+str);
         this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",newDatas.length),newDatas,true,false,0);
 
     }
@@ -772,5 +783,6 @@ public class EXCDController extends Controller {
             e.printStackTrace();
         }
         this.send(cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",str.length()),datas,true,false,0);
+        LogUtil.getInstance().logd("SZIP******","ret = "+cmdHead+String.format(Locale.ENGLISH,"0 0 %d ",str.length())+str);
     }
 }

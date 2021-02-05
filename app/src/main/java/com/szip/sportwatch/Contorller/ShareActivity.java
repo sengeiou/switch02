@@ -1,22 +1,13 @@
 package com.szip.sportwatch.Contorller;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.szip.sportwatch.MyApplication;
@@ -25,7 +16,6 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ScreenCapture;
 import com.szip.sportwatch.Util.StatusBarCompat;
-import com.szip.sportwatch.View.MyAlerDialog;
 
 import java.util.Locale;
 

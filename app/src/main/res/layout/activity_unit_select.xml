@@ -16,7 +16,79 @@
         android:layout_height="wrap_content"
         android:textColor="@color/rayblue"
         android:textSize="@dimen/item_text_size"
-        android:layout_marginLeft="@dimen/item_margin_parallel"
+        android:layout_marginStart="@dimen/item_margin_parallel"
+        android:text="@string/tempUnit"
+        android:layout_marginTop="@dimen/item_margin_parallel"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_margin_parallel"
+        android:layout_marginEnd="@dimen/item_margin_parallel"
+        android:layout_marginStart="@dimen/item_margin_parallel">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/cTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mine_item"
+                android:text="°C"
+                android:textColor="@color/rayblue"
+                android:textSize="@dimen/item_text_size"
+                android:padding="@dimen/item_pad_text"/>
+
+            <TextView
+                android:id="@+id/fTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mine_item"
+                android:layout_marginTop="@dimen/item_margin_parallel"
+                android:text="°F"
+                android:textColor="@color/rayblue"
+                android:textSize="@dimen/item_text_size"
+                android:padding="@dimen/item_pad_text" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/tempRg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/item_pad_text">
+
+            <RadioButton
+                android:id="@+id/cRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/item_pad_text"
+                android:paddingTop="@dimen/item_pad_text" />
+
+            <RadioButton
+                android:id="@+id/fRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_margin_parallel"
+                android:paddingBottom="@dimen/item_pad_text"
+                android:paddingTop="@dimen/item_pad_text"/>
+        </RadioGroup>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/rayblue"
+        android:textSize="@dimen/item_text_size"
+        android:layout_marginStart="@dimen/item_margin_parallel"
         android:text="@string/measureUnit"
         android:layout_marginTop="@dimen/item_margin_parallel"/>
 
@@ -24,8 +96,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/item_margin_parallel"
-        android:layout_marginRight="@dimen/item_margin_parallel"
-        android:layout_marginLeft="@dimen/item_margin_parallel">
+        android:layout_marginEnd="@dimen/item_margin_parallel"
+        android:layout_marginStart="@dimen/item_margin_parallel">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,8 +133,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/item_pad_text">
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/item_pad_text">
 
             <RadioButton
                 android:id="@+id/metricRb"
@@ -83,15 +155,15 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_margin_parallel"
-        android:layout_marginRight="@dimen/item_margin_parallel"
-        android:layout_marginLeft="@dimen/item_margin_parallel"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        android:text="@string/tipUnit"/>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/item_margin_parallel"-->
+<!--        android:layout_marginEnd="@dimen/item_margin_parallel"-->
+<!--        android:layout_marginStart="@dimen/item_margin_parallel"-->
+<!--        android:textSize="15sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:text="@string/tipUnit"/>-->
 
 
 </LinearLayout>

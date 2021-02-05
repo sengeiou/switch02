@@ -13,8 +13,8 @@
         android:orientation="vertical"
         android:layout_weight="3"
         android:layout_marginTop="@dimen/report_margin"
-        android:layout_marginRight="@dimen/report_margin"
-        android:layout_marginLeft="@dimen/report_margin"
+        android:layout_marginEnd="@dimen/report_margin"
+        android:layout_marginStart="@dimen/report_margin"
         android:background="@drawable/bg_report_purple">
 
         <LinearLayout
@@ -86,8 +86,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/report_margin"
-            android:layout_marginLeft="@dimen/report_margin"
+            android:layout_marginEnd="@dimen/report_margin"
+            android:layout_marginStart="@dimen/report_margin"
             android:background="@drawable/bg_item_normal">
 
             <RelativeLayout

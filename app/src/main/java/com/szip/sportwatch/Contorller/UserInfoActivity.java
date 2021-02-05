@@ -1,19 +1,13 @@
 package com.szip.sportwatch.Contorller;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,13 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.szip.sportwatch.BLE.BleClient;
-import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Model.HttpBean.AvatarBean;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
@@ -37,30 +29,23 @@ import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
-import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.CharacterPickerWindow;
-import com.szip.sportwatch.View.CircularImageView;
 import com.szip.sportwatch.View.MyAlerDialog;
 import com.szip.sportwatch.View.character.OnOptionChangedListener;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.yalantis.ucrop.UCrop;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,8 +53,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import okhttp3.Call;
-
-import static com.szip.sportwatch.MyApplication.FILE;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
@@ -97,6 +80,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private String tmpFile;
     private String photoName = "";
     private String fileName;
+    int height = 0;
+    int weight = 0;
+    int heightBritish = 0;
+    int weightBritish = 0;
     private final int IMAGE_CAPTURE = 0;
     private final int IMAGE_MEDIA = 1;
 
@@ -174,16 +161,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             //初始化选项数据
             window1.getPickerView().setPicker(list2);
             //设置默认选中的三级项目
-            if (userInfo.getHeight()!=null)
-                window1.setCurrentPositions(Integer.valueOf(userInfo.getHeight().substring(0,userInfo.getHeight().indexOf("cm")))-50, 0, 0);
-            else
-                window1.setCurrentPositions(list2.size()/2, 0, 0);
+            window1.setCurrentPositions(userInfo.getHeight()-50, 0, 0);
             //监听确定选择按钮
             window1.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
                 public void onOptionChanged(int option1, int option2, int option3) {
                     try {
                         heightTv.setText(list2.get(option1)+"cm");
+                        height = Integer.valueOf(list2.get(option1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -195,16 +180,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             //初始化选项数据
             window1.getPickerView().setPicker(list2);
             //设置默认选中的三级项目
-            if (userInfo.getHeight()!=null)
-                window1.setCurrentPositions(Integer.valueOf(userInfo.getHeight().substring(0,userInfo.getHeight().indexOf("in")))-20, 0, 0);
-            else
-                window1.setCurrentPositions(list2.size()/2, 0, 0);
+            window1.setCurrentPositions(MathUitl.cm2Inch(userInfo.getHeight())-20, 0, 0);
             //监听确定选择按钮
             window1.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
                 public void onOptionChanged(int option1, int option2, int option3) {
                     try {
                         heightTv.setText(list2.get(option1)+"in");
+                        heightBritish = Integer.valueOf(list2.get(option1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -221,16 +204,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             final ArrayList<String> list3 = DateUtil.getWeight();
             window2.getPickerView().setPicker(list3);
             //设置默认选中的三级项目
-            if (userInfo.getWeight()!=null)
-                window2.setCurrentPositions(Integer.valueOf(userInfo.getWeight().substring(0,userInfo.getWeight().indexOf("kg")))-30, 0, 0);
-            else
-                window2.setCurrentPositions(list3.size()/2, 0, 0);
+            window2.setCurrentPositions(userInfo.getWeight()-30, 0, 0);
+
             //监听确定选择按钮
             window2.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
                 public void onOptionChanged(int option1, int option2, int option3) {
                     try {
                         weightTv.setText(list3.get(option1)+"kg");
+                        weight = Integer.valueOf(list3.get(option1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -241,16 +223,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             final ArrayList<String> list3 = DateUtil.getWeightWithBritish();
             window2.getPickerView().setPicker(list3);
             //设置默认选中的三级项目
-            if (userInfo.getWeight()!=null)
-                window2.setCurrentPositions(Integer.valueOf(userInfo.getWeight().substring(0,userInfo.getWeight().indexOf("lb")))-67, 0, 0);
-            else
-                window2.setCurrentPositions(list3.size()/2, 0, 0);
+            window2.setCurrentPositions(MathUitl.kg2Pound(userInfo.getWeight())-67, 0, 0);
             //监听确定选择按钮
             window2.setOnoptionsSelectListener(new OnOptionChangedListener() {
                 @Override
                 public void onOptionChanged(int option1, int option2, int option3) {
                     try {
                         weightTv.setText(list3.get(option1)+"lb");
+                        weightBritish = Integer.valueOf(list3.get(option1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -319,15 +299,25 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * */
     private void initData() {
         userInfo = app.getUserInfo();
+        height = userInfo.getHeight();
+        weight = userInfo.getWeight();
+        heightBritish = userInfo.getHeightBritish();
+        weightBritish = userInfo.getWeightBritish();
         userNameTv.setText(userInfo.getUserName());
         sexTv.setText(userInfo.getSex()==1?getString(R.string.male):getString(R.string.female));
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
         else
             pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52: R.mipmap.my_head_female_52);
-        isMetric = userInfo.getUnit().equals("metric");
-        heightTv.setText(userInfo.getHeight());
-        weightTv.setText(userInfo.getWeight());
+        isMetric = userInfo.getUnit()==0;
+        if (isMetric){
+            heightTv.setText(height+"cm");
+            weightTv.setText(weight+"kg");
+        }else {
+            heightTv.setText(heightBritish+"in");
+            weightTv.setText(weightBritish+"lb");
+        }
+
         birthdayTv.setText(userInfo.getBirthday());
     }
 
@@ -377,8 +367,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     HttpMessgeUtil.getInstance(this).postForSetUserInfo(userNameTv.getText().toString(),
                             sexTv.getText().toString().equals(getString(R.string.male))?"1":"0",
                             birthdayTv.getText().toString()==""?null:birthdayTv.getText().toString(),
-                            heightTv.getText().toString()==""?null:heightTv.getText().toString(),
-                            weightTv.getText().toString()==""?null:weightTv.getText().toString());
+                            height+"", weight+"",heightBritish+"", weightBritish+"");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -589,8 +578,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         app.getUserInfo().setUserName(userNameTv.getText().toString());
         app.getUserInfo().setSex(sexTv.getText().toString().equals(getString(R.string.male))?1:0);
         app.getUserInfo().setBirthday(birthdayTv.getText().toString()==""?null:birthdayTv.getText().toString());
-        app.getUserInfo().setHeight(heightTv.getText().toString()==""?null:heightTv.getText().toString());
-        app.getUserInfo().setWeight(weightTv.getText().toString()==""?null:weightTv.getText().toString());
+        app.getUserInfo().setHeight(height);
+        app.getUserInfo().setWeight(weight);
+        app.getUserInfo().setHeightBritish(heightBritish);
+        app.getUserInfo().setWeightBritish(weightBritish);
         MathUitl.saveInfoData(mContext,app.getUserInfo()).commit();//退出之前更新本地缓存的userInfo
         if (MainService.getInstance().getState()!=3){
             showToast(getString(R.string.syceError));
@@ -598,7 +589,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             if(app.isMtk()){
                 EXCDController.getInstance().writeForSetInfo(app.getUserInfo());
             }else {
-//                BleClient.getInstance().writeForUpdateUserInfo(userInfo);
+                BleClient.getInstance().writeForUpdateUserInfo();
             }
 
         }

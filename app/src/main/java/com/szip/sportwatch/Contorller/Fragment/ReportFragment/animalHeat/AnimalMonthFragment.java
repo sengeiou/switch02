@@ -9,8 +9,11 @@ import com.szip.sportwatch.Contorller.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.MathUitl;
+import com.szip.sportwatch.View.ReportTableView;
 import com.szip.sportwatch.View.ReportView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,10 +59,16 @@ public class AnimalMonthFragment extends BaseFragment implements View.OnClickLis
         reportView.setReportDate(((AnimalHeatActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         reportView.setReportDate(((AnimalHeatActivity)getActivity()).reportDate);
-        if (reportDataBean.getValue()!=0)
-            averageTv.setText(String.format("%.1f℃",(reportDataBean.getValue()+340)/10f));
-        if (reportDataBean.getValue()!=0)
-            reachTv.setText(String.format("%.1f℃",(reportDataBean.getValue1()+340)/10f));
+        if (reportDataBean.getValue()!=0){
+            if (MyApplication.getInstance().getUserInfo().getTempUnit()==0){
+                averageTv.setText(String.format("%.1f℃",(reportDataBean.getValue()+340)/10f));
+                reachTv.setText(String.format("%.1f℃",(reportDataBean.getValue1()+340)/10f));
+            }else {
+                averageTv.setText(String.format("%.1f℉", MathUitl.c2f((reportDataBean.getValue()+340)/10f)));
+                reachTv.setText(String.format("%.1f℉", MathUitl.c2f((reportDataBean.getValue1()+340)/10f)));
+            }
+        }
+
         if (DateUtil.getTimeOfToday()==((AnimalHeatActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
                     ((AnimalHeatActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
@@ -82,6 +91,13 @@ public class AnimalMonthFragment extends BaseFragment implements View.OnClickLis
     private void initView() {
         reportView = getView().findViewById(R.id.tableView1);
         reportView.setReportDate(0);
+
+        if (MyApplication.getInstance().getUserInfo().getTempUnit()==0){
+            reportView.setF(false);
+        }else {
+            reportView.setF(true);
+        }
+
         averageTv = getView().findViewById(R.id.averageTv1);
         reachTv = getView().findViewById(R.id.reachTv);
     }

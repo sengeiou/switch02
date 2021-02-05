@@ -38,6 +38,7 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/22.
@@ -94,6 +95,7 @@ public class LoadDataUtil {
             reportDataBean.setValue(sqlData.steps);
             reportDataBean.setValue1(sqlData.distance);
             reportDataBean.setValue2(sqlData.calorie);
+            Log.d("SZIP******","steps = "+sqlData.steps+" ;hour = "+sqlData.dataForHour);
         }else {
             for (int i = 0;i<24;i++){
                 drawData.add(new DrawDataBean(0,0,0));
@@ -200,10 +202,9 @@ public class LoadDataUtil {
                 .from(SleepData.class)
                 .where(SleepData_Table.time.is(time))
                 .querySingle();
-
         if (sleepData!=null){
             reportDataBean = new ReportDataBean();
-            if (sleepData.dataForHour!=null){
+            if (sleepData.dataForHour!=null&&!sleepData.dataForHour.equals("")){
                 String sleepStr[] = sleepData.dataForHour.split(",");
                 ArrayList<DrawDataBean> drawData = new ArrayList<>();
                 for (int i = 1;i<sleepStr.length;i++){
@@ -755,8 +756,8 @@ public class LoadDataUtil {
                 .from(AnimalHeatData.class)
                 .where(AnimalHeatData_Table.time.lessThan(time+24*60*60-1),
                         AnimalHeatData_Table.time.greaterThanOrEq(time))
-//                .orderBy(OrderBy.fromString(AnimalHeatData_Table.time+OrderBy.DESCENDING))
                 .queryList();
+
         for (int i = 0;i<list.size();i++){
             drawData.add(new DrawDataBean(list.get(i).tempData -340, 0,list.get(i).time));
         }
@@ -964,7 +965,7 @@ public class LoadDataUtil {
 
         SportData sportData = SQLite.select()
                 .from(SportData.class)
-                .orderBy(OrderBy.fromString(SportData_Table.distance+OrderBy.DESCENDING))
+                .orderBy(OrderBy.fromString(SportData_Table.sportTime+OrderBy.DESCENDING))
                 .limit(0)
                 .querySingle();
         if (sportData == null)

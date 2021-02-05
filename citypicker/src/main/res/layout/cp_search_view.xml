@@ -7,8 +7,8 @@
     android:background="@drawable/input_bg"
     android:gravity="center_vertical"
     android:padding="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginTop="15dp"
     tools:showIn="@layout/cp_dialog_city_picker">
 
@@ -25,7 +25,7 @@
         android:textColor="?attr/cpSearchTextColor"
         android:textColorHint="?attr/cpSearchHintTextColor"
         android:textSize="?attr/cpSearchTextSize"
-        android:layout_marginLeft="13dp"/>
+        android:layout_marginStart="13dp"/>
 
     <ImageView
         android:id="@+id/cp_clear_all"

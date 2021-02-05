@@ -10,8 +10,8 @@ android {
             keyPassword 'damibao123'
         }
     }
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     sourceSets.main.jniLibs.srcDirs = ['libs']
     lintOptions {
@@ -23,9 +23,9 @@ android {
     defaultConfig {
         applicationId "com.szip.sportwatch"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 18
-        versionName "1.18"
+        targetSdkVersion 29
+        versionCode 27
+        versionName "1.27"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.szp
     }

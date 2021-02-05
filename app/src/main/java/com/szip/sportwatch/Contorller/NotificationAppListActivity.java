@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.szip.sportwatch.Adapter.PersonalAppListAdapter;
 import com.szip.sportwatch.Interface.OnSmsStateListener;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Notification.BlockList;
 import com.szip.sportwatch.Notification.IgnoreList;
@@ -135,7 +137,7 @@ public class NotificationAppListActivity extends BaseActivity {
         @Override
         public void onSmsStateChange(boolean check) {
             if (check) {
-                Log.d("SZIP******","进入回调");
+                LogUtil.getInstance().logd("SZIP******","进入回调");
                 checkPermission();
             } else {
                 MainService.getInstance().stopSmsService();
@@ -150,11 +152,11 @@ public class NotificationAppListActivity extends BaseActivity {
          * */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED){
-                Log.d("SZIP******","申请权限");
+                LogUtil.getInstance().logd("SZIP******","申请权限");
                 requestPermissions(new String[]{Manifest.permission.READ_SMS},
                         100);
             }else {
-                Log.d("SZIP******","申请已经打开");
+                LogUtil.getInstance().logd("SZIP******","申请已经打开");
                 MainService.getInstance().startSmsService();
             }
         }else {

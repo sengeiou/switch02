@@ -1,13 +1,24 @@
 package com.szip.sportwatch.Util;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.mediatek.ctrl.notification.NotificationData;
+import com.szip.sportwatch.BLE.EXCDController;
+import com.szip.sportwatch.Model.HttpBean.WeatherBean;
+import com.szip.sportwatch.Model.UserInfo;
+import com.szip.sportwatch.MyApplication;
+import com.szip.sportwatch.Notification.AppList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -104,7 +115,7 @@ public class CommandUtil {
             data[7] = (byte) 0;
         }
 
-        if (syncType == SYNC_TYPE_TIME) {
+        if (syncType == 0x30) {
             int[] dateArray = DateUtil.getNowDate();
             data[8] = (byte) (dateArray[0] & 0xFF);
             data[9] = (byte) ((dateArray[0] >> 8) & 0xFF);
@@ -119,52 +130,149 @@ public class CommandUtil {
             data[18] = 0x34;
             data[19] = 0x56;
             data[20] = 0x78;
-        }
-//        else if (syncType == SYNC_TYPE_USERINFO) {
-//            //全部转为国际单位制传到手表
-//            AccountInfo mAccountInfo = UserInfoBLL.getInstance().getUserInfos();
-//            SharedPreferences sharedPreferences = Utils.getSharedPreferences(BTNotificationApplication.SHARED_NAME, MODE_PRIVATE);
-//            boolean isSyncEarlyWarmHeartRate = sharedPreferences.getBoolean(BTNotificationApplication.EARLY_WARM_HEART_RATE_STATE, false);
-//            int language = Utils.getLanguage();
-//            int height = mAccountInfo.getStature();
-//            float weight = mAccountInfo.getWeight();
-//            int stepCounts = 0;
-//            int stepLength = 0;
-//            int unit = mAccountInfo.getUnit();
-//            int clock = mAccountInfo.getClockStyle();
-//            if (unit == 1) {
-//                height = Utils.ft2cm(height);
-//                weight = Utils.lb2kg(weight);
-//            }
-//            int mWeight = Math.round(weight);
-//            data[8] = (byte) (height & 0xff);
-//            data[9] = (byte) ((height >> 8) & 0xff);
-//            data[10] = (byte) (mWeight & 0xff);
-//            data[11] = (byte) ((mWeight >> 8) & 0xff);
-//            data[12] = (byte) stepCounts;
-//            data[13] = 0;
-//            data[14] = (byte) stepLength;
-//            data[15] = (byte) unit;
-//            data[16] = (byte) clock;//时钟样式
-//            //预警心率
-//            if (isSyncEarlyWarmHeartRate) {
-//                data[17] = (byte) mAccountInfo.getEarlyWarmHeartRate();
-//            } else {
-//                data[17] = 0;
-//            }
-//            //年龄
-//            data[18] = (byte) (mAccountInfo.getAge() <= 0 ? 27 : mAccountInfo.getAge());
-//            //保留字节
-//            data[19] = 0;
-//            //语言ID
-//            data[20] = (byte) (language & 0xff);
-//            data[21] = (byte) ((language >> 8) & 0xff);
-//        }
+        }else if (syncType == 0x31){
+            UserInfo userInfo = MyApplication.getInstance().getUserInfo();
+            if(userInfo!=null){
+                int height = 0;
+                int mWeight = 0;
+                int plan = 0;
+                int sex = 0;
+                if (userInfo!=null){
+                    if (userInfo.getUnit()==0){
+                        height =userInfo.getHeight()==0?170:userInfo.getHeight();
+                        mWeight = userInfo.getWeight()==0?60:userInfo.getWeight();
+                    }else {
+                        height =userInfo.getHeightBritish()==0?66:userInfo.getHeightBritish();
+                        mWeight = userInfo.getHeightBritish()==0?132:userInfo.getHeightBritish();
+                    }
+                    plan = userInfo.getStepsPlan();
+                    sex = userInfo.getSex();
+                }
+                data[8] = (byte) (height & 0xff);
+                data[9] = (byte) ((height >> 8) & 0xff);
+                data[10] = (byte) (mWeight & 0xff);
+                data[11] = (byte) ((mWeight >> 8) & 0xff);
+                data[12] = (byte) (plan & 0xff);
+                data[13] = (byte) ((plan >> 8) & 0xff);
+                data[14] = 0;
+                data[15] = (byte) (sex & 0xff);
+            }
+        }else if (syncType == 0x38){
+            data[8] = (byte) (1 & 0xFF);
+        }else if (syncType == 0x39){
+            String str = MyApplication.getInstance().getResources().getConfiguration().locale.getLanguage();
+            if (str.equals("en"))
+                str = "en-US";
+            else if (str.equals("de"))
+                str = "de-DE";
+            else if (str.equals("fr"))
+                str = "fr-FR";
+            else if (str.equals("it"))
+                str = "it-IT";
+            else if (str.equals("es"))
+                str = "es-ES";
+            else if (str.equals("pt"))
+                str = "pt-PT";
+            else if (str.equals("tr"))
+                str = "tr-TR";
+            else if (str.equals("ru"))
+                str = "ru-RU";
+            else if (str.equals("ar"))
+                str = "ar-SA";
+            else if (str.equals("th"))
+                str = "th-TH";
+            else if (str.equals("zh"))
+                str = "zh-CN";
+            byte[] datas = new byte[0];
+            try {
+                datas = str.getBytes("ASCII");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            LogUtil.getInstance().logd("SZIP******","datas = "+datas.length);
+            for (int i = 0;i<datas.length;i++){
+                LogUtil.getInstance().logd("SZIP******","datas = "+datas[i]);
+                data[8+i] = datas[i];
+            }
+        }else if (syncType == 0x41){
+            UserInfo userInfo = MyApplication.getInstance().getUserInfo();
+            if(userInfo!=null){
+                data[8] = (byte) userInfo.getUnit();
+                data[9] = (byte) userInfo.getTempUnit();
+            }
+        }else if (syncType == 0x43){
+            int elevation = (int)MyApplication.getInstance().getElevation();
 
-        Log.d("SZIP******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
+            data[8] = (byte) (elevation&0xff);
+            data[9] = (byte) ((elevation>>8)&0xff);
+            data[10] = (byte) ((elevation>>16)&0xff);
+            data[11] = (byte) ((elevation>>24)&0xff);
+        }
+        LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
         return data;
     }
 
+    public static byte[] getCommandbyteArray(ArrayList<WeatherBean.Condition> weatherModel) {
+        long time = System.currentTimeMillis() / 1000;
+
+        byte[] data = new byte[weatherModel.size()*14];
+
+
+        for (int i = 0;i<weatherModel.size();i++){
+            data[i*14+0] = (byte) 0xAA;
+            data[i*14+1] = (byte) 0x33;
+            data[i*14+2] = (byte) 6;
+            data[i*14+3] = 0;
+            data[i*14+4] = (byte) (0xF0);
+            data[i*14+5] = (byte) (0xF0);
+            data[i*14+6] = (byte) (0xF0);
+            data[i*14+7] = (byte) (0xF0);
+            data[i*14+8] = (byte) weatherModel.get(i).getLow();
+            data[i*14+9] = (byte) weatherModel.get(i).getHigh();
+            data[i*14+10] = (byte) ((weatherModel.get(i).getHigh()+weatherModel.get(i).getLow())/2);
+            data[i*14+11] = (byte) i;
+            data[i*14+12] = (byte) (weatherModel.get(i).getCode()&0xff);
+            data[i*14+13] = (byte) ((weatherModel.get(i).getCode()>>8)&0xff);
+            LogUtil.getInstance().logd("SZIP******",weatherModel.get(i).getCode()+weatherModel.get(i).getText());
+        }
+
+
+
+        LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
+        return data;
+    }
+
+    public static byte[] getCommandbyteArray(String content,String name,int type) {
+        byte contents[] = new byte[0];
+        byte names[] = new byte[0];
+        long time = Calendar.getInstance().getTimeInMillis()/1000;
+        try {
+            contents = content.getBytes("UnicodeBigUnmarked");
+            names = name.getBytes("UnicodeBigUnmarked");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        LogUtil.getInstance().logd("DATA******","content = "+content+" ;name = "+name);
+        byte[] data = new byte[13+(names.length>30?30:names.length)+(contents.length>100?100:contents.length)];
+        data[0] = (byte) 0xAA;
+        data[1] = (byte) 0x40;
+        data[2] = (byte) (data.length-8);
+        data[3] = 0;
+        data[4] = (byte) (time&0xff);
+        data[5] = (byte) ((time>>8)&0xff);
+        data[6] = (byte) ((time>>16)&0xff);
+        data[7] = (byte) ((time>>24)&0xff);
+        data[8] = (byte) type;
+        data[9] = (byte) (names.length>30?30:names.length);
+        data[10] = 0;
+        data[11] = (byte) (contents.length>100?100:contents.length);
+        data[12] = 0;
+        System.arraycopy(names,0,data,13,names.length>30?30:names.length);
+        System.arraycopy(contents,0,data,13+names.length,contents.length>100?100:contents.length);
+
+        LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
+        return data;
+    }
 
     /**
      * @param syncType
@@ -447,8 +555,8 @@ public class CommandUtil {
         StringBuffer str = new StringBuffer();
         for (int i = 0;i<datas.length;i+=lenght){
             if (lenght==1){
-                allData+=datas[i];
-                str.append(String.format(Locale.ENGLISH,",%d",datas[i]));
+                allData+=datas[i]&0xff;
+                str.append(String.format(Locale.ENGLISH,",%d",datas[i]&0xff));
             }else {
                 allData+=(datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8);
                 str.append(String.format(Locale.ENGLISH,",%d",(datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8)));

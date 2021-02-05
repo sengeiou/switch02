@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginStart="20dp">
 
             <com.szip.sportwatch.View.CircularImageView
                 android:id="@+id/pictureIv"
@@ -36,20 +36,20 @@
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:text="用户名"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:maxLines="1"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="@dimen/sport_margin_parallel">
+                android:layout_marginEnd="@dimen/sport_margin_parallel">
                 <ImageView
                     android:id="@+id/historyIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/sport_icon_list"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:padding="10dp"/>
             </RelativeLayout>
 
@@ -65,8 +65,17 @@
             android:layout_below="@+id/userLl"
             android:text="@string/best"
             android:layout_marginTop="@dimen/sport_margin_parallel"
-            android:layout_marginLeft="@dimen/sport_margin_parallel" />
+            android:layout_marginStart="@dimen/sport_margin_parallel" />
 
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_below="@+id/text"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="@dimen/sport_margin_parallel" />
 
         <RelativeLayout
             android:id="@+id/stepRl"
@@ -110,7 +119,7 @@
                     android:id="@+id/unitTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="kcal"
                     android:textColor="@color/white"
                     android:textSize="@dimen/healthy_text_size" />
             </LinearLayout>
@@ -245,14 +254,8 @@
 
         </LinearLayout>
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0.5dp"-->
-<!--            android:layout_marginRight="40dp"-->
-<!--            android:layout_marginLeft="40dp"-->
-<!--            android:background="@color/gray1"/>-->
-
         <LinearLayout
+            android:id="@+id/bottomLl"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
@@ -309,7 +312,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_icon_frequency"
+                    android:src="@mipmap/sport_best_frequency"
                     android:layout_gravity="center"/>
 
                 <TextView

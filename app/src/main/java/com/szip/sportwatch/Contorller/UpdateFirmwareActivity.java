@@ -34,6 +34,7 @@ import com.mediatek.ctrl.fota.common.IFotaOperatorCallback;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
 import java.io.File;
@@ -127,7 +128,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
 
                 case SEND_FOTA_FILE_TO_SD:
                     //准备往手表传送FOTA文件的准备工作
-                    Log.d("update******","开始准备烧录");
+                    LogUtil.getInstance().logd("update******","开始准备烧录");
                     mProgressTitle.setText(getString(R.string.read_send_fota_file));
                     mProgressText.setText("0%");
                     mProgressBar.setProgress(0);
@@ -192,7 +193,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
         mProgressBar =  findViewById(R.id.progress_bar);
 
         mFileUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + "/iSmarport/image.bin";
-        Log.d("update******","path = "+mFileUrl);
+        LogUtil.getInstance().logd("update******","path = "+mFileUrl);
 //                SmartDeviceBLL.getInstance().getFotaFileUrl();
         if (TextUtils.isEmpty(mFileUrl)) {
             showToast(getString(R.string.new_version));
@@ -369,7 +370,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
 
             String path = params[0];
             //Uri uri = Uri.parse(path);
-            Log.d("update******","开始烧录 = "+path);
+            LogUtil.getInstance().logd("update******","开始烧录 = "+path);
             FotaOperator.getInstance(UpdateFirmwareActivity.this).sendFotaFirmwareData(5, path);
             return null;
         }
@@ -405,7 +406,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
                     msg.what = MGS_TEXT_VIEW_UPDATE;
                     msg.arg1 = MSG_ARG1_DOWNLOAD_FINISHED;
                     mHandler.sendMessage(msg);
-                    Log.d("update******","烧录中");
+                    LogUtil.getInstance().logd("update******","烧录中");
                     break;
 
                 case FOTA_UPDATE_VIA_BT_SUCCESS:
@@ -413,7 +414,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
                     msg1.what = MGS_TEXT_VIEW_UPDATE;
                     msg1.arg1 = MSG_ARG1_UPDATE_FINISHED;
                     mHandler.sendMessage(msg1);
-                    Log.d("update******","烧录成功");
+                    LogUtil.getInstance().logd("update******","烧录成功");
                     break;
                 case FOTA_UPDATE_VIA_BT_COMMON_ERROR:
                 case FOTA_UPDATE_VIA_BT_WRITE_FILE_FAILED:

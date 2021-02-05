@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,15 +15,21 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.mediatek.ctrl.notification.NotificationActions;
 import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.ctrl.notification.NotificationData;
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BLE.BleClient;
+import com.szip.sportwatch.MyApplication;
+import com.szip.sportwatch.Util.LogUtil;
+import com.szip.sportwatch.Util.MathUitl;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,7 +44,7 @@ public class NotificationDataManager {
     private Context mContext;
 
     public NotificationDataManager(Context context) {
-        Log.d(TAG, "NotificationDataManager created!");
+        LogUtil.getInstance().logd(TAG, "NotificationDataManager created!");
         mContext = context;
         mSendThread = new SendNotficationDataThread();
         mSendThread.start();
@@ -66,8 +74,8 @@ public class NotificationDataManager {
 
     public NotificationData getNotificationData(Notification notification, String packageName, String tag, int id ){
         int watchVersion = WearableManager.getInstance().getRemoteDeviceVersion();
-        Log.d(TAG, "watch version is " + watchVersion);
-  
+        LogUtil.getInstance().logd(TAG, "watch version is " + watchVersion);
+
         NotificationData notificationData = new NotificationData();
         String[] textArray = getNotificationText(notification);
         String[] pageTextArray = getNotificationPageText(notification); //android 4.4w.2 support
@@ -76,30 +84,30 @@ public class NotificationDataManager {
         }
         notificationData.setTextList(textArray);
         try {
-            Log.d(TAG, "textlist = " + Arrays.toString(textArray));
+            LogUtil.getInstance().logd(TAG, "textlist = " + Arrays.toString(textArray));
         } catch (Exception e) {
-            Log.d(TAG, "get textlist error");
+            LogUtil.getInstance().logd(TAG, "get textlist error");
         }
         notificationData.setGroupKey(getGroupKey(notification));
-        notificationData.setActionsList(getNotificationActions(notification)); 
+        notificationData.setActionsList(getNotificationActions(notification));
         notificationData.setPackageName(packageName);
-//        notificationData.setAppID(Utils.getKeyFromValue(notificationData.getPackageName()));
-        
+        notificationData.setAppID(MathUitl.getKeyFromValue(notificationData.getPackageName()));
+
         if(!TextUtils.isEmpty(notification.tickerText)){
             notificationData.setTickerText(notification.tickerText.toString());
         } else{
-            Log.d(TAG, "get ticker is null or empty");
+            LogUtil.getInstance().logd(TAG, "get ticker is null or empty");
             notificationData.setTickerText("");
         }
         notificationData.setWhen(notification.when);
         if(id == 0){ //Maybe some app's id is 0. like: hangouts(com.google.android.talk)
             id = 1 + (int) (Math.random() * 1000000);
-            Log.d(TAG, "the id is 0 and need create a random number : " + id);
+            LogUtil.getInstance().logd(TAG, "the id is 0 and need create a random number : " + id);
         }
         notificationData.setMsgId(id);
-        notificationData.setTag(tag);
+        notificationData.setTag(packageName);
 
-        Log.d(TAG, "notificationData = " +  notificationData.toString());
+        LogUtil.getInstance().logd(TAG, "notificationData = " +  notificationData.toString());
         return notificationData;
     }
 
@@ -173,7 +181,7 @@ public class NotificationDataManager {
                     }
                 }
             } catch (Exception e) {
-                Log.d(TAG, "getText ERROR");
+                LogUtil.getInstance().logd(TAG, "getText ERROR");
             }
     
             textArray = text.values().toArray(new String[0]);
@@ -214,9 +222,9 @@ public class NotificationDataManager {
             Log.i(TAG,"Android platform is lower than android 4.4 and does not support bigtextstyle attribute.");
         }
         try {
-            Log.d(TAG, "getNotificationText(), text list = " + Arrays.toString(bigTextArray));
+            LogUtil.getInstance().logd(TAG, "getNotificationText(), text list = " + Arrays.toString(bigTextArray));
         } catch (Exception e) {
-            Log.d(TAG, "getNotificationText Exception");
+            LogUtil.getInstance().logd(TAG, "getNotificationText Exception");
         }
         return bigTextArray;
     }
@@ -249,9 +257,9 @@ public class NotificationDataManager {
             Log.i(TAG,"Android platform is lower than android 4.4w.2 and does not support page attribute.");
         }
         try {
-            Log.d(TAG, "getNotificationPageText(), text list = " + Arrays.toString(textArray));
+            LogUtil.getInstance().logd(TAG, "getNotificationPageText(), text list = " + Arrays.toString(textArray));
         } catch (Exception e) {
-            Log.d(TAG, "getNotificationPageText Exception");
+            LogUtil.getInstance().logd(TAG, "getNotificationPageText Exception");
         }
         return textArray;
     }
@@ -362,10 +370,13 @@ public class NotificationDataManager {
         } else{
             Log.i(TAG,"Android platform is lower than android 4.4w.2 and does not support group attribute.");
         }
-        Log.d(TAG, "groupKey = " + groupKey);
+        LogUtil.getInstance().logd(TAG, "groupKey = " + groupKey);
         return groupKey;
     }
-    
+
+    private String messTemp = "";
+    private long msgTime;
+
     private class SendNotficationDataThread extends Thread {
         public static final int MESSAGE_SEND_NOTIFICATION = 1;
         private NotificationData notificationData = null;
@@ -414,11 +425,33 @@ public class NotificationDataManager {
                                         str1[1] = str[0];
                                         notificationData.setTextList(str1);
                                     }
+
+
+                                    if(Calendar.getInstance().getTimeInMillis()-msgTime<1000&&
+                                            messTemp.equals(notificationData.getTickerText()) ){  // && messTemp.equals(tickerText)
+                                        return ;
+                                    }else {
+                                        msgTime = Calendar.getInstance().getTimeInMillis();
+                                        messTemp = notificationData.getTickerText();
+                                    }
+
                                 }
-                                Log.d(TAG, "SendNotficationThread mThreadNotfication = "
+                                LogUtil.getInstance().logd(TAG, "SendNotficationThread mThreadNotfication = "
                                         + notificationData);
-                                NotificationController.getInstance(mContext)
-                                             .sendNotfications(notificationData);
+                                if (MyApplication.getInstance().isMtk()){
+                                    NotificationController.getInstance(mContext)
+                                            .sendNotfications(notificationData);
+                                }else {
+                                    PackageInfo info = null;
+                                    PackageManager pm = mContext.getPackageManager();
+                                    try {
+                                        info = pm.getPackageInfo(notificationData.getPackageName(),PackageManager.GET_ACTIVITIES);
+                                    } catch (PackageManager.NameNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                    BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
+                                            info.applicationInfo.loadLabel(pm).toString(),1);
+                                }
                                 notificationData = null;
                             }
                             break;
@@ -427,7 +460,7 @@ public class NotificationDataManager {
                     }
                 }
             };
-            Looper.loop();
+            Looper.loop();  
         }
 
         public Handler getHandler() {
