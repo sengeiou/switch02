@@ -36,38 +36,38 @@ dependencies {
 //apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'com.jfrog.bintray'
 
-version = "2.0.2"
+//version = "2.0.2"
+//
+//def siteUrl = 'https://github.com/zaaach/CityPicker.git'
+//def gitUrl = 'git@github.com:zaaach/CityPicker.git'
+//
+//group = "com.zaaach"
+//
+//// 生成jar包的task
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//// 生成jarDoc的task
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    options.encoding "UTF-8"
+//    options.charSet 'UTF-8'
+//    options.author true
+//    options.version true
+//    failOnError false
+//}
+//// 生成javaDoc的jar
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
 
-def siteUrl = 'https://github.com/zaaach/CityPicker.git'
-def gitUrl = 'git@github.com:zaaach/CityPicker.git'
-
-group = "com.zaaach"
-
-// 生成jar包的task
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-// 生成jarDoc的task
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    options.encoding "UTF-8"
-    options.charSet 'UTF-8'
-    options.author true
-    options.version true
-    failOnError false
-}
-// 生成javaDoc的jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-//上传传到Jcenter
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+////上传传到Jcenter
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
