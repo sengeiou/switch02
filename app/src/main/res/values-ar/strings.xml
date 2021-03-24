@@ -395,5 +395,6 @@
     <string name="avarageAltitude">إرتفع</string>
     <string name="speedPerHour">بسرعة</string>
     <string name="training">التدريب الجري</string>
+    <string name="heart_switch">قياس معدل ضربات القلب</string>
 
 </resources>

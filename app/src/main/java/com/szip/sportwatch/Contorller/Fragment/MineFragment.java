@@ -21,6 +21,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.inuker.bluetooth.library.connect.BleConnectManager;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.Contorller.AboutActivity;
@@ -30,6 +31,7 @@ import com.szip.sportwatch.Contorller.MainActivity;
 import com.szip.sportwatch.Contorller.NotificationAppListActivity;
 import com.szip.sportwatch.Contorller.SeachingActivity;
 import com.szip.sportwatch.Contorller.SelectDialActivity;
+import com.szip.sportwatch.Contorller.SelectDialActivity06;
 import com.szip.sportwatch.Contorller.UnitSelectActivity;
 import com.szip.sportwatch.Contorller.UpdateFirmwareActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
@@ -79,7 +81,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     private CircularImageView pictureIv;
     private TextView userNameTv,stateTv,stepPlanTv,sleepPlanTv,deviceTv;
 
-    private Switch blePhotoSwitch;
+    private Switch blePhotoSwitch,heartSwitch;
 
     private CharacterPickerWindow window,window1;
 
@@ -326,17 +328,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         stepPlanTv = getView().findViewById(R.id.stepPlanTv);
         sleepPlanTv = getView().findViewById(R.id.sleepPlanTv);
         blePhotoSwitch = getView().findViewById(R.id.blePhotoSwitch);
+        heartSwitch = getView().findViewById(R.id.heartSwitch);
         updateView = getView().findViewById(R.id.updateView);
         if (app.isNewVersion()){
             updateView.setVisibility(View.VISIBLE);
         }else{
             updateView.setVisibility(View.GONE);
         }
-
-        if (app.isCamerable())
-            blePhotoSwitch.setChecked(true);
-        else
-            blePhotoSwitch.setChecked(false);
     }
 
     /**
@@ -374,6 +372,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 }
             }
         });
+
+        heartSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(MainService.getInstance().getState()!=3){
+                    showToast(getString(R.string.lostDevice));
+                    heartSwitch.setChecked(app.isHeartSwitch());
+                } else {
+                    app.setHeartSwitch(isChecked);
+                    BleClient.getInstance().writeForSetHeartSwitch();
+                }
+            }
+        });
     }
 
     /**
@@ -384,11 +395,27 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
         stepPlanTv.setText(userInfo.getStepsPlan()+"");
         sleepPlanTv.setText(String.format(Locale.ENGLISH,"%.1fh",userInfo.getSleepPlan()/60f));
 
-
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
         else
             pictureIv.setImageResource(userInfo.getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+
+        if (app.isMtk()){
+            getView().findViewById(R.id.heartSwitchLl).setVisibility(View.GONE);
+        }else {
+            getView().findViewById(R.id.heartSwitchLl).setVisibility(View.VISIBLE);
+        }
+
+
+        if (app.isCamerable())
+            blePhotoSwitch.setChecked(true);
+        else
+            blePhotoSwitch.setChecked(false);
+
+        if (app.isHeartSwitch())
+            heartSwitch.setChecked(true);
+        else
+            heartSwitch.setChecked(false);
     }
 
 
@@ -467,7 +494,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                 if(MainService.getInstance().getState()!=3)
                     showToast(getString(R.string.lostDevice));
                 else{
-                    startActivity(new Intent(getActivity(), SelectDialActivity.class));
+                    if (app.isMtk())
+                        startActivity(new Intent(getActivity(), SelectDialActivity.class));
+                    else
+                        startActivity(new Intent(getActivity(), SelectDialActivity06.class));
                 }
                 break;
             case R.id.logoutLl:

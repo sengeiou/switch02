@@ -367,5 +367,6 @@
     <string name="checkGPS">檢測到您手機的位置開關未打開，爲確保應用正常運行，請打開位置開關。</string>
     <string name="speedPerHour">時速</string>
     <string name="training">訓練跑</string>
+    <string name="heart_switch">定時測量心率</string>
 
 </resources>

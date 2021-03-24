@@ -378,4 +378,5 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
     <string name="checkGPS">It has been detected that the position switch of your mobile phone is not turned on. To ensure the normal operation of the application, please turn on the position switch.</string>
     <string name="training">Training run</string>
+    <string name="heart_switch">Measure your heart rate regularly</string>
 </resources>

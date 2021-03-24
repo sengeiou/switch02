@@ -378,5 +378,6 @@
     <string name="avarageAltitude">ارتفاع کوهنوردی</string>
     <string name="speedPerHour">سرعت</string>
     <string name="training">قطار برای اجرا</string>
+    <string name="heart_switch">اندازه گیری های به موقع</string>
 
 </resources>

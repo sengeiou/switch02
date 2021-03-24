@@ -25,7 +25,6 @@ import static com.zaaach.citypicker.db.DBConfig.COLUMN_C_PROVINCE;
 import static com.zaaach.citypicker.db.DBConfig.LATEST_DB_NAME;
 import static com.zaaach.citypicker.db.DBConfig.DB_NAME_V1;
 import static com.zaaach.citypicker.db.DBConfig.TABLE_NAME;
-import static com.zaaach.citypicker.db.DBConfig.TABLE_NAME_EN;
 
 /**
  * Author Bro0cL on 2016/1/26.
@@ -79,11 +78,7 @@ public class DBManager {
     public List<City> getAllCities(){
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(DB_PATH + LATEST_DB_NAME, null);
         Cursor cursor;
-        if (mContext.getResources().getConfiguration().locale.getCountry().equals("CN")){
-            cursor = db.rawQuery("select * from " + TABLE_NAME, null);
-        }else {
-            cursor = db.rawQuery("select * from " + TABLE_NAME_EN, null);
-        }
+        cursor = db.rawQuery("select * from " + TABLE_NAME, null);
 
         List<City> result = new ArrayList<>();
         City city;
@@ -104,15 +99,10 @@ public class DBManager {
     public List<City> searchCity(final String keyword){
 
         String sql;
-        if (mContext.getResources().getConfiguration().locale.getCountry().equals("CN")){
-            sql= "select * from " + TABLE_NAME + " where "
-                    + COLUMN_C_NAME + " like ? " + "or "
-                    + COLUMN_C_PINYIN + " like ? ";
-        }else {
-            sql= "select * from " + TABLE_NAME_EN + " where "
-                    + COLUMN_C_NAME + " like ? " + "or "
-                    + COLUMN_C_PINYIN + " like ? ";
-        }
+        sql= "select * from " + TABLE_NAME + " where "
+                + COLUMN_C_NAME + " like ? " + "or "
+                + COLUMN_C_CODE + " like ? ";
+
 
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(DB_PATH + LATEST_DB_NAME, null);
         Cursor cursor = db.rawQuery(sql, new String[]{"%"+keyword+"%", keyword+"%"});

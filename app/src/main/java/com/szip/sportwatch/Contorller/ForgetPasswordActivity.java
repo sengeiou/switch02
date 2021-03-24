@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Contorller;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.szip.sportwatch.MyApplication.FILE;
 import static com.szip.sportwatch.Util.MathUitl.isEmail;
 
 public class ForgetPasswordActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
@@ -114,6 +116,10 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
         verifyCodeEt = findViewById(R.id.verifyCodeEt);
         verifyCodeTipTv = findViewById(R.id.verifyCodeTipTv);
         sendTv = findViewById(R.id.sendTv);
+
+        SharedPreferences sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+        countryTv.setText(sharedPreferencesp.getString("countryName",""));
+        countryCodeTv.setText(sharedPreferencesp.getString("countryCode",""));
     }
 
     /**
@@ -194,6 +200,11 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                                 countryTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryCodeTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryTipTv.setTextColor(getResources().getColor(R.color.gray));
+                                SharedPreferences sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferencesp.edit();
+                                editor.putString("countryName",countryTv.getText().toString());
+                                editor.putString("countryCode",countryCodeTv.getText().toString());
+                                editor.commit();
                             }
                             @Override
                             public void onLocate() {

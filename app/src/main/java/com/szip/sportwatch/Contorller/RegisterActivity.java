@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.szip.sportwatch.MyApplication.FILE;
+
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener,HttpCallbackWithBase{
 
@@ -118,7 +120,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         verifyCodeEt = findViewById(R.id.verifyCodeEt);
         verifyCodeTipTv = findViewById(R.id.verifyCodeTipTv);
         sendTv = findViewById(R.id.sendTv);
-
+        if (sharedPreferencesp==null)
+            sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+        countryTv.setText(sharedPreferencesp.getString("countryName",""));
+        countryCodeTv.setText(sharedPreferencesp.getString("countryCode",""));
 
     }
     /**
@@ -185,6 +190,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                 countryTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryCodeTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryTipTv.setTextColor(getResources().getColor(R.color.gray));
+                                if (sharedPreferencesp==null)
+                                    sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferencesp.edit();
+                                editor.putString("countryName",countryTv.getText().toString());
+                                editor.putString("countryCode",countryCodeTv.getText().toString());
+                                editor.commit();
                             }
                             @Override
                             public void onLocate() {

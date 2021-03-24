@@ -29,12 +29,12 @@ public class LocationUtil {
         //查找服务信息
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE); //定位精度: 最高
-        criteria.setAltitudeRequired(true); //海拔信息：需要
+        criteria.setAltitudeRequired(false); //海拔信息：不需要
         criteria.setBearingRequired(false); //方位信息: 不需要
         criteria.setCostAllowed(true);  //是否允许付费
-        criteria.setPowerRequirement(Criteria.ACCURACY_FINE); //耗电量: 低功耗
-        String provider = myLocationManager.getBestProvider(criteria, true); //获取GPS信息
-        myLocationManager.requestLocationUpdates(provider,2000,5,locationListener);
+        criteria.setPowerRequirement(Criteria.POWER_LOW); //耗电量: 低功耗
+//        String provider = myLocationManager.getBestProvider(criteria, true); //获取GPS信息
+//        myLocationManager.requestLocationUpdates(provider,2000,5,locationListener);
 //        Log.e("provider", provider);
 //        List<String> list = myLocationManager.getAllProviders();
 //        Log.e("provider", list.toString());

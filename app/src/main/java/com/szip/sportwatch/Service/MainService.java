@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -537,7 +538,8 @@ public class MainService extends Service {
                     while (isThreadRun){
                         if ((getState()==WearableManager.STATE_CONNECT_FAIL||
                                 getState()==WearableManager.STATE_CONNECT_LOST ||
-                                getState()==WearableManager.STATE_NONE)){
+                                getState()==WearableManager.STATE_NONE)&&
+                                ((PowerManager) sContext.getSystemService(Context.POWER_SERVICE)).isInteractive()){
                             Log.d("SZIP******","断线重连");
                             connectAble = true;
                             WearableManager.getInstance().scanDevice(true);

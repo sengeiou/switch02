@@ -399,5 +399,6 @@
     <string name="avarageAltitude">גובה טיפוס</string>
     <string name="speedPerHour">מהירות</string>
     <string name="training">רכבת להפעלה</string>
+    <string name="heart_switch">מדידות תזמנות</string>
 
 </resources>

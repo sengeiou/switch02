@@ -2,6 +2,7 @@ package com.szip.sportwatch.Contorller.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -156,9 +157,10 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         heartTv.setText(sportData.heart+"");
         strideTv.setText(sportData.stride+"");
         if (sportData.time!=0)
-            ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/DD HH:mm:ss"));
+            ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/dd HH:mm:ss"));
         else
             ((TextView)getView().findViewById(R.id.time)).setText("----/--/-- --:--:--");
+        Log.d("DATA******","time = "+sportData.time);
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
         else

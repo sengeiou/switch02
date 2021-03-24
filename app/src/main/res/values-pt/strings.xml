@@ -388,5 +388,6 @@
     <string name="checkGPS">Foi detectado que o interruptor de posição do seu telefone não está ativado. para garantir que o aplicativo está funcionando corretamente, ligue o interruptor de posição.</string>
     <string name="speedPerHour">velocidade</string>
     <string name="training">Corrida de treino</string>
+    <string name="heart_switch">Medição programada</string>
 
 </resources>

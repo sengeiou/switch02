@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.View.CircularImageView;
 
@@ -22,7 +23,11 @@ public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaper_dail, null);
+        View view;
+        if (MyApplication.getInstance().isMtk())
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaper_dail, null);
+        else
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaper_dail_06, null);
         final Holder holder = new Holder(view);
         //对加载的子项注册监听事件
         holder.fruitView.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +40,7 @@ public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
         });
         return holder;
     }
+
 
     private OnItemClickListener onItemClickListener;
 

@@ -379,5 +379,6 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="checkGPS">Se ha detectado que el interruptor de posición de su teléfono no está activado. para asegurarse de que la aplicación funciona correctamente, encienda el interruptor de posición.</string>
     <string name="speedPerHour">viajan</string>
     <string name="training">Carrera de entrenamiento</string>
+    <string name="heart_switch">Medición programada</string>
 
 </resources>

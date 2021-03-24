@@ -441,5 +441,6 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name="checkGPS">Wykryto, że przełącznik pozycji telefonu nie jest włączony, więc aby upewnić się, że aplikacja działa poprawnie, włącz przełącznik pozycyjny.</string>
     <string name="speedPerHour">Prędkość</string>
     <string name="training">Pociąg do uruchomienia</string>
+    <string name="heart_switch">Pomiary czasowe</string>
 
 </resources>

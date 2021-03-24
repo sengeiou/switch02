@@ -2,11 +2,14 @@ package com.zhy.http.okhttp.request;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.log.MyApplicationInterceptor;
+import com.zhy.http.okhttp.log.MyNetWorkInterceptor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,7 +28,11 @@ public class RequestCall
     private long writeTimeOut;
     private long connTimeOut;
 
+
     private OkHttpClient clone;
+
+    private MyApplicationInterceptor applicationInterceptor = new MyApplicationInterceptor();
+    private MyNetWorkInterceptor netWorkInterceptor = new MyNetWorkInterceptor();
 
     public RequestCall(OkHttpRequest request)
     {
@@ -50,7 +57,7 @@ public class RequestCall
         return this;
     }
 
-    public Call buildCall(Callback callback)
+    public Call buildCall(Callback callback,Interceptor interceptor)
     {
         request = generateRequest(callback);
 
@@ -59,17 +66,19 @@ public class RequestCall
             readTimeOut = readTimeOut > 0 ? readTimeOut : OkHttpUtils.DEFAULT_MILLISECONDS;
             writeTimeOut = writeTimeOut > 0 ? writeTimeOut : OkHttpUtils.DEFAULT_MILLISECONDS;
             connTimeOut = connTimeOut > 0 ? connTimeOut : OkHttpUtils.DEFAULT_MILLISECONDS;
-
             clone = OkHttpUtils.getInstance().getOkHttpClient().newBuilder()
                     .readTimeout(readTimeOut, TimeUnit.MILLISECONDS)
                     .writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS)
                     .connectTimeout(connTimeOut, TimeUnit.MILLISECONDS)
+                    .addInterceptor(interceptor)
                     .build();
 
             call = clone.newCall(request);
         } else
         {
-            call = OkHttpUtils.getInstance().getOkHttpClient().newCall(request);
+            call = OkHttpUtils.getInstance().getOkHttpClient().newBuilder()
+                    .addInterceptor(interceptor)
+                    .build().newCall(request);
         }
         return call;
     }
@@ -79,9 +88,9 @@ public class RequestCall
         return okHttpRequest.generateRequest(callback);
     }
 
-    public void execute(Callback callback)
+    public void execute(Callback callback,Interceptor interceptor)
     {
-        buildCall(callback);
+        buildCall(callback,interceptor);
         if (callback != null)
         {
             callback.onBefore(request, getOkHttpRequest().getId());
@@ -107,7 +116,7 @@ public class RequestCall
 
     public Response execute() throws IOException
     {
-        buildCall(null);
+        buildCall(null,null);
         return call.execute();
     }
 

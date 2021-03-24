@@ -265,7 +265,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                 distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",MathUitl.metric2Miles(healthyDataModel.getDistanceData())));
                 ((TextView)getView().findViewById(R.id.unitTv)).setText("mile");
             }
-            kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",healthyDataModel.getKcalData()/1000f));
+            kcalTv.setText(String.format(Locale.ENGLISH,"%.1f",((healthyDataModel.getKcalData()+55)/100)/10f));
             planStepTv.setText(String.format(Locale.ENGLISH,getString(R.string.planStep),app.getUserInfo().getStepsPlan()));
             stepRadioTv.setText(String.format(Locale.ENGLISH,"%.1f%%",(healthyDataModel.getStepsData()
                     /(float)app.getUserInfo().getStepsPlan()*100)>100?100:healthyDataModel.getStepsData()
@@ -415,13 +415,13 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             // TODO Auto-generated method stub
             if (location != null) {
                 //获取国家，省份，城市的名称
-                Log.e("location******", location.toString());
+                Log.e("SZIP******", location.toString());
                 try {
                     HttpMessgeUtil.getInstance(getActivity()).getWeather(location.getLatitude()+"", location.getLongitude()+"",
                             new GenericsCallback<WeatherBean>(new JsonGenericsSerializator()) {
                                 @Override
                                 public void onError(Call call, Exception e, int id) {
-
+                                    Log.d("SZIP******","error = "+e.getMessage());
                                 }
 
                                 @Override
@@ -452,6 +452,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                                 }
                             });
                 } catch (IOException e) {
+                    Log.d("SZIP******","error = "+e.getMessage());
                     e.printStackTrace();
                 }
                 locationManager.removeUpdates(locationListener);

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 /**
  * Created by Administrator on 2019/12/7.
@@ -51,6 +52,12 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         try {
             HttpMessgeUtil.getInstance(mContext.getApplicationContext()).postAppCrashLog("iSmarport",mContext.getApplicationContext().
                     getPackageManager().getPackageInfo("com.szip.sportwatch", 0).versionName, Build.BRAND+ Build.MODEL,report);
+
+            FileUtil.getInstance().writeLog(mContext.getExternalFilesDir(null).getPath()+"/"+
+                            DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + "error.txt",
+                    (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+"error"+
+                            "|"+report+"\r").getBytes());
+
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (PackageManager.NameNotFoundException e1) {

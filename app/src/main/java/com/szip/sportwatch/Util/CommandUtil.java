@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.mediatek.ctrl.notification.NotificationData;
@@ -135,16 +136,21 @@ public class CommandUtil {
             if(userInfo!=null){
                 int height = 0;
                 int mWeight = 0;
+                int heightInch = 0;
+                int mWeightPound = 0;
                 int plan = 0;
                 int sex = 0;
                 if (userInfo!=null){
-                    if (userInfo.getUnit()==0){
-                        height =userInfo.getHeight()==0?170:userInfo.getHeight();
-                        mWeight = userInfo.getWeight()==0?60:userInfo.getWeight();
-                    }else {
-                        height =userInfo.getHeightBritish()==0?66:userInfo.getHeightBritish();
-                        mWeight = userInfo.getHeightBritish()==0?132:userInfo.getHeightBritish();
-                    }
+                    height =userInfo.getHeight();
+//                            ==0?170:userInfo.getHeight();
+                    mWeight = userInfo.getWeight();
+//                            ==0?60:userInfo.getWeight();
+
+                    heightInch =userInfo.getHeightBritish();
+//                            ==0?66:userInfo.getHeightBritish();
+                    mWeightPound = userInfo.getWeightBritish();
+//                            ==0?132:userInfo.getHeightBritish();
+
                     plan = userInfo.getStepsPlan();
                     sex = userInfo.getSex();
                 }
@@ -156,6 +162,10 @@ public class CommandUtil {
                 data[13] = (byte) ((plan >> 8) & 0xff);
                 data[14] = 0;
                 data[15] = (byte) (sex & 0xff);
+                data[16] = (byte) (heightInch & 0xff);
+                data[17] = (byte) ((heightInch >> 8) & 0xff);
+                data[18] = (byte) (mWeightPound & 0xff);
+                data[19] = (byte) ((mWeightPound >> 8) & 0xff);
             }
         }else if (syncType == 0x38){
             data[8] = (byte) (1 & 0xFF);
@@ -181,8 +191,13 @@ public class CommandUtil {
                 str = "ar-SA";
             else if (str.equals("th"))
                 str = "th-TH";
-            else if (str.equals("zh"))
-                str = "zh-CN";
+            else if (str.equals("zh")){
+                if (MyApplication.getInstance().getResources().getConfiguration().locale.getCountry().equals("CN"))
+                    str = "zh-CN";
+                else
+                    str = "zh-TW";
+            } else if (str.equals("ja"))
+                str = "jp";
             byte[] datas = new byte[0];
             try {
                 datas = str.getBytes("ASCII");
@@ -191,7 +206,6 @@ public class CommandUtil {
             }
             LogUtil.getInstance().logd("SZIP******","datas = "+datas.length);
             for (int i = 0;i<datas.length;i++){
-                LogUtil.getInstance().logd("SZIP******","datas = "+datas[i]);
                 data[8+i] = datas[i];
             }
         }else if (syncType == 0x41){
@@ -207,6 +221,12 @@ public class CommandUtil {
             data[9] = (byte) ((elevation>>8)&0xff);
             data[10] = (byte) ((elevation>>16)&0xff);
             data[11] = (byte) ((elevation>>24)&0xff);
+        }else if (syncType == 0x44){
+            boolean is24Hour = DateFormat.is24HourFormat(MyApplication.getInstance());
+            data[8] = (byte) ((is24Hour?1:0)&0xff);
+        }else if (syncType == 0x45){
+            boolean heartSwitch = MyApplication.getInstance().isHeartSwitch();
+            data[8] = (byte) ((heartSwitch?1:0)&0xff);
         }
         LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
         return data;
@@ -268,8 +288,38 @@ public class CommandUtil {
         data[11] = (byte) (contents.length>100?100:contents.length);
         data[12] = 0;
         System.arraycopy(names,0,data,13,names.length>30?30:names.length);
-        System.arraycopy(contents,0,data,13+names.length,contents.length>100?100:contents.length);
+        System.arraycopy(contents,0,data,13+(names.length>30?30:names.length),contents.length>100?100:contents.length);
 
+        LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
+        return data;
+    }
+
+    public static byte[] getCommandbytePicture(int byteLength,int dataLength,int type,int clockType,int clockIndex,int num,byte[] datas){
+        byte[] data = new byte[byteLength];
+        data[0] = (byte) 0xAA;
+        data[1] = (byte) 0x46;
+        data[2] = (byte) dataLength;
+        data[3] = 0;
+        data[4] = (byte) (0xF0);
+        data[5] = (byte) (0xF0);
+        data[6] = (byte) (0xF0);
+        data[7] = (byte) (0xF0);
+
+        if (type == 0){
+            data[8] = (byte) type;
+            data[9] = (byte) clockType;
+            data[10] = (byte) clockIndex;
+            data[11] = (byte) (num&0xff);
+            data[12] = (byte) ((num>>8)&0xff);
+        }else if (type == 1){
+            data[8] = (byte) type;
+            data[9] = (byte) (num&0xff);
+            data[10] = (byte) ((num>>8)&0xff);
+            System.arraycopy(datas,0,data,11,datas.length);
+        }else {
+            data[8] = (byte) type;
+            data[9] = 0;
+        }
         LogUtil.getInstance().logd("DATA******","发送的蓝牙数据:"+ DateUtil.byteToHexString(data));
         return data;
     }
@@ -552,14 +602,21 @@ public class CommandUtil {
         HashMap<Integer,String> hashMap = new HashMap<>();
         int sum = 0;
         int allData = 0;
+        int data = 0;
         StringBuffer str = new StringBuffer();
         for (int i = 0;i<datas.length;i+=lenght){
             if (lenght==1){
-                allData+=datas[i]&0xff;
+                data = datas[i]&0xff;
+                if (data == 0)
+                    continue;
+                allData+=data;
                 str.append(String.format(Locale.ENGLISH,",%d",datas[i]&0xff));
             }else {
-                allData+=(datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8);
-                str.append(String.format(Locale.ENGLISH,",%d",(datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8)));
+                data = (datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8);
+                if (data == 0)
+                    continue;
+                allData+=data;
+                str.append(String.format(Locale.ENGLISH,",%d",((short)(datas[i] & 0xff) + (short) ((datas[i+1] & 0xFF) << 8))));
             }
             sum++;
         }

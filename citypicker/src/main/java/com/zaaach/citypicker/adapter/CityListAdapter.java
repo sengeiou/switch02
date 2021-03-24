@@ -124,7 +124,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.BaseVi
             if (data == null) return;
             ((DefaultViewHolder)holder).name.setText(data.getName());
             ((DefaultViewHolder)holder).code.setText(data.getCode());
-            ((DefaultViewHolder) holder).name.setOnClickListener(new View.OnClickListener() {
+            ((DefaultViewHolder) holder).frameLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mInnerListener != null){
@@ -218,11 +218,12 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.BaseVi
     public static class DefaultViewHolder extends BaseViewHolder{
         TextView name;
         TextView code;
-
+        FrameLayout frameLayout;
         DefaultViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.cp_list_item_name);
             code = itemView.findViewById(R.id.cp_list_item_code);
+            frameLayout = itemView.findViewById(R.id.cp_list_fl);
         }
     }
 

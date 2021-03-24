@@ -384,5 +384,6 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name="checkGPS">Uygulamanın düzgün çalıştığından emin olmak için telefonunuzun konum anahtarının açık olmadığı algılandı, böylece konum anahtarını açın.</string>
     <string name="speedPerHour">Hız</string>
     <string name="training">Tren çalıştırmak için</string>
+    <string name="heart_switch">Zamanlanmış ölçümler</string>
 
 </resources>

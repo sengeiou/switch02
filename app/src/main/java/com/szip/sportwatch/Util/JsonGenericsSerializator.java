@@ -12,7 +12,6 @@ public class JsonGenericsSerializator implements IGenericsSerializator {
     Gson mGson = new Gson();
     @Override
     public <T> T transform(String response, Class<T> classOfT) {
-        Log.e("TOKENSZIP******", "transform: "+response);
         return mGson.fromJson(response, classOfT);
     }
 }

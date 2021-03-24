@@ -384,5 +384,6 @@
     <string name="checkGPS">Das GPS ihres handys ist noch nicht an. Um sicherzustellen, dass die anwendung richtig läuft, stellen sie den navigationsbereich an.</string>
     <string name="speedPerHour">Geschwindigkeit.</string>
     <string name="training">Trainer. Lauftraining.</string>
+    <string name="heart_switch">Zeitrechnung.</string>
 
 </resources>

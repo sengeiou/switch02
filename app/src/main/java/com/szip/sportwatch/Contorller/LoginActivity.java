@@ -105,6 +105,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (sharedPreferencesp==null)
             sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
         userEt.setText(sharedPreferencesp.getString("user",""));
+        countryTv.setText(sharedPreferencesp.getString("countryName",""));
+        countryCodeTv.setText(sharedPreferencesp.getString("countryCode",""));
+        if (countryTv.getText().toString().equals("")){
+            countryTv.setText(getString(R.string.choseCountry));
+            countryTv.setTextColor(getResources().getColor(R.color.gray));
+        }
+
     }
 
     /**
@@ -206,6 +213,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                                 countryTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryCodeTv.setTextColor(getResources().getColor(R.color.rayblue));
                                 countryTipTv.setTextColor(getResources().getColor(R.color.gray));
+                                if (sharedPreferencesp==null)
+                                    sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferencesp.edit();
+                                editor.putString("countryName",countryTv.getText().toString());
+                                editor.putString("countryCode",countryCodeTv.getText().toString());
+                                editor.commit();
                             }
                             @Override
                             public void onLocate() {

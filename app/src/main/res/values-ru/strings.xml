@@ -379,5 +379,6 @@
     <string name="checkGPS">Чтобы убедиться, что приложение работает, пожалуйста, включите его.</string>
     <string name="speedPerHour">скорост</string>
     <string name="training">Бегом!</string>
+    <string name="heart_switch">Измерение по времени</string>
 
 </resources>

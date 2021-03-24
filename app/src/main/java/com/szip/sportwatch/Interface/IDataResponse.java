@@ -62,4 +62,8 @@ public interface IDataResponse {
      * */
     void findPhone(int flag);
 
+    /**
+     * 更新个人信息
+     * */
+    void updateUserInfo();
 }

@@ -157,6 +157,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        searchDevice(false);
         WearableManager.getInstance().unregisterWearableListener(mWearableListener);
     }
 

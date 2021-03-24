@@ -43,7 +43,6 @@ public class PostJsonRequest extends OkHttpRequest {
             Gson gson=new Gson();
             RequestBody body = FormBody.create(MediaType.parse("application/json"),
                     params==null?"{}":gson.toJson(params));
-            Log.d("JSON******","param = "+gson.toJson(params));
             return body;
         } else
         {

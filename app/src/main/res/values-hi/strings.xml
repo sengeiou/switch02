@@ -370,5 +370,6 @@
     <string name="warning_updating_text">In the upgrade, please wait for the upgrade to complete, or timeout (%1$d minutes)</string>
     <string name="speedPerHour">"  "</string>
     <string name="training">" "</string>
+    <string name="heart_switch">" "</string>
 
 </resources>

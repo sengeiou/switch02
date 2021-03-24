@@ -49,7 +49,7 @@ public class LogUtil {
             if (!tag.equals("DATA******"))
                 return;
             else
-                writeEvent(tag,msg);
+                writeEventForHttp(tag,msg);
         }
     }
 
@@ -62,6 +62,12 @@ public class LogUtil {
                 (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+tag+
                         "|"+msg+"\r").getBytes());
     }
+    public void writeEventForHttp(String tag,String msg){
 
+        FileUtil.getInstance().writeLog(context.getExternalFilesDir(null).getPath()+"/"+
+                        DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + "http.txt",
+                (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+tag+
+                        "|"+msg+"\r").getBytes());
+    }
 
 }

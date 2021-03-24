@@ -398,4 +398,5 @@
     <string name="checkGPS">핸드폰의 위치 스위치가 켜져 있지 않은 것이 확인되었습니다. 정상 사용을 위해서 위치 스위치를 눌러 주십시오.</string>
     <string name="speedPerHour">시속</string>
     <string name="training">달리기를 훈련하다</string>
+    <string name="heart_switch">정시 측정</string>
 </resources>

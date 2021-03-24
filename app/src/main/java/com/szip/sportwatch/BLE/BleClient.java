@@ -45,6 +45,8 @@ import com.szip.sportwatch.Model.BleStepModel;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
+import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
+import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UpdateSportView;
 import com.szip.sportwatch.Model.UserInfo;
@@ -55,12 +57,16 @@ import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.CommandUtil;
 import com.szip.sportwatch.Util.DataParser;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LogUtil;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 import com.zhy.http.okhttp.utils.L;
 
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +76,8 @@ import java.util.TimerTask;
 import java.util.TreeSet;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
+
+import okhttp3.Call;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
@@ -120,7 +128,7 @@ public class BleClient {
                 if (msg.what == ANALYSIS_HANDLER_FLAG) {
                     byte[] value = (byte[]) msg.obj;
                     if (value != null && (value.length != 0)) {
-                        LogUtil.getInstance().loge("DATA******", "value.length=" + value.length + " recvBuffer.length=" + recvBuffer.length + " recvLength=" + recvLength + " lastIndex =" + (value.length + recvLength));
+                        LogUtil.getInstance().logd("DATA******", "value.length=" + value.length + " recvBuffer.length=" + recvBuffer.length + " recvLength=" + recvLength + " lastIndex =" + (value.length + recvLength));
                         try {
                             System.arraycopy(value, 0, recvBuffer, recvLength, value.length);
                             recvLength += value.length;
@@ -171,7 +179,7 @@ public class BleClient {
     private BleConnectResponse bleConnectResponse = new BleConnectResponse() {
         @Override
         public void onResponse(int code, BleGattProfile data) {
-            LogUtil.getInstance().loge("SZIP","code = "+code);
+            LogUtil.getInstance().logd("SZIP","code = "+code);
             if( code == 0 ){        // 0 成功
                 ClientManager.getClient().requestMtu(mMac, 200, new BleMtuResponse() {
                     @Override
@@ -214,6 +222,7 @@ public class BleClient {
                     public void run() {
                         NotificationView.getInstance(MyApplication.getInstance()).showNotify(true);
                         writeForSyncTime();
+                        writeForSyncTimeStyle();
                         writeForSetLanuage();
                         writeForSetWeather(MyApplication.getInstance().getWeatherModel());
                         writeForSetElevation();
@@ -279,6 +288,16 @@ public class BleClient {
             if (value.length == 8) {
                 if ((value[4] == -16) && (value[5] == -16) && (value[6] == -16) && (value[7] == -16)) {
                     ClientManager.getClient().read(mMac,serviceUUID,UUID.fromString(Config.char3),bleReadResponse);
+                }
+            }else {
+                if (value[1] == 0x46){
+                    if (value[8]==0){
+                        EventBus.getDefault().post(new UpdateView(""));
+                    }else if (value[8]==1){
+                        EventBus.getDefault().post(new UpdateView("0"));
+                    }else {
+                        EventBus.getDefault().post(new UpdateView("1"));
+                    }
                 }
             }
 
@@ -445,6 +464,27 @@ public class BleClient {
                 }
             }
         }
+
+        @Override
+        public void updateUserInfo() {
+            try {
+                HttpMessgeUtil.getInstance(MyApplication.getInstance().getApplicationContext()).postForSetUserInfo1(MyApplication.getInstance().getUserInfo(),
+                        new GenericsCallback<BaseApi>(new JsonGenericsSerializator()) {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+
+                            }
+
+                            @Override
+                            public void onResponse(BaseApi response, int id) {
+
+                            }
+                        });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     };
 
     private void starVibrate(long[] pattern) {
@@ -499,13 +539,13 @@ public class BleClient {
                 }
                 recvLength -= 8;
             } else {
-                LogUtil.getInstance().loge("DATA******", "......");
+                LogUtil.getInstance().logd("DATA******", "......");
                 return;
             }
         }
 
         if (recvState == 2) {
-            LogUtil.getInstance().loge("DATA******", "recvLenght=" + recvLength + " dataLength=" + pkg_dataLen+" time = "+pkg_timeStamp);
+            LogUtil.getInstance().logd("DATA******", "recvLenght=" + recvLength + " dataLength=" + pkg_dataLen+" time = "+pkg_timeStamp);
             if (recvLength >= pkg_dataLen) {
                 byte[] pkg_data = new byte[pkg_dataLen];
                 System.arraycopy(recvBuffer, 0, pkg_data, 0, pkg_dataLen);
@@ -514,7 +554,7 @@ public class BleClient {
                 recvState = 0;
                 DataParser.newInstance().parseData(pkg_type,pkg_data,pkg_timeStamp,recvLength > 0?false:true);
             } else {
-                LogUtil.getInstance().loge("DATA******", "------");
+                LogUtil.getInstance().logd("DATA******", "------");
                 return;
             }
         }
@@ -526,7 +566,7 @@ public class BleClient {
             mAnalysisHandler.sendMessage(message);
         } else {
             //用于判断数据是否取完
-            LogUtil.getInstance().loge("DATA******", "//////");
+            LogUtil.getInstance().logd("DATA******", "//////");
             recvLength = 0;
             recvState = 0;
             pkg_dataLen = 0;
@@ -583,132 +623,132 @@ public class BleClient {
             switch (type) {
                 case 0x01:
                     //记步数据
-                    LogUtil.getInstance().loge("DATA******", "sync step");
+                    LogUtil.getInstance().logd("DATA******", "sync step");
                     datas = CommandUtil.getCommandbyteArray(0x01, 8,
                             0, true);
                     break;
 
                 case 0x02:
                     //心率数据
-                    LogUtil.getInstance().loge("DATA******", "sync heart_rate");
+                    LogUtil.getInstance().logd("DATA******", "sync heart_rate");
                     datas = CommandUtil.getCommandbyteArray(0x02, 8,
                             0, true);
                     break;
 
                 case 0x03:
                     //睡眠数据
-                    LogUtil.getInstance().loge("DATA******", "sync sleep");
+                    LogUtil.getInstance().logd("DATA******", "sync sleep");
                     datas = CommandUtil.getCommandbyteArray(0x03, 8,
                             0, true);
                     break;
 
                 case 0x04:
                     //跑步数据
-                    LogUtil.getInstance().loge("DATA******", "sync run");
+                    LogUtil.getInstance().logd("DATA******", "sync run");
                     datas = CommandUtil.getCommandbyteArray(0x04, 8,
                             0, true);
                     break;
 
                 case 0x05:
                     //徒步数据
-                    LogUtil.getInstance().loge("DATA******", "sync onfoot");
+                    LogUtil.getInstance().logd("DATA******", "sync onfoot");
                     datas = CommandUtil.getCommandbyteArray(0x05, 8,
                             0, true);
                     break;
 
                 case 0x06:
                     //马拉松
-                    LogUtil.getInstance().loge("DATA******", "sync marathon");
+                    LogUtil.getInstance().logd("DATA******", "sync marathon");
                     datas = CommandUtil.getCommandbyteArray(0x06, 8,
                             0, true);
                     break;
 
                 case 0x07:
                     //跳绳
-                    LogUtil.getInstance().loge("DATA******", "sync rope_shipping");
+                    LogUtil.getInstance().logd("DATA******", "sync rope_shipping");
                     datas = CommandUtil.getCommandbyteArray(0x07, 8,
                             0, true);
                     break;
 
                 case 0x08:
                     //户外游泳
-                    LogUtil.getInstance().loge("DATA******", "sync swim");
+                    LogUtil.getInstance().logd("DATA******", "sync swim");
                     datas = CommandUtil.getCommandbyteArray(0x08, 8,
                             0, true);
                     break;
 
                 case 0x09:
                     //攀岩
-                    LogUtil.getInstance().loge("DATA******", "sync rock_climbing");
+                    LogUtil.getInstance().logd("DATA******", "sync rock_climbing");
                     datas = CommandUtil.getCommandbyteArray(0x09, 8,
                             0, true);
                     break;
 
                 case 0x0A:
                     //滑雪
-                    LogUtil.getInstance().loge("DATA******", "sync skking");
+                    LogUtil.getInstance().logd("DATA******", "sync skking");
                     datas = CommandUtil.getCommandbyteArray(0x0A, 8,
                             0, true);
                     break;
 
                 case 0x0B:
                     //骑行
-                    LogUtil.getInstance().loge("DATA******", "sync riding");
+                    LogUtil.getInstance().logd("DATA******", "sync riding");
                     datas = CommandUtil.getCommandbyteArray(0x0B, 8,
                             0, true);
                     break;
 
                 case 0x0C:
                     //划船
-                    LogUtil.getInstance().loge("DATA******", "sync rowing");
+                    LogUtil.getInstance().logd("DATA******", "sync rowing");
                     datas = CommandUtil.getCommandbyteArray(0x0C, 8,
                             0, true);
                     break;
 
                 case 0x0D:
                     //蹦极
-                    LogUtil.getInstance().loge("DATA******", "sync bungee");
+                    LogUtil.getInstance().logd("DATA******", "sync bungee");
                     datas = CommandUtil.getCommandbyteArray(0x0D, 8,
                             0, true);
                     break;
 
                 case 0x0E:
                     //登山
-                    LogUtil.getInstance().loge("DATA******", "sync mountaineer");
+                    LogUtil.getInstance().logd("DATA******", "sync mountaineer");
                     datas = CommandUtil.getCommandbyteArray(0x0E, 8,
                             0, true);
                     break;
 
                 case 0x0F:
                     //跳伞
-                    LogUtil.getInstance().loge("DATA******", "sync parachute");
+                    LogUtil.getInstance().logd("DATA******", "sync parachute");
                     datas = CommandUtil.getCommandbyteArray(0x0F, 8,
                             0, true);
                     break;
 
                 case 0x10:
                     //高尔夫
-                    LogUtil.getInstance().loge("DATA******", "sync golf");
+                    LogUtil.getInstance().logd("DATA******", "sync golf");
                     datas = CommandUtil.getCommandbyteArray(0x10, 8,
                             0, true);
                     break;
 
                 case 0x11:
                     //冲浪
-                    LogUtil.getInstance().loge("DATA******", "sync surf");
+                    LogUtil.getInstance().logd("DATA******", "sync surf");
                     datas = CommandUtil.getCommandbyteArray(0x11, 8,
                             0, true);
                     break;
 
                 case 0x14:
                     //跑步机
-                    LogUtil.getInstance().loge("DATA******", "sync treadmill");
+                    LogUtil.getInstance().logd("DATA******", "sync treadmill");
                     datas = CommandUtil.getCommandbyteArray(0x14, 8,
                             0, true);
                     break;
                 case 0x19:
                     //跑步机
-                    LogUtil.getInstance().loge("DATA******", "sync step on day");
+                    LogUtil.getInstance().logd("DATA******", "sync step on day");
                     datas = CommandUtil.getCommandbyteArray(0x19, 8,
                             0, true);
                     break;
@@ -726,16 +766,18 @@ public class BleClient {
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
                 CommandUtil.getCommandbyteArray(0x30, 21, 13, true),bleWriteResponse);
     }
-
+    public void writeForSyncTimeStyle(){
+        ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                CommandUtil.getCommandbyteArray(0x44, 9, 1, true),bleWriteResponse);
+    }
     public void writeForUpdateUserInfo(){
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
-                CommandUtil.getCommandbyteArray(0x31, 16, 8, true),bleWriteResponse);
+                CommandUtil.getCommandbyteArray(0x31, 20, 12, true),bleWriteResponse);
     }
 
     public void writeForFindWatch(){
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
                 CommandUtil.getCommandbyteArray(0x38, 9, 1, true),bleWriteResponse);
-
     }
 
     public void writeForSetLanuage(){
@@ -767,9 +809,28 @@ public class BleClient {
                 CommandUtil.getCommandbyteArray(0x41, 10, 2, true),bleWriteResponse);
     }
 
+    public void writeForSetHeartSwitch(){
+        ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                CommandUtil.getCommandbyteArray(0x45, 9, 1, true),bleWriteResponse);
+    }
+
     public void writeForSendNotify(String content,String name,int type){
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
                 CommandUtil.getCommandbyteArray(content,name,type),bleWriteResponse);
+    }
+
+    public void writeForSendPicture(int type,int clockType,int clockIndex,int num,byte[] datas){
+        if (type == 0){
+            ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                    CommandUtil.getCommandbytePicture(13,5,type,clockType,clockType,num,datas),bleWriteResponse);
+        }else if (type == 1){
+            ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                    CommandUtil.getCommandbytePicture(datas.length+11,datas.length+3,type,clockType,clockType,num,datas),bleWriteResponse);
+        }else {
+            ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
+                    CommandUtil.getCommandbytePicture(10,2,type,clockType,clockType,num,datas),bleWriteResponse);
+
+        }
     }
 
     public int getConnectState() {

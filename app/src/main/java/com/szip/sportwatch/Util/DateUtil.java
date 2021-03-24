@@ -343,19 +343,16 @@ public class DateUtil {
     public static int[] getNowDate() {
         int gmt = DateUtil.getGMT();
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        TimeZone timeZone = TimeZone.getDefault();
-        String timeZoneId = timeZone.getDisplayName(false, TimeZone.SHORT);
         String date = mFormat.format(new Date(System.currentTimeMillis()));
+        Log.d("DATA******","date = "+date);
         String[] dateArray = date.split("-");
         int[] time = new int[dateArray.length + 2];
-        for (int i = 0; i <= dateArray.length-2; i++) {
+        for (int i = 0; i < dateArray.length; i++) {
             time[i] = Integer.valueOf(dateArray[i]);
         }
         int gmtData = (int) (gmt/60f*10);
-        Log.d("SZIP******","GMT = "+gmtData);
         time[6] = gmtData>=0?1:0;
         time[7] = (byte)gmtData<0?gmtData*-1:gmtData;
-        Log.d("SZIP******","time[7] = "+time[7]);
         return time;
 
     }

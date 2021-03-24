@@ -131,23 +131,23 @@ public class LoggerInterceptor implements Interceptor
         }
     }
 
-    private boolean isText(MediaType mediaType)
-    {
-        if (mediaType.type() != null && mediaType.type().equals("text"))
+        private boolean isText(MediaType mediaType)
         {
-            return true;
-        }
-        if (mediaType.subtype() != null)
-        {
-            if (mediaType.subtype().equals("json") ||
-                    mediaType.subtype().equals("xml") ||
-                    mediaType.subtype().equals("html") ||
-                    mediaType.subtype().equals("webviewhtml")
-                    )
+            if (mediaType.type() != null && mediaType.type().equals("text"))
+            {
                 return true;
+            }
+            if (mediaType.subtype() != null)
+            {
+                if (mediaType.subtype().equals("json") ||
+                        mediaType.subtype().equals("xml") ||
+                        mediaType.subtype().equals("html") ||
+                        mediaType.subtype().equals("webviewhtml")
+                        )
+                    return true;
+            }
+            return false;
         }
-        return false;
-    }
 
     private String bodyToString(final Request request)
     {

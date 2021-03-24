@@ -247,6 +247,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         //设置默认选中的三级项目
         if (userInfo.getBirthday()!=null){
             String [] strs = userInfo.getBirthday().split("-");
+            if(strs.length!=3)
+                return;
             window3.setCurrentPositions(Integer.valueOf(strs[0])-1930, Integer.valueOf(strs[1])-1, Integer.valueOf(strs[2])-1);
         }else {
             window3.setCurrentPositions(list1.size()/2, 0, 0);

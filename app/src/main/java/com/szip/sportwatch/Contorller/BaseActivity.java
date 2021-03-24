@@ -133,6 +133,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+
+    /**
+     * 适配Android字体（随着系统字体改变而改变）
+     * */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if (newConfig.fontScale != 1)//非默认值

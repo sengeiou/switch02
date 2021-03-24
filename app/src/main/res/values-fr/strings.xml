@@ -375,5 +375,6 @@
     <string name="checkGPS">Il a été détecté que le commutateur de position de votre téléphone mobile n’était pas activé. pour s’assurer que l’application fonctionne correctement, allumez le commutateur de position.</string>
     <string name="speedPerHour">La vitesse</string>
     <string name="training">Parcours d’entraînement</string>
+    <string name="heart_switch">Mesure temporelle</string>
 
 </resources>

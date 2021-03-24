@@ -10,6 +10,7 @@ import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.Interface.IDataResponse;
 import com.szip.sportwatch.Model.BleStepModel;
+import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class DataParser {
         if (data[1]==0x32){
             int deviceNum = (data[9]&0xff)<<8|(data[8]&0xff)&0x0ffff;
             ArrayList<Integer> datas = new ArrayList<>();
-            for (int i = 10;i<data.length-1;i++){
+            for (int i = 10;i<data.length-2;i++){
                 if (data[i]!=0){
                     datas.add(i-9);
                     if(i==10){
@@ -66,6 +67,11 @@ public class DataParser {
             }
             if (data[27]!=0)
                 datas.add(0x14);
+            MyApplication.getInstance().setHeartSwitch(data[28]==1);
+            if (data.length>29){
+                MyApplication.getInstance().setBtMac(String.format("%02X:%02X:%02X:%02X:%02X:%02X",data[34],data[33], data[32],data[31],
+                        data[30],data[29]));
+            }
             if (mIDataResponse!=null)
                 mIDataResponse.onGetDataIndex(deviceNum+"",datas);
         }else if (data[1] == 0x15){
@@ -94,6 +100,18 @@ public class DataParser {
                 mIDataResponse.onSaveTempDatas(animalHeatDataArrayList);
             animalHeatDataArrayList = null;
             LogUtil.getInstance().logd("DATA******","实时体温数据接受结束 = "+temp);
+        }else if (data[1] == 0x20){
+            UserInfo info = MyApplication.getInstance().getUserInfo();
+            info.setHeight((data[8] & 0xff) + ((data[9] & 0xFF) << 8));
+            info.setWeight((data[10] & 0xff) + ((data[11] & 0xFF) << 8));
+            info.setStepsPlan((data[12] & 0xff) + ((data[13] & 0xFF) << 8));
+            info.setSex((data[15] & 0xff));
+            info.setHeightBritish((data[16] & 0xff) + ((data[17] & 0xFF) << 8));
+            info.setWeightBritish((data[18] & 0xff) + ((data[19] & 0xFF) << 8));
+            info.setUnit((data[20] & 0xff));
+            info.setTempUnit((data[21] & 0xff));
+            if (mIDataResponse!=null)
+                mIDataResponse.updateUserInfo();
         }
     }
 

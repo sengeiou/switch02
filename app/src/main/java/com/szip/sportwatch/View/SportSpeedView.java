@@ -120,7 +120,10 @@ public class SportSpeedView extends View {
             for (int i = 0;i<datas.length;i++){
 
                 String speedStr = String.format("%02d'%02d''",datas[i]/60,datas[i]%60);
-                String numStr = (datas.length-(i+1))<=0?"<1":String.format("%d",datas.length-(i+1));
+                String numStr = String.format("%d",i+1);
+                if (i == datas.length-1){
+                    numStr +=("(<1km)");
+                }
                 textWidth = textPaint.measureText(speedStr);
                 textWidth1 = textPaint1.measureText(numStr);
                 Path path = new Path();
@@ -141,7 +144,7 @@ public class SportSpeedView extends View {
                 canvas.drawText(speedStr,width-textWidth,(mBarWidth+mInterval)*i+35,
                         textPaint);
 
-                canvas.drawText(numStr,textWidth1,(mBarWidth+mInterval)*i+35,
+                canvas.drawText(numStr,mBarWidth/2,(mBarWidth+mInterval)*i+35,
                         textPaint1);
 
             }

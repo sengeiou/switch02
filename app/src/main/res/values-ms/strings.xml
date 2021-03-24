@@ -381,5 +381,6 @@
     <string name="checkGPS">Suis kedudukan telefon anda telah dikesan tidak dihidupkan, supaya memastikan apl berfungsi dengan betul, hidupkan suis kedudukan.</string>
     <string name="speedPerHour">Kelajuan</string>
     <string name="training">Kereta api untuk berlari</string>
+    <string name="heart_switch">Pengukuran masa</string>
 
 </resources>

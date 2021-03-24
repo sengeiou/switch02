@@ -395,5 +395,6 @@
     <string name="checkGPS">携帯電話の位置スイッチがオンになっていないことを検知した場合、アプリが正常に動作するように位置スイッチをオンにしてください。</string>
     <string name="speedPerHour">時速</string>
     <string name="training">トレーニングで走る</string>
+    <string name="heart_switch">タイミング測定</string>
 
 </resources>

@@ -22,6 +22,7 @@ import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
@@ -542,54 +543,52 @@ public class MathUitl {
     public static String getStringWithJson(SharedPreferences sharedPreferences){
 
         long lastTime = sharedPreferences.getLong("lastTime",0);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(lastTime*1000);
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
-        long lastTimeForDay = calendar.getTimeInMillis()/1000;
+        long lastTimeBp = sharedPreferences.getLong("lastTimeBp",0);
+        long lastTimeBo = sharedPreferences.getLong("lastTimeBo",0);
+        long lastTimeEcg = sharedPreferences.getLong("lastTimeEcg",0);
+        long lastTimeSport = sharedPreferences.getLong("lastTimeSport",0);
+        long lastTimeAh = sharedPreferences.getLong("lastTimeAh",0);
 
-        Log.d("SZIP******","lastTime = "+lastTimeForDay);
+
 
         List<StepData> stepDataList = SQLite.select()
                 .from(StepData.class)
-                .where(StepData_Table.time.greaterThanOrEq(lastTimeForDay))
+                .where(StepData_Table.time.greaterThanOrEq(lastTime))
                 .queryList();
 
         List<SleepData> sleepDataList = SQLite.select()
                 .from(SleepData.class)
-                .where(SleepData_Table.time.greaterThanOrEq(lastTimeForDay))
+                .where(SleepData_Table.time.greaterThanOrEq(lastTime))
                 .queryList();
 
         List<HeartData> heartDataList = SQLite.select()
                 .from(HeartData.class)
-                .where(HeartData_Table.time.greaterThanOrEq(lastTimeForDay))
+                .where(HeartData_Table.time.greaterThanOrEq(lastTime))
                 .queryList();
 
         List<BloodPressureData> bloodPressureDataList = SQLite.select()
                 .from(BloodPressureData.class)
-                .where(BloodPressureData_Table.time.greaterThan(lastTime))
+                .where(BloodPressureData_Table.time.greaterThan(lastTimeBp))
                 .queryList();
 
         List<BloodOxygenData> bloodOxygenDataList = SQLite.select()
                 .from(BloodOxygenData.class)
-                .where(BloodOxygenData_Table.time.greaterThan(lastTime))
+                .where(BloodOxygenData_Table.time.greaterThan(lastTimeBo))
                 .queryList();
 
         List<EcgData> ecgDataList = SQLite.select()
                 .from(EcgData.class)
-                .where(EcgData_Table.time.greaterThan(lastTime))
+                .where(EcgData_Table.time.greaterThan(lastTimeEcg))
                 .queryList();
 
         List<SportData> sportDataList = SQLite.select()
                 .from(SportData.class)
-                .where(SportData_Table.time.greaterThan(lastTime))
+                .where(SportData_Table.time.greaterThan(lastTimeSport))
                 .queryList();
 
         List<AnimalHeatData> animalHeatDataList = SQLite.select()
                 .from(AnimalHeatData.class)
-                .where(AnimalHeatData_Table.time.greaterThan(lastTime))
+                .where(AnimalHeatData_Table.time.greaterThan(lastTimeAh))
                 .queryList();
         JSONArray array = new JSONArray();
         JSONObject data = new JSONObject();
@@ -728,8 +727,54 @@ public class MathUitl {
 
     public static void saveLastTime(SharedPreferences sharedPreferences){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong("lastTime",Calendar.getInstance().getTimeInMillis()/1000);
-        Log.d("SZIP******","lastTime = "+Calendar.getInstance().getTimeInMillis()/1000);
+
+        StepData stepDataList = SQLite.select()
+                .from(StepData.class)
+                .orderBy(OrderBy.fromString(StepData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (stepDataList!=null)
+            editor.putLong("lastTime",stepDataList.time);
+
+        BloodPressureData bloodPressureDataList = SQLite.select()
+                .from(BloodPressureData.class)
+                .orderBy(OrderBy.fromString(BloodPressureData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (bloodPressureDataList!=null)
+            editor.putLong("lastTimeBp",bloodPressureDataList.time);
+
+        BloodOxygenData bloodOxygenDataList = SQLite.select()
+                .from(BloodOxygenData.class)
+                .orderBy(OrderBy.fromString(BloodOxygenData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (bloodOxygenDataList!=null)
+            editor.putLong("lastTimeBo",bloodOxygenDataList.time);
+
+        EcgData ecgDataList = SQLite.select()
+                .from(EcgData.class)
+                .orderBy(OrderBy.fromString(EcgData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (ecgDataList!=null)
+            editor.putLong("lastTimeEcg",ecgDataList.time);
+
+        SportData sportDataList = SQLite.select()
+                .from(SportData.class)
+                .orderBy(OrderBy.fromString(SportData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (sportDataList!=null)
+            editor.putLong("lastTimeSport",sportDataList.time);
+
+        AnimalHeatData animalHeatDataList = SQLite.select()
+                .from(AnimalHeatData.class)
+                .orderBy(OrderBy.fromString(AnimalHeatData_Table.time+OrderBy.DESCENDING))
+                .limit(0)
+                .querySingle();
+        if (animalHeatDataList!=null)
+            editor.putLong("lastTimeAh",animalHeatDataList.time);
         editor.commit();
     }
 
@@ -803,10 +848,7 @@ public class MathUitl {
         }
         cursor.close();
         Log.d("SZIP******","res = "+res);
-//        if (res.indexOf(".png")>=0||res.indexOf(".PNG")>=0||res.indexOf(".gif")>=0)
-//            return false;
-//        else
-//            return true;
+
         try {
             FileInputStream bin = new FileInputStream(new File(res));
             int b[] = new int[4];
@@ -825,5 +867,22 @@ public class MathUitl {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static int getApplicationCode(String pakeName){
+        switch (pakeName){
+            case "com.tencent.mm":
+                return 1;
+            case "com.tencent.mobileqq":
+                return 2;
+            case "com.twitter.android":
+                return 3;
+            case "com.instagram.android":
+                return 4;
+            case "com.whatsapp":
+                return 5;
+            default:
+                return -1;
+        }
     }
 }

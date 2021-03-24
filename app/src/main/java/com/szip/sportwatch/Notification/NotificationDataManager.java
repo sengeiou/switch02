@@ -450,7 +450,7 @@ public class NotificationDataManager {
                                         e.printStackTrace();
                                     }
                                     BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
-                                            info.applicationInfo.loadLabel(pm).toString(),1);
+                                            info.applicationInfo.loadLabel(pm).toString(),MathUitl.getApplicationCode(notificationData.getPackageName()));
                                 }
                                 notificationData = null;
                             }

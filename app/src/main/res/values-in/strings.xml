@@ -350,5 +350,6 @@
     <string name="checkGPS">Tombol lokasi ponsel anda telah terdeteksi tidak aktif. Untuk memastikan aplikasi berjalan dengan baik, silakan aktifkan tombol lokasi.</string>
     <string name="speedPerHour">Per jam.</string>
     <string name="training">Berlatih lari</string>
+    <string name="heart_switch">Pengukuran waktu</string>
 
 </resources>

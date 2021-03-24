@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
+import com.szip.sportwatch.Contorller.LoginActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.HealthyConfig;
@@ -35,11 +37,13 @@ import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
+import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.TopExceptionHandler;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 
@@ -77,6 +81,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     private static MyApplication mInstance;
     private boolean camerable;//能否使用照相机
+    private boolean heartSwitch;//能否使用照相机
 
     private int updownTime;
     private Thread updownDataThread;//上传数据的线程
@@ -151,6 +156,9 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
          * */
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
+        /**
+         * 把log导出到本地
+         * */
         LogUtil.getInstance().init(this);
 
         //初始化文件存储
@@ -176,6 +184,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         updownTime = sharedPreferences.getInt("updownTime",3600);
         //获取手机缓存的远程拍照状态
         camerable = sharedPreferences.getBoolean("camera",false);
+        heartSwitch = sharedPreferences.getBoolean("heartSwitch",false);
         //获取手机缓存的自动更新信息
         isNewVersion = sharedPreferences.getBoolean("version",false);
         versionUrl = sharedPreferences.getString("versionUrl",null);
@@ -376,16 +385,23 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         sharedPreferences.edit().putBoolean("camera",camerable).commit();
     }
 
+    public boolean isHeartSwitch() {
+        return heartSwitch;
+    }
+
+    public void setHeartSwitch(boolean heartSwitch) {
+        this.heartSwitch = heartSwitch;
+        if (sharedPreferences == null)
+            sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("heartSwitch",heartSwitch).commit();
+    }
+
     @Override
     public void onUserInfo(UserInfoBean userInfoBean) {
         Log.d("SZIP******","GET USER");
         isRun = false;
         HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(null);
-        if (userInfoBean.getCode() == 401){//登录过期
-            startState = 2;
-        }else {//保存用户信息
-            setUserInfo(userInfoBean.getData());
-        }
+        setUserInfo(userInfoBean.getData());
     }
 
     public int getUpdownTime() {
@@ -528,5 +544,25 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     public boolean isMtk() {
         return isMtk;
+    }
+
+    public void tokenTimeOut(){
+        startState = 2;
+        isRun = false;
+        SharedPreferences sharedPreferences ;
+        ProgressHudModel.newInstance().diss();
+
+        sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLogin",false);
+        editor.putBoolean("isBind",false);
+        editor.putString("token",null);
+        editor.commit();
+        SaveDataUtil.newInstance().clearDB();
+        if (MainService.getInstance()!=null)
+            MainService.getInstance().stopConnect();
+        MathUitl.showToast(this,getString(R.string.tokenTimeOut));
+        Intent intentmain=new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentmain);
     }
 }

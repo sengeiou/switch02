@@ -18,6 +18,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private TextView versionTv;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         StatusBarCompat.translucentStatusBar(AboutActivity.this,true);
         versionTv = findViewById(R.id.versionTv);
+
         String ver;
         try {
             ver = getPackageManager().getPackageInfo("com.szip.sportwatch",

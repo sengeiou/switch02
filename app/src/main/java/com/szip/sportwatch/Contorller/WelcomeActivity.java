@@ -67,14 +67,12 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
     private MyApplication app;
 
     private boolean isNotificationDialog = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
-
         app = (MyApplication)getApplicationContext();
 
 //        Toast.makeText(this, FileUtil.getInstance().getPath(),Toast.LENGTH_SHORT).show();
@@ -167,7 +165,6 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
         super.onResume();
         if (isNotificationDialog)
             initData();
-
     }
 
     @Override
@@ -279,19 +276,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable{
                     in.setClass(WelcomeActivity.this, LoginActivity.class);
                     startActivity(in);
                     finish();
-                }else {//登陆过期
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showToast(getString(R.string.tokenTimeout));
-                        }
-                    });
-                    Intent in = new Intent();
-                    in.setClass(WelcomeActivity.this, LoginActivity.class);
-                    startActivity(in);
-                    finish();
                 }
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

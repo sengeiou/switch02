@@ -446,4 +446,5 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name="checkGPS">Phát hiện vị trí chuyển đổi điện thoại di động của bạn không được bật, để đảm bảo rằng các ứng dụng hoạt động, xin vui lòng bật chuyển đổi vị trí.</string>
     <string name="speedPerHour">Tốc độ</string>
     <string name="training">Đào tạo chạy</string>
+    <string name="heart_switch">Đo lường thời gian</string>
 </resources>

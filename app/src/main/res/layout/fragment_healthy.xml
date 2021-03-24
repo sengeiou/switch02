@@ -110,19 +110,16 @@
                     </RelativeLayout>
 
                     <!--步数目标控件-->
-                    <RelativeLayout
+                    <FrameLayout
                         android:id="@+id/stepRl"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/healthy_margin_parallel"
-                        android:layout_marginStart="@dimen/healthy_margin_parallel">
+                        android:layout_gravity="center">
 
                         <com.szip.sportwatch.View.ColorArcProgressBar
                             android:id="@+id/stepPb"
                             android:layout_width="257dp"
                             android:layout_height="257dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
                             app:is_need_dial="true"
                             app:degree_color="@color/white"
                             app:bg_arc_color="@color/stepBarBg"
@@ -133,8 +130,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
                             android:orientation="vertical"
                             android:gravity="center_horizontal">
 
@@ -162,7 +158,9 @@
                                 android:textSize="@dimen/healthy_text_size"/>
                         </LinearLayout>
 
-                    </RelativeLayout>
+                    </FrameLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
