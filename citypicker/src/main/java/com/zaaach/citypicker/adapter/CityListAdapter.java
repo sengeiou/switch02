@@ -154,13 +154,11 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.BaseVi
 
             switch (locateState){
                 case LocateState.LOCATING:
-                    ((LocationViewHolder) holder).current.setText(R.string.cp_locating);
                     break;
                 case LocateState.SUCCESS:
                     ((LocationViewHolder) holder).current.setText(data.getName());
                     break;
                 case LocateState.FAILURE:
-                    ((LocationViewHolder) holder).current.setText(R.string.cp_locate_failed);
                     break;
             }
             ((LocationViewHolder) holder).container.setOnClickListener(new View.OnClickListener() {

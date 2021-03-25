@@ -107,7 +107,7 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
 
     private void initLocatedCity() {
         if (mLocatedCity == null){
-            mLocatedCity = new LocatedCity(getString(R.string.cp_locating), "未知", "0");
+            mLocatedCity = new LocatedCity(" ", "未知", "0");
             locateState = LocateState.FAILURE;
         }else{
             locateState = LocateState.SUCCESS;

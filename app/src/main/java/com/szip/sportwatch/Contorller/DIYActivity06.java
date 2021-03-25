@@ -47,8 +47,7 @@ public class DIYActivity06 extends BaseActivity {
     private Uri resultUri;
     private int progress = 0;
 
-    private int[] clock_r = new int[]{R.mipmap.clock_2523_1,R.mipmap.clock_2523_2,R.mipmap.clock_2523_3,R.mipmap.clock_2523_4,
-            R.mipmap.clock_2523_5,R.mipmap.clock_2523_6,R.mipmap.clock_2523_7,R.mipmap.clock_2523_8,R.mipmap.clock_2523_9};
+    private int[] clock_r = new int[]{R.mipmap.clock_2523_3,R.mipmap.clock_2523_4, R.mipmap.clock_2523_6,R.mipmap.clock_2523_7};
 
     private int[] clock_c = new int[]{R.mipmap.diy_preview_c_1_1,R.mipmap.diy_preview_c_2_1,R.mipmap.diy_preview_c_3_1,
             R.mipmap.diy_preview_c_4_1, R.mipmap.diy_preview_c_5_1,R.mipmap.diy_preview_c_6_1, R.mipmap.diy_preview_c_7_1,

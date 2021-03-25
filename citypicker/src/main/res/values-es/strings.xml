@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> <string name="cp_search_hint_text">Búsqueda</string>
     <string name="cp_no_result">Imposible de buscar</string>
-    <string name="cp_locate_failed">定位失败</string>
-    <string name="cp_locating">正在定位…</string>
 
 </resources>
