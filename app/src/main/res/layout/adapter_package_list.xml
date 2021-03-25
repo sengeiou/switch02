@@ -26,7 +26,8 @@
         android:layout_weight="0.68"
         android:minHeight="32dp"
         android:textSize="16sp"
-        tools:ignore="SelectableText,InefficientWeight" />
+        tools:ignore="SelectableText,InefficientWeight"
+        android:textColor="@color/black1"/>
 
 
     <Switch

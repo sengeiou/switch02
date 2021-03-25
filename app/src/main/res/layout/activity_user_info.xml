@@ -74,7 +74,8 @@
             android:layout_marginStart="100dp"
             android:maxLines="1"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_margin_model_right"/>
+            android:layout_marginEnd="@dimen/item_margin_model_right"
+            android:textColor="@color/black1"/>
 
 
         <ImageView
@@ -116,7 +117,8 @@
             android:textSize="@dimen/item_text_size"
             android:layout_toStartOf="@+id/arrow1"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_margin_model_right"/>
+            android:layout_marginEnd="@dimen/item_margin_model_right"
+            android:textColor="@color/black1"/>
 
 
         <ImageView
@@ -158,7 +160,8 @@
             android:textSize="@dimen/item_text_size"
             android:layout_toStartOf="@+id/arrow2"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_margin_model_right"/>
+            android:layout_marginEnd="@dimen/item_margin_model_right"
+            android:textColor="@color/black1"/>
 
 
         <ImageView
@@ -200,7 +203,8 @@
             android:textSize="@dimen/item_text_size"
             android:layout_toStartOf="@+id/arrow3"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_margin_model_right"/>
+            android:layout_marginEnd="@dimen/item_margin_model_right"
+            android:textColor="@color/black1"/>
 
 
         <ImageView
@@ -241,7 +245,8 @@
             android:textSize="@dimen/item_text_size"
             android:layout_toStartOf="@+id/arrow4"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_margin_model_right"/>
+            android:layout_marginEnd="@dimen/item_margin_model_right"
+            android:textColor="@color/black1"/>
 
 
         <ImageView

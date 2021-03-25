@@ -287,7 +287,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="-h/8h"/>
+                            android:text="-h/8h"
+                            android:textColor="@color/black1"/>
 
 
                         <com.szip.sportwatch.View.HealthyProgressView
@@ -309,6 +310,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="-"
+                        android:textColor="@color/black1"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="20dp"
@@ -362,7 +364,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="--bpm"/>
+                            android:text="--bpm"
+                            android:textColor="@color/black1"/>
 
                         <com.szip.sportwatch.View.HealthyProgressView
                             android:id="@+id/heartPv"
@@ -383,6 +386,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="-"
+                        android:textColor="@color/black1"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="20dp"
@@ -434,7 +438,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="--/--mmHg"/>
+                            android:text="--/--mmHg"
+                            android:textColor="@color/black1"/>
 
 
                         <com.szip.sportwatch.View.HealthyProgressView
@@ -467,6 +472,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="-"
+                        android:textColor="@color/black1"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="20dp"
@@ -518,7 +524,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="--%"/>
+                            android:text="--%"
+                            android:textColor="@color/black1"/>
 
                         <com.szip.sportwatch.View.HealthyProgressView
                             android:id="@+id/bloodOxygenPv"
@@ -539,6 +546,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="-"
+                        android:textColor="@color/black1"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="20dp"
@@ -591,7 +599,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="--"/>
+                            android:text="--"
+                            android:textColor="@color/black1"/>
 
                         <com.szip.sportwatch.View.HealthyProgressView
                             android:id="@+id/animalHeatPv"
@@ -612,6 +621,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="-"
+                        android:textColor="@color/black1"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="20dp"
@@ -664,7 +674,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/healthy_data_text_size"
                             android:layout_marginTop="5dp"
-                            android:text="--bpm"/>
+                            android:text="--bpm"
+                            android:textColor="@color/black1"/>
 
 
                     </LinearLayout>
