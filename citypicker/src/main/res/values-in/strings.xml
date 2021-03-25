@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">Pencarian</string>
     <string name="cp_no_result">Tidak ditemukan</string>
+    <string name="country">Negara / Daerah</string>
 
 </resources>

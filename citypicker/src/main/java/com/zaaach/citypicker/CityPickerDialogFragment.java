@@ -1,5 +1,6 @@
 package com.zaaach.citypicker;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -131,6 +132,7 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
         }
     }
 
+    @SuppressLint("ResourceType")
     public void setAnimationStyle(@StyleRes int style){
         this.mAnimStyle = style <= 0 ? R.style.DefaultCityPickerAnimation : style;
     }

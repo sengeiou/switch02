@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">Arama</string>
     <string name="cp_no_result">Aranmamadı</string>
+    <string name="country">" ülke / bölge"</string>
 
 </resources>

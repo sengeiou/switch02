@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">Carian</string>
     <string name="cp_no_result">Tidak dicari.</string>
+    <string name="country">"negara / wilayah "</string>
 
 </resources>

@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">поиск</string>
     <string name="cp_no_result">Пока нет</string>
+    <string name="country">Страна / регион</string>
 
 </resources>

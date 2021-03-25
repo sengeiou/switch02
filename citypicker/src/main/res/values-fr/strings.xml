@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">Recherche</string>
     <string name="cp_no_result">Aucune recherche</string>
+    <string name="country">Pays / région</string>
 
 </resources>

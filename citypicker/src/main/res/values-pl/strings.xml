@@ -3,5 +3,6 @@
 
     <string name="cp_search_hint_text">Szukaj</string>
     <string name="cp_no_result">Nie przeszukano</string>
+    <string name="country">kraj / region</string>
 
 </resources>
