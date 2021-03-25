@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'//添加
-
-
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
@@ -22,22 +19,6 @@ android {
     }
 
 }
-
-
-task clearJar(type: Delete) {
-    delete 'build/outputs/okhttputils.jar'
-}
-
-task makeJar(type: Copy) {
-    from('build/intermediates/bundles/release/')
-    into('build/outputs/')
-    include('classes.jar')
-    rename ('classes.jar', 'okhttputils-2_6_2.jar')
-}
-
-makeJar.dependsOn(clearJar, build)
-
-
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
