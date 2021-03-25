@@ -39,24 +39,6 @@ android {
         }
     }
 
-    android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            //新名字
-            def newName
-            //输出文件夹
-            def outDirectory
-            //是否为Jenkins打包，输出路径不同
-            if ("true".equals(IS_JENKINS)) {
-                //BUILD_PATH为服务器输出路径
-                outDirectory = BUILD_PATH
-                newName = "iSmarport" + "-" + defaultConfig.versionName + "-" + BUILD_TYPE + ".apk"
-            } else {
-                outDirectory = output.outputFile.getParent()
-                newName = "iSmarport" + "-" + defaultConfig.versionName + "-" + BUILD_TYPE + ".apk"
-            }
-            output.outputFile = new File(outDirectory, newName)
-        }
-    }
 }
 
 MobSDK {
