@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="factual_scroll_view">factual_scroll_view</string>
     <string name="sun1">日</string>
     <string name="mon1">一</string>
     <string name="tues1">二</string>

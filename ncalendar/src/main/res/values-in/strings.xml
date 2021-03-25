@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="factual_scroll_view">factual_scroll_view</string>
     <string name="sun1">Min</string>
     <string name="mon1">Sen</string>
     <string name="tues1">Sel</string>
