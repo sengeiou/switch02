@@ -34,7 +34,7 @@ public class FeedbackActivity extends BaseActivity implements HttpCallbackWithBa
         getSupportActionBar().hide();
         setContentView(R.layout.activity_feedback);
         StatusBarCompat.translucentStatusBar(this,true);
-
+        setAndroidNativeLightStatusBar(this,true);
         initView();
         initEvent();
 

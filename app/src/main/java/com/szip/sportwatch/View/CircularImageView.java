@@ -102,11 +102,7 @@ public class CircularImageView extends ImageView {
 		final Paint paint = new Paint();
 		final Rect rect = new Rect(0, 0, sbmp.getWidth(), sbmp.getHeight());
 		final RectF rectF = new RectF(0,0,sbmp.getWidth(),sbmp.getHeight());
-//	    paint.setAntiAlias(true);
-//	    paint.setFilterBitmap(true);
-//	    paint.setDither(true);
-//	    canvas.drawARGB(0, 0, 0, 0);
-//	    paint.setColor(Color.parseColor("#BAB399"));
+
 		if (isCircular){
 			canvas.drawCircle(sbmp.getWidth() / 2+0.7f, sbmp.getHeight() / 2+0.7f,
 					sbmp.getWidth() / 2+0.1f, paint);

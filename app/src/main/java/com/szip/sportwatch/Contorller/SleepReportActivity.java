@@ -64,6 +64,7 @@ public class SleepReportActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(SleepReportActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.sleepReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);

@@ -67,7 +67,8 @@ public class DataParser {
             }
             if (data[27]!=0)
                 datas.add(0x14);
-            MyApplication.getInstance().setHeartSwitch(data[28]==1);
+            if (data.length>28)
+                MyApplication.getInstance().setHeartSwitch(data[28]==1);
             if (data.length>29){
                 MyApplication.getInstance().setBtMac(String.format("%02X:%02X:%02X:%02X:%02X:%02X",data[34],data[33], data[32],data[31],
                         data[30],data[29]));

@@ -110,6 +110,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(RegisterActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         countryTv = findViewById(R.id.countryTv);
         countryCodeTv = findViewById(R.id.countryCodeTv);
         countryTipTv = findViewById(R.id.countryTipTv);

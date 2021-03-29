@@ -177,6 +177,7 @@ public class UpdateFirmwareActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_update_firmware);
         StatusBarCompat.translucentStatusBar(this,true);
+        setAndroidNativeLightStatusBar(this,true);
         mSharedPreferences = getSharedPreferences(MyApplication.FILE, MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
         mEditor.putLong("UPDATE_FOTA_START_TIME", System.currentTimeMillis());

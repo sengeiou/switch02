@@ -25,7 +25,7 @@ public class EcgDataActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_ecg_data);
-
+        setAndroidNativeLightStatusBar(this,true);
         Intent intent = getIntent();
         nameStr = intent.getStringExtra("name");
         average = intent.getIntExtra("average",0);
@@ -48,6 +48,7 @@ public class EcgDataActivity extends BaseActivity{
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(EcgDataActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         final int data[] = new int[]{0,0,0,15,30,15,0,-15,180,-45,0,10,0,15,30,45,30,15,0,0,0,
                 0,0,0,15,30,15,0,-15,180,-45,0,10,0,15,30,45,30,15,0,0,0,
                 0,0,0,15,30,15,0,-15,180,-45,0,10,0,15,30,45,30,15,0,0,0,

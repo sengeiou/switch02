@@ -77,7 +77,7 @@ public class NotificationAppListActivity extends BaseActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.notification_app_list);
         StatusBarCompat.translucentStatusBar(NotificationAppListActivity.this,true);
-
+        setAndroidNativeLightStatusBar(this,true);
         initView();
 
         LoadPackageTask loadPackageTask = new LoadPackageTask(this);

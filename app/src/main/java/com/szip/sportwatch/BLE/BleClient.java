@@ -210,13 +210,6 @@ public class BleClient {
                 connectState = 3;
                 LogUtil.getInstance().logd("SZIP******","连接");
                 //连接成功，获取设备信息
-//                byte[] value = new byte[]{(byte)0xAA,0x03,0x0C,0x00, (byte) 0xE0,(byte)0xFC,(byte)0xFE,0x5F,
-//                        0x70,0x7B,(byte)0xFF,0x5F,(byte)0xC3,0x00, (byte) 0x88,0x00,0x00,0x00,0x00,0x00,(byte)0xAA,0x09,0x09,0x00,0x3E,(byte)0xDF,
-//                        (byte)0xFE,0x5F,0x02,0x00,(byte)0xCD,0x06,0x00,0x00,0x01,0x00,0x56};
-//                Message message = mAnalysisHandler.obtainMessage();
-//                message.what = ANALYSIS_HANDLER_FLAG;
-//                message.obj = value;
-//                mAnalysisHandler.sendMessage(message);
                 TimerTask timerTask= new TimerTask() {
                     @Override
                     public void run() {

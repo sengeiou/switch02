@@ -61,6 +61,7 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
     }
     private void initView() {
         StatusBarCompat.translucentStatusBar(HeartReportActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.heartReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);

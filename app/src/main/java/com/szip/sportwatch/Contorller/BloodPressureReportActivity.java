@@ -58,6 +58,7 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(BloodPressureReportActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.bloodPressureReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);

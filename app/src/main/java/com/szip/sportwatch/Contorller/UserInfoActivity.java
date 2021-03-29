@@ -273,6 +273,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(UserInfoActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.userInfo));
         pictureIv = findViewById(R.id.pictureIv);
         userNameTv = findViewById(R.id.userNameTv);

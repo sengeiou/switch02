@@ -40,7 +40,7 @@
 
             <com.szip.sportwatch.View.CircularImageView
                 android:id="@+id/dialIv_r"
-                android:layout_width="102dp"
+                android:layout_width="103dp"
                 android:layout_height="124dp"
                 android:layout_gravity="center"
                 app:radius="15dp"

@@ -65,6 +65,7 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
         switch (sportData.type){

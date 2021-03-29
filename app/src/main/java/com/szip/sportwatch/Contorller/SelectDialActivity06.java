@@ -69,6 +69,7 @@ public class SelectDialActivity06 extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_select_dial06);
         StatusBarCompat.translucentStatusBar(this,true);
+        setAndroidNativeLightStatusBar(this,true);
         isCircle = ((MyApplication)getApplicationContext()).isCirlce();
         EventBus.getDefault().register(this);
         initView();

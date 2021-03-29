@@ -64,6 +64,7 @@ public class StepReportActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(StepReportActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.stepReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);

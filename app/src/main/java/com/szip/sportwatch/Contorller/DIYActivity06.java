@@ -54,7 +54,7 @@ public class DIYActivity06 extends BaseActivity {
             R.mipmap.diy_preview_c_8_1,R.mipmap.diy_preview_c_9_1, R.mipmap.diy_preview_c_10_1, R.mipmap.diy_preview_c_11_1,
             R.mipmap.diy_preview_c_12_1,R.mipmap.diy_preview_c_13_1,R.mipmap.diy_31,R.mipmap.diy_30,R.mipmap.diy_34};
 
-    private int[] clock_num_r = new int[]{1,2,3,4,5,6,7,8,9};
+    private int[] clock_num_r = new int[]{3,4,6,7};
 
     private int[] clock_num_c = new int[]{15,25,11,17,18,19,20,21,22,23,24,26,27,31,30,34};
 
@@ -73,6 +73,7 @@ public class DIYActivity06 extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_d_i_y06);
         StatusBarCompat.translucentStatusBar(this,true);
+        setAndroidNativeLightStatusBar(this,true);
         isCircle = ((MyApplication)getApplicationContext()).isCirlce();
         EventBus.getDefault().register(this);
         initView();
@@ -216,6 +217,7 @@ public class DIYActivity06 extends BaseActivity {
             options.setToolbarColor(getResources().getColor(R.color.rayblue));
             options.setStatusBarColor(getResources().getColor(R.color.rayblue));
             options.setActiveWidgetColor(getResources().getColor(R.color.rayblue));
+            options.setCompressionQuality(80);
             UCrop.of(path, target)
                     .withAspectRatio(0.83f, 1f)
                     .withMaxResultSize(320, 385)

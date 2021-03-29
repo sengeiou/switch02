@@ -103,6 +103,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(ForgetPasswordActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         countryTv = findViewById(R.id.countryTv);
         countryCodeTv = findViewById(R.id.countryCodeTv);
         countryTipTv = findViewById(R.id.countryTipTv);

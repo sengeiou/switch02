@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Contorller.Fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -153,6 +154,7 @@ public class CalendarFragment extends AppCompatDialogFragment {
         }
 
         translucentStatusBar(dialog,true);
+        setAndroidNativeLightStatusBar(dialog,true);
         return dialog;
     }
 
@@ -191,6 +193,15 @@ public class CalendarFragment extends AppCompatDialogFragment {
         }
     }
 
+    private void setAndroidNativeLightStatusBar(@NonNull Dialog activity, boolean dark) {
+        View decor = activity.getWindow().getDecorView();
+        if (dark) {
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        }
+    }
+
     private void removeFakeStatusBarViewIfExist(Dialog activity) {
         Window window = activity.getWindow();
         ViewGroup mDecorView = (ViewGroup) window.getDecorView();
@@ -216,7 +227,7 @@ public class CalendarFragment extends AppCompatDialogFragment {
         }
     }
 
-    public void setAnimationStyle(@StyleRes int style){
+    public void setAnimationStyle(int style){
         this.mAnimStyle = style <= 0 ? com.zaaach.citypicker.R.style.DefaultCityPickerAnimation : style;
     }
 

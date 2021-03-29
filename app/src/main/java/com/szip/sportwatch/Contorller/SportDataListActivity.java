@@ -94,6 +94,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(SportDataListActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         listView = findViewById(R.id.sportList);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.history));

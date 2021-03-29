@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
-public class PrivacyActivity extends AppCompatActivity {
+public class PrivacyActivity extends BaseActivity {
 
 
     @Override
@@ -21,6 +21,7 @@ public class PrivacyActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_privacy);
         StatusBarCompat.translucentStatusBar(this,true);
+        setAndroidNativeLightStatusBar(this,true);
         initView();
 
     }

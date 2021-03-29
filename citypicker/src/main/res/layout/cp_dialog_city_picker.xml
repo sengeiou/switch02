@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:paddingTop="10dp">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="27dp"
-        android:background="#88c5c6d0" />
+        android:background="#ffffff" />
 
     <ImageView
         android:id="@+id/backIv"

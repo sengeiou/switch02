@@ -63,6 +63,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(EcgListActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         listView = findViewById(R.id.ecgListView);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.ecgReport));

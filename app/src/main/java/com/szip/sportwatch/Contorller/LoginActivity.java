@@ -91,6 +91,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(LoginActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         userTipTv = findViewById(R.id.userTipTv);
         passwordTipTv = findViewById(R.id.passwordTipTv);
         countryCodeTv = findViewById(R.id.countryCodeTv);

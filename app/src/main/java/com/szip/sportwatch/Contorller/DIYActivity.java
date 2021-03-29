@@ -73,6 +73,7 @@ public class DIYActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_diy);
         StatusBarCompat.translucentStatusBar(this,true);
+        setAndroidNativeLightStatusBar(this,true);
         isCircle = ((MyApplication)getApplicationContext()).isCirlce();
         EventBus.getDefault().register(this);
         initView();

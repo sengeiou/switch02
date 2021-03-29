@@ -41,6 +41,7 @@ public class BluetoochCallActivity extends BaseActivity implements ViewPager.OnP
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(BluetoochCallActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

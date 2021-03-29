@@ -200,7 +200,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
      * */
     private void initView() {
         StatusBarCompat.translucentStatusBar(SeachingActivity.this,true);
-
+        setAndroidNativeLightStatusBar(this,true);
         //判断蓝牙状态
         BluetoothAdapter blueadapter = BluetoothAdapter.getDefaultAdapter();
         if (!blueadapter.isEnabled()) {

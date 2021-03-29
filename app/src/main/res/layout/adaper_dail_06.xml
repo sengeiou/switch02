@@ -15,14 +15,14 @@
 
         <com.szip.sportwatch.View.CircularImageView
             android:id="@+id/imageView"
-            android:layout_width="102dp"
+            android:layout_width="103dp"
             android:layout_height="124dp"
             app:is_allRadius="true"
             app:radius="8dp"/>
 
         <View
             android:id="@+id/selectView"
-            android:layout_width="102dp"
+            android:layout_width="103dp"
             android:layout_height="124dp"
             android:background="@drawable/select_view"/>
     </RelativeLayout>
@@ -48,7 +48,7 @@
 
 
         <View
-            android:layout_width="102dp"
+            android:layout_width="103dp"
             android:layout_height="124dp"
             android:background="@drawable/select_view"/>
 

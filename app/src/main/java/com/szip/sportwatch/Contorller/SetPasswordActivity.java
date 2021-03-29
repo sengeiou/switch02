@@ -80,6 +80,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(SetPasswordActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         passwordEt = findViewById(R.id.passwordEt);
         passwordTipTv = findViewById(R.id.passwordTipTv);
 

@@ -61,6 +61,7 @@ public class BloodOxygenReportActivity extends BaseActivity implements View.OnCl
 
     private void initView() {
         StatusBarCompat.translucentStatusBar(BloodOxygenReportActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.bloodOxygenReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);

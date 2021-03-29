@@ -14,7 +14,7 @@ import com.szip.sportwatch.View.MyAlerDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     private TextView versionTv;
 
@@ -25,6 +25,7 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_about);
         StatusBarCompat.translucentStatusBar(AboutActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
         versionTv = findViewById(R.id.versionTv);
 
         String ver;
