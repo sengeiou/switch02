@@ -251,7 +251,7 @@ public class DateUtil {
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        return hour>21?(calendar.getTimeInMillis()/1000+24*60*60):(calendar.getTimeInMillis()/1000);
+        return hour>=21?(calendar.getTimeInMillis()/1000+24*60*60):(calendar.getTimeInMillis()/1000);
     }
 
     public static long getTimeScope(String dateStr,String tag){

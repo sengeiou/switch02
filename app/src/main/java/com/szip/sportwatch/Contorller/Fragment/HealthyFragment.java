@@ -440,7 +440,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                                                         if (app.isMtk())
                                                             EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),app.getCity());
                                                         else{
-                                                            BleClient.getInstance().writeForSetWeather(app.getWeatherModel());
+                                                            BleClient.getInstance().writeForSetWeather(app.getWeatherModel(),app.getCity());
                                                             BleClient.getInstance().writeForSetElevation();
                                                         }
 

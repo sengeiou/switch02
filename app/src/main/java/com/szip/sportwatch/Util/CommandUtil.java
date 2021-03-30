@@ -232,27 +232,33 @@ public class CommandUtil {
         return data;
     }
 
-    public static byte[] getCommandbyteArray(ArrayList<WeatherBean.Condition> weatherModel) {
-        long time = System.currentTimeMillis() / 1000;
-
-        byte[] data = new byte[weatherModel.size()*14];
+    public static byte[] getCommandbyteArray(ArrayList<WeatherBean.Condition> weatherModel,String city) {
+        byte location[] = new byte[0];
+        try {
+            location = city.getBytes("UnicodeBigUnmarked");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        int locationLenght = location.length>30?30:location.length;
+        byte[] data = new byte[weatherModel.size()*(locationLenght+14)];
 
 
         for (int i = 0;i<weatherModel.size();i++){
-            data[i*14+0] = (byte) 0xAA;
-            data[i*14+1] = (byte) 0x33;
-            data[i*14+2] = (byte) 6;
-            data[i*14+3] = 0;
-            data[i*14+4] = (byte) (0xF0);
-            data[i*14+5] = (byte) (0xF0);
-            data[i*14+6] = (byte) (0xF0);
-            data[i*14+7] = (byte) (0xF0);
-            data[i*14+8] = (byte) weatherModel.get(i).getLow();
-            data[i*14+9] = (byte) weatherModel.get(i).getHigh();
-            data[i*14+10] = (byte) ((weatherModel.get(i).getHigh()+weatherModel.get(i).getLow())/2);
-            data[i*14+11] = (byte) i;
-            data[i*14+12] = (byte) (weatherModel.get(i).getCode()&0xff);
-            data[i*14+13] = (byte) ((weatherModel.get(i).getCode()>>8)&0xff);
+            data[i*(14+locationLenght)+0] = (byte) 0xAA;
+            data[i*(14+locationLenght)+1] = (byte) 0x33;
+            data[i*(14+locationLenght)+2] = (byte) (6+locationLenght);
+            data[i*(14+locationLenght)+3] = 0;
+            data[i*(14+locationLenght)+4] = (byte) (0xF0);
+            data[i*(14+locationLenght)+5] = (byte) (0xF0);
+            data[i*(14+locationLenght)+6] = (byte) (0xF0);
+            data[i*(14+locationLenght)+7] = (byte) (0xF0);
+            data[i*(14+locationLenght)+8] = (byte) weatherModel.get(i).getLow();
+            data[i*(14+locationLenght)+9] = (byte) weatherModel.get(i).getHigh();
+            data[i*(14+locationLenght)+10] = (byte) ((weatherModel.get(i).getHigh()+weatherModel.get(i).getLow())/2);
+            data[i*(14+locationLenght)+11] = (byte) i;
+            data[i*(14+locationLenght)+12] = (byte) (weatherModel.get(i).getCode()&0xff);
+            data[i*(14+locationLenght)+13] = (byte) ((weatherModel.get(i).getCode()>>8)&0xff);
+            System.arraycopy(location,0,data,i*(14+locationLenght)+14,locationLenght);
             LogUtil.getInstance().logd("SZIP******",weatherModel.get(i).getCode()+weatherModel.get(i).getText());
         }
 

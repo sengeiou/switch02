@@ -2,6 +2,11 @@ package com.szip.sportwatch.Util;
 
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.bluetooth.BluetoothA2dp;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothHeadset;
+import android.bluetooth.BluetoothProfile;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.location.Location;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -63,6 +69,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static android.text.TextUtils.isEmpty;
 import static com.szip.sportwatch.MyApplication.FILE;
@@ -884,5 +891,31 @@ public class MathUitl {
             default:
                 return -1;
         }
+    }
+
+    public static void speaker(AudioManager mAudioManager) {
+        //关闭Sco
+//        if (isBluetoothHeadsetConnected()) {
+//            mAudioManager.setBluetoothA2dpOn(false);
+//        }
+        //打开扬声器
+        mAudioManager.setSpeakerphoneOn(true);
+        mAudioManager.setMode(AudioManager.STREAM_MUSIC);
+    }
+
+    public static void offSpeaker(AudioManager mAudioManager) {
+
+        mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        mAudioManager.startBluetoothSco();
+        mAudioManager.setBluetoothScoOn(true);
+        mAudioManager.setSpeakerphoneOn(false);
+    }
+
+    private static boolean isBluetoothHeadsetConnected() {
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        if (BluetoothProfile.STATE_CONNECTED == adapter.getProfileConnectionState(BluetoothProfile.HEADSET)) {
+            return true;
+        }
+        return false;
     }
 }

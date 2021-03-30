@@ -3,6 +3,7 @@ package com.szip.sportwatch.Service;
 import android.app.DownloadManager;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.BleClient;
+import com.szip.sportwatch.BLE.ClientManager;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
@@ -182,15 +184,15 @@ public class MainService extends Service {
 
         @Override
         public void onDeviceScan(BluetoothDevice device) {
-            if (connectAble){
-                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
-                    connectAble = false;
-                    LogUtil.getInstance().logd("SZIP******","正在搜索="+device.getAddress());
-                    WearableManager.getInstance().scanDevice(false);
-                    WearableManager.getInstance().setRemoteDevice(device);
-                    startConnect();
-                }
-            }
+//            if (connectAble){
+//                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
+//                    connectAble = false;
+//                    LogUtil.getInstance().logd("SZIP******","正在搜索="+device.getAddress());
+//                    WearableManager.getInstance().scanDevice(false);
+//                    WearableManager.getInstance().setRemoteDevice(device);
+//                    startConnect();
+//                }
+//            }
         }
 
         @Override
@@ -536,13 +538,15 @@ public class MainService extends Service {
                 @Override
                 public void run() {
                     while (isThreadRun){
-                        if ((getState()==WearableManager.STATE_CONNECT_FAIL||
+                        if (getState()==WearableManager.STATE_CONNECT_FAIL||
                                 getState()==WearableManager.STATE_CONNECT_LOST ||
-                                getState()==WearableManager.STATE_NONE)&&
-                                ((PowerManager) sContext.getSystemService(Context.POWER_SERVICE)).isInteractive()){
+                                getState()==WearableManager.STATE_NONE){
                             Log.d("SZIP******","断线重连");
-                            connectAble = true;
-                            WearableManager.getInstance().scanDevice(true);
+//                            connectAble = true;
+                            if (getState()==0||getState()==5){
+                                startConnect();
+                            }
+
                         }
                         try {
                             Thread.sleep(10*1000);

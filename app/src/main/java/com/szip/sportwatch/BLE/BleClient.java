@@ -60,6 +60,7 @@ import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LogUtil;
+import com.szip.sportwatch.Util.MathUitl;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 import com.zhy.http.okhttp.utils.L;
 
@@ -217,7 +218,7 @@ public class BleClient {
                         writeForSyncTime();
                         writeForSyncTimeStyle();
                         writeForSetLanuage();
-                        writeForSetWeather(MyApplication.getInstance().getWeatherModel());
+                        writeForSetWeather(MyApplication.getInstance().getWeatherModel(),MyApplication.getInstance().getCity());
                         writeForSetElevation();
                         writeForUpdateUserInfo();
                         writeForSetUnit();
@@ -432,6 +433,7 @@ public class BleClient {
         public void findPhone(int flag) {
             final AudioManager am = (AudioManager)MyApplication.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             if (flag == 1){
+                MathUitl.speaker(am);
                 starVibrate(new long[]{500,500,500});
                 volume  = am.getStreamVolume(STREAM_MUSIC);//保存手机原来的音量
                 am.setStreamVolume (STREAM_MUSIC, am.getStreamMaxVolume(STREAM_MUSIC), FLAG_PLAY_SOUND);//设置系统音乐最大
@@ -445,6 +447,7 @@ public class BleClient {
                             stopVibrate();
                             am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                             mediaPlayer = null;
+                            MathUitl.offSpeaker(am);
                         }
                     });
                 }
@@ -454,6 +457,7 @@ public class BleClient {
                     stopVibrate();
                     am.setStreamVolume (STREAM_MUSIC, volume, FLAG_PLAY_SOUND);//播放完毕，设置回之前的音量
                     mediaPlayer = null;
+                    MathUitl.offSpeaker(am);
                 }
             }
         }
@@ -786,10 +790,10 @@ public class BleClient {
         }
     }
 
-    public void writeForSetWeather(ArrayList<WeatherBean.Condition> weatherModel){
+    public void writeForSetWeather(ArrayList<WeatherBean.Condition> weatherModel,String city){
         if (weatherModel!=null  )
         ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
-                CommandUtil.getCommandbyteArray(weatherModel),bleWriteResponse);
+                CommandUtil.getCommandbyteArray(weatherModel,city),bleWriteResponse);
     }
 
     public void writeForSetElevation(){
