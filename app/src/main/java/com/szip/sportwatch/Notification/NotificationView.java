@@ -12,9 +12,8 @@ import android.os.Build;
 import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.TaskStackBuilder;
 
-import com.szip.sportwatch.Contorller.MainActivity;
+import com.szip.sportwatch.Contorller.main.MainActivity;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
 

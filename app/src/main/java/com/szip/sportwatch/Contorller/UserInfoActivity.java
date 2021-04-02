@@ -118,7 +118,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
     }
 
     /**
@@ -363,11 +363,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 window3.showAtLocation(v, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rightIv:
-                HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+                HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
                 ProgressHudModel.newInstance().show(mContext,getString(R.string.waitting),getString(R.string.httpError),
                         3000);
                 try {
-                    HttpMessgeUtil.getInstance(this).postForSetUserInfo(userNameTv.getText().toString(),
+                    HttpMessgeUtil.getInstance().postForSetUserInfo(userNameTv.getText().toString(),
                             sexTv.getText().toString().equals(getString(R.string.male))?"1":"0",
                             birthdayTv.getText().toString()==""?null:birthdayTv.getText().toString(),
                             height+"", weight+"",heightBritish+"", weightBritish+"");
@@ -508,7 +508,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 Log.d("IMAGE******","裁剪回调");
                 if (data!=null){
                     try {
-                        HttpMessgeUtil.getInstance(this).postUpdownAvatar(new File(fileName), new GenericsCallback<AvatarBean>(new JsonGenericsSerializator()) {
+                        HttpMessgeUtil.getInstance().postUpdownAvatar(new File(fileName), new GenericsCallback<AvatarBean>(new JsonGenericsSerializator()) {
                             @Override
                             public void onError(Call call, Exception e, int id) {
 

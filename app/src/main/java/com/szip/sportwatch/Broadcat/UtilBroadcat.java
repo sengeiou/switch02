@@ -41,9 +41,10 @@ public class UtilBroadcat extends BroadcastReceiver {
                     break;
                 case BluetoothAdapter.STATE_ON:
                     LogUtil.getInstance().logd("aaa", "STATE_ON 手机蓝牙开启");
-                    MainService.getInstance().setConnectAble(true);
-                    MainService.getInstance().stopConnect();
-                    WearableManager.getInstance().scanDevice(true);
+                    if (MainService.getInstance()!=null)
+                        MainService.getInstance().startConnect();
+//                    MainService.getInstance().stopConnect();
+//                    WearableManager.getInstance().scanDevice(true);
                     break;
                 case BluetoothAdapter.STATE_TURNING_ON:
                     LogUtil.getInstance().logd("aaa", "STATE_TURNING_ON 手机蓝牙正在开启");

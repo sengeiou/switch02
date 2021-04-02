@@ -102,7 +102,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
     }
 
     /**
@@ -146,12 +146,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * */
     private void startTimer(){
         try {
-            HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
+            HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
             if (!MathUitl.isNumeric(userEt.getText().toString()))
-                HttpMessgeUtil.getInstance(mContext).getVerificationCode("2","","",
+                HttpMessgeUtil.getInstance().getVerificationCode("2","","",
                         userEt.getText().toString());
             else
-                HttpMessgeUtil.getInstance(mContext).getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
+                HttpMessgeUtil.getInstance().getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
                         userEt.getText().toString(),"");
 
         } catch (IOException e) {
@@ -236,7 +236,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             if (MathUitl.isEmail(userEt.getText().toString())){
                                 ProgressHudModel.newInstance().show(RegisterActivity.this,
                                         getString(R.string.waitting),getString(R.string.httpError),10000);
-                                HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("2","","",userEt.getText().toString(),
+                                HttpMessgeUtil.getInstance().postCheckVerifyCode("2","","",userEt.getText().toString(),
                                         verifyCodeEt.getText().toString());
                                 isPhone = false;
                             }
@@ -245,7 +245,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         }else {//电话
                             ProgressHudModel.newInstance().show(RegisterActivity.this,
                                     getString(R.string.waitting),getString(R.string.httpError),10000);
-                            HttpMessgeUtil.getInstance(mContext).postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
+                            HttpMessgeUtil.getInstance().postCheckVerifyCode("1","00"+countryCodeTv.getText().toString().substring(1),
                                     userEt.getText().toString(),"", verifyCodeEt.getText().toString());
                             isPhone = true;
                         }

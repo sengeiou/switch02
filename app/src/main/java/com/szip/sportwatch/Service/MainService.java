@@ -563,15 +563,16 @@ public class MainService extends Service {
     @Override
     public void onDestroy() {
         Log.i(TAG, "onDestroy()");
-            WearableManager manager = WearableManager.getInstance();
-            manager.removeController(MapController.getInstance(sContext));
-            manager.removeController(NotificationController.getInstance(sContext));
-            manager.removeController(RemoteMusicController.getInstance(sContext));
-            manager.removeController(EXCDController.getInstance());
-            EXCDController.getInstance().setReviceDataCallback(null);
-            manager.unregisterWearableListener(mWearableListener);
-            mIsMainServiceActive = false;
-            stopNotificationService();
+        WearableManager manager = WearableManager.getInstance();
+        manager.removeController(MapController.getInstance(sContext));
+        manager.removeController(NotificationController.getInstance(sContext));
+        manager.removeController(RemoteMusicController.getInstance(sContext));
+        manager.removeController(EXCDController.getInstance());
+        EXCDController.getInstance().setReviceDataCallback(null);
+        manager.unregisterWearableListener(mWearableListener);
+        mIsMainServiceActive = false;
+        stopNotificationService();
+        mSevice = null;
     }
 
 

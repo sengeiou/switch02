@@ -50,7 +50,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         report += "-------------------------------\n\n";
 
         try {
-            HttpMessgeUtil.getInstance(mContext.getApplicationContext()).postAppCrashLog("iSmarport",mContext.getApplicationContext().
+            HttpMessgeUtil.getInstance().postAppCrashLog("iSmarport",mContext.getApplicationContext().
                     getPackageManager().getPackageInfo("com.szip.sportwatch", 0).versionName, Build.BRAND+ Build.MODEL,report);
 
             FileUtil.getInstance().writeLog(mContext.getExternalFilesDir(null).getPath()+"/"+

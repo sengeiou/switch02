@@ -350,7 +350,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     public void onUpdatePlan(PlanModel planModel){
         if(planStepTv!=null){
             try {
-                HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(planModel.getData()+"",1);
+                HttpMessgeUtil.getInstance().postForSetStepsPlan(planModel.getData()+"",1);
                 planStepTv.setText(String.format(Locale.ENGLISH,getString(R.string.planStep),planModel.getData()));
             } catch (IOException e) {
             }
@@ -417,7 +417,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                 //获取国家，省份，城市的名称
                 Log.e("SZIP******", location.toString());
                 try {
-                    HttpMessgeUtil.getInstance(getActivity()).getWeather(location.getLatitude()+"", location.getLongitude()+"",
+                    HttpMessgeUtil.getInstance().getWeather(location.getLatitude()+"", location.getLongitude()+"",
                             new GenericsCallback<WeatherBean>(new JsonGenericsSerializator()) {
                                 @Override
                                 public void onError(Call call, Exception e, int id) {

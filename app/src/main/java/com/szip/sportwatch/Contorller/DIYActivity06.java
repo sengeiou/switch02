@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.szip.sportwatch.Adapter.DIYAdapter;
 import com.szip.sportwatch.BLE.BleClient;
@@ -21,6 +22,7 @@ import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
@@ -96,6 +98,7 @@ public class DIYActivity06 extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        FileUtil.getInstance().deleteFile(fileName);
     }
 
     private void initEvent() {
@@ -290,6 +293,7 @@ public class DIYActivity06 extends BaseActivity {
             i+=PAGENUM;
         }else {
             BleClient.getInstance().writeForSendPicture(2,0,0,0,new byte[0]);
+
         }
     }
 

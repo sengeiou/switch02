@@ -446,11 +446,13 @@ public class NotificationDataManager {
                                     PackageManager pm = mContext.getPackageManager();
                                     try {
                                         info = pm.getPackageInfo(notificationData.getPackageName(),PackageManager.GET_ACTIVITIES);
+                                        BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
+                                                info.applicationInfo.loadLabel(pm).toString(),MathUitl.getApplicationCode(notificationData.getPackageName()));
                                     } catch (PackageManager.NameNotFoundException e) {
                                         e.printStackTrace();
+                                    } catch (RuntimeException e){
+                                        e.printStackTrace();
                                     }
-                                    BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
-                                            info.applicationInfo.loadLabel(pm).toString(),MathUitl.getApplicationCode(notificationData.getPackageName()));
                                 }
                                 notificationData = null;
                             }

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -118,8 +119,6 @@ public class BleClient {
     private BleClient() {
         DataParser.newInstance().setmIDataResponse(iDataResponse);
 //        ClientManager.getClient().registerBluetoothStateListener(bluetoothStateListener);
-
-
         mHandlerThread = new HandlerThread("analysis-thread");
         mHandlerThread.start();
         mAnalysisHandler = new Handler(mHandlerThread.getLooper()) {
@@ -465,7 +464,7 @@ public class BleClient {
         @Override
         public void updateUserInfo() {
             try {
-                HttpMessgeUtil.getInstance(MyApplication.getInstance().getApplicationContext()).postForSetUserInfo1(MyApplication.getInstance().getUserInfo(),
+                HttpMessgeUtil.getInstance().postForSetUserInfo1(MyApplication.getInstance().getUserInfo(),
                         new GenericsCallback<BaseApi>(new JsonGenericsSerializator()) {
                             @Override
                             public void onError(Call call, Exception e, int id) {

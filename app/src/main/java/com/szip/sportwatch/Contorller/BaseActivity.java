@@ -20,6 +20,7 @@ import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.LogUtil;
+import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.ScreenCapture;
 
 import java.io.File;
@@ -137,6 +138,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.getInstance().logd("SZIP******","退出保存");
+        ProgressHudModel.newInstance().diss();
         getSharedPreferences(FILE,MODE_PRIVATE).edit().putInt("updownTime",((MyApplication)getApplication()).getUpdownTime()).commit();
     }
 
@@ -196,6 +198,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         return result;
     }
+
 
     protected void setAndroidNativeLightStatusBar(Activity activity, boolean dark) {
         View decor = activity.getWindow().getDecorView();

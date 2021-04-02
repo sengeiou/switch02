@@ -50,7 +50,7 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
     }
 
     private void initView() {
@@ -119,11 +119,11 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
                     showToast(getString(R.string.saved));
                     finish();
                 }else {//如果制式发生变化，则清空原来的数据
-                    HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+                    HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
                     ProgressHudModel.newInstance().show(UnitSelectActivity.this,getString(R.string.waitting),getString(R.string.httpError),
                             3000);
                     try {
-                        HttpMessgeUtil.getInstance(this).postForSetUnit(unit+"",temp+"");
+                        HttpMessgeUtil.getInstance().postForSetUnit(unit+"",temp+"");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

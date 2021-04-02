@@ -1,8 +1,5 @@
 package com.szip.sportwatch.Contorller;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,21 +7,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mediatek.wearable.WearableManager;
-import com.necer.utils.CalendarUtil;
+import com.szip.sportwatch.Contorller.main.MainActivity;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
-import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
@@ -83,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(null);//注销网络回调监听
+        HttpMessgeUtil.getInstance().setHttpCallbackWithLogin(null);//注销网络回调监听
     }
 
     /**
@@ -160,18 +153,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     showToast(getString(R.string.enterPassword));
                 }else {
                     try {
-                        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);//注册网络回调监听
+                        HttpMessgeUtil.getInstance().setHttpCallbackWithLogin(this);//注册网络回调监听
                         if (!MathUitl.isNumeric(userEt.getText().toString())){//邮箱
                             if (MathUitl.isEmail(userEt.getText().toString())){//如果是邮箱登录，判断邮箱格式是否正确
                                 ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
-                                HttpMessgeUtil.getInstance(mContext).postLogin("2","","",
+                                HttpMessgeUtil.getInstance().postLogin("2","","",
                                         userEt.getText().toString(),passwordEt.getText().toString(),"","");
                             }else {
                                 showToast(getString(R.string.enterRightEmail));
                             }
                         }else {//电话
                             ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
-                            HttpMessgeUtil.getInstance(LoginActivity.this).postLogin("1","00"+countryCodeTv.getText().toString().substring(1),
+                            HttpMessgeUtil.getInstance().postLogin("1","00"+countryCodeTv.getText().toString().substring(1),
                                     userEt.getText().toString(), "",passwordEt.getText().toString(),"","");
                         }
                     } catch (IOException e) {
@@ -185,8 +178,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 }else {
                     ProgressHudModel.newInstance().show(mContext,getString(R.string.logging),getString(R.string.httpError),10000);
                     try {
-                        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);//注册网络回调监听
-                        HttpMessgeUtil.getInstance(LoginActivity.this).postLogin("3","",
+                        HttpMessgeUtil.getInstance().setHttpCallbackWithLogin(this);//注册网络回调监听
+                        HttpMessgeUtil.getInstance().postLogin("3","",
                                 "", "","",MathUitl.getDeviceId(mContext),"1");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -312,7 +305,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onLogin(LoginBean loginBean) {
         ProgressHudModel.newInstance().diss();
-        HttpMessgeUtil.getInstance(mContext).setToken(loginBean.getData().getToken());
+        HttpMessgeUtil.getInstance().setToken(loginBean.getData().getToken());
         SharedPreferences.Editor editor = sharedPreferencesp.edit();
         if (loginBean.getData().getUserInfo().getPhoneNumber()!=null||loginBean.getData().getUserInfo().getEmail()!=null)
             editor.putString("user",loginBean.getData().getUserInfo().getPhoneNumber()!=null?
@@ -328,13 +321,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (loginBean.getData().getUserInfo().getPhoneNumber()!=null||loginBean.getData().getUserInfo().getEmail()!=null){
             //获取云端数据
             try {
-                HttpMessgeUtil.getInstance(mContext).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+                HttpMessgeUtil.getInstance().getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        startActivity(new Intent(mContext,MainActivity.class));
+        startActivity(new Intent(mContext, MainActivity.class));
 
         editor.commit();
         finish();

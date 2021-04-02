@@ -21,19 +21,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.inuker.bluetooth.library.connect.BleConnectManager;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.Contorller.AboutActivity;
 import com.szip.sportwatch.Contorller.BluetoochCallActivity;
 import com.szip.sportwatch.Contorller.LoginActivity;
-import com.szip.sportwatch.Contorller.MainActivity;
+import com.szip.sportwatch.Contorller.main.MainActivity;
 import com.szip.sportwatch.Contorller.NotificationAppListActivity;
 import com.szip.sportwatch.Contorller.SeachingActivity;
 import com.szip.sportwatch.Contorller.SelectDialActivity;
 import com.szip.sportwatch.Contorller.SelectDialActivity06;
 import com.szip.sportwatch.Contorller.UnitSelectActivity;
-import com.szip.sportwatch.Contorller.UpdateFirmwareActivity;
 import com.szip.sportwatch.Contorller.UserInfoActivity;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
@@ -147,7 +145,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
-        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -177,10 +175,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdatePlan(PlanModel planModel){
        if(stepPlanTv!=null){
-           HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+           HttpMessgeUtil.getInstance().setHttpCallbackWithBase(MineFragment.this);
            try {
                isUpdatePlan = false;
-               HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(planModel.getData()+"",STEPFLAG);
+               HttpMessgeUtil.getInstance().postForSetStepsPlan(planModel.getData()+"",STEPFLAG);
                stepPlan = Integer.valueOf(planModel.getData());
            } catch (IOException e) {
            }
@@ -209,9 +207,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position==1){
                     try {
-                        HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+                        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(MineFragment.this);
                         String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
-                        HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
+                        HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
                         ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError)
                                 ,3000);
                         if (MainService.getInstance().getState()==WearableManager.STATE_CONNECTED){
@@ -280,9 +278,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
                     isUpdatePlan = true;
-                    HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+                    HttpMessgeUtil.getInstance().setHttpCallbackWithBase(MineFragment.this);
                     ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError),3000);
-                    HttpMessgeUtil.getInstance(getContext()).postForSetStepsPlan(stepList.get(option1),STEPFLAG);
+                    HttpMessgeUtil.getInstance().postForSetStepsPlan(stepList.get(option1),STEPFLAG);
                     stepPlan = Integer.valueOf(stepList.get(option1));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -305,9 +303,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onOptionChanged(int option1, int option2, int option3) {
                 try {
-                    HttpMessgeUtil.getInstance(getContext()).setHttpCallbackWithBase(MineFragment.this);
+                    HttpMessgeUtil.getInstance().setHttpCallbackWithBase(MineFragment.this);
                     ProgressHudModel.newInstance().show(getContext(),getString(R.string.waitting),getString(R.string.httpError),3000);
-                    HttpMessgeUtil.getInstance(getContext()).postForSetSleepPlan((int)(Float.valueOf(sleepList.get(option1))*60)+"",SLEEPFLAG);
+                    HttpMessgeUtil.getInstance().postForSetSleepPlan((int)(Float.valueOf(sleepList.get(option1))*60)+"",SLEEPFLAG);
                     sleepPlan = (int)(Float.valueOf(sleepList.get(option1))*60);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -509,7 +507,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,H
                                     if (app.getUserInfo().getDeviceCode()!=null){
                                         String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
                                         try {
-                                            HttpMessgeUtil.getInstance(getActivity()).postForUpdownReportData(datas);
+                                            HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }

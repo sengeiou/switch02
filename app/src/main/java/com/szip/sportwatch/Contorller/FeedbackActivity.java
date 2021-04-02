@@ -43,14 +43,15 @@ public class FeedbackActivity extends BaseActivity implements HttpCallbackWithBa
     @Override
     protected void onResume() {
         super.onResume();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
     }
+
 
     private void initView() {
         ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.feedback));
@@ -79,7 +80,7 @@ public class FeedbackActivity extends BaseActivity implements HttpCallbackWithBa
                     try {
                         ProgressHudModel.newInstance().show(FeedbackActivity.this,getString(R.string.waitting),
                                 getString(R.string.httpError),5000);
-                        HttpMessgeUtil.getInstance(FeedbackActivity.this).postSendFeedback(feedbackEt.getText().toString());
+                        HttpMessgeUtil.getInstance().postSendFeedback(feedbackEt.getText().toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

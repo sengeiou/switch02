@@ -895,19 +895,19 @@ public class MathUitl {
 
     public static void speaker(AudioManager mAudioManager) {
         //关闭Sco
-//        if (isBluetoothHeadsetConnected()) {
-//            mAudioManager.setBluetoothA2dpOn(false);
-//        }
+        if (isBluetoothHeadsetConnected()) {
+            mAudioManager.setBluetoothA2dpOn(false);
+        }
         //打开扬声器
         mAudioManager.setSpeakerphoneOn(true);
-        mAudioManager.setMode(AudioManager.STREAM_MUSIC);
+        mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
     }
 
     public static void offSpeaker(AudioManager mAudioManager) {
-
-        mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        mAudioManager.startBluetoothSco();
-        mAudioManager.setBluetoothScoOn(true);
+        mAudioManager.setMode(AudioManager.MODE_NORMAL);
+        if (isBluetoothHeadsetConnected()) {
+            mAudioManager.setBluetoothA2dpOn(true);
+        }
         mAudioManager.setSpeakerphoneOn(false);
     }
 

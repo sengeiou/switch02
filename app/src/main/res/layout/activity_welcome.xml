@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Contorller.WelcomeActivity"
+    tools:context=".Contorller.welcome.WelcomeActivity"
     android:background="@mipmap/launch_bg">
 
     <ImageView

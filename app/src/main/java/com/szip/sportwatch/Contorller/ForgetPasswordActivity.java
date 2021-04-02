@@ -95,7 +95,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(null);//注册网络回调监听
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);//注册网络回调监听
     }
 
     /**
@@ -156,12 +156,12 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
      * */
     private void startTimer(){
         try {
-            HttpMessgeUtil.getInstance(this).setHttpCallbackWithBase(this);
+            HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
             if (userEt.getText().toString().contains("@"))
-                HttpMessgeUtil.getInstance(mContext).getVerificationCode("2","","",
+                HttpMessgeUtil.getInstance().getVerificationCode("2","","",
                         userEt.getText().toString());
             else
-                HttpMessgeUtil.getInstance(mContext).getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
+                HttpMessgeUtil.getInstance().getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
                         userEt.getText().toString(),"");
 
         } catch (IOException e) {
@@ -244,7 +244,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                             if (isEmail(userEt.getText().toString())){
                                 ProgressHudModel.newInstance().show(ForgetPasswordActivity.this,getString(R.string.waitting)
                                         ,getString(R.string.httpError),10000);
-                                HttpMessgeUtil.getInstance(mContext).postForgotPassword("2","",""
+                                HttpMessgeUtil.getInstance().postForgotPassword("2","",""
                                         ,userEt.getText().toString(), verifyCodeEt.getText().toString(),passwordEt.getText().toString());
                             }else
                                 showToast(getString(R.string.enterRightEmail));
@@ -252,7 +252,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                         } else {//手机
                             ProgressHudModel.newInstance().show(ForgetPasswordActivity.this,getString(R.string.waitting)
                                     ,getString(R.string.httpError),10000);
-                            HttpMessgeUtil.getInstance(mContext).postForgotPassword("1","00"+countryCodeTv.getText().toString().substring(1),
+                            HttpMessgeUtil.getInstance().postForgotPassword("1","00"+countryCodeTv.getText().toString().substring(1),
                                     userEt.getText().toString(),"", verifyCodeEt.getText().toString(),passwordEt.getText().toString());
                         }
                     } catch (IOException e) {

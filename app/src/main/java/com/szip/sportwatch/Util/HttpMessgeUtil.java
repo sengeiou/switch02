@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Interceptor;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -44,8 +45,8 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
-//    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+//    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
+    private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -62,7 +63,7 @@ public class HttpMessgeUtil {
     public static int UPDOWN_AVATAR = 103;
     public static int UPDATA_USERINFO = 104;
 
-        public static HttpMessgeUtil getInstance(Context context)
+        public static HttpMessgeUtil getInstance()
         {
             if (mInstance == null)
             {
@@ -70,19 +71,20 @@ public class HttpMessgeUtil {
                 {
                     if (mInstance == null)
                     {
-                        mInstance = new HttpMessgeUtil(context);
+                        mInstance = new HttpMessgeUtil();
                     }
                 }
             }
             return mInstance;
         }
 
-        private HttpMessgeUtil(Context context){
+        public void init(Context context){
             mContext = context;
             language = context.getResources().getConfiguration().locale.getLanguage()+"-"+
                     context.getResources().getConfiguration().locale.getCountry();
             time = DateUtil.getGMTWithString();
         }
+
 
         public void setToken(String token){
             this.token = token;
@@ -247,7 +249,7 @@ public class HttpMessgeUtil {
         /**
          * 获取个人信息
          * */
-        private void _getForGetInfo()throws IOException{
+        private void _getForGetInfo(GenericsCallback<UserInfoBean> callback)throws IOException{
             String url = this.url+"v2/user/getUserInfo";
             OkHttpUtils
                     .get()
@@ -256,7 +258,12 @@ public class HttpMessgeUtil {
                     .addHeader("token",token)
                     .addHeader("Accept-Language",language)
                     .build()
-                    .execute(userInfoBeanGenericsCallback,new TokenInterceptor());
+                    .execute(callback, new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            return chain.proceed(chain.request());
+                        }
+                    });
         }
 
 
@@ -474,7 +481,6 @@ public class HttpMessgeUtil {
                     .get()
                     .url(url)
                     .addHeader("Time-Diff",time)
-                    .addHeader("token",token)
                     .addHeader("Accept-Language",language)
                     .build()
                     .execute(callback,new TokenInterceptor());
@@ -526,8 +532,8 @@ public class HttpMessgeUtil {
             _postForSetStepsPlan(info.getStepsPlan()+"",0,callback);
             _postForSetUnit(info.getUnit()+"",info.getTempUnit()+"",callback);
         }
-        public void getForGetInfo()throws IOException{
-            _getForGetInfo();
+        public void getForGetInfo(GenericsCallback<UserInfoBean> callback)throws IOException{
+            _getForGetInfo(callback);
         }
 
         public void postForSetStepsPlan(String stepsPlan,int id)throws IOException{
@@ -635,23 +641,23 @@ public class HttpMessgeUtil {
             }
         };
 
-        private GenericsCallback<UserInfoBean> userInfoBeanGenericsCallback = new GenericsCallback<UserInfoBean>(new JsonGenericsSerializator()) {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(UserInfoBean response, int id) {
-                if (response.getCode() == 200 || response.getCode() == 401){
-                    if (httpCallbackWithUserInfo!=null)
-                        httpCallbackWithUserInfo.onUserInfo(response);
-                }else {
-                    ProgressHudModel.newInstance().diss();
-                    MathUitl.showToast(mContext,response.getMessage());
-                }
-            }
-        };
+//        private GenericsCallback<UserInfoBean> userInfoBeanGenericsCallback = new GenericsCallback<UserInfoBean>(new JsonGenericsSerializator()) {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(UserInfoBean response, int id) {
+//                if (response.getCode() == 200 || response.getCode() == 401){
+//                    if (httpCallbackWithUserInfo!=null)
+//                        httpCallbackWithUserInfo.onUserInfo(response);
+//                }else {
+//                    ProgressHudModel.newInstance().diss();
+//                    MathUitl.showToast(mContext,response.getMessage());
+//                }
+//            }
+//        };
 
         private GenericsCallback<DownloadDataBean> reportDataBeanGenericsCallback = new GenericsCallback<DownloadDataBean>(new JsonGenericsSerializator()) {
             @Override

@@ -222,7 +222,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                 ProgressHudModel.newInstance().show(SeachingActivity.this,getString(R.string.waitting)
                         ,getString(R.string.httpError),3000);
                 try {
-                    HttpMessgeUtil.getInstance(SeachingActivity.this).getBindDevice(device.getAddress(),device.getName(), new GenericsCallback<BindBean>(new JsonGenericsSerializator()) {
+                    HttpMessgeUtil.getInstance().getBindDevice(device.getAddress(),device.getName(), new GenericsCallback<BindBean>(new JsonGenericsSerializator()) {
                         @Override
                         public void onError(Call call, Exception e, int id) {
 
@@ -251,7 +251,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                             if (app.getUserInfo().getPhoneNumber()!=null||app.getUserInfo().getEmail()!=null){
                                 //获取云端数据
                                 try {
-                                    HttpMessgeUtil.getInstance(SeachingActivity.this).getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
+                                    HttpMessgeUtil.getInstance().getForDownloadReportData(Calendar.getInstance().getTimeInMillis()/1000+"",30+"");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

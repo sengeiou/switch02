@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Contorller.main.MainActivity;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
@@ -67,8 +68,8 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(null);
-        HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithBase(null);
+        HttpMessgeUtil.getInstance().setHttpCallbackWithLogin(null);
     }
 
     private void initData(Intent intent) {
@@ -129,16 +130,16 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.registerBtn:
                 try {
-                    HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithBase(this);
+                    HttpMessgeUtil.getInstance().setHttpCallbackWithBase(this);
                     if (passwordEt.getText().toString().equals("")){
                         showToast(getString(R.string.enterPassword));
                     } else if (!passwordEt.getText().toString().equals(confirmPasswordEt.getText().toString())){
                         showToast(getString(R.string.passwordUnSame));
                     }else if (isPhone){
-                        HttpMessgeUtil.getInstance(mContext).postRegister("1",countryCode,user,"",
+                        HttpMessgeUtil.getInstance().postRegister("1",countryCode,user,"",
                                 verifyCode, passwordEt.getText().toString(),MathUitl.getDeviceId(mContext),"1");
                     }else {
-                        HttpMessgeUtil.getInstance(mContext).postRegister("2","","",user,
+                        HttpMessgeUtil.getInstance().postRegister("2","","",user,
                                 verifyCode, passwordEt.getText().toString(),MathUitl.getDeviceId(mContext),"1");
                     }
                 } catch (IOException e) {
@@ -216,12 +217,12 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onCallback(BaseApi baseApi, int id) {
         try {
-            HttpMessgeUtil.getInstance(mContext).setHttpCallbackWithLogin(this);
+            HttpMessgeUtil.getInstance().setHttpCallbackWithLogin(this);
             if (isPhone){
-                HttpMessgeUtil.getInstance(mContext).postLogin("1",countryCode,user,"",
+                HttpMessgeUtil.getInstance().postLogin("1",countryCode,user,"",
                         passwordEt.getText().toString(), "","");
             }else {
-                HttpMessgeUtil.getInstance(mContext).postLogin("2","","",user,
+                HttpMessgeUtil.getInstance().postLogin("2","","",user,
                         passwordEt.getText().toString(),"","");
             }
         } catch (IOException e) {
@@ -235,7 +236,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onLogin(LoginBean loginBean) {
         ProgressHudModel.newInstance().diss();
-        HttpMessgeUtil.getInstance(mContext).setToken(loginBean.getData().getToken());
+        HttpMessgeUtil.getInstance().setToken(loginBean.getData().getToken());
         if (sharedPreferencesp == null)
             sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferencesp.edit();
@@ -244,7 +245,7 @@ public class SetPasswordActivity extends BaseActivity implements View.OnClickLis
         editor.putString("mail",loginBean.getData().getUserInfo().getEmail());
         ((MyApplication)getApplicationContext()).setUserInfo(loginBean.getData().getUserInfo());
         editor.commit();
-        Intent intentmain=new Intent(mContext,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intentmain=new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intentmain);
     }
 }

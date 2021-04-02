@@ -602,7 +602,7 @@ public class CommandUtil {
 
 
     /**
-     * 计算列表平均值
+     * 计算列表平均值Integer:平均值  String:详情数据列表
      * */
     public static HashMap<Integer,String> getAvenrage(byte[] datas, int lenght){
         HashMap<Integer,String> hashMap = new HashMap<>();

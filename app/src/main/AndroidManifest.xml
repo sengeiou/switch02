@@ -63,10 +63,10 @@
             android:name=".Contorller.CameraActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Contorller.MainActivity"
+            android:name=".Contorller.main.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Contorller.WelcomeActivity"
+            android:name=".Contorller.welcome.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

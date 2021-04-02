@@ -64,20 +64,16 @@ import okhttp3.Call;
  * Created by Administrator on 2019/11/28.
  */
 
-public class MyApplication extends Application implements HttpCallbackWithUserInfo{
+public class MyApplication extends Application{
 
     private SharedPreferences sharedPreferences;
     private int mFinalCount;
     static public String FILE = "sportWatch";
 
     private UserInfo userInfo;
-    private boolean isRun = true;
-
-    /**
-     * 启动状态 0：登录状态 1：未登录状态 2：登录过期状态
-     * */
-    private int startState = 0;
-
+    private String city;
+    private String deviceNum;
+    private ArrayList<WeatherBean.Condition> weatherModel;
 
     private static MyApplication mInstance;
     private boolean camerable;//能否使用照相机
@@ -90,11 +86,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         return mInstance;
     }
 
-    private ArrayList<WeatherBean.Condition> weatherModel;
-    private String city;
-
-    private String deviceNum;
-
     private boolean isMtk = true;
     private boolean isFirst = true;
     private String BtMac;
@@ -103,10 +94,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
 
     private boolean isNewVersion = false;
     private String versionUrl = null;
-
-    public String getBtMac() {
-        return BtMac;
-    }
 
     public void setBtMac(final String btMac) {
         if (BtMac==null||!btMac.split(":")[0].equals(BtMac.split(":")[0])){
@@ -164,7 +151,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         //初始化文件存储
         FileUtil.getInstance().initFile();
         //注册网络回调
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(this);
+        HttpMessgeUtil.getInstance().init(this);
 
         if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
             NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
@@ -193,28 +180,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
             sharedPreferences.edit().putBoolean("first",false).commit();
         }
 
-        //判断登录状态
-        String token = sharedPreferences.getString("token",null);
-        if (token!=null){//已登录
-            HttpMessgeUtil.getInstance(this).setToken(token);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (isRun){
-                        try {
-                            Log.d("SZIP******","GET USER1");
-                            HttpMessgeUtil.getInstance(MyApplication.this).getForGetInfo();
-                            Thread.sleep(60000);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
 
-        }
 
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
@@ -230,16 +196,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 if (mFinalCount == 1) {
                     //说明从后台回到了前台
                     Log.i("SZIP******", " 返回到了 前台");
-                    if(sharedPreferences==null)
-                        sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
-
-                    //判断登录状态
-                    String token = sharedPreferences.getString("token",null);
-                    if (token==null){//未登录
-                        startState = 1;
-                    }else {//已登录
-                        startState = 0;
-                    }
                     if(isFirst){
                         isFirst = false;
                     }else {
@@ -324,7 +280,7 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
                 if (getUserInfo().getDeviceCode()!=null){
                     try {
                         String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
-                        HttpMessgeUtil.getInstance(MyApplication.this).postForUpdownReportData(datas);
+                        HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
                         updownTime = 3600;
                         startUpdownThread();
                     } catch (IOException e) {
@@ -370,10 +326,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         MathUitl.saveInfoData(this,userInfo).commit();
     }
 
-    public int getStartState() {
-        return startState;
-    }
-
     public boolean isCamerable() {
         return camerable;
     }
@@ -396,13 +348,6 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         sharedPreferences.edit().putBoolean("heartSwitch",heartSwitch).commit();
     }
 
-    @Override
-    public void onUserInfo(UserInfoBean userInfoBean) {
-        Log.d("SZIP******","GET USER");
-        isRun = false;
-        HttpMessgeUtil.getInstance(this).setHttpCallbackWithUserInfo(null);
-        setUserInfo(userInfoBean.getData());
-    }
 
     public int getUpdownTime() {
         return updownTime;
@@ -423,10 +368,8 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     }
 
     public String getCity() {
-        if (city==null){
-            String city1 = sharedPreferences.getString("city",null);
-            return city1;
-        }
+        if (city==null)
+            city = sharedPreferences.getString("city",null);
         return city;
     }
 
@@ -489,31 +432,31 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
         return LoadDataUtil.newInstance().getDialConfig(Integer.valueOf(deviceNum));
     }
 
-    public void getDeviceConfig(){
-        try {
-            HttpMessgeUtil.getInstance(this).getDeviceConfig(new GenericsCallback<DeviceConfigBean>(new JsonGenericsSerializator()) {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-
-                }
-
-                @Override
-                public void onResponse(DeviceConfigBean response, int id) {
-                    if (response.getCode()==200){
-                        ArrayList<HealthyConfig> data = new ArrayList<>();
-                        SaveDataUtil.newInstance().saveConfigListData(response.getData());
-                        for (SportWatchAppFunctionConfigDTO configDTO:response.getData()){
-                            configDTO.getHealthMonitorConfig().identifier = configDTO.identifier;
-                            data.add(configDTO.getHealthMonitorConfig());
-                        }
-                        SaveDataUtil.newInstance().saveHealthyConfigListData(data);
-                    }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void getDeviceConfig(){
+//        try {
+//            HttpMessgeUtil.getInstance().getDeviceConfig(new GenericsCallback<DeviceConfigBean>(new JsonGenericsSerializator()) {
+//                @Override
+//                public void onError(Call call, Exception e, int id) {
+//
+//                }
+//
+//                @Override
+//                public void onResponse(DeviceConfigBean response, int id) {
+//                    if (response.getCode()==200){
+//                        ArrayList<HealthyConfig> data = new ArrayList<>();
+//                        SaveDataUtil.newInstance().saveConfigListData(response.getData());
+//                        for (SportWatchAppFunctionConfigDTO configDTO:response.getData()){
+//                            configDTO.getHealthMonitorConfig().identifier = configDTO.identifier;
+//                            data.add(configDTO.getHealthMonitorConfig());
+//                        }
+//                        SaveDataUtil.newInstance().saveHealthyConfigListData(data);
+//                    }
+//                }
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void setMtk(String deviceName) {
         isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
@@ -547,15 +490,11 @@ public class MyApplication extends Application implements HttpCallbackWithUserIn
     }
 
     public void tokenTimeOut(){
-        startState = 2;
-        isRun = false;
         SharedPreferences sharedPreferences ;
         ProgressHudModel.newInstance().diss();
 
         sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isLogin",false);
-        editor.putBoolean("isBind",false);
         editor.putString("token",null);
         editor.commit();
         SaveDataUtil.newInstance().clearDB();

@@ -16,6 +16,7 @@ import com.szip.sportwatch.MyApplication;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Hqs on 2018/1/4
@@ -56,7 +57,7 @@ public class DataParser {
         if (data[1]==0x32){
             int deviceNum = (data[9]&0xff)<<8|(data[8]&0xff)&0x0ffff;
             ArrayList<Integer> datas = new ArrayList<>();
-            for (int i = 10;i<data.length-2;i++){
+            for (int i = 10;i<data.length-8;i++){
                 if (data[i]!=0){
                     datas.add(i-9);
                     if(i==10){
@@ -191,10 +192,26 @@ public class DataParser {
             if (sleepDataArrayList==null)
                 sleepDataArrayList = new ArrayList<>();
             long timeOfDay = DateUtil.getSleepTimeScopeForDay(time);//这段心率数据所属的日期
-            int all = (data[4] & 0xff) + ((data[5] & 0xFF) << 8);
-            int deep = (data[6] & 0xff) + ((data[7] & 0xFF) << 8);
-            sleepDataArrayList.add(new SleepData(timeOfDay,deep,all-deep,null));
+            int all = 0;
+            int deep = 0;
+            StringBuffer dataForHour = new StringBuffer();
+            for (int i = 0;i<data.length-3;i+=3){
+                if (i == 0){//第一个点，保存为睡眠起始时间
+                    dataForHour.append(String.format(Locale.ENGLISH,"%d:%d",data[0],data[1]));
+                }
 
+                int num = data[i+3]*60+data[i+4]-data[i]*60-data[i+1];
+                if (num<0)
+                    num+=1440;
+                dataForHour.append(String.format(",%d:%d",num,data[i+2]));
+                all+=num;
+                if (data[i+2]==2){//深睡
+                    deep+=num;
+                }
+            }
+
+            sleepDataArrayList.add(new SleepData(timeOfDay,deep,all-deep,dataForHour.toString()));
+            LogUtil.getInstance().logd("DATA******","解析到的睡眠详情:"+"深睡 = "+deep+" ;浅睡 = "+(all-deep)+" ;睡眠详情 = "+dataForHour.toString());
             if (isEnd){
                 if (mIDataResponse!=null)
                     mIDataResponse.onSaveSleepDatas(sleepDataArrayList);

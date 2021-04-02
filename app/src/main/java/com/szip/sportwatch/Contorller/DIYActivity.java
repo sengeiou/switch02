@@ -20,6 +20,7 @@ import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
@@ -94,6 +95,7 @@ public class DIYActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        FileUtil.getInstance().deleteFile(fileName);
     }
 
     private void initEvent() {
