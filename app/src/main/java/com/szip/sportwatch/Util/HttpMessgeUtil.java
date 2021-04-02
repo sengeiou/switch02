@@ -45,8 +45,8 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-//    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
-    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
+//    private String url = "https://test.znsdkj.com:8443/sportWatch/";
     private String token = "null";
     private String language = "zh-CN";
     private String time;
