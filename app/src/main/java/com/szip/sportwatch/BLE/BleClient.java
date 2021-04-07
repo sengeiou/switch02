@@ -2,11 +2,6 @@ package com.szip.sportwatch.BLE;
 
 
 import android.app.Service;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -16,9 +11,7 @@ import android.os.HandlerThread;
 
 import android.os.Message;
 import android.os.Vibrator;
-import android.util.Log;
 
-import com.inuker.bluetooth.library.BluetoothClient;
 import com.inuker.bluetooth.library.connect.listener.BleConnectStatusListener;
 import com.inuker.bluetooth.library.connect.listener.BluetoothStateListener;
 import com.inuker.bluetooth.library.connect.response.BleConnectResponse;
@@ -29,10 +22,7 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.model.BleGattCharacter;
 import com.inuker.bluetooth.library.model.BleGattProfile;
 
-import com.mediatek.ctrl.notification.NotificationData;
-import com.mediatek.wearable.WearableManager;
-import com.mediatek.wearableProfiles.WearableClientProfile;
-import com.szip.sportwatch.Contorller.CameraActivity;
+import com.szip.sportwatch.Activity.CameraActivity;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.HeartData;
@@ -41,7 +31,6 @@ import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.DB.dbModel.StepData;
 import com.szip.sportwatch.Interface.IDataResponse;
 import com.szip.sportwatch.Interface.OnCameraListener;
-import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.BleStepModel;
 import com.szip.sportwatch.Model.EvenBusModel.ConnectState;
 
@@ -50,7 +39,6 @@ import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.Model.HttpBean.BaseApi;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UpdateSportView;
-import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Notification.NotificationView;
 import com.szip.sportwatch.R;
@@ -63,7 +51,6 @@ import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.zhy.http.okhttp.callback.GenericsCallback;
-import com.zhy.http.okhttp.utils.L;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,13 +62,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.TreeSet;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
 
 import okhttp3.Call;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 import static android.media.AudioManager.STREAM_MUSIC;
 
@@ -213,7 +197,7 @@ public class BleClient {
                 TimerTask timerTask= new TimerTask() {
                     @Override
                     public void run() {
-                        NotificationView.getInstance(MyApplication.getInstance()).showNotify(true);
+                        MainService.getInstance().startForeground(0103,NotificationView.getInstance().getNotify(true));
                         writeForSyncTime();
                         writeForSyncTimeStyle();
                         writeForSetLanuage();
@@ -227,7 +211,7 @@ public class BleClient {
                 Timer timer = new Timer();
                 timer.schedule(timerTask,300);
             }else{
-                NotificationView.getInstance(MyApplication.getInstance()).showNotify(false);
+                MainService.getInstance().startForeground(0103,NotificationView.getInstance().getNotify(false));
                 LogUtil.getInstance().logd("SZIP******","断开");
                 connectState = 5;
                 isSync = false;

@@ -2,15 +2,9 @@ package com.szip.sportwatch.Util;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
 
 
-import com.szip.sportwatch.Contorller.LoginActivity;
-import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
-import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
 import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
@@ -25,11 +19,7 @@ import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
-import com.szip.sportwatch.MyApplication;
-import com.szip.sportwatch.R;
-import com.szip.sportwatch.Service.MainService;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import java.io.File;
@@ -523,8 +513,8 @@ public class HttpMessgeUtil {
         }
 
         public void postForSetUserInfo(String name,String sex,String birthday,String height,String weight,
-                                       String heightBritish,String weightBritish)throws IOException{
-            _postForSetUserInfo(name,sex,birthday,height,weight,heightBritish, weightBritish,baseApiGenericsCallback);
+                                       String heightBritish,String weightBritish,GenericsCallback<BaseApi> callback)throws IOException{
+            _postForSetUserInfo(name,sex,birthday,height,weight,heightBritish, weightBritish,callback);
         }
         public void postForSetUserInfo1(UserInfo info,GenericsCallback<BaseApi>callback)throws IOException{
             _postForSetUserInfo(info.getUserName(),info.getSex()+"",info.getBirthday(),info.getHeight()+"",info.getWeight()+"",

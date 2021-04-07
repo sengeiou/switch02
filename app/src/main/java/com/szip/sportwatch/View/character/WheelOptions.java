@@ -196,6 +196,10 @@ final class WheelOptions {
                 }
             });
 
+
+        view.findViewById(R.id.j_layout2).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.j_layout3).setVisibility(View.VISIBLE);
+
         // 初始化时显示的数据
         setCurrentPositions(0, 0, 0);
     }

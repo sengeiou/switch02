@@ -1,20 +1,13 @@
 
 package com.szip.sportwatch.BLE;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.provider.Settings;
 import android.util.Log;
 import android.text.format.DateFormat;
 import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.wearable.Controller;
-import com.szip.sportwatch.Contorller.CameraActivity;
-import com.szip.sportwatch.Contorller.EcgListActivity;
+import com.szip.sportwatch.Activity.CameraActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
@@ -23,7 +16,6 @@ import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
-import com.szip.sportwatch.Model.WeatherModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.LogUtil;
@@ -32,12 +24,8 @@ import com.szip.sportwatch.Util.MathUitl;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class EXCDController extends Controller {

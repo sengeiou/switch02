@@ -88,8 +88,23 @@ public class CharacterPickerView extends FrameLayout {
     }
 
     public void setText(String text1,String text2){
+        if (text1==null){
+            textView1.setVisibility(GONE);
+            return;
+        } else{
+            textView1.setVisibility(VISIBLE);
+        }
+
+
+        if (text2==null){
+            textView2.setVisibility(GONE);
+            return;
+        } else{
+            textView2.setVisibility(VISIBLE);
+        }
         textView1.setText(text1);
         textView2.setText(text2);
+
     }
 
     /**

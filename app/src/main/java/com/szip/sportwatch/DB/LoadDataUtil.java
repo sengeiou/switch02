@@ -3,10 +3,8 @@ package com.szip.sportwatch.DB;
 import android.util.Log;
 
 import com.necer.utils.CalendarUtil;
-import com.raizlabs.android.dbflow.sql.SqlUtils;
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.szip.sportwatch.Contorller.BloodOxygenReportActivity;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData_Table;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
@@ -30,7 +28,6 @@ import com.szip.sportwatch.DB.dbModel.StepData_Table;
 import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.Model.ReportDataBean;
-import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.DateUtil;
 
 import org.joda.time.LocalDate;
@@ -38,7 +35,6 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2019/12/22.

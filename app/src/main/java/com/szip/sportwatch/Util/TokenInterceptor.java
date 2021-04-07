@@ -1,19 +1,9 @@
 package com.szip.sportwatch.Util;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
-import com.szip.sportwatch.Contorller.LoginActivity;
-import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.MyApplication;
-import com.szip.sportwatch.R;
-import com.szip.sportwatch.Service.MainService;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -21,15 +11,11 @@ import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.szip.sportwatch.MyApplication.FILE;
 
 
 public class TokenInterceptor implements Interceptor {

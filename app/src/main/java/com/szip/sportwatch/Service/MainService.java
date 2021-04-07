@@ -3,7 +3,6 @@ package com.szip.sportwatch.Service;
 import android.app.DownloadManager;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +11,9 @@ import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
@@ -29,7 +23,6 @@ import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.BleClient;
-import com.szip.sportwatch.BLE.ClientManager;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
 import com.szip.sportwatch.DB.dbModel.BloodOxygenData;
@@ -53,7 +46,6 @@ import com.szip.sportwatch.Notification.AppList;
 import com.szip.sportwatch.Notification.NotificationReceiver;
 import com.szip.sportwatch.Notification.NotificationService;
 import com.szip.sportwatch.Notification.SmsService;
-import com.szip.sportwatch.Notification.SystemNotificationService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -62,10 +54,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
-import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.AudioManager.STREAM_MUSIC;
-import static android.media.AudioManager.STREAM_RING;
-import static android.media.AudioManager.STREAM_VOICE_CALL;
 
 /**
  * Created by Administrator on 2019/12/27.
@@ -128,7 +117,7 @@ public class MainService extends Service {
                 LogUtil.getInstance().logd("SZIP******","STATE = "+newState);
                 EventBus.getDefault().post(new ConnectState(newState));
                 if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
-                    NotificationView.getInstance(getApplicationContext()).showNotify(true);
+                    mSevice.startForeground(0103,NotificationView.getInstance().getNotify(true));
                     startThread();//使能线程
                     errorTimes = 0;
                     String str = getResources().getConfiguration().locale.getLanguage();
@@ -167,7 +156,7 @@ public class MainService extends Service {
                     EXCDController.getInstance().writeForUpdateWeather(app.getWeatherModel(),
                             app.getCity());
                 }else if (newState == WearableManager.STATE_CONNECT_LOST){
-                    NotificationView.getInstance(getApplicationContext()).showNotify(false);
+                    mSevice.startForeground(0103,NotificationView.getInstance().getNotify(false));
                     if (errorTimes<3){
                         errorTimes++;
                     } else{
@@ -463,6 +452,11 @@ public class MainService extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public void onCreate() {
         Log.i(TAG, "onCreate()");
         // updateConnectionStatus(false);
@@ -573,6 +567,10 @@ public class MainService extends Service {
         mIsMainServiceActive = false;
         stopNotificationService();
         mSevice = null;
+
+        Intent intent = new Intent();
+        intent.setClass(this,MainService.class);
+        startService(intent);
     }
 
 

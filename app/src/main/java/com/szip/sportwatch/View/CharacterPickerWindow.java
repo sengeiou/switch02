@@ -54,6 +54,35 @@ public class CharacterPickerWindow extends PopupWindow implements View.OnClickLi
         setContentView(rootView);
     }
 
+    public CharacterPickerWindow(Context context) {
+        super(context);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        this.setHeight(dp2Px(280));
+        this.setBackgroundDrawable(new BitmapDrawable());// 这样设置才能点击屏幕外dismiss窗口
+        this.setOutsideTouchable(true);
+        this.setFocusable(true);
+        this.setAnimationStyle(R.style.j_timepopwindow_anim_style);
+
+        LayoutInflater mLayoutInflater = LayoutInflater.from(context);
+        rootView = mLayoutInflater.inflate(R.layout.j_picker_dialog, null);
+        titleTv = rootView.findViewById(R.id.windowTitle);
+        // -----确定和取消按钮
+        btnSubmit = rootView.findViewById(R.id.j_btnSubmit);
+        btnSubmit.setTag(TAG_SUBMIT);
+        btnCancel = rootView.findViewById(R.id.j_btnCancel);
+        btnCancel.setTag(TAG_CANCEL);
+        btnSubmit.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        // ----转轮
+        pickerView =  rootView.findViewById(R.id.j_optionspicker);
+        setContentView(rootView);
+    }
+
+    public void setTitleTv(String title) {
+        if (titleTv!=null)
+            titleTv.setText(title);
+    }
+
     private static int dp2Px(float dp) {
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);

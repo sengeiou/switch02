@@ -4,7 +4,7 @@ package com.szip.sportwatch.Model;
  * Created by Administrator on 2019/11/30.
  */
 
-public class UserInfo {
+public class UserInfo implements Cloneable{
     private int id;
     private String areaCode;
     private String phoneNumber;
@@ -203,5 +203,16 @@ public class UserInfo {
 
     public void setWeightBritish(int weightBritish) {
         this.weightBritish = weightBritish;
+    }
+
+    @Override
+    public Object clone() {
+        Object object = null;
+        try {
+            object = super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 }

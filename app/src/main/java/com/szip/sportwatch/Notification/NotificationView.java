@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
-import com.szip.sportwatch.Contorller.main.MainActivity;
+import com.szip.sportwatch.Activity.main.MainActivity;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.FileUtil;
 
@@ -23,11 +22,14 @@ public class NotificationView {
 
 
 
-    private NotificationView(Context context){
+    private NotificationView(){
+    }
+
+    public void init(Context context){
         this.context = context;
     }
 
-    public static NotificationView getInstance(Context context)
+    public static NotificationView getInstance()
     {
         if (mInstance == null)
         {
@@ -35,15 +37,14 @@ public class NotificationView {
             {
                 if (mInstance == null)
                 {
-                    mInstance = new NotificationView(context);
+                    mInstance = new NotificationView();
                 }
             }
         }
         return mInstance;
     }
     private NotificationManager notificationManager;
-    public void showNotify(boolean state){
-//        if (notificationManager==null){
+    public Notification getNotify(boolean state){
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -57,7 +58,6 @@ public class NotificationView {
                 .setColor(Color.parseColor("#2CBDF2"))
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.launch_logo))
                 .setSmallIcon(R.mipmap.small)
-                // .setCustomContentView(remoteView) // 设置自定义的RemoteView，需要API最低为24
                 // 设置点击通知栏后跳转地址
                 .setContentIntent(PendingIntent.getActivity(context, 1,
                         intent, PendingIntent.FLAG_UPDATE_CURRENT))
@@ -70,16 +70,6 @@ public class NotificationView {
         }
         // 设置常驻 Flag
         notification.flags = Notification.FLAG_ONGOING_EVENT;
-        //展示通知栏
-        notificationManager.notify(0103,notification);
+        return notification;
     }
-
-
-    public void setting() {
-        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-        intent.putExtra(Settings.EXTRA_CHANNEL_ID, 0103);
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
-        context.startActivity(intent);
-    }
-
 }

@@ -50,6 +50,18 @@ public class ProgressHudModel {
         return progressHudModel ;
     }
 
+    public void show(final Context mContext, String title){
+        progressHUD  = KProgressHUD.create(mContext)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(title)
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
+        progressHUD.show();
+        this.onProgressTimeout = null;
+        this.mContext = mContext;
+    }
+
     public void show(final Context mContext, String title, final String error,int delayMilis){
         progressHUD  = KProgressHUD.create(mContext)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -61,7 +73,8 @@ public class ProgressHudModel {
         this.onProgressTimeout = null;
         this.mContext = mContext;
         this.error = error;
-        handler.postDelayed(run,delayMilis);
+        if (delayMilis!=0)
+            handler.postDelayed(run,delayMilis);
     }
 
     public void show(final Context mContext, String title, final String error, int delayMilis,boolean cancelAble,OnProgressTimeout onProgressTimeout){

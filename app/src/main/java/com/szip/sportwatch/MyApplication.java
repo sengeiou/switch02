@@ -13,11 +13,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,39 +22,30 @@ import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Broadcat.UtilBroadcat;
-import com.szip.sportwatch.Contorller.LoginActivity;
+import com.szip.sportwatch.Activity.LoginActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
-import com.szip.sportwatch.DB.dbModel.HealthyConfig;
-import com.szip.sportwatch.Interface.HttpCallbackWithUserInfo;
-import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
-import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
-import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Notification.IgnoreList;
 import com.szip.sportwatch.Notification.MyNotificationReceiver;
+import com.szip.sportwatch.Notification.NotificationView;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
-import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.TopExceptionHandler;
-import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import okhttp3.Call;
 
 
 /**
@@ -152,6 +140,8 @@ public class MyApplication extends Application{
         FileUtil.getInstance().initFile();
         //注册网络回调
         HttpMessgeUtil.getInstance().init(this);
+        //初始化通知栏
+        NotificationView.getInstance().init(this);
 
         if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
             NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);

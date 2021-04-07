@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Contorller.PrivacyActivity;
+import com.szip.sportwatch.Activity.PrivacyActivity;
 import com.szip.sportwatch.R;
 
 

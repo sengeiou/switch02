@@ -432,9 +432,9 @@ public class ReportView extends View {
             top = datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5)<(data_num == 7?mBarWidth/3:mBarWidth)?
                     height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth):
                     height- textHeight- pad10-datas2[i]/(float) maxDraw *(height- textHeight- pad10-pad5);
-            if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
-                top+=pad15;
-            }
+//            if (data_num==7&&(flag == 1||flag == 2)&&top!=height- textHeight- pad10-(data_num == 7?mBarWidth/3:mBarWidth)){
+//                top+=pad15;
+//            }
             rectFS[i] = new RectF(x, top, x+mBarWidth, height- textHeight- pad10);
         }
 
