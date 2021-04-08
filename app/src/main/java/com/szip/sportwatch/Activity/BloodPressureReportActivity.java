@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodPressure.BloodPressureDayFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodPressure.BloodPressureMonthFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodPressure.BloodPressureWeekFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodPressure.BloodPressureYearFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodPressure.BloodPressureDayFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodPressure.BloodPressureMonthFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodPressure.BloodPressureWeekFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodPressure.BloodPressureYearFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -54,7 +54,7 @@ public class BloodPressureReportActivity extends BaseActivity implements View.On
     private void initView() {
         StatusBarCompat.translucentStatusBar(BloodPressureReportActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.bloodPressureReport));
+        setTitleText(getString(R.string.bloodPressureReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);
     }

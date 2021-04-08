@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sleep.SleepDayFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sleep.SleepMonthFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sleep.SleepWeekFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sleep.SleepYearFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sleep.SleepDayFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sleep.SleepMonthFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sleep.SleepWeekFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sleep.SleepYearFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -55,7 +55,7 @@ public class SleepReportActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         StatusBarCompat.translucentStatusBar(SleepReportActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.sleepReport));
+        setTitleText(getString(R.string.sleepReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);
     }

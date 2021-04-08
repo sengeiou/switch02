@@ -7,25 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import com.szip.sportwatch.Activity.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.BadmintonFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.BasketballFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.BikeFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.BoatFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.ClimbFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.FootballFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.GolfFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.MarathonFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.MountainFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.OnfootFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.PingpangFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.RunFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.SkiiFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.SurfingFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.SwimFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.sport.TreadmillFragment;
+import com.szip.sportwatch.Fragment.BaseFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.BadmintonFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.BasketballFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.BikeFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.BoatFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.ClimbFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.FootballFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.GolfFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.MarathonFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.MountainFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.OnfootFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.PingpangFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.RunFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.SkiiFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.SurfingFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.SwimFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.sport.TreadmillFragment;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.StatusBarCompat;
@@ -60,7 +59,7 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
     private void initView() {
         StatusBarCompat.translucentStatusBar(SportTrackActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(R.string.track);
+        setTitleText(getString(R.string.track));
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_share);
         switch (sportData.type){
             case 1:

@@ -62,7 +62,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         setAndroidNativeLightStatusBar(this,true);
         listView = findViewById(R.id.ecgListView);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.ecgReport));
+        setTitleText(getString(R.string.ecgReport));
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         ecgDataAdapter = new EcgDataAdapter(dataList,this);

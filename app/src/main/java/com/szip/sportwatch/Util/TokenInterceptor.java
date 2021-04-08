@@ -37,7 +37,9 @@ public class TokenInterceptor implements Interceptor {
                     }
                 });
             }else {
-                response = chain.proceed(chain.request());
+                response = response.newBuilder()
+                        .body(ResponseBody.create(responseBody.contentType(), string))
+                        .build();
                 LogUtil.getInstance().loge("DATA******","登陆未过期，放行");
             }
             return response;
@@ -79,7 +81,7 @@ public class TokenInterceptor implements Interceptor {
             LogUtil.getInstance().loge("DATA******", "========request'log=======end");
         } catch (Exception e)
         {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

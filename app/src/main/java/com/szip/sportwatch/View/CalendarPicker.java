@@ -1,6 +1,6 @@
 package com.szip.sportwatch.View;
 
-import com.szip.sportwatch.Activity.Fragment.CalendarFragment;
+import com.szip.sportwatch.Fragment.CalendarFragment;
 import com.szip.sportwatch.Interface.CalendarListener;
 
 import androidx.annotation.StyleRes;

@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodOxygen.BloodOxygenDayFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodOxygen.BloodOxygenMonthFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodOxygen.BloodOxygenWeekFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.bloodOxygen.BloodOxygenYearFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodOxygen.BloodOxygenDayFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodOxygen.BloodOxygenMonthFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodOxygen.BloodOxygenWeekFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.bloodOxygen.BloodOxygenYearFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -57,7 +57,7 @@ public class BloodOxygenReportActivity extends BaseActivity implements View.OnCl
     private void initView() {
         StatusBarCompat.translucentStatusBar(BloodOxygenReportActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.bloodOxygenReport));
+        setTitleText(getString(R.string.bloodOxygenReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);
     }

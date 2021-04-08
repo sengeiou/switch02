@@ -22,7 +22,7 @@ public class PrivacyActivity extends BaseActivity {
     }
 
     private void initView() {
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.privacy1));
+        setTitleText(getString(R.string.privacy1));
         findViewById(R.id.rightIv).setVisibility(View.GONE);
         findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
             @Override

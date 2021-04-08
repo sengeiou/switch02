@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.heart.HeartDayFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.heart.HeartMonthFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.heart.HeartWeekFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.heart.HeartYearFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.heart.HeartDayFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.heart.HeartMonthFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.heart.HeartWeekFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.heart.HeartYearFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -55,7 +55,7 @@ public class HeartReportActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         StatusBarCompat.translucentStatusBar(HeartReportActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.heartReport));
+        setTitleText(getString(R.string.heartReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);
     }

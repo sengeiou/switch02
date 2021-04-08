@@ -97,7 +97,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
         setAndroidNativeLightStatusBar(this,true);
         listView = findViewById(R.id.sportList);
         ((TextView)findViewById(R.id.timeTv)).setText(DateUtil.getStringDateFromSecond(reportDate,"yyyy-MM"));
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.history));
+        setTitleText(getString(R.string.history));
         ((ImageView)findViewById(R.id.rightIv)).setImageResource(R.mipmap.report_icon_calendar);
 
         sportDataAdapter = new SportDataAdapter(dataList,this);

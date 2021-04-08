@@ -34,7 +34,7 @@ public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
             @Override
             public void onClick(View v) {
                 select = holder.getAdapterPosition();
-                onItemClickListener.onItemClick(holder.getAdapterPosition());
+                onItemClickListener.onItemClick(holder.getAdapterPosition()==dials.length?-1:holder.getAdapterPosition());
                 notifyDataSetChanged();
             }
         });

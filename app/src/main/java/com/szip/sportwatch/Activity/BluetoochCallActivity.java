@@ -3,10 +3,9 @@ package com.szip.sportwatch.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.BluetoochCallFragment;
+import com.szip.sportwatch.Fragment.BluetoochCallFragment;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.StatusBarCompat;
 import com.szip.sportwatch.View.NoScrollViewPager;
@@ -49,7 +48,7 @@ public class BluetoochCallActivity extends BaseActivity implements ViewPager.OnP
             }
         });
         findViewById(R.id.rightIv).setVisibility(View.GONE);
-        ((TextView)findViewById(R.id.titleTv)).setText(R.string.blePhone);
+        setTitleText(getString(R.string.blePhone));
         dotIv1 = findViewById(R.id.dotIv1);
         dotIv2 = findViewById(R.id.dotIv2);
         viewPager = findViewById(R.id.viewpager);

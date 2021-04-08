@@ -24,8 +24,6 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         this.mContext = context;
     }
 
-
-
     public void uncaughtException(Thread t, Throwable e) {
         StackTraceElement[] arr = e.getStackTrace();
         String report = e.toString()+"\n\n";

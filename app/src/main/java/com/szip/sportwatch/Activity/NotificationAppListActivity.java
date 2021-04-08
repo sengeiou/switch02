@@ -89,7 +89,7 @@ public class NotificationAppListActivity extends BaseActivity {
     }
 
     private void initView() {
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.notification));
+        setTitleText(getString(R.string.notification));
         findViewById(R.id.rightIv).setVisibility(View.GONE);
         findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
             @Override

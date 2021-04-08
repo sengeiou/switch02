@@ -59,14 +59,14 @@ public class LogUtil {
 
         FileUtil.getInstance().writeLog(context.getExternalFilesDir(null).getPath()+"/"+
                 DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + ".txt",
-                (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+tag+
+                (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd HH:mm:ss")+"|"+tag+
                         "|"+msg+"\r").getBytes());
     }
     public void writeEventForHttp(String tag,String msg){
 
         FileUtil.getInstance().writeLog(context.getExternalFilesDir(null).getPath()+"/"+
                         DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + "http.txt",
-                (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+tag+
+                (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd HH:mm:ss")+"|"+tag+
                         "|"+msg+"\r").getBytes());
     }
 

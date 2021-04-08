@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DIYActivity"
+    tools:context=".Activity.diy.DIYActivity"
     android:orientation="vertical">
 
 
@@ -37,7 +37,7 @@
                 android:layout_centerVertical="true"/>
 
 
-            <ImageView
+            <com.szip.sportwatch.View.CircularImageView
                 android:id="@+id/backgroundIv_r"
                 android:layout_width="140dp"
                 android:layout_height="140dp"

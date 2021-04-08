@@ -205,7 +205,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
             startActivity(bleIntent);
         }
 
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.searchDevice));
+        setTitleText(getString(R.string.searchDevice));
         searchIv = findViewById(R.id.rightIv);
         searchIv.setImageResource(R.mipmap.my_device_refresh);
         listView = findViewById(R.id.deviceList);

@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.szip.sportwatch.Adapter.MyPagerAdapter;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.step.StepDayFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.step.StepMonthFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.step.StepWeekFragment;
-import com.szip.sportwatch.Activity.Fragment.ReportFragment.step.StepYearFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.step.StepDayFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.step.StepMonthFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.step.StepWeekFragment;
+import com.szip.sportwatch.Fragment.ReportFragment.step.StepYearFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.CalendarListener;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -55,7 +55,7 @@ public class StepReportActivity extends BaseActivity implements View.OnClickList
     private void initView() {
         StatusBarCompat.translucentStatusBar(StepReportActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.stepReport));
+        setTitleText(getString(R.string.stepReport));
         mTab = findViewById(R.id.reportTl);
         mPager = findViewById(R.id.reportVp);
     }

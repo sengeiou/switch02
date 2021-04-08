@@ -52,7 +52,7 @@ public class FeedbackActivity extends BaseActivity implements HttpCallbackWithBa
 
 
     private void initView() {
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.feedback));
+        setTitleText(getString(R.string.feedback));
 
         feedbackEt = findViewById(R.id.feedbackEt);
         lenghtTv = findViewById(R.id.wordLenghtTv);

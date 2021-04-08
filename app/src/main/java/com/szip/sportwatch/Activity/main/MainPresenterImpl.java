@@ -18,9 +18,9 @@ import android.widget.TabHost;
 import androidx.fragment.app.FragmentTabHost;
 
 import com.mediatek.wearable.WearableManager;
-import com.szip.sportwatch.Activity.Fragment.HealthyFragment;
-import com.szip.sportwatch.Activity.Fragment.MineFragment;
-import com.szip.sportwatch.Activity.Fragment.SportFragment;
+import com.szip.sportwatch.Fragment.HealthyFragment;
+import com.szip.sportwatch.Fragment.MineFragment;
+import com.szip.sportwatch.Fragment.SportFragment;
 import com.szip.sportwatch.Model.HttpBean.CheckUpdateBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
@@ -138,7 +138,8 @@ public class MainPresenterImpl implements IMainPrisenter{
         if (MyApplication.getInstance().getUserInfo().getDeviceCode()!=null){//已绑定
             //连接设备
             LogUtil.getInstance().logd("SZIP******","state = "+ WearableManager.getInstance().getConnectState());
-            if (MainService.getInstance().getState() == 1||MainService.getInstance().getState() == 5){
+            if (MainService.getInstance().getState() == 1||MainService.getInstance().getState() == 5
+                    ||MainService.getInstance().getState() == 0){
                 BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
                 BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
                 BluetoothDevice device = bluetoothAdapter.getRemoteDevice(MyApplication.getInstance().getUserInfo().getDeviceCode());

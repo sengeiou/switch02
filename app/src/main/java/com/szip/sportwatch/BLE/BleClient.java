@@ -275,19 +275,10 @@ public class BleClient {
                     }else {
                         EventBus.getDefault().post(new UpdateView("1"));
                     }
+                }else {
+                    DataParser.newInstance().parseData(value);
                 }
             }
-
-//            /**
-//             * 用线程池接收通知
-//             * */
-//            Runnable runnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    ClientManager.getClient().read(mMac,serviceUUID,UUID.fromString(Config.char3),bleReadResponse);
-//                }
-//            };
-//            readExecutor.execute(runnable);
         }
 
         @Override
@@ -306,7 +297,8 @@ public class BleClient {
             LogUtil.getInstance().logd("DATA******", "读取到蓝牙信息:" + value);
             if (data.length != 0){
                 if (data.length > 0) {
-                    if ((data.length>=2) && (data[0]==-86) && ((!(data[1]>=0x01 && data[1]<0x12)) && data[1]!=0x14 && data[1]!=0x19)) {
+                    if ((data.length>=2) && (data[0]==-86) && ((!(data[1]>=0x01 && data[1]<0x12))
+                            && data[1]!=0x14 && data[1]!=0x19)) {
                         DataParser.newInstance().parseData(data);
                     }else {
                         Message message = mAnalysisHandler.obtainMessage();

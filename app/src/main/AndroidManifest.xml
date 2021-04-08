@@ -31,16 +31,15 @@
         android:roundIcon="@mipmap/sport_map_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DIYActivity06"></activity>
-        <activity android:name=".Activity.SelectDialActivity06" />
+
         <activity
             android:name=".Activity.UpdateFirmwareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.DIYActivity"
+            android:name=".Activity.diy.DIYActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.SelectDialActivity"
+            android:name=".Activity.dial.SelectDialActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AnimalHeatActivity"

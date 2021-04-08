@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 version="1.4.0"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     resourcePrefix "bluetoothkit_"
 

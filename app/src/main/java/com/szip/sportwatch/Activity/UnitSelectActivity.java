@@ -54,7 +54,7 @@ public class UnitSelectActivity extends BaseActivity implements View.OnClickList
     private void initView() {
         StatusBarCompat.translucentStatusBar(UnitSelectActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-        ((TextView)findViewById(R.id.titleTv)).setText(getString(R.string.unit));
+        setTitleText(getString(R.string.unit));
         unitRg = findViewById(R.id.unitRg);
         tempRg = findViewById(R.id.tempRg);
         unit = app.getUserInfo().getUnit();

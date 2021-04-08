@@ -110,8 +110,11 @@ public class FileUtil {
     }
 
     public void deleteFile(String fileName){
-        File file = new File(fileName);
-        file.delete();
+        if(fileName!=null) {
+            File file = new File(fileName);
+            if (file != null)
+                file.delete();
+        }
     }
 
     public String getPath() {
