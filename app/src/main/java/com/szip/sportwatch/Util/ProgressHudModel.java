@@ -50,6 +50,13 @@ public class ProgressHudModel {
         return progressHudModel ;
     }
 
+    public boolean isShow(){
+        if (progressHUD!=null)
+            return true;
+        else
+            return false;
+    }
+
     public void show(final Context mContext, String title){
         progressHUD  = KProgressHUD.create(mContext)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)

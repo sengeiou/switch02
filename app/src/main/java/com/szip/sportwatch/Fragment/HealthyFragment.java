@@ -379,6 +379,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(getActivity(), EcgListActivity.class));
                 break;
             case R.id.weatherLl:
+//                MyApplication.getInstance().setBtMac("C0:EA:4B:46:90:AA");
                 locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
                 LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
                 getView().findViewById(R.id.weatherLl).setClickable(false);

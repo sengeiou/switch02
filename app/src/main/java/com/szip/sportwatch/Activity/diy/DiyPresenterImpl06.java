@@ -65,46 +65,44 @@ public class DiyPresenterImpl06 implements IDiyPresenter{
             }
         });
     }
-
+    private int i = 0;
+    private byte datas[];
     @Override
     public void sendDial(Uri resultUri, int clock) {
-
-        final int PAGENUM = 128;//分包长度
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream(new File(resultUri.getPath()));
-            byte[] buf = new byte[1024];
-            int n;
-            while (-1 != (n = fis.read(buf)))
-                baos.write(buf, 0, n);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        final byte[] datas = baos.toByteArray();
-        int num = datas.length/PAGENUM;
-        num = datas.length%PAGENUM==0?num:num+1;
-        if (iDiyView!=null)
-            iDiyView.setDialProgress(num);
-        final Timer timer = new Timer();
-        final int[] i = {0};
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                byte[] newDatas;
-                int len = (datas.length- i[0] >PAGENUM)?PAGENUM:(datas.length- i[0]);
-                newDatas = new byte[len];
-                System.arraycopy(datas, i[0],newDatas,0,len);
-                BleClient.getInstance().writeForSendPicture(1,0,0, i[0] /PAGENUM,newDatas);
-                i[0] +=PAGENUM;
-                if (i[0] >=datas.length){
-                    timer.cancel();
-                    BleClient.getInstance().writeForSendPicture(2,0,0,0,new byte[0]);
-                }
-
+        if (resultUri!=null){
+            final int PAGENUM = 128;//分包长度
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(resultUri.getPath()));
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        };
-        timer.schedule(timerTask,50,200);
+            final byte[] datas = baos.toByteArray();
+            int num = datas.length/PAGENUM;
+            num = datas.length%PAGENUM==0?num:num+1;
+            if (iDiyView!=null)
+                iDiyView.setDialProgress(num);
+            this.datas = datas;
+            this.i = 0;
+        }
+        sendByte();
+    }
+
+    private void sendByte(){
+        byte[] newDatas;
+        int len = (datas.length- i >128)?128:(datas.length- i);
+        newDatas = new byte[len];
+        System.arraycopy(datas, i,newDatas,0,len);
+        BleClient.getInstance().writeForSendPicture(1,0,0, i/128,newDatas);
+        i+=128;
+        if (i>=datas.length){
+            BleClient.getInstance().writeForSendPicture(2,0,0,0,new byte[0]);
+        }
     }
 
     @Override

@@ -104,12 +104,14 @@ public class DIYActivity extends BaseActivity implements IDiyView{
                     showToast(getString(R.string.chooseClock));
                     return;
                 }
-                ProgressHudModel.newInstance().show(DIYActivity.this,getString(R.string.loading),
-                        getString(R.string.connect_error),10000);
-                if (MyApplication.getInstance().isMtk())
-                EXCDController.getInstance().initDialInfo();
-                else
-                    BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+                if (!ProgressHudModel.newInstance().isShow()){
+                    ProgressHudModel.newInstance().show(DIYActivity.this,getString(R.string.loading),
+                            getString(R.string.connect_error),10000);
+                    if (MyApplication.getInstance().isMtk())
+                        EXCDController.getInstance().initDialInfo();
+                    else
+                        BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+                }
             }
         });
     }
@@ -160,6 +162,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdataView(UpdateView updateView){
         if(updateView.getState().equals("0")){//进度+1
+            iDiyPresenter.sendDial(null,-1);
             progress++;
             ProgressHudModel.newInstance().setProgress(progress);
         }else if (updateView.getState().equals("1")){//完成
@@ -168,15 +171,16 @@ public class DIYActivity extends BaseActivity implements IDiyView{
             ProgressHudModel.newInstance().diss();
             showToast(getString(R.string.diyDailOK));
         }else if (updateView.getState().equals("2")){//失败
-            isSendPic = false;
-            progress = 0;
-            showToast(getString(R.string.diyDailError));
-        }else {
-            if(!isSendPic){
-                isSendPic = true;
+            if (isSendPic){
+                isSendPic = false;
+                progress = 0;
                 ProgressHudModel.newInstance().diss();
-                iDiyPresenter.sendDial(resultUri,clock);
+                showToast(getString(R.string.diyDailError));
             }
+        }else {
+            isSendPic = true;
+            ProgressHudModel.newInstance().diss();
+            iDiyPresenter.sendDial(resultUri,clock);
         }
     }
 

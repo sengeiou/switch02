@@ -168,7 +168,6 @@ public class BleClient {
                 ClientManager.getClient().requestMtu(mMac, 200, new BleMtuResponse() {
                     @Override
                     public void onResponse(int code, Integer data) {
-                        LogUtil.getInstance().logd("SZIP******","设置MTU成功 :"+"code = "+code+" ;data = "+data);
                     }
                 });
                 setGattProfile(data);
@@ -193,6 +192,7 @@ public class BleClient {
             if( status == 0x10){
                 connectState = 3;
                 LogUtil.getInstance().logd("SZIP******","连接");
+                MainService.getInstance().setReconnectTimes(0);
                 //连接成功，获取设备信息
                 TimerTask timerTask= new TimerTask() {
                     @Override
@@ -268,13 +268,18 @@ public class BleClient {
                 }
             }else {
                 if (value[1] == 0x46){
-                    if (value[8]==0){
-                        EventBus.getDefault().post(new UpdateView(""));
-                    }else if (value[8]==1){
-                        EventBus.getDefault().post(new UpdateView("0"));
+                    if (value[9]==2){
+                        EventBus.getDefault().post(new UpdateView("2"));
                     }else {
-                        EventBus.getDefault().post(new UpdateView("1"));
+                        if (value[8]==0){
+                            EventBus.getDefault().post(new UpdateView(""));
+                        }else if (value[8]==1){
+                            EventBus.getDefault().post(new UpdateView("0"));
+                        }else {
+                            EventBus.getDefault().post(new UpdateView("1"));
+                        }
                     }
+
                 }else {
                     DataParser.newInstance().parseData(value);
                 }

@@ -63,7 +63,7 @@ public class SelectDialPresenterImpl implements ISelectDialPresenter{
         dialRv.setNestedScrollingEnabled(false);
 
         if (iSelectDialView!=null)
-            iSelectDialView.setView(isCircle,dials[0]);
+            iSelectDialView.setView(isCircle,dials[0],picture[0],clock[0]);
 
         dialAdapter.setOnItemClickListener(new DialAdapter.OnItemClickListener() {
             @Override
@@ -82,23 +82,25 @@ public class SelectDialPresenterImpl implements ISelectDialPresenter{
 
     @Override
     public void sendDial(int pictureId, int clock) {
-        int PAGENUM = 8000;//分包长度
-        byte[] datas = ScreenCapture.imageToByte(context, pictureId);
-        int num = datas.length/PAGENUM;
-        num = datas.length%PAGENUM==0?num:num+1;
+        if (pictureId!=-1){
+            int PAGENUM = 8000;//分包长度
+            byte[] datas = ScreenCapture.imageToByte(context, pictureId);
+            int num = datas.length/PAGENUM;
+            num = datas.length%PAGENUM==0?num:num+1;
 
-        if (iSelectDialView!=null)
-            iSelectDialView.setDialProgress(num);
+            if (iSelectDialView!=null)
+                iSelectDialView.setDialProgress(num);
 
-        if (datas.length<=PAGENUM){
-            EXCDController.getInstance().writeForSendImage(datas,1,num,clock, MathUitl.getClockStyle(clock));
-        }else {
-            byte[] newDatas;
-            for (int i=0;i<datas.length;i+=PAGENUM){
-                int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
-                newDatas = new byte[len];
-                System.arraycopy(datas,i,newDatas,0,len);
-                EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,clock,MathUitl.getClockStyle(clock));
+            if (datas.length<=PAGENUM){
+                EXCDController.getInstance().writeForSendImage(datas,1,num,clock, MathUitl.getClockStyle(clock));
+            }else {
+                byte[] newDatas;
+                for (int i=0;i<datas.length;i+=PAGENUM){
+                    int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
+                    newDatas = new byte[len];
+                    System.arraycopy(datas,i,newDatas,0,len);
+                    EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,clock,MathUitl.getClockStyle(clock));
+                }
             }
         }
     }

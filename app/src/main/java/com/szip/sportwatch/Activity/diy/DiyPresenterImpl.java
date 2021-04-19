@@ -70,29 +70,31 @@ public class DiyPresenterImpl implements IDiyPresenter{
 
     @Override
     public void sendDial(Uri resultUri, int clock) {
-        int PAGENUM = 8000;//分包长度
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream(new File(resultUri.getPath()));
-            byte[] buf = new byte[1024];
-            int n;
-            while (-1 != (n = fis.read(buf)))
-                baos.write(buf, 0, n);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        byte[] datas = baos.toByteArray();
-        int num = datas.length/PAGENUM;
-        num = datas.length%PAGENUM==0?num:num+1;
-        if (iDiyView!=null)
-            iDiyView.setDialProgress(num);
-        byte[] newDatas;
-        for (int i=0;i<datas.length;i+=PAGENUM){
-            int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
-            newDatas = new byte[len];
-            System.arraycopy(datas,i,newDatas,0,len);
-            EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,clock,MathUitl.getClockStyle(clock));
+        if (resultUri!=null){
+            int PAGENUM = 8000;//分包长度
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(resultUri.getPath()));
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            byte[] datas = baos.toByteArray();
+            int num = datas.length/PAGENUM;
+            num = datas.length%PAGENUM==0?num:num+1;
+            if (iDiyView!=null)
+                iDiyView.setDialProgress(num);
+            byte[] newDatas;
+            for (int i=0;i<datas.length;i+=PAGENUM){
+                int len = (datas.length-i>PAGENUM)?PAGENUM:(datas.length-i);
+                newDatas = new byte[len];
+                System.arraycopy(datas,i,newDatas,0,len);
+                EXCDController.getInstance().writeForSendImage(newDatas,i/PAGENUM+1,num,clock,MathUitl.getClockStyle(clock));
+            }
         }
     }
 

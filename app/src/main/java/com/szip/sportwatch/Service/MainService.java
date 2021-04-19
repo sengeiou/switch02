@@ -85,15 +85,10 @@ public class MainService extends Service {
 
     private Thread connectThread;//回连线程
     private boolean isThreadRun = true;
+    private int reconnectTimes = 0;
 
     private MediaPlayer mediaPlayer;
     private int volume = 0;
-
-
-    private int errorTimes = 0;//用于统计连接失败次数，如果连接失败次数太多，则提示用户重启手表
-
-    private boolean connectAble = false;//判断是否需要连接
-
 
     private MyApplication app;
 
@@ -105,9 +100,6 @@ public class MainService extends Service {
         return app.isMtk()?WearableManager.getInstance().getConnectState(): BleClient.getInstance().getConnectState();
     }
 
-    public void setConnectAble(boolean connectAble) {
-        this.connectAble = connectAble;
-    }
 
     private WearableListener mWearableListener = new WearableListener() {
 
@@ -119,7 +111,7 @@ public class MainService extends Service {
                 if (newState == WearableManager.STATE_CONNECTED){//连接成功，发送同步数据指令
                     mSevice.startForeground(0103,NotificationView.getInstance().getNotify(true));
                     startThread();//使能线程
-                    errorTimes = 0;
+                    reconnectTimes = 0;
                     String str = getResources().getConfiguration().locale.getLanguage();
                     LogUtil.getInstance().logd("SZIP******","lau = "+str+" loc = "+getResources().getConfiguration().locale.getCountry());
                     if (str.equals("en"))
@@ -157,11 +149,6 @@ public class MainService extends Service {
                             app.getCity());
                 }else if (newState == WearableManager.STATE_CONNECT_LOST){
                     mSevice.startForeground(0103,NotificationView.getInstance().getNotify(false));
-                    if (errorTimes<3){
-                        errorTimes++;
-                    } else{
-                        errorTimes = 0;
-                    }
                 }
             }
         }
@@ -173,15 +160,14 @@ public class MainService extends Service {
 
         @Override
         public void onDeviceScan(BluetoothDevice device) {
-//            if (connectAble){
-//                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
-//                    connectAble = false;
-//                    LogUtil.getInstance().logd("SZIP******","正在搜索="+device.getAddress());
-//                    WearableManager.getInstance().scanDevice(false);
-//                    WearableManager.getInstance().setRemoteDevice(device);
-//                    startConnect();
-//                }
-//            }
+            if (getState()!=3&&getState()!=2){
+                if (device.getAddress().equals(app.getUserInfo().getDeviceCode())){
+                    LogUtil.getInstance().logd("SZIP******","正在搜索="+device.getAddress());
+                    WearableManager.getInstance().scanDevice(false);
+                    WearableManager.getInstance().setRemoteDevice(device);
+                    startConnect();
+                }
+            }
         }
 
         @Override
@@ -536,11 +522,15 @@ public class MainService extends Service {
                                 getState()==WearableManager.STATE_CONNECT_LOST ||
                                 getState()==WearableManager.STATE_NONE){
                             Log.d("SZIP******","断线重连");
-//                            connectAble = true;
                             if (getState()==0||getState()==5){
-                                startConnect();
+                                if (reconnectTimes<3){
+                                    reconnectTimes++;
+                                    startConnect();
+                                }else {
+                                    isThreadRun = false;
+                                    reconnectTimes = 0;
+                                }
                             }
-
                         }
                         try {
                             Thread.sleep(10*1000);
@@ -552,6 +542,11 @@ public class MainService extends Service {
             });
             connectThread.start();
         }
+    }
+
+
+    public void setReconnectTimes(int reconnectTimes) {
+        this.reconnectTimes = reconnectTimes;
     }
 
     @Override

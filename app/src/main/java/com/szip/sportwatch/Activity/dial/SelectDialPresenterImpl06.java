@@ -53,7 +53,7 @@ public class SelectDialPresenterImpl06 implements ISelectDialPresenter{
         dialRv.setNestedScrollingEnabled(false);
 
         if (iSelectDialView!=null)
-            iSelectDialView.setView(isCircle,dials[0]);
+            iSelectDialView.setView(isCircle,dials[0],picture[0],clock[0]);
 
         dialAdapter.setOnItemClickListener(new DialAdapter.OnItemClickListener() {
             @Override
@@ -70,32 +70,34 @@ public class SelectDialPresenterImpl06 implements ISelectDialPresenter{
         });
     }
 
+    private int i = 0;
+    private byte datas[];
+
     @Override
     public void sendDial(int pictureId, int clock) {
-        final int PAGENUM = 128;//分包长度
-        final byte[] datas = ScreenCapture.imageToByte(context, pictureId);
-        int num = datas.length/PAGENUM;
-        num = datas.length%PAGENUM==0?num:num+1;
-        if (iSelectDialView!=null)
-            iSelectDialView.setDialProgress(num);
-        final Timer timer = new Timer();
-        final int[] i = {0};
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                byte[] newDatas;
-                int len = (datas.length- i[0] >PAGENUM)?PAGENUM:(datas.length- i[0]);
-                newDatas = new byte[len];
-                System.arraycopy(datas, i[0],newDatas,0,len);
-                BleClient.getInstance().writeForSendPicture(1,0,0, i[0] /PAGENUM,newDatas);
-                i[0] +=PAGENUM;
-                if (i[0] >=datas.length){
-                    timer.cancel();
-                    BleClient.getInstance().writeForSendPicture(2,0,0,0,new byte[0]);
-                }
+        if (pictureId != -1) {
+            final int PAGENUM = 128;//分包长度
+            final byte[] datas = ScreenCapture.imageToByte(context, pictureId);
+            int num = datas.length / PAGENUM;
+            num = datas.length % PAGENUM == 0 ? num : num + 1;
+            if (iSelectDialView != null)
+                iSelectDialView.setDialProgress(num);
+            this.datas = datas;
+            this.i = 0;
+        }
+        sendByte();
 
-            }
-        };
-        timer.schedule(timerTask,50,200);
+    }
+
+    private void sendByte(){
+        byte[] newDatas;
+        int len = (datas.length- i >128)?128:(datas.length- i);
+        newDatas = new byte[len];
+        System.arraycopy(datas, i,newDatas,0,len);
+        BleClient.getInstance().writeForSendPicture(1,0,0, i/128,newDatas);
+        i+=128;
+        if (i>=datas.length){
+            BleClient.getInstance().writeForSendPicture(2,0,0,0,new byte[0]);
+        }
     }
 }

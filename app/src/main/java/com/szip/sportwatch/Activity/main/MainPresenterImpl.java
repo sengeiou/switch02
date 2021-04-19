@@ -138,12 +138,16 @@ public class MainPresenterImpl implements IMainPrisenter{
         if (MyApplication.getInstance().getUserInfo().getDeviceCode()!=null){//已绑定
             //连接设备
             LogUtil.getInstance().logd("SZIP******","state = "+ WearableManager.getInstance().getConnectState());
-            if (MainService.getInstance().getState() == 1||MainService.getInstance().getState() == 5
-                    ||MainService.getInstance().getState() == 0){
-                BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
-                BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
-                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(MyApplication.getInstance().getUserInfo().getDeviceCode());
-                WearableManager.getInstance().setRemoteDevice(device);
+            if (MainService.getInstance().getState()==WearableManager.STATE_NONE){
+                WearableManager.getInstance().scanDevice(true);
+            }else if (MainService.getInstance().getState() == WearableManager.STATE_CONNECT_LOST||
+                    MainService.getInstance().getState() == WearableManager.STATE_LISTEN){
+                if (MyApplication.getInstance().isMtk()){
+                    BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+                    BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+                    BluetoothDevice device = bluetoothAdapter.getRemoteDevice(MyApplication.getInstance().getUserInfo().getDeviceCode());
+                    WearableManager.getInstance().setRemoteDevice(device);
+                }
                 MainService.getInstance().startConnect();
             }
         }

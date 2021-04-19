@@ -54,9 +54,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private int flagForEt;
 
-    private int touchTimes = 0;//连续点击次数
-    private long firstTime = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +62,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mContext = this;
         initView();
         initEvent();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     @Override
@@ -92,9 +83,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         userEt = findViewById(R.id.userEt);
         passwordEt = findViewById(R.id.passwordEt);
         countryTv = findViewById(R.id.countryTv);
-
         checkBox = findViewById(R.id.checkbox);
-        (findViewById(R.id.privacyTv)).setOnClickListener(this);
+
 
         if (sharedPreferencesp==null)
             sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
@@ -105,7 +95,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             countryTv.setText(getString(R.string.choseCountry));
             countryTv.setTextColor(getResources().getColor(R.color.gray));
         }
-
     }
 
     /**
@@ -116,8 +105,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.forgetTv).setOnClickListener(this);
         findViewById(R.id.registerTv).setOnClickListener(this);
         findViewById(R.id.countryRl).setOnClickListener(this);
-        findViewById(R.id.iconIv).setOnClickListener(this);
         findViewById(R.id.visitorTv).setOnClickListener(this);
+        (findViewById(R.id.privacyTv)).setOnClickListener(this);
         userEt.addTextChangedListener(watcher);
         userEt.setOnFocusChangeListener(focusChangeListener);
         passwordEt.addTextChangedListener(watcher);
@@ -219,20 +208,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                             }
                         }).show();
-                break;
-            case R.id.iconIv:
-                long secondTime = System.currentTimeMillis();
-                if (firstTime==0||secondTime-firstTime>2000){
-                    firstTime = System.currentTimeMillis();
-                    touchTimes = 1;
-                }else{
-                    firstTime = System.currentTimeMillis();
-                    touchTimes++;
-                }
-
-                if (touchTimes == 10){
-
-                }
                 break;
             case R.id.privacyTv:
                 startActivity(new Intent(LoginActivity.this, PrivacyActivity.class));

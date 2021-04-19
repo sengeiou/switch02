@@ -79,12 +79,14 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
             @Override
             public void onClick(View v) {
                 //TODO 保存成功
-                ProgressHudModel.newInstance().show(SelectDialActivity.this,getString(R.string.loading),
-                        getString(R.string.connect_error),10000);
-                if (MyApplication.getInstance().isMtk())
-                    EXCDController.getInstance().initDialInfo();
-                else
-                    BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+                if (!ProgressHudModel.newInstance().isShow()){
+                    ProgressHudModel.newInstance().show(SelectDialActivity.this,getString(R.string.loading),
+                            getString(R.string.connect_error),10000);
+                    if (MyApplication.getInstance().isMtk())
+                        EXCDController.getInstance().initDialInfo();
+                    else
+                        BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+                }
             }
         });
     }
@@ -103,6 +105,7 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
     public void onUpdataView(UpdateView updateView){
         if(updateView.getState().equals("0")){//进度+1
             progress++;
+            iSelectDialPresenter.sendDial(-1,-1);
             ProgressHudModel.newInstance().setProgress(progress);
         }else if (updateView.getState().equals("1")){//完成
             isSendPic = false;
@@ -110,27 +113,30 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
             ProgressHudModel.newInstance().diss();
             showToast(getString(R.string.diyDailOK));
         }else if (updateView.getState().equals("2")){//失败
-            isSendPic = false;
-            progress = 0;
-            showToast(getString(R.string.diyDailError));
-        }else {
-            if (!isSendPic){
-                isSendPic = true;
+            if (isSendPic){
+                isSendPic = false;
                 progress = 0;
                 ProgressHudModel.newInstance().diss();
-                iSelectDialPresenter.sendDial(pictureId,clock);
+                showToast(getString(R.string.diyDailError));
             }
+        }else {
+            isSendPic = true;
+            progress = 0;
+            ProgressHudModel.newInstance().diss();
+            iSelectDialPresenter.sendDial(pictureId,clock);
         }
     }
 
     @Override
-    public void setView(boolean isCircle, int id) {
+    public void setView(boolean isCircle, int id,int pictureId,int clock) {
         if (isCircle){
             changeIv.setImageResource(R.mipmap.change_watch_c);
             dialIv = findViewById(R.id.dialIv_c);
         }else {
             dialIv = findViewById(R.id.dialIv_r);
         }
+        this.pictureId = pictureId;
+        this.clock = clock;
         dialIv.setImageResource(id);
     }
 

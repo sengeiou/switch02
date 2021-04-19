@@ -1,6 +1,7 @@
 package com.szip.sportwatch.Broadcat;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,9 +43,8 @@ public class UtilBroadcat extends BroadcastReceiver {
                 case BluetoothAdapter.STATE_ON:
                     LogUtil.getInstance().logd("aaa", "STATE_ON 手机蓝牙开启");
                     if (MainService.getInstance()!=null)
-                        MainService.getInstance().startConnect();
-//                    MainService.getInstance().stopConnect();
-//                    WearableManager.getInstance().scanDevice(true);
+                        MainService.getInstance().stopConnect();
+                    WearableManager.getInstance().scanDevice(true);
                     break;
                 case BluetoothAdapter.STATE_TURNING_ON:
                     LogUtil.getInstance().logd("aaa", "STATE_TURNING_ON 手机蓝牙正在开启");
@@ -53,6 +53,13 @@ public class UtilBroadcat extends BroadcastReceiver {
         }else if (intent.getAction().equals("android.intent.action.ACTION_SHUTDOWN")){
             LogUtil.getInstance().logd("SZIP******","关机");
             WearableManager.getInstance().disconnect();
+        }else if (intent.getAction().equals(BluetoothDevice.ACTION_ACL_CONNECTED)){
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            if (device.getType()==1&&MainService.getInstance()!=null&&MainService.getInstance().getState()!=3
+                    &&MainService.getInstance().getState()!=2){
+                WearableManager.getInstance().scanDevice(true);
+            }
+            LogUtil.getInstance().logd("SZIP******","蓝牙连接 type = "+device.getType()+" ;address = "+device.getAddress());
         }
     }
 
@@ -60,6 +67,8 @@ public class UtilBroadcat extends BroadcastReceiver {
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         mIntentFilter.addAction("android.intent.action.ACTION_SHUTDOWN");
+        mIntentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+        mIntentFilter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         return mIntentFilter;
     }
 

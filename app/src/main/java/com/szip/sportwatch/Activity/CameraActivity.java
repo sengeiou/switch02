@@ -15,6 +15,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.szip.sportwatch.BLE.BleClient;
@@ -45,6 +46,7 @@ public class CameraActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_camera);
         StatusBarCompat.translucentStatusBar(CameraActivity.this,true);
         mCamera = getCameraInstance(); //通过自己封装的方法，获取Camera类
