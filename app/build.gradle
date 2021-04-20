@@ -6,7 +6,7 @@ android {
         szp {
             storeFile file('E:\\keyStore\\szip.keystore')
             storePassword 'damibao123'
-            keyAlias = 'key'
+            keyAlias 'key'
             keyPassword 'damibao123'
         }
     }
@@ -28,7 +28,6 @@ android {
         versionCode Integer.parseInt(project.VERSION_CODE)
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.szp
     }
     buildTypes {
         release {
@@ -37,6 +36,21 @@ android {
         debug {
             signingConfig signingConfigs.szp
         }
+    }
+    flavorDimensions "SZP"
+    productFlavors {
+        Cloud {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+        }
+
+        Test {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://test.znsdkj.com:8443/sportWatch/"')
+        }
+
     }
 
 }

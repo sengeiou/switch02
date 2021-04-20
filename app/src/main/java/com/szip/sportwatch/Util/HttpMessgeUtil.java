@@ -3,7 +3,7 @@ package com.szip.sportwatch.Util;
 
 import android.content.Context;
 
-
+import com.szip.sportwatch.BuildConfig;
 import com.szip.sportwatch.DB.SaveDataUtil;
 import com.szip.sportwatch.Interface.HttpCallbackWithBase;
 import com.szip.sportwatch.Interface.HttpCallbackWithLogin;
@@ -35,8 +35,7 @@ import static com.szip.sportwatch.MyApplication.FILE;
 public class HttpMessgeUtil {
 
     private static HttpMessgeUtil mInstance;
-    private String url = "https://cloud.znsdkj.com:8443/sportWatch/";
-    //    private String url = "https://test.znsdkj.com:8443/sportWatch/";
+    private String url = BuildConfig.SERVER_URL;
     private String token = "null";
     private String language = "zh-CN";
     private String time;
@@ -45,7 +44,6 @@ public class HttpMessgeUtil {
 
     private HttpCallbackWithBase httpCallbackWithBase;
     private HttpCallbackWithLogin httpCallbackWithLogin;
-    private HttpCallbackWithUserInfo httpCallbackWithUserInfo;
 
     private int GET_VERIFICATION = 100;
     public static int UPDOWN_LOG = 101;
@@ -86,10 +84,6 @@ public class HttpMessgeUtil {
 
     public void setHttpCallbackWithLogin(HttpCallbackWithLogin httpCallbackWithLogin) {
         this.httpCallbackWithLogin = httpCallbackWithLogin;
-    }
-
-    public void setHttpCallbackWithUserInfo(HttpCallbackWithUserInfo httpCallbackWithUserInfo) {
-        this.httpCallbackWithUserInfo = httpCallbackWithUserInfo;
     }
 
     /**
@@ -630,24 +624,6 @@ public class HttpMessgeUtil {
             }
         }
     };
-
-//        private GenericsCallback<UserInfoBean> userInfoBeanGenericsCallback = new GenericsCallback<UserInfoBean>(new JsonGenericsSerializator()) {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(UserInfoBean response, int id) {
-//                if (response.getCode() == 200 || response.getCode() == 401){
-//                    if (httpCallbackWithUserInfo!=null)
-//                        httpCallbackWithUserInfo.onUserInfo(response);
-//                }else {
-//                    ProgressHudModel.newInstance().diss();
-//                    MathUitl.showToast(mContext,response.getMessage());
-//                }
-//            }
-//        };
 
     private GenericsCallback<DownloadDataBean> reportDataBeanGenericsCallback = new GenericsCallback<DownloadDataBean>(new JsonGenericsSerializator()) {
         @Override

@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import com.mediatek.wearable.WearableManager;
+import com.szip.sportwatch.BuildConfig;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.LogUtil;
@@ -22,7 +23,6 @@ public class UtilBroadcat extends BroadcastReceiver {
     }
 
     public UtilBroadcat() {
-
     }
 
     @Override
