@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Activity.BloodOxygenReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -63,25 +63,25 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
     }
 
     private void updateView() {
-        reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0)
             averageTv.setText(reportDataBean.getValue()+70+"%");
         if (reportDataBean.getValue()!=0)
             reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
+        calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
         long start = calendar.getTimeInMillis()/1000;
                 ((TextView)getView().findViewById(R.id.dateTv)).setText(
                 DateUtil.getStringDateFromSecond(
                         start,"yyyy/MM")+ "~" +DateUtil.getStringDateFromSecond(
-                        ((BloodOxygenReportActivity)getActivity()).reportDate,"yyyy/MM"
+                        ((ReportActivity)getActivity()).reportDate,"yyyy/MM"
                 ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithYear(((BloodOxygenReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithYear(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -102,21 +102,21 @@ public class BloodOxygenYearFragment extends BaseFragment implements  View.OnCli
         switch (v.getId()){
             case R.id.rightIv:{
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
+                calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
                 if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
                     calendar.add(Calendar.MONTH,1);
-                    ((BloodOxygenReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    ((ReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
                     EventBus.getDefault().post(new UpdateReport());
                 }
             }
                 break;
             case R.id.leftIv:
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(((BloodOxygenReportActivity)getActivity()).reportDate*1000);
+                calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
                 calendar.add(Calendar.MONTH,-1);
-                ((BloodOxygenReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                ((ReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

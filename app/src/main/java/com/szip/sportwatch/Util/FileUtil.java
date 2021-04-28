@@ -1,15 +1,26 @@
 package com.szip.sportwatch.Util;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 import static android.os.Environment.MEDIA_MOUNTED;
@@ -17,10 +28,7 @@ import static android.os.Environment.getExternalStorageState;
 
 public class FileUtil {
     private static FileUtil mInstance;
-
-    private boolean isSdCard = true;
-
-    private String path;
+    private Context context;
 
     private FileUtil(){
 
@@ -41,31 +49,27 @@ public class FileUtil {
         return mInstance;
     }
 
-    public void initFile(){
-        if (getExternalStorageState().equals(MEDIA_MOUNTED)){
-            this.path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+
-                    "/Camera";
-            Log.d("SZIP******","path = "+path);
-            isSdCard = true;
-        } else{
-            isSdCard = false;
-        }
-
-
-
+    public void initFile(Context context){
+        this.context = context;
     }
 
-    public String writeFileSdcardFile(String fileName, byte[] writeStr) throws IOException {
-        Log.d("SZIP******","write file path= "+path+"/"+fileName+" ;file size = "+writeStr.length);
+    public void writeFileSdcardFile(String fileName, byte[] writeStr){
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Images.Media.DATE_MODIFIED, System.currentTimeMillis() / 1000);
+
+        Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Log.d("SZIP******","路径 = "+uri);
         try {
-            FileOutputStream fout = new FileOutputStream(path+"/"+fileName,true);
+            OutputStream fout = context.getContentResolver().openOutputStream(uri);
             fout.write(writeStr);
             fout.close();
         } catch (Exception e) {
             Log.d("SZIP******","保存失败 = "+e.getMessage());
             e.printStackTrace();
         }
-        return path+"/"+fileName;
     }
 
     public void writeLog(String logPath,byte[] datas){
@@ -95,29 +99,11 @@ public class FileUtil {
         }
     }
 
-    public File renameFile(String name,String oldName,boolean isNull){
-        if (isNull)
-            new File(oldName).delete();
-        else {
-            if (new File(name).length()!=0)
-                new File(name).delete();
-            File file = new File(oldName);
-            if (file.length()!=0)
-                file.renameTo(new File(name));
-            return new File(name);
-        }
-        return null;
-    }
-
     public void deleteFile(String fileName){
         if(fileName!=null) {
             File file = new File(fileName);
             if (file != null)
                 file.delete();
         }
-    }
-
-    public String getPath() {
-        return path;
     }
 }

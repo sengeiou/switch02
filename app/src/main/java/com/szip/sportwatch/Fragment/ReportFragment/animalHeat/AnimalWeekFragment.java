@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Activity.AnimalHeatActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -58,7 +58,7 @@ public class AnimalWeekFragment extends BaseFragment implements View.OnClickList
     }
 
     private void updateView() {
-        reportView.setReportDate(((AnimalHeatActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0){
             if (reportDataBean.getValue()!=0){
@@ -71,22 +71,22 @@ public class AnimalWeekFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
-        if (DateUtil.getTimeOfToday()==((AnimalHeatActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((AnimalHeatActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
+                    ((ReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
                     "~"+getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(
                     DateUtil.getStringDateFromSecond(
-                            ((AnimalHeatActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
+                            ((ReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
                             "~"
                             +DateUtil.getStringDateFromSecond(
-                            ((AnimalHeatActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                            ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
                     ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getAnimalHeatWithWeek(((AnimalHeatActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getAnimalHeatWithWeek(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -113,15 +113,15 @@ public class AnimalWeekFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((AnimalHeatActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((AnimalHeatActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
-                ((AnimalHeatActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

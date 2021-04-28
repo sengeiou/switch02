@@ -45,7 +45,7 @@ public class SportDataListActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sport_data_list);
-        LoadDataUtil.newInstance().initCalendarPoint(7);
+        LoadDataUtil.newInstance().initCalendarPoint("sport");
         initData();
         initView();
         initEvent();

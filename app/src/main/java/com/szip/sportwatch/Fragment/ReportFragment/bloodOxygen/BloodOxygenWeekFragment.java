@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Activity.BloodOxygenReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -61,28 +61,28 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
     }
 
     private void updateView() {
-        reportView.setReportDate(((BloodOxygenReportActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         if (reportDataBean.getValue()!=0)
             averageTv.setText(reportDataBean.getValue()+70+"%");
         if (reportDataBean.getValue()!=0)
             reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
-        if (DateUtil.getTimeOfToday()==((BloodOxygenReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((BloodOxygenReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
+                    ((ReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
                     "~"+getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(
                     DateUtil.getStringDateFromSecond(
-                            ((BloodOxygenReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
+                            ((ReportActivity)getActivity()).reportDate-6*24*60*60,"yyyy/MM/dd")+
                             "~"
                             +DateUtil.getStringDateFromSecond(
-                            ((BloodOxygenReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                            ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
                     ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithWeek(((BloodOxygenReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithWeek(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -102,15 +102,15 @@ public class BloodOxygenWeekFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

@@ -28,6 +28,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
+
 
 public class DIYActivity extends BaseActivity implements IDiyView{
 
@@ -74,7 +76,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        FileUtil.getInstance().deleteFile(getExternalFilesDir(null).getPath()+"/crop.jpg");
+        FileUtil.getInstance().deleteFile(MyApplication.getInstance().getPrivatePath()+"crop.jpg");
     }
 
     private void initEvent() {
@@ -135,7 +137,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
             case 1:{
                 if (data==null||data.getData()==null)
                     return;
-                if(MathUitl.isJpgFile(getContentResolver().query(data.getData(), proj, null, null, null))){
+                if(MathUitl.isJpgFile(data.getData(),this)){
                     iDiyPresenter.cropPhoto(data.getData());
                 }else {
                     showToast(getString(R.string.chooseJpg));
@@ -146,7 +148,12 @@ public class DIYActivity extends BaseActivity implements IDiyView{
             case  UCrop.REQUEST_CROP:{
                 if (data!=null){
                     resultUri = UCrop.getOutput(data);
-                    backgroundIv.setImageURI(resultUri);
+                    try {
+                        backgroundIv.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     if (findViewById(R.id.bottomRl).getVisibility()==View.GONE){
                         findViewById(R.id.bottomRl).setVisibility(View.VISIBLE);
                     }

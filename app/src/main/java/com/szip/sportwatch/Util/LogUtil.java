@@ -3,6 +3,8 @@ package com.szip.sportwatch.Util;
 import android.content.Context;
 import android.util.Log;
 
+import com.szip.sportwatch.MyApplication;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
@@ -57,14 +59,14 @@ public class LogUtil {
 
     public void writeEvent(String tag,String msg){
 
-        FileUtil.getInstance().writeLog(context.getExternalFilesDir(null).getPath()+"/"+
+        FileUtil.getInstance().writeLog(MyApplication.getInstance().getPrivatePath()+
                 DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + ".txt",
                 (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd HH:mm:ss")+"|"+tag+
                         "|"+msg+"\r").getBytes());
     }
     public void writeEventForHttp(String tag,String msg){
 
-        FileUtil.getInstance().writeLog(context.getExternalFilesDir(null).getPath()+"/"+
+        FileUtil.getInstance().writeLog(MyApplication.getInstance().getPrivatePath()+
                         DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + "http.txt",
                 (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd HH:mm:ss")+"|"+tag+
                         "|"+msg+"\r").getBytes());

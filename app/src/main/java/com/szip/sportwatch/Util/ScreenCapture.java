@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 
 import static java.lang.System.in;
@@ -50,13 +51,13 @@ public class ScreenCapture {
 		try {
 			// 获取内置SD卡路径
 
-			String sdCardPath = activity.getExternalFilesDir(null).getPath();
+			String sdCardPath = MyApplication.getInstance().getPrivatePath();
 			File fileDir = new File(sdCardPath);
 			if (!fileDir.exists()) {
 				fileDir.mkdir();
 			}
 			// 图片文件路径
-			filePath= sdCardPath+"/"+getCurrentTime()+".jpg";
+			filePath= sdCardPath+"share.jpg";
 			File file = new File(filePath);
 			FileOutputStream os = new FileOutputStream(file);
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
@@ -95,13 +96,13 @@ public class ScreenCapture {
 		try {
 			// 获取内置SD卡路径
 
-			String sdCardPath = activity.getExternalFilesDir(null).getPath();
+			String sdCardPath = MyApplication.getInstance().getPrivatePath();
 			File fileDir = new File(sdCardPath);
 			if (!fileDir.exists()) {
 				fileDir.mkdir();
 			}
 			// 图片文件路径
-			filePath= sdCardPath+"/"+getCurrentTime()+".jpg";
+			filePath= sdCardPath+getCurrentTime()+"share.jpg";
 			File file = new File(filePath);
 			FileOutputStream os = new FileOutputStream(file);
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);

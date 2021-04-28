@@ -278,7 +278,7 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String photoName = context.getExternalFilesDir(null).getPath()+"/camera.jpg";
+                String photoName = MyApplication.getInstance().getPrivatePath()+"camera.jpg";
                 File file = new File(photoName);
                 Uri photoURI = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -314,7 +314,7 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
         try {
             Uri path = uri;
             //临时用一个名字用来保存裁剪后的图片
-            String fileName = context.getExternalFilesDir(null).getPath()+"/crop.jpg";
+            String fileName = MyApplication.getInstance().getPrivatePath()+"crop.jpg";
             File file = new File(fileName);
             file.getParentFile().mkdirs();
             Uri target = Uri.fromFile(file);

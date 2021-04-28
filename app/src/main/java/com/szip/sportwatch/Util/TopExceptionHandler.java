@@ -7,6 +7,8 @@ import android.os.Build;
 import android.util.Log;
 
 
+import com.szip.sportwatch.MyApplication;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -51,7 +53,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             HttpMessgeUtil.getInstance().postAppCrashLog("iSmarport",mContext.getApplicationContext().
                     getPackageManager().getPackageInfo("com.szip.sportwatch", 0).versionName, Build.BRAND+ Build.MODEL,report);
 
-            FileUtil.getInstance().writeLog(mContext.getExternalFilesDir(null).getPath()+"/"+
+            FileUtil.getInstance().writeLog(MyApplication.getInstance().getPrivatePath()+
                             DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd") + "error.txt",
                     (DateUtil.getStringDateFromSecond(Calendar.getInstance().getTimeInMillis()/1000,"yyyy-MM-dd hh:mm:ss")+"|"+"error"+
                             "|"+report+"\r").getBytes());

@@ -19,13 +19,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
-import com.szip.sportwatch.Activity.AnimalHeatActivity;
-import com.szip.sportwatch.Activity.BloodOxygenReportActivity;
-import com.szip.sportwatch.Activity.BloodPressureReportActivity;
 import com.szip.sportwatch.Activity.EcgListActivity;
-import com.szip.sportwatch.Activity.HeartReportActivity;
-import com.szip.sportwatch.Activity.SleepReportActivity;
-import com.szip.sportwatch.Activity.StepReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Activity.userInfo.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.dbModel.HealthyConfig;
@@ -36,6 +31,7 @@ import com.szip.sportwatch.Model.HealthyDataModel;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
@@ -99,7 +95,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
 
     private ViewUtil viewUtil;
 
-
+    private Intent intent;
 
     private HealthyConfig healthyConfig;
 
@@ -111,6 +107,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
         app = (MyApplication) getActivity().getApplicationContext();
+        intent = new Intent(getActivity(), ReportActivity.class);
         initView();
         initEvent();
         initWeather();
@@ -358,28 +355,33 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                     startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.stepRl:
-                startActivity(new Intent(getActivity(), StepReportActivity.class));
+                intent.putExtra("type","step");
+                startActivity(intent);
                 break;
             case R.id.sleepRl:
-                startActivity(new Intent(getActivity(), SleepReportActivity.class));
+                intent.putExtra("type","sleep");
+                startActivity(intent);
                 break;
             case R.id.heartRl:
-                startActivity(new Intent(getActivity(), HeartReportActivity.class));
+                intent.putExtra("type","heart");
+                startActivity(intent);
                 break;
             case R.id.bloodPressureRl:
-                startActivity(new Intent(getActivity(), BloodPressureReportActivity.class));
+                intent.putExtra("type","bp");
+                startActivity(intent);
                 break;
             case R.id.bloodOxygenRl:
-                startActivity(new Intent(getActivity(), BloodOxygenReportActivity.class));
+                intent.putExtra("type","bo");
+                startActivity(intent);
                 break;
             case R.id.animalHeatRl:
-                startActivity(new Intent(getActivity(), AnimalHeatActivity.class));
+                intent.putExtra("type","temp");
+                startActivity(intent);
                 break;
             case R.id.ecgRl:
                 startActivity(new Intent(getActivity(), EcgListActivity.class));
                 break;
             case R.id.weatherLl:
-//                MyApplication.getInstance().setBtMac("C0:EA:4B:46:90:AA");
                 locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
                 LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
                 getView().findViewById(R.id.weatherLl).setClickable(false);
@@ -435,7 +437,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
                                                             BleClient.getInstance().writeForSetWeather(app.getWeatherModel(),app.getCity());
                                                             BleClient.getInstance().writeForSetElevation();
                                                         }
-
                                                     }
                                                 });
                                             }

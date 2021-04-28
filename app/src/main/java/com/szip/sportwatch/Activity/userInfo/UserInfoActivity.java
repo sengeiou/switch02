@@ -241,7 +241,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
         switch (requestCode){
             case IMAGE_CAPTURE:{// 相机
-                File file = new File(getExternalFilesDir(null).getPath()+"/camera.jpg");
+                File file = new File(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
                 if (file.exists()) {
                     Uri uri;
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -261,7 +261,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
             case  UCrop.REQUEST_CROP:{
                 if (data!=null){
-                    iUserInfoPresenter.updownPhoto(new File(getExternalFilesDir(null).getPath()+"/crop.jpg"));
+                    iUserInfoPresenter.updownPhoto(new File(MyApplication.getInstance().getPrivatePath()+"crop.jpg"));
                 }
             }
                 break;

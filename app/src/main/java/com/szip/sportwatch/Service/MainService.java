@@ -681,90 +681,90 @@ public class MainService extends Service {
     }
 
 
-    private DownloadManager downloadManager;
-    private long mTaskId;
+//    private DownloadManager downloadManager;
+//    private long mTaskId;
 
-    /**
-     * 下载文件
-     * */
-    public void downloadFirmsoft(String versionUrl, String versionName) {
-
-        File file = new File(getExternalFilesDir(null).getPath() + "/iSmarport.apk");
-        if (file.exists()){
-            file.delete();
-        }
-        //创建下载任务
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(versionUrl));
-        request.setAllowedOverRoaming(false);//漫游网络是否可以下载
-
-        //设置文件类型，可以在下载结束后自动打开该文件
-        request.setMimeType("application/vnd.android.package-archive");
-
-        //在通知栏中显示，默认就是显示的
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setVisibleInDownloadsUi(true);
-
-        //sdcard的目录下的download文件夹，必须设置
-        request.setDestinationInExternalFilesDir(MainService.this, "/",versionName);
-
-        //将下载请求加入下载队列
-        downloadManager = (DownloadManager) MainService.this.getSystemService(Context.DOWNLOAD_SERVICE);
-        //加入下载队列后会给该任务返回一个long型的id，
-        //通过该id可以取消任务，重启任务等等
-        mTaskId = downloadManager.enqueue(request);
-
-        //注册广播接收者，监听下载状态
-        MainService.this.registerReceiver(receiver,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-    }
-
-    //广播接受者，接收下载状态
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
-                checkDownloadStatus();
-            }
-        }
-    };
-
-    private void checkDownloadStatus() {
-        DownloadManager.Query query = new DownloadManager.Query();
-        query.setFilterById(mTaskId);//筛选下载任务，传入任务ID，可变参数
-        Cursor c = downloadManager.query(query);
-        if (c.moveToFirst()) {
-            int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-            switch (status) {
-                case DownloadManager.STATUS_PAUSED:
-                    //Log.d("SZIP******",">>>下载暂停");
-                case DownloadManager.STATUS_PENDING:
-                    //Log.d("SZIP******",">>>下载延迟");
-                case DownloadManager.STATUS_RUNNING:
-                    //Log.d("SZIP******",">>>正在下载");
-                    break;
-                case DownloadManager.STATUS_SUCCESSFUL:
-                    Log.d("SZIP******",">>>下载完成");
-                    installApk();
-//                    EventBus.getDefault().post(new ConnectBean(1));
-                    break;
-                case DownloadManager.STATUS_FAILED:
-                    //Log.d("SZIP******",">>>下载失败");
-                    break;
-            }
-        }
-    }
-
-    private void installApk() {
-        Intent updateApk = new Intent(Intent.ACTION_VIEW);
-        File apkFile = new File(getExternalFilesDir(null).getPath()+"/iSmarport.apk");
-        Log.e("SZIP******",apkFile.toString());
-        Uri uri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", apkFile);
-        Log.e("SZIP******",uri.toString());
-        updateApk.setDataAndType(uri, "application/vnd.android.package-archive");
-        updateApk.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        updateApk.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(updateApk);
-    }
+//    /**
+//     * 下载文件
+//     * */
+//    public void downloadFirmsoft(String versionUrl, String versionName) {
+//
+//        File file = new File(getExternalFilesDir(null).getPath() + "/iSmarport.apk");
+//        if (file.exists()){
+//            file.delete();
+//        }
+//        //创建下载任务
+//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(versionUrl));
+//        request.setAllowedOverRoaming(false);//漫游网络是否可以下载
+//
+//        //设置文件类型，可以在下载结束后自动打开该文件
+//        request.setMimeType("application/vnd.android.package-archive");
+//
+//        //在通知栏中显示，默认就是显示的
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+//        request.setVisibleInDownloadsUi(true);
+//
+//        //sdcard的目录下的download文件夹，必须设置
+//        request.setDestinationInExternalFilesDir(MainService.this, "/",versionName);
+//
+//        //将下载请求加入下载队列
+//        downloadManager = (DownloadManager) MainService.this.getSystemService(Context.DOWNLOAD_SERVICE);
+//        //加入下载队列后会给该任务返回一个long型的id，
+//        //通过该id可以取消任务，重启任务等等
+//        mTaskId = downloadManager.enqueue(request);
+//
+//        //注册广播接收者，监听下载状态
+//        MainService.this.registerReceiver(receiver,
+//                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+//    }
+//
+//    //广播接受者，接收下载状态
+//    private BroadcastReceiver receiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+//                checkDownloadStatus();
+//            }
+//        }
+//    };
+//
+//    private void checkDownloadStatus() {
+//        DownloadManager.Query query = new DownloadManager.Query();
+//        query.setFilterById(mTaskId);//筛选下载任务，传入任务ID，可变参数
+//        Cursor c = downloadManager.query(query);
+//        if (c.moveToFirst()) {
+//            int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
+//            switch (status) {
+//                case DownloadManager.STATUS_PAUSED:
+//                    //Log.d("SZIP******",">>>下载暂停");
+//                case DownloadManager.STATUS_PENDING:
+//                    //Log.d("SZIP******",">>>下载延迟");
+//                case DownloadManager.STATUS_RUNNING:
+//                    //Log.d("SZIP******",">>>正在下载");
+//                    break;
+//                case DownloadManager.STATUS_SUCCESSFUL:
+//                    Log.d("SZIP******",">>>下载完成");
+//                    installApk();
+////                    EventBus.getDefault().post(new ConnectBean(1));
+//                    break;
+//                case DownloadManager.STATUS_FAILED:
+//                    //Log.d("SZIP******",">>>下载失败");
+//                    break;
+//            }
+//        }
+//    }
+//
+//    private void installApk() {
+//        Intent updateApk = new Intent(Intent.ACTION_VIEW);
+//        File apkFile = new File(getExternalFilesDir(null).getPath()+"/iSmarport.apk");
+//        Log.e("SZIP******",apkFile.toString());
+//        Uri uri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", apkFile);
+//        Log.e("SZIP******",uri.toString());
+//        updateApk.setDataAndType(uri, "application/vnd.android.package-archive");
+//        updateApk.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        updateApk.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        this.startActivity(updateApk);
+//    }
 
 
 }

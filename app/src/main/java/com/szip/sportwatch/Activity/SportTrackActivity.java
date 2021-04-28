@@ -42,7 +42,6 @@ public class SportTrackActivity extends BaseActivity implements View.OnClickList
 
     private SportData sportData;
 
-    private ScrollView view;
     private BaseFragment fragment = null;
 
     @Override

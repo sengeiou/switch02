@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.StepReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
@@ -72,17 +72,17 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
             distanceTv.setText(String.format(Locale.ENGLISH,"%.2f", MathUitl.metric2Miles(reportDataBean.getValue1())));
             ((TextView)getView().findViewById(R.id.unitTv)).setText("mile");
         }
-        if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((StepReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                    ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
             ));
     }
 
     private void initData() {
         reportDataBean = LoadDataUtil.newInstance().
-                getStepWithDay(((StepReportActivity)getActivity()).reportDate);
+                getStepWithDay(((ReportActivity)getActivity()).reportDate);
 
     }
 
@@ -104,15 +104,15 @@ public class StepDayFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

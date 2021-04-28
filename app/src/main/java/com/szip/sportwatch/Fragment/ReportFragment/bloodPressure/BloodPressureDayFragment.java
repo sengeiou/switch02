@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Adapter.BloodAdapter;
-import com.szip.sportwatch.Activity.BloodPressureReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.OnPageViewScorllAble;
@@ -32,7 +32,7 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
 
     private ReportScorllView reportScorllView;
 
-    private BloodPressureReportActivity activity;
+    private ReportActivity activity;
 
     private ListView listView;
     private BloodAdapter adapter;
@@ -74,21 +74,21 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
         ArrayList<DrawDataBean> list = reportDataBean.getDrawDataBeans();
         Collections.sort(list);
         adapter.setDrawDataBeans(list);
-        if (DateUtil.getTimeOfToday()==((BloodPressureReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((BloodPressureReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                    ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
             ));
     }
 
-    public void setActivity(BloodPressureReportActivity activity) {
+    public void setActivity(ReportActivity activity) {
         this.activity = activity;
     }
 
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getBloodPressureWithDay(((BloodPressureReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getBloodPressureWithDay(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -115,15 +115,15 @@ public class BloodPressureDayFragment extends BaseFragment implements OnPageView
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((BloodPressureReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodPressureReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
-                ((BloodPressureReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

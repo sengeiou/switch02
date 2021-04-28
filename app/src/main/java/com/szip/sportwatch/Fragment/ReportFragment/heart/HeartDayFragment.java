@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.szip.sportwatch.Activity.HeartReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -68,16 +68,16 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
             maxTv.setText("--");
             minTv.setText("--");
         }
-        if (DateUtil.getTimeOfToday()==((HeartReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((HeartReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                    ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
             ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getHeartWithDay(((HeartReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getHeartWithDay(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -98,16 +98,16 @@ public class HeartDayFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((HeartReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((HeartReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
-                ((HeartReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

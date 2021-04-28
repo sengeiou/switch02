@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.DrawDataBean;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
@@ -77,11 +77,11 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
             deepTv.setText("--h--min");
             lightTv.setText("--h--min");
         }
-        if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((SleepReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                    ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
             ));
     }
 
@@ -100,7 +100,7 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getSleepWithDay(((SleepReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getSleepWithDay(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -121,16 +121,16 @@ public class SleepDayFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
-                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

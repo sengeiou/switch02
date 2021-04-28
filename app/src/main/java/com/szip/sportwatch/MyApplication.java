@@ -81,7 +81,8 @@ public class MyApplication extends Application{
     private BluetoothAdapter btAdapt;
 
     private boolean isNewVersion = false;
-    private String versionUrl = null;
+
+    private String privatePath;
 
     public void setBtMac(final String btMac) {
         if (BtMac==null||!btMac.split(":")[0].equals(BtMac.split(":")[0])){
@@ -137,7 +138,8 @@ public class MyApplication extends Application{
         LogUtil.getInstance().init(this);
 
         //初始化文件存储
-        FileUtil.getInstance().initFile();
+        privatePath = getExternalFilesDir(null).getPath()+"/";
+        FileUtil.getInstance().initFile(this);
         //注册网络回调
         HttpMessgeUtil.getInstance().init(this);
         //初始化通知栏
@@ -164,7 +166,6 @@ public class MyApplication extends Application{
         heartSwitch = sharedPreferences.getBoolean("heartSwitch",false);
         //获取手机缓存的自动更新信息
         isNewVersion = sharedPreferences.getBoolean("version",false);
-        versionUrl = sharedPreferences.getString("versionUrl",null);
         if (sharedPreferences.getBoolean("first",true)){
             initIgnoreList();
             sharedPreferences.edit().putBoolean("first",false).commit();
@@ -248,6 +249,11 @@ public class MyApplication extends Application{
        startUpdownThread();
     }
 
+
+    public String getPrivatePath() {
+        return privatePath;
+    }
+
     /**
      * 倒计时累计一个小时就上传一次数据到云端
      * */
@@ -267,7 +273,7 @@ public class MyApplication extends Application{
                     }
                 }
 
-                if (getUserInfo().getDeviceCode()!=null){
+                if (userInfo!=null&&userInfo.getDeviceCode()!=null){
                     try {
                         String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
                         HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
@@ -358,9 +364,7 @@ public class MyApplication extends Application{
     }
 
     public String getCity() {
-        if (city==null)
-            city = sharedPreferences.getString("city",null);
-        return city;
+        return sharedPreferences.getString("city",null);
     }
 
     public float getElevation(){
@@ -374,7 +378,6 @@ public class MyApplication extends Application{
             SharedPreferences.Editor editor = sharedPreferences.edit();
             JSONArray array = null;
             array = new JSONArray(gson.toJson(weatherModel));
-            Log.d("SZIP******", "weather = "+array.toString());
             editor.putString("weatherList",array.toString());
             editor.putString("city",weatherBean.getData().getLocation().getCity());
             editor.putFloat("elevation",weatherBean.getData().getLocation().getElevation());
@@ -422,32 +425,6 @@ public class MyApplication extends Application{
         return LoadDataUtil.newInstance().getDialConfig(Integer.valueOf(deviceNum));
     }
 
-//    public void getDeviceConfig(){
-//        try {
-//            HttpMessgeUtil.getInstance().getDeviceConfig(new GenericsCallback<DeviceConfigBean>(new JsonGenericsSerializator()) {
-//                @Override
-//                public void onError(Call call, Exception e, int id) {
-//
-//                }
-//
-//                @Override
-//                public void onResponse(DeviceConfigBean response, int id) {
-//                    if (response.getCode()==200){
-//                        ArrayList<HealthyConfig> data = new ArrayList<>();
-//                        SaveDataUtil.newInstance().saveConfigListData(response.getData());
-//                        for (SportWatchAppFunctionConfigDTO configDTO:response.getData()){
-//                            configDTO.getHealthMonitorConfig().identifier = configDTO.identifier;
-//                            data.add(configDTO.getHealthMonitorConfig());
-//                        }
-//                        SaveDataUtil.newInstance().saveHealthyConfigListData(data);
-//                    }
-//                }
-//            });
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public void setMtk(String deviceName) {
         isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
         sharedPreferences.edit().putBoolean("bleConfig",isMtk).commit();
@@ -463,16 +440,6 @@ public class MyApplication extends Application{
         if (sharedPreferences!=null)
             sharedPreferences.edit().putBoolean("version",newVersion).commit();
 
-    }
-
-    public String getVersionUrl() {
-        return versionUrl;
-    }
-
-    public void setVersionUrl(String versionUrl) {
-        this.versionUrl = versionUrl;
-        if (sharedPreferences!=null)
-            sharedPreferences.edit().putString("versionUrl",versionUrl).commit();
     }
 
     public boolean isMtk() {

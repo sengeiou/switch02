@@ -1,2 +1,3 @@
+include ':run'
 include ':standard'
 include ':app', ':okhttputils', ':citypicker', ':ncalendar', ':library'

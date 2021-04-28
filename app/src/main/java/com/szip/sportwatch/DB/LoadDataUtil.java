@@ -1093,7 +1093,7 @@ public class LoadDataUtil {
     /**
      * 初始化日历中有数据的天数（画黄点）
      * */
-    public void initCalendarPoint(int flag){
+    public void initCalendarPoint(String type){
         List<LocalDate> dataList = new ArrayList<>();
 
         List<StepData> stepDataList = new ArrayList<>();
@@ -1104,8 +1104,8 @@ public class LoadDataUtil {
         List<EcgData> ecgDataList = new ArrayList<>();
         List<SportData> sportDataList = new ArrayList<>();
         List<AnimalHeatData> animalHeatDataList = new ArrayList<>();
-        switch (flag){
-            case 1:
+        switch (type){
+            case "step":
                 stepDataList = SQLite.select()
                         .from(StepData.class)
                         .queryList();
@@ -1114,7 +1114,7 @@ public class LoadDataUtil {
                         dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(stepData.time,"yyyy-MM-dd")));
                 }
                 break;
-            case 2:
+            case "sleep":
                 sleepDataList = SQLite.select()
                         .from(SleepData.class)
                         .queryList();
@@ -1124,7 +1124,7 @@ public class LoadDataUtil {
                         dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(sleepData.time,"yyyy-MM-dd")));
                 }
                 break;
-            case 3:
+            case "heart":
                 heartDataList = SQLite.select()
                         .from(HeartData.class)
                         .queryList();
@@ -1133,7 +1133,7 @@ public class LoadDataUtil {
                         dataList.add(new LocalDate(DateUtil.getStringDateFromSecond(heartData.time,"yyyy-MM-dd")));
                 }
                 break;
-            case 4:
+            case "bp":
                 bloodPressureDataList = SQLite.select()
                         .from(BloodPressureData.class)
                         .queryList();
@@ -1143,7 +1143,7 @@ public class LoadDataUtil {
                         dataList.add(localDate);
                 }
                 break;
-            case 5:
+            case "bo":
                 bloodOxygenDataList = SQLite.select()
                         .from(BloodOxygenData.class)
                         .queryList();
@@ -1153,7 +1153,7 @@ public class LoadDataUtil {
                         dataList.add(localDate);
                 }
                 break;
-            case 6:
+            case "ecg":
                 ecgDataList = SQLite.select()
                         .from(EcgData.class)
                         .queryList();
@@ -1163,7 +1163,7 @@ public class LoadDataUtil {
                         dataList.add(localDate);
                 }
                 break;
-            case 7:
+            case "sport":
                 sportDataList = SQLite.select()
                         .from(SportData.class)
                         .queryList();
@@ -1173,7 +1173,7 @@ public class LoadDataUtil {
                         dataList.add(localDate);
                 }
                 break;
-            case 8:
+            case "temp":
                 animalHeatDataList = SQLite.select()
                         .from(AnimalHeatData.class)
                         .queryList();

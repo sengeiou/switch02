@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.StepReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
@@ -63,27 +63,27 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void updateView() {
-        reportView.setReportDate(((StepReportActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
         reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
-        if (DateUtil.getTimeOfToday()==((StepReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((StepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
+                    ((ReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
                     "~"+getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(
                     DateUtil.getStringDateFromSecond(
-                            ((StepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
+                            ((ReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
                             "~"
                             +DateUtil.getStringDateFromSecond(
-                            ((StepReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                            ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
                     ));
     }
 
     private void initData() {
         reportDataBean = LoadDataUtil.newInstance().
-                getStepWithMonth(((StepReportActivity)getActivity()).reportDate,
+                getStepWithMonth(((ReportActivity)getActivity()).reportDate,
                 app.getUserInfo().getStepsPlan());
     }
 
@@ -104,16 +104,16 @@ public class StepMonthFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((StepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((StepReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
-                ((StepReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.szip.sportwatch.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.StepReportActivity;
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
@@ -65,23 +65,23 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void updateView() {
-        reportView.setReportDate(((StepReportActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allStepTv.setText(reportDataBean.getValue()+"");
         reachTv.setText(String.format(Locale.ENGLISH,"%.1f%%",reportDataBean.getValue1()/10f));
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
+        calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
         calendar.add(Calendar.MONTH,-11);
         long start = calendar.getTimeInMillis()/1000;
         ((TextView)getView().findViewById(R.id.dateTv)).setText(
                 DateUtil.getStringDateFromSecond(
                         start,"yyyy/MM")+ "~" +DateUtil.getStringDateFromSecond(
-                        ((StepReportActivity)getActivity()).reportDate,"yyyy/MM"
+                        ((ReportActivity)getActivity()).reportDate,"yyyy/MM"
                 ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getStepWithYear(((StepReportActivity)getActivity()).reportDate,
+        reportDataBean = LoadDataUtil.newInstance().getStepWithYear(((ReportActivity)getActivity()).reportDate,
                 app.getUserInfo().getStepsPlan()*30);
     }
 
@@ -103,21 +103,21 @@ public class StepYearFragment extends BaseFragment implements View.OnClickListen
         switch (v.getId()){
             case R.id.rightIv:{
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
+                calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
                 if (calendar.get(Calendar.MONTH)==month)
                     showToast(getString(R.string.tomorrow));
                 else{
                     calendar.add(Calendar.MONTH,1);
-                    ((StepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                    ((ReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
                     EventBus.getDefault().post(new UpdateReport());
                 }
             }
                 break;
             case R.id.leftIv:
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(((StepReportActivity)getActivity()).reportDate*1000);
+                calendar.setTimeInMillis(((ReportActivity)getActivity()).reportDate*1000);
                 calendar.add(Calendar.MONTH,-1);
-                ((StepReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
+                ((ReportActivity)getActivity()).reportDate = calendar.getTimeInMillis()/1000;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

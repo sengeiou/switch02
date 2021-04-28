@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Adapter.BloodAdapter;
-import com.szip.sportwatch.Activity.BloodOxygenReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Interface.OnPageViewScorllAble;
@@ -32,7 +32,7 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
 
     private ReportScorllView reportScorllView;
 
-    private BloodOxygenReportActivity activity;
+    private ReportActivity activity;
 
     private ListView listView;
     private BloodAdapter adapter;
@@ -75,16 +75,16 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
         ArrayList<DrawDataBean> list = reportDataBean.getDrawDataBeans();
         Collections.sort(list);
         adapter.setDrawDataBeans(list);
-        if (DateUtil.getTimeOfToday()==((BloodOxygenReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((BloodOxygenReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                    ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
             ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithDay(((BloodOxygenReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getBloodOxygenWithDay(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -101,7 +101,7 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
             activity.setViewPagerScroll(scrollAble);
     }
 
-    public void setActivity(BloodOxygenReportActivity activity) {
+    public void setActivity(ReportActivity activity) {
         this.activity = activity;
     }
 
@@ -115,15 +115,15 @@ public class BloodOxygenDayFragment extends BaseFragment implements OnPageViewSc
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((BloodOxygenReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((BloodOxygenReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
                 break;
             case R.id.leftIv:
-                ((BloodOxygenReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

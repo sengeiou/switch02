@@ -59,6 +59,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -71,6 +72,7 @@ import java.util.UUID;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
+import static android.text.TextUtils.concat;
 import static android.text.TextUtils.isEmpty;
 import static com.szip.sportwatch.MyApplication.FILE;
 
@@ -857,6 +859,7 @@ public class MathUitl {
         Log.d("SZIP******","res = "+res);
 
         try {
+
             FileInputStream bin = new FileInputStream(new File(res));
             int b[] = new int[4];
             b[0] = bin.read();
@@ -865,6 +868,41 @@ public class MathUitl {
             b[2] = bin.read();
             b[3] = bin.read();
             bin.close();
+
+            Log.d("SZIP******","head = "+String.format("%02X%02X%02X%02X",b[0],b[1],b[2],b[3]));
+            return b[0] == 255;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isJpgFile(Uri cursor,Context context){
+        String res = null;
+
+//        if(cursor.moveToFirst()){
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            res = cursor.getString(column_index);
+//        }
+//        cursor.close();
+        Log.d("SZIP******","res = "+cursor);
+
+        try {
+
+            InputStream bin = context.getContentResolver().openInputStream(cursor);
+            int b[] = new int[4];
+            b[0] = bin.read();
+            b[1] = bin.read();
+            bin.skip(bin.available() - 2);
+            b[2] = bin.read();
+            b[3] = bin.read();
+            bin.close();
+
+            Log.d("SZIP******","head = "+String.format("%02X%02X%02X%02X",b[0],b[1],b[2],b[3]));
             return b[0] == 255;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

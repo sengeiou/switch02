@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NETWORK_PROVIDER" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -21,17 +21,16 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/sport_map_icon"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/sport_map_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".Activity.ProxyActivity"></activity>
         <activity
             android:name=".Activity.UpdateFirmwareActivity"
             android:screenOrientation="portrait" />
@@ -40,9 +39,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.dial.SelectDialActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.AnimalHeatActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.FeedbackActivity"
@@ -96,19 +92,7 @@
             android:name=".Activity.UnitSelectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.StepReportActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.SleepReportActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.HeartReportActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.BloodPressureReportActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.BloodOxygenReportActivity"
+            android:name=".Activity.report.ReportActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.BluetoochCallActivity"

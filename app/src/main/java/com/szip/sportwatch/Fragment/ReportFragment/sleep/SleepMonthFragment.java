@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szip.sportwatch.Activity.report.ReportActivity;
 import com.szip.sportwatch.Fragment.BaseFragment;
-import com.szip.sportwatch.Activity.SleepReportActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateReport;
 import com.szip.sportwatch.Model.ReportDataBean;
@@ -59,26 +59,26 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     }
 
     private void updateView() {
-        reportView.setReportDate(((SleepReportActivity)getActivity()).reportDate);
+        reportView.setReportDate(((ReportActivity)getActivity()).reportDate);
         reportView.addData(reportDataBean.getDrawDataBeans());
         allSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue()/60f));
         averageSleepTv.setText(String.format(Locale.ENGLISH,"%.1fh",reportDataBean.getValue1()/60f));
-        if (DateUtil.getTimeOfToday()==((SleepReportActivity)getActivity()).reportDate)
+        if (DateUtil.getTimeOfToday()==((ReportActivity)getActivity()).reportDate)
             ((TextView)getView().findViewById(R.id.dateTv)).setText(DateUtil.getStringDateFromSecond(
-                    ((SleepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
+                    ((ReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
                     "~"+getString(R.string.today));
         else
             ((TextView)getView().findViewById(R.id.dateTv)).setText(
                     DateUtil.getStringDateFromSecond(
-                            ((SleepReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
+                            ((ReportActivity)getActivity()).reportDate-27*24*60*60,"yyyy/MM/dd")+
                             "~"
                             +DateUtil.getStringDateFromSecond(
-                            ((SleepReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
+                            ((ReportActivity)getActivity()).reportDate,"yyyy/MM/dd"
                     ));
     }
 
     private void initData() {
-        reportDataBean = LoadDataUtil.newInstance().getSleepWithMonth(((SleepReportActivity)getActivity()).reportDate);
+        reportDataBean = LoadDataUtil.newInstance().getSleepWithMonth(((ReportActivity)getActivity()).reportDate);
     }
 
     private void initView() {
@@ -97,16 +97,16 @@ public class SleepMonthFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rightIv:
-                if (((SleepReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
+                if (((ReportActivity)getActivity()).reportDate==DateUtil.getTimeOfToday())
                     showToast(getString(R.string.tomorrow));
                 else{
-                    ((SleepReportActivity)getActivity()).reportDate+=24*60*60;
+                    ((ReportActivity)getActivity()).reportDate+=24*60*60;
                     EventBus.getDefault().post(new UpdateReport());
                 }
 
                 break;
             case R.id.leftIv:
-                ((SleepReportActivity)getActivity()).reportDate-=24*60*60;
+                ((ReportActivity)getActivity()).reportDate-=24*60*60;
                 EventBus.getDefault().post(new UpdateReport());
                 break;
         }

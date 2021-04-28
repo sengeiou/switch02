@@ -32,7 +32,7 @@ public class EcgListActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_ecg_list);
-        LoadDataUtil.newInstance().initCalendarPoint(6);
+        LoadDataUtil.newInstance().initCalendarPoint("ecg");
         initData();
         initView();
         initEvent();

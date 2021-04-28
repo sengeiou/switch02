@@ -169,16 +169,9 @@ public class CameraActivity extends BaseActivity {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bMap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] dataFile = baos.toByteArray();
-            try {
-                String photoFile = FileUtil.getInstance().writeFileSdcardFile(System.currentTimeMillis()+".jpg",dataFile);
-                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri uri = Uri.fromFile(new File(photoFile));
-                intent.setData(uri);
-                sendBroadcast(intent);
-                mCamera.startPreview();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            FileUtil.getInstance().writeFileSdcardFile(System.currentTimeMillis()+".jpg",dataFile);
+            mCamera.startPreview();
+
         }
     };
 

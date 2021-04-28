@@ -7,14 +7,18 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.TabHost;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTabHost;
 
 import com.mediatek.wearable.WearableManager;
@@ -61,54 +65,118 @@ public class MainPresenterImpl implements IMainPrisenter{
 
     @Override
     public void checkUpdata() {
-        try {
-            String ver = context.getPackageManager().getPackageInfo("com.szip.sportwatch",
-                    0).versionName;
-            HttpMessgeUtil.getInstance().postForCheckUpdate(ver, new GenericsCallback<CheckUpdateBean>(new JsonGenericsSerializator()) {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    if (iMainView!=null)
-                        iMainView.checkVersionFinish();
-                }
+        if (iMainView!=null)
+            iMainView.checkVersionFinish();
+//        boolean a = isInstalled("com.bbk.appstore",context);
 
-                @Override
-                public void onResponse(final CheckUpdateBean response, int id) {
-                    if (response.getCode() == 200){
-                        if (response.getData().getNewVersion()!=null){//有更新
-                            if (MyApplication.getInstance().isNewVersion()){//之前已经提示过
-                                MyApplication.getInstance().setNewVersion(true);
-                                MyApplication.getInstance().setVersionUrl(response.getData().getNewVersion().getUrl());
-                            }else {//还未弹框提示过
-                                MyAlerDialog.getSingle().showAlerDialog(context.getString(R.string.tip), context.getString(R.string.newVersion),
-                                        context.getString(R.string.confirm), context.getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
-                                            @Override
-                                            public void onDialogTouch(boolean flag) {
-                                                if (flag){
-                                                    MyApplication.getInstance().setNewVersion(false);
-                                                    MainService.getInstance().downloadFirmsoft(response.getData().getNewVersion()
-                                                            .getUrl(),"iSmarport.apk");
-                                                }else {
-                                                    MyApplication.getInstance().setNewVersion(true);
-                                                    MyApplication.getInstance().setVersionUrl(response.getData().getNewVersion().getUrl());
-                                                }
-                                            }
-                                        },context);
-                            }
-                        }else {//无更新
-                            MyApplication.getInstance().setNewVersion(false);
-                        }
-                        if (iMainView!=null)
-                            iMainView.checkVersionFinish();
-                    }
-                }
-            });
+//        try {
+//            Uri uri = Uri.parse("market://details?id=" + "com.szip.sportwatch");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            intent.setPackage("com.bbk.appstore");
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Uri uri = Uri.parse("market://details?id=" + "com.szip.sportwatch");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            intent.setPackage("com.huawei.appmarket");
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            Uri uri = Uri.parse("market://details?id=" + "com.szip.sportwatch");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            intent.setPackage("com.tencent.android.qqdownloader");
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            String ver = context.getPackageManager().getPackageInfo("com.szip.sportwatch",
+//                    0).versionName;
+//            HttpMessgeUtil.getInstance().postForCheckUpdate(ver, new GenericsCallback<CheckUpdateBean>(new JsonGenericsSerializator()) {
+//                @Override
+//                public void onError(Call call, Exception e, int id) {
+//                    if (iMainView!=null)
+//                        iMainView.checkVersionFinish();
+//                }
+//
+//                @Override
+//                public void onResponse(final CheckUpdateBean response, int id) {
+//                    if (response.getCode() == 200){
+//                        if (response.getData().getNewVersion()!=null){//有更新
+//                            if (MyApplication.getInstance().isNewVersion()){//之前已经提示过
+//                                MyApplication.getInstance().setNewVersion(true);
+//                            }else {//还未弹框提示过
+//                                MyAlerDialog.getSingle().showAlerDialog(context.getString(R.string.tip), context.getString(R.string.newVersion),
+//                                        context.getString(R.string.confirm), context.getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
+//                                            @Override
+//                                            public void onDialogTouch(boolean flag) {
+//                                                if (flag){
+//                                                    MyApplication.getInstance().setNewVersion(false);
+//                                                    try {
+//                                                        Uri uri = Uri.parse("market://details?id=" + "com.szip.sportwatch");
+//                                                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                                                        intent.setPackage("com.android.vending");
+//                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                        context.startActivity(intent);
+//                                                    } catch (Exception e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                }else {
+//                                                    MyApplication.getInstance().setNewVersion(true);
+//                                                }
+//                                            }
+//                                        },context);
+//                            }
+//                        }else {//无更新
+//                            MyApplication.getInstance().setNewVersion(false);
+//                        }
+//                        if (iMainView!=null)
+//                            iMainView.checkVersionFinish();
+//                    }
+//                }
+//            });
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
+
+//    private boolean isInstalled(@NonNull String packageName, Context context) {
+//        if ("".equals(packageName) || packageName.length() <= 0) {
+//            return false;
+//
+//        }
+//
+//        PackageInfo packageInfo;
+//
+//        try {
+//            packageInfo = context.getPackageManager().getPackageInfo(packageName, 0);
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            packageInfo = null;
+//
+//        }
+//
+//        if (packageInfo == null) {
+//            return false;
+//
+//        } else {
+//            return true;
+//
+//        }
+//
+//    }
 
     @Override
     public void checkGPSState() {
