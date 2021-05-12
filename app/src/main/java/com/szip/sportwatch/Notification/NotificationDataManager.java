@@ -23,8 +23,11 @@ import com.mediatek.ctrl.notification.NotificationData;
 import com.mediatek.wearable.WearableManager;
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.MyApplication;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.LogUtil;
 import com.szip.sportwatch.Util.MathUitl;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -74,41 +77,106 @@ public class NotificationDataManager {
 
     public NotificationData getNotificationData(Notification notification, String packageName, String tag, int id ){
         int watchVersion = WearableManager.getInstance().getRemoteDeviceVersion();
-        LogUtil.getInstance().logd(TAG, "watch version is " + watchVersion);
+        Log.d(TAG, "watch version is " + watchVersion);
 
         NotificationData notificationData = new NotificationData();
-        String[] textArray = getNotificationText(notification);
+        String[] textArray = null;
+        if (android.os.Build.VERSION.SDK_INT >= 24 || packageName.contains("whatsapp")  || packageName.contains("linkedin") || packageName.contains("xiaomi.xmsf")) {      //todo ---  add 20180314   xiaomi.xmsf --- 为小米系统推送
+           Log.d("WHAT******","GET WHAT");
+            textArray = getNotidicationTextForN(notification,packageName); //该方法会直接从extra中获取title和content
+        } else {
+            Log.d("WHAT******","GET normal");
+            textArray = getNotificationText(notification);    //7.0以下兼容
+        }
         String[] pageTextArray = getNotificationPageText(notification); //android 4.4w.2 support
-        if(pageTextArray!=null && textArray!=null){
-            textArray = concat(textArray,pageTextArray);
-        }
-        notificationData.setTextList(textArray);
-        try {
-            LogUtil.getInstance().logd(TAG, "textlist = " + Arrays.toString(textArray));
-        } catch (Exception e) {
-            LogUtil.getInstance().logd(TAG, "get textlist error");
-        }
-        notificationData.setGroupKey(getGroupKey(notification));
-        notificationData.setActionsList(getNotificationActions(notification));
-        notificationData.setPackageName(packageName);
-        notificationData.setAppID(MathUitl.getKeyFromValue(notificationData.getPackageName()));
 
-        if(!TextUtils.isEmpty(notification.tickerText)){
+        if (!TextUtils.isEmpty(notification.tickerText)) {
             notificationData.setTickerText(notification.tickerText.toString());
-        } else{
-            LogUtil.getInstance().logd(TAG, "get ticker is null or empty");
-            notificationData.setTickerText("");
+            if(packageName.contains("whatsapp") || (android.os.Build.VERSION.SDK_INT >= 24)){
+                if(textArray != null && !TextUtils.isEmpty(textArray[1]) && !TextUtils.isEmpty(textArray[0])) {
+                    notification.tickerText = textArray[0] + " : " + textArray[1];
+                    notificationData.setTickerText(textArray[0] + " : " + textArray[1]);
+                }
+            }
+
+            if (null != pageTextArray && null != textArray && null != textArray[0]) {
+                textArray = concat(textArray, pageTextArray);
+            } else {
+                if (null != notification && null != notification.tickerText) {
+                    textArray = new String[2];
+                    if (notification.tickerText.toString().contains(":")) {
+                        textArray[0] = notification.tickerText.toString().split(":")[0];
+                        textArray[1] = notification.tickerText.toString();
+                    } else {
+                        textArray[0] = notification.tickerText.toString();
+                        textArray[1] = notification.tickerText.toString();
+                    }
+                }
+            }
+            if (null != textArray && null != textArray[0]) {
+                notificationData.setTextList(textArray);
+            }
+            try {
+                Log.d(TAG, "textlist = " + Arrays.toString(textArray));
+            } catch (Exception e) {
+                Log.d(TAG, "get textlist error");
+            }
+
+        }else{
+            if(packageName.contains("linkedin.android") || packageName.contains("xiaomi.xmsf")){    // todo ----   packageName.contains("xiaomi.xmsf") 主要是对于小米手机
+                if(textArray != null){
+                    notificationData.setTickerText(textArray[0] + ": " + textArray[1]);
+                }
+                notificationData.setTextList(textArray);
+            }
         }
-        notificationData.setWhen(notification.when);
-        if(id == 0){ //Maybe some app's id is 0. like: hangouts(com.google.android.talk)
+        if(null!=notification&&null!=packageName){
+            // notificationData.setGroupKey(getGroupKey(notification));
+            notificationData.setActionsList(null);
+            notificationData.setPackageName(packageName);
+            notificationData.setAppID(MathUitl.getKeyFromValue(notificationData.getPackageName()));
+            notificationData.setWhen(notification.when);
+        }
+
+        if (id == 0) { //Maybe some app's id is 0. like: hangouts(com.google.android.talk)
             id = 1 + (int) (Math.random() * 1000000);
-            LogUtil.getInstance().logd(TAG, "the id is 0 and need create a random number : " + id);
+            Log.d(TAG, "the id is 0 and need create a random number : " + id);
         }
         notificationData.setMsgId(id);
-        notificationData.setTag(packageName);
+        if(null!=tag){notificationData.setTag(tag);}
 
-        LogUtil.getInstance().logd(TAG, "notificationData = " +  notificationData.toString());
+        if(null==notificationData.getPackageName()){
+            notificationData.setPackageName(packageName);
+        }
+        if(null==notificationData.getTextList()&&null==notificationData.getPackageName()&&null==notificationData.getTickerText()){
+            return  null;
+        }
+
+        Log.e(TAG,"notificationData = " + notificationData.toString());
         return notificationData;
+    }
+
+    private String[] getNotidicationTextForN(Notification notification,String packName) {
+        if (notification == null) {
+            Log.e(TAG, "Notification is null to get text");
+            return null;
+        }
+        String[] retArray = null;
+        retArray = new String[2];
+        if(packName.contains("whatsapp") || packName.contains("linkedin") ){  //todo ---  add 20180314    ||  packName.contains("xiaomi.xmsf")
+            retArray[0] = notification.extras.getString("android.title");
+            CharSequence[] charSequenceArray = notification.extras.getCharSequenceArray("android.textLines");
+            if(charSequenceArray != null && charSequenceArray.length > 0){
+                retArray[1] = charSequenceArray[charSequenceArray.length - 1].toString();
+            }else{
+                retArray[1] = notification.extras.getString("android.text");
+            }
+        }else {
+            retArray[0] = notification.extras.getString("android.title");
+            retArray[1] = notification.extras.getString("android.text");
+        }
+        Log.i(TAG, "[getNotidicationTextForN] Title = " + retArray[0] + ", Content = " + retArray[1]);
+        return retArray;
     }
 
     @SuppressLint("UseSparseArrays")
@@ -116,11 +184,6 @@ public class NotificationDataManager {
     public String[] getNotificationText(Notification notification) {
         String[] textArray = null;
         RemoteViews remoteViews = notification.contentView;
-//        if (remoteViews == null){
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                remoteViews = Notification.Builder.recoverBuilder(mContext, notification).createContentView();
-//            }
-//        }
         if (remoteViews == null) {
             textArray = null;
             Log.i(TAG,"remoteViews is null, set title and content to be empty. ");
@@ -376,7 +439,9 @@ public class NotificationDataManager {
 
     private String messTemp = "";
     private long msgTime;
-
+    private static long time1 = 0;
+    private static long time2 = 0;
+    Map<Object, Object> applist = AppList.getInstance().getAppList();
     private class SendNotficationDataThread extends Thread {
         public static final int MESSAGE_SEND_NOTIFICATION = 1;
         private NotificationData notificationData = null;
@@ -388,81 +453,98 @@ public class NotificationDataManager {
         @Override
         public void run() {
             Looper.prepare();
-
             mHandler = new Handler() {
                 public void handleMessage(Message msg) {
                     switch (msg.what) {
-                        case MESSAGE_SEND_NOTIFICATION:
+                        case MESSAGE_SEND_NOTIFICATION:   // arg1
+                            int messType = msg.arg1;
                             notificationData = (NotificationData) msg.obj;
                             if (notificationData != null) {
-//                                 Use the Content to Add Applist
-                                Map<Object, Object> applist = AppList.getInstance().getAppList();
-                                if (!applist.containsValue(notificationData.getPackageName())) {
-                                    int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
-                                    applist.remove(AppList.MAX_APP);
-                                    max = max + 1;
-                                    applist.put(AppList.MAX_APP, max);
-                                    applist.put(max, notificationData.getPackageName());
-                                    notificationData.setAppID(max + "");
-                                    AppList.getInstance().saveAppList(applist);
-                                }
+                                if (MainService.getInstance().getState() == 3) {    //已经连接上了
+                                    //////////////////////////////////////////////////////////////////////////////////////////////////
+                                    String tickerText = null;
+                                    if(!StringUtils.isEmpty(notificationData.getTickerText())) {
+                                        tickerText = notificationData.getTickerText().toString();
 
-                                // save notificationSyncList to file
-                                if (WearableManager.getInstance().getRemoteDeviceVersion() >= WearableManager.VERSION_340
-                                        && android.os.Build.VERSION.SDK_INT >= 18) {
-                                    NotificationSyncList.getInstance().addNotificationData(
-                                            notificationData);
-                                    NotificationSyncList.getInstance().saveSyncList();
-                                }
-                                if (notificationData.getTextList()==null||Arrays.toString(notificationData.getTextList()).equals("[]")){
-                                    String[] str1 = new String[]{"",""};
-                                    String[] str = notificationData.getTickerText().split(":");
-                                    if (notificationData.getTickerText().equals(""))
-                                        return;
-                                    if (str.length>=2){
-                                        notificationData.setTextList(str);
-                                    } else {
-                                        str1[1] = str[0];
-                                        notificationData.setTextList(str1);
+//                                        if(messType == 2){   //TODO NeNotificationService 发送
+//                                            time2 = System.currentTimeMillis();   // 1517555810015   todo --- 进此方法的时间
+//                                            Log.e(TAG, "time2的值为----" + time2);
+//                                            Log.e(TAG, "Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
+//                                            Log.e(TAG, "当前消息为--" + tickerText + "旧的消息为--" + messTemp);
+//                                            if(Math.abs(time2 - time1) <1000  && messTemp.equals(tickerText) ){  // && messTemp.equals(tickerText)
+//                                                Log.e(TAG, "短时间内有重复消息，已过滤掉了--- Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
+////                                            mHandler.removeCallbacksAndMessages(null);
+//                                                return ;
+//                                            }else {
+//                                                messTemp = tickerText;
+//                                            }
+//                                        }else if(messType == 1){   //TODO NotificationReceiver19 发送
+                                            time1 = System.currentTimeMillis();   // 1517555810015   todo --- 进此方法的时间
+                                            Log.e(TAG, "time1的值为----" + time1);
+                                            Log.e(TAG, "Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
+                                            Log.e(TAG, "当前消息为--" + tickerText + "旧的消息为--" + messTemp);
+                                            if(Math.abs(time2 - time1) <1000  && messTemp.equals(tickerText) ){ //  && messTemp.equals(tickerText)
+                                                Log.e(TAG, "短时间内有重复消息，已过滤掉了--- Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
+//                                            mHandler.removeCallbacksAndMessages(null);
+                                                return ;
+                                            }else {
+                                                messTemp = tickerText;
+                                            }
+//                                        }
                                     }
+                                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                   //mtk
+                                        try {
+                                            if (!applist.containsValue(notificationData.getPackageName())) {
+                                                int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
+                                                if (!applist.equals("[]")) {
+                                                    applist.remove(AppList.MAX_APP);
+                                                    max = max + 1;
+                                                } else {
+                                                    max = 1;
+                                                }
+                                                applist.put(AppList.MAX_APP, max);
+                                                applist.put(max, notificationData.getPackageName());
+                                                notificationData.setAppID(max + "");
+                                                AppList.getInstance().saveAppList(applist);
+                                            }
+                                        } catch (Exception E) {
+                                            E.printStackTrace();
+                                        }
+                                        if (null != notificationData && null != notificationData.getPackageName()) {
+                                            if (notificationData.getPackageName().contains("incallui")) {
+                                                MainService mainService = MainService.getInstance();
+                                                NotificationController.getInstance(mContext).sendNotfications(notificationData);
+                                                notificationData = null;
+                                            } else {
+                                                if (null != notificationData && null != notificationData.getTextList()) {
+                                                    if (MyApplication.getInstance().isMtk()){
+                                                        NotificationController.getInstance(mContext)
+                                                                .sendNotfications(notificationData);
+                                                    }else {
+                                                        PackageInfo info = null;
+                                                        PackageManager pm = mContext.getPackageManager();
+                                                        try {
+                                                            info = pm.getPackageInfo(notificationData.getPackageName(),PackageManager.GET_ACTIVITIES);
+                                                            BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
+                                                                    info.applicationInfo.loadLabel(pm).toString(),MathUitl.getApplicationCode(notificationData.getPackageName()));
+                                                        } catch (PackageManager.NameNotFoundException e) {
+                                                            e.printStackTrace();
+                                                        } catch (RuntimeException e){
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                    notificationData = null;
+                                                }
 
-
-                                    if(Calendar.getInstance().getTimeInMillis()-msgTime<1000&&
-                                            messTemp.equals(notificationData.getTickerText()) ){  // && messTemp.equals(tickerText)
-                                        return ;
-                                    }else {
-                                        msgTime = Calendar.getInstance().getTimeInMillis();
-                                        messTemp = notificationData.getTickerText();
-                                    }
-
+                                            }
+                                        }
                                 }
-                                LogUtil.getInstance().logd(TAG, "SendNotficationThread mThreadNotfication = "
-                                        + notificationData);
-                                if (MyApplication.getInstance().isMtk()){
-                                    NotificationController.getInstance(mContext)
-                                            .sendNotfications(notificationData);
-                                }else {
-                                    PackageInfo info = null;
-                                    PackageManager pm = mContext.getPackageManager();
-                                    try {
-                                        info = pm.getPackageInfo(notificationData.getPackageName(),PackageManager.GET_ACTIVITIES);
-                                        BleClient.getInstance().writeForSendNotify(notificationData.getTickerText(),
-                                                info.applicationInfo.loadLabel(pm).toString(),MathUitl.getApplicationCode(notificationData.getPackageName()));
-                                    } catch (PackageManager.NameNotFoundException e) {
-                                        e.printStackTrace();
-                                    } catch (RuntimeException e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                                notificationData = null;
                             }
-                            break;
-                        default:
-                            break;
                     }
                 }
             };
-            Looper.loop();  
+            Looper.loop();
         }
 
         public Handler getHandler() {

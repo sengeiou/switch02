@@ -37,6 +37,15 @@ public class DBManager {
 
     public DBManager(Context context) {
         this.mContext = context;
+
+        if(mContext.getResources().getConfiguration().locale.getLanguage().equals("ar")){
+            TABLE_NAME = "countrylist_ar";
+        }else if (mContext.getResources().getConfiguration().locale.getLanguage().equals("zh")){
+            TABLE_NAME = "countrylist";
+        }else {
+            TABLE_NAME = "countrylist_en";
+        }
+
         DB_PATH = File.separator + "data"
                 + Environment.getDataDirectory().getAbsolutePath() + File.separator
                 + context.getPackageName() + File.separator + "databases" + File.separator;

@@ -1,5 +1,6 @@
 package com.szip.sportwatch.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,8 +16,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
@@ -37,10 +40,15 @@ public class CameraActivity extends BaseActivity {
     private CameraPreview mPreview;
     private FrameLayout preview;
     private MediaPlayer mediaPlayer;
+    private ImageView switchIv;
     private int angle;
     private SensorManager sm = null;
 
     private boolean cameraAble = true;
+
+    private static final int FRONT = 1;//前置摄像头标记
+    private static final int BACK = 2;//后置摄像头标记
+    private int currentCameraType = -1;//当前打开的摄像头标记
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +56,28 @@ public class CameraActivity extends BaseActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_camera);
-        StatusBarCompat.translucentStatusBar(CameraActivity.this,true);
-        mCamera = getCameraInstance(); //通过自己封装的方法，获取Camera类
+//        StatusBarCompat.translucentStatusBar(CameraActivity.this,true);
+        mCamera = openCamera(BACK); //通过自己封装的方法，获取Camera类
 
         preview = findViewById(R.id.camera_preview);
+        switchIv = findViewById(R.id.switchIv);
         // 创建自己创建的预览类
         mPreview = new CameraPreview(this, mCamera);
 
 
         preview.addView(mPreview);//将预览类加入显示界面
+
+        switchIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    changeCamera();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -99,17 +120,59 @@ public class CameraActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    public static Camera getCameraInstance(){  //安全获取camera类
+
+    private void changeCamera() throws IOException{
+        mCamera.stopPreview();
+        mCamera.release();
+        if(currentCameraType == FRONT){
+            mCamera = openCamera(BACK);
+        }else if(currentCameraType == BACK){
+            mCamera = openCamera(FRONT);
+        }
+        mCamera.setPreviewDisplay(mPreview.getHolder());
+        mCamera.startPreview();
+    }
+
+
+    @SuppressLint("NewApi")
+    private Camera openCamera(int type){
+        int frontIndex =-1;
+        int backIndex = -1;
+        int cameraCount = Camera.getNumberOfCameras();
+        Camera.CameraInfo info = new Camera.CameraInfo();
+        for(int cameraIndex = 0; cameraIndex<cameraCount; cameraIndex++){
+            Camera.getCameraInfo(cameraIndex, info);
+            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT){
+                frontIndex = cameraIndex;
+            }else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
+                backIndex = cameraIndex;
+            }
+        }
         Camera camera = null;
-        try {
-            camera = Camera.open();
+
+        currentCameraType = type;
+        if(type == FRONT && frontIndex != -1){
+            camera = Camera.open(frontIndex);
+            camera.setDisplayOrientation(90);
+        }else if(type == BACK && backIndex != -1){
+            camera = Camera.open(backIndex);
             camera.setDisplayOrientation(90);
         }
-        catch (Exception e){
 
-        }
         return camera;
     }
+
+//    public static Camera getCameraInstance(){  //安全获取camera类
+//        Camera camera = null;
+//        try {
+//            camera = Camera.open();
+//            camera.setDisplayOrientation(90);
+//        }
+//        catch (Exception e){
+//
+//        }
+//        return camera;
+//    }
 
 
     private OnCameraListener onCameraListener = new OnCameraListener() {
@@ -161,7 +224,10 @@ public class CameraActivity extends BaseActivity {
             if (angle==0||angle==180) {  //竖拍
                 Matrix matrix = new Matrix();
                 matrix.reset();
-                matrix.postRotate(90);
+                if (currentCameraType==BACK)
+                    matrix.postRotate(90);
+                else
+                    matrix.postRotate(270);
                 bMapRotate = Bitmap.createBitmap(bMap, 0, 0, bMap.getWidth(),
                         bMap.getHeight(), matrix, true);
                 bMap = bMapRotate;

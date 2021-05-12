@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -137,17 +138,15 @@ public class DIYActivity extends BaseActivity implements IDiyView{
             case 1:{
                 if (data==null||data.getData()==null)
                     return;
-                if(MathUitl.isJpgFile(data.getData(),this)){
-                    iDiyPresenter.cropPhoto(data.getData());
-                }else {
-                    showToast(getString(R.string.chooseJpg));
-                }
+                iDiyPresenter.cropPhoto(data.getData());
 
             }
             break;
             case  UCrop.REQUEST_CROP:{
                 if (data!=null){
+                    MathUitl.toJpgFile();
                     resultUri = UCrop.getOutput(data);
+                    Log.d("SZIP******","URI = "+UCrop.getOutput(data)+" ;uri = "+resultUri);
                     try {
                         backgroundIv.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri));
                     } catch (IOException e) {

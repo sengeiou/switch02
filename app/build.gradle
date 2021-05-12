@@ -43,12 +43,42 @@ android {
             dimension "SZP"
             buildConfigField("String", "APP_NAME", '"iSmarport"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '""')
         }
 
         Local {
             dimension "SZP"
             buildConfigField("String", "APP_NAME", '"iSmarport"')
             buildConfigField("String", "SERVER_URL", '"https://test.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '""')
+        }
+
+        Tencent {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '"com.tencent.android.qqdownloader"')
+        }
+
+        Vivo {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '"com.bbk.appstore"')
+        }
+
+        Huawei {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '"com.huawei.appmarket"')
+        }
+
+        Google {
+            dimension "SZP"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
+            buildConfigField("String", "FLAVORS", '"com.android.vending"')
         }
 
     }

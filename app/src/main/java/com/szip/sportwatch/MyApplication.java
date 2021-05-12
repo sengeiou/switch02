@@ -133,9 +133,10 @@ public class MyApplication extends Application{
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
         /**
-         * 把log导出到本地
+         * 把测试版的log导出到本地，上线的渠道版不需要导出
          * */
-        LogUtil.getInstance().init(this);
+        if(BuildConfig.FLAVORS.equals(""))
+            LogUtil.getInstance().init(this);
 
         //初始化文件存储
         privatePath = getExternalFilesDir(null).getPath()+"/";

@@ -111,6 +111,7 @@ public class DiyPresenterImpl implements IDiyPresenter{
             options.setToolbarColor(context.getResources().getColor(R.color.rayblue));
             options.setStatusBarColor(context.getResources().getColor(R.color.rayblue));
             options.setActiveWidgetColor(context.getResources().getColor(R.color.rayblue));
+            options.setCompressionQuality(80);
             UCrop uCrop = UCrop.of(path, target)
                     .withAspectRatio(1f, 1f)
                     .withMaxResultSize(240, 240)

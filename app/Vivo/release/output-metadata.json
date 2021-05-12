@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.szip.sportwatch",
+  "variantName": "processVivoReleaseResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 33,
+      "versionName": "1.33",
+      "outputFile": "app-Vivo-release.apk"
+    }
+  ]
+}

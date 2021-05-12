@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -27,6 +29,8 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -55,9 +59,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -869,7 +875,6 @@ public class MathUitl {
             b[3] = bin.read();
             bin.close();
 
-            Log.d("SZIP******","head = "+String.format("%02X%02X%02X%02X",b[0],b[1],b[2],b[3]));
             return b[0] == 255;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -881,38 +886,23 @@ public class MathUitl {
         return false;
     }
 
-    public static boolean isJpgFile(Uri cursor,Context context){
-        String res = null;
-
-//        if(cursor.moveToFirst()){
-//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            res = cursor.getString(column_index);
-//        }
-//        cursor.close();
-        Log.d("SZIP******","res = "+cursor);
-
+    public static void toJpgFile(){
+        String filePath = MyApplication.getInstance().getPrivatePath()+"crop.jpg";
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
         try {
-
-            InputStream bin = context.getContentResolver().openInputStream(cursor);
-            int b[] = new int[4];
-            b[0] = bin.read();
-            b[1] = bin.read();
-            bin.skip(bin.available() - 2);
-            b[2] = bin.read();
-            b[3] = bin.read();
-            bin.close();
-
-            Log.d("SZIP******","head = "+String.format("%02X%02X%02X%02X",b[0],b[1],b[2],b[3]));
-            return b[0] == 255;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
+                bos.flush();
+            }
+            bos.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            bitmap.recycle();
+            bitmap = null;
         }
-        return false;
     }
+
 
     public static int getApplicationCode(String pakeName){
         switch (pakeName){
