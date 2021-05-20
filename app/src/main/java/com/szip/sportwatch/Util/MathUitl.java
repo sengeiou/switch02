@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.szip.sportwatch.DB.dbModel.AnimalHeatData;
@@ -682,6 +684,8 @@ public class MathUitl {
                 object.put("height",sportDataList.get(i).height);
                 object.put("speedPerHour",sportDataList.get(i).speedPerHour);
                 object.put("speedPerHourArray",sportDataList.get(i).speedPerHourArray);
+                object.put("lngArray",sportDataList.get(i).lngArray);
+                object.put("latArray",sportDataList.get(i).latArray);
                 array.put(object);
             }
             data.put("sportDataList",array);
@@ -945,5 +949,66 @@ public class MathUitl {
             return true;
         }
         return false;
+    }
+
+    public static double[]getMapOption(String[] lats,String[] lngs){
+        double[] option= new double[3];
+        int minLat = Integer.valueOf(lats[1]),maxLat = Integer.valueOf(lats[1]),
+                minLng=Integer.valueOf(lngs[1]),maxLng=Integer.valueOf(lngs[1]);
+        int minLatIndex = 1,maxLatIndex = 1,minLngIndex = 1,maxLngIndex = 1;
+        for (int i = 1;i<lats.length;i++){
+            if (Integer.valueOf(lats[i]) > maxLat) {
+                maxLat = Integer.valueOf(lats[i]);
+                maxLatIndex = i;
+            }
+
+            //当前遍历的数如果比 min 小，就将该数赋值给 min
+            if (Integer.valueOf(lats[i]) < minLat) {
+                minLat = Integer.valueOf(lats[i]);
+                minLatIndex = i;
+            }
+
+            if (Integer.valueOf(lngs[i]) > maxLng) {
+                maxLng = Integer.valueOf(lngs[i]);
+                maxLatIndex = i;
+            }
+
+            //当前遍历的数如果比 min 小，就将该数赋值给 min
+            if (Integer.valueOf(lngs[i]) < minLng) {
+                minLng = Integer.valueOf(lngs[i]);
+                minLngIndex = i;
+            }
+        }
+
+        float latDistance = AMapUtils.calculateLineDistance(new LatLng((minLat+Integer.valueOf(lats[0]))/1000000.0,0),
+                new LatLng((maxLat+Integer.valueOf(lats[0]))/1000000.0,0));
+        float lngDistance = AMapUtils.calculateLineDistance(new LatLng(0,(minLng+Integer.valueOf(lngs[0]))/1000000.0),
+                new LatLng(0,(maxLng+Integer.valueOf(lngs[0]))/1000000.0));
+        double distance;
+        if (latDistance>lngDistance){
+            if (latDistance<70)
+                option[2] =20;
+            else
+                option[2] = 20-(int)(Math.log(latDistance/70)/Math.log(2))-0.5;
+            distance = 70*Math.pow(2,20-option[2])/100000.0/2;
+            option[0] = (Integer.valueOf(lats[0])+((Integer.valueOf(lats[minLatIndex])+
+                    Integer.valueOf(lats[maxLatIndex]))/2))/1000000.0-distance;
+            option[1] = (Integer.valueOf(lngs[0])+((Integer.valueOf(lngs[minLatIndex])+
+                    Integer.valueOf(lngs[maxLatIndex]))/2))/1000000.0;
+        }else {
+            if (latDistance<70)
+                option[2] = 20;
+            else
+                option[2] = 20-(int)(Math.log(lngDistance/70)/Math.log(2))-0.5;
+            distance = 70*Math.pow(2,20-option[2])/100000.0/2;
+            option[0] = (Integer.valueOf(lats[0])+((Integer.valueOf(lats[minLngIndex])+
+                    Integer.valueOf(lats[maxLngIndex]))/2))/1000000.0-distance;
+            option[1] = (Integer.valueOf(lngs[0])+((Integer.valueOf(lngs[minLngIndex])+
+                    Integer.valueOf(lngs[maxLngIndex]))/2))/1000000.0;
+
+        }
+
+
+        return option;
     }
 }

@@ -1,7 +1,6 @@
 package com.szip.sportwatch.Activity.GpsSport;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,11 +13,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.amap.api.maps.AMap;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.szip.sportwatch.DB.dbModel.SportData;
-import com.szip.sportwatch.Fragment.CalendarFragment;
 import com.szip.sportwatch.MyApplication;
-import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.LocationUtil;
 
 import java.util.Timer;
@@ -28,13 +28,15 @@ public class GpsPresenterImpl implements IGpsPresenter {
     private Context context;
     private IGpsView iGpsView;
 
-    private Location preLocation;
-    private LocationManager locationManager;
+    private AMapLocation preLocation;
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+
+
+
+
 
     private boolean firstTime = true;
-
-
-
 
     private int time = 0;
     private int preTime = 0;
@@ -57,10 +59,23 @@ public class GpsPresenterImpl implements IGpsPresenter {
     private Timer timer;
     private TimerTask timerTask;
 
-    public GpsPresenterImpl(Context context, IGpsView iGpsView,LocationManager locationManager) {
+    public GpsPresenterImpl(Context context, IGpsView iGpsView) {
         this.context = context;
         this.iGpsView = iGpsView;
-        this.locationManager = locationManager;
+        initLocationService();
+    }
+
+    private void initLocationService() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(context);
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        //声明AMapLocationClientOption对象
+        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.Sport);
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationOption.setInterval(5000);
+        mLocationClient.setLocationOption(mLocationOption);
     }
 
     @Override
@@ -70,8 +85,8 @@ public class GpsPresenterImpl implements IGpsPresenter {
                 iGpsView.startCountDown();
             firstTime = false;
         }else {
-            if (locationManager!=null) {
-                LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
+            if (mLocationClient!=null) {
+                mLocationClient.startLocation();
                 initTask();
                 timer.schedule(timerTask,0,1000);
                 if (iGpsView!=null)
@@ -82,11 +97,13 @@ public class GpsPresenterImpl implements IGpsPresenter {
 
     @Override
     public void stopLocationService(){
-        if(locationManager!=null){
-            locationManager.removeUpdates(locationListener);
+        if(mLocationClient!=null){
+            mLocationClient.stopLocation();
             if (timer!=null){
                 timer.cancel();
                 timerTask.cancel();
+                timer = null;
+                timerTask = null;
             }
             if (iGpsView!=null)
                 iGpsView.stopRun();
@@ -95,8 +112,13 @@ public class GpsPresenterImpl implements IGpsPresenter {
 
     @Override
     public void finishLocationService() {
-        if(locationManager!=null){
-            locationManager.removeUpdates(locationListener);
+        if(mLocationClient!=null){
+            mLocationClient.stopLocation();
+            mLocationClient.onDestroy();
+            if (timer!=null){
+                timer.cancel();
+                timerTask.cancel();
+            }
             if (distance-preDistance1>200){
                 speedStr.append(","+getInstantaneousSpeed((distance-preDistance1)/(time-preTime)));
             }
@@ -117,7 +139,7 @@ public class GpsPresenterImpl implements IGpsPresenter {
             ft = fragmentManager.beginTransaction();
         }
         ft.addToBackStack(null);
-        mapFragment = new MapFragment(speed,distance,calorie);
+        mapFragment = new MapFragment(speed,distance,calorie,preLocation);
         mapFragment.show(ft, "MAP");
     }
 
@@ -141,31 +163,16 @@ public class GpsPresenterImpl implements IGpsPresenter {
         };
     }
 
-    private GpsStatus.Listener myListener = new GpsStatus.Listener() {
+    //声明定位回调监听器
+    private AMapLocationListener mLocationListener = new AMapLocationListener() {
         @Override
-        public void onGpsStatusChanged(int i) {
-
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            updateWithNewLocation(aMapLocation);
         }
     };
 
-
-    private final LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            updateWithNewLocation(location);
-        }
-
-        public void onProviderDisabled(String provider) {
-            updateWithNewLocation(null);
-        }
-
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-    };
-
-    private void updateWithNewLocation(Location location) {
+    private void updateWithNewLocation(AMapLocation location) {
+        Log.d("LOCATION******",location.toStr());
         if (location != null) {
             if (preLocation!=null){
                 long subTime=(System.currentTimeMillis()-preTime1)/1000;
@@ -184,7 +191,7 @@ public class GpsPresenterImpl implements IGpsPresenter {
                 if (iGpsView!=null)
                     iGpsView.upDateRunData(speed,distance,calorie);
                 if (mapFragment!=null&&!mapFragment.isHidden()){
-                    mapFragment.setData(speed,distance,calorie);
+                    mapFragment.setData(speed,distance,calorie,location);
                     Log.d("LOCATION******","fragment 没有隐藏");
                 }else {
                     Log.d("LOCATION******","fragment 已经隐藏");
@@ -234,6 +241,12 @@ public class GpsPresenterImpl implements IGpsPresenter {
             if (!speedStr.toString().equals("")){
                 sportData.speedArray = speedStr.toString().substring(1);
                 sportData.speed = getAverageData(sportData.speedArray);
+            }
+            if (!lngStr.toString().equals("")){
+                sportData.lngArray = lngStr.toString().substring(1);
+            }
+            if (!latStr.toString().equals("")){
+                sportData.latArray = latStr.toString().substring(1);
             }
         }
         return sportData;

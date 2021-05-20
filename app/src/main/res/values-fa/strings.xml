@@ -381,5 +381,7 @@
     <string name="heart_switch">اندازه گیری های به موقع</string>
     <string name="runFinsh">آیا مطمئن هستید که می خواهید در حال اجرا فعلی خود را به پایان برسونید؟</string>
     <string name="runShort">طول یا فاصله اجرا بیش از حد کوتاه است تا آمار باشد.</string>
+    <string name="started">اول شروع به دویدن کنید</string>
+    <string name="touchAgain1">فشار دوباره برای خروج از اجرا</string>
 
 </resources>

@@ -382,5 +382,7 @@
     <string name="heart_switch">Misurazione del tempo</string>
     <string name="runFinsh">Per favore, siate certi che la campagna attuale sia finita?</string>
     <string name="runShort">I tempi di percorrenza sono troppo lunghi o le distanze troppo brevi per essere statisticamente significative.</string>
+    <string name="started">Per favore, inizi la corsa</string>
+    <string name="touchAgain1">Ancora una volta</string>
 
 </resources>

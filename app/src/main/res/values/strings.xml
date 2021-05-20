@@ -381,4 +381,6 @@ We recommend that minors encourage their parents or guardians to read this polic
     <string name="heart_switch">Measure your heart rate regularly</string>
     <string name="runFinsh">Please confirm whether you want to end the current running exercise?</string>
     <string name="runShort">The running time or distance is too short for statistics.</string>
+    <string name="started">Please start running first</string>
+    <string name="touchAgain1">Press again to quit running</string>
 </resources>

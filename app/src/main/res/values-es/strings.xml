@@ -382,5 +382,7 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="heart_switch">Medición programada</string>
     <string name="runFinsh">Por favor, determine si desea terminar su carrera actual.</string>
     <string name="runShort">La duración de la carrera o la distancia son demasiado cortas como para hacer estadísticas.</string>
+    <string name="started">Por favor, comience la carrera primero</string>
+    <string name="touchAgain1">Pulse otra vez para salir de la carrera</string>
 
 </resources>

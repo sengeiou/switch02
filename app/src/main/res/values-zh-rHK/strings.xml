@@ -372,5 +372,7 @@
     <string name="runFinsh">請確定是否結束當前跑步運動？</string>
     <string name="tempUnit">溫度單位</string>
     <string name="runShort">跑步時長或距離太短，無法統計數據。</string>
+    <string name="started">請先開啓跑步運動</string>
+    <string name="touchAgain1">再按一次退出跑步</string>
 
 </resources>

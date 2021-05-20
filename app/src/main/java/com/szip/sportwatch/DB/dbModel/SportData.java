@@ -144,6 +144,18 @@ public class SportData extends BaseModel implements Comparable<SportData>,Serial
     @Column
     public String speedPerHourArray;
 
+    /**
+     * 经度列表
+     * */
+    @Column
+    public String lngArray;
+
+    /**
+     * 纬度列表
+     * */
+    @Column
+    public String latArray;
+
     public SportData() {}
 
     public SportData(long time, int sportTime, int distance, int calorie, int speed,int type,int heart,int stride) {

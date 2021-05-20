@@ -1,22 +1,45 @@
 package com.szip.sportwatch.Fragment.ReportFragment.sport;
 
+import android.animation.ArgbEvaluator;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Polyline;
+import com.amap.api.maps.model.PolylineOptions;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Util.DateUtil;
 import com.szip.sportwatch.Util.MathUitl;
+import com.szip.sportwatch.View.MyScrollView;
 import com.szip.sportwatch.View.SportReportView;
 import com.szip.sportwatch.View.SportSpeedView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class RunFragment extends BaseFragment {
+
+    private MyScrollView myScrollView;
+    private RelativeLayout bgRl;
+    private MapView mapView;
+    private View mapBackView;
 
     private TextView dataTv,timeTv,distanceTv,unitTv,kcalTv,sportTimeTv,averageTv1, averageTv2,averageTv3,averageTv4,averageTv5;
     private SportReportView tableView1, tableView2,tableView3, tableView4;
@@ -40,11 +63,29 @@ public class RunFragment extends BaseFragment {
 
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
-        initView();
+        initView(savedInstanceState);
         initData();
     }
 
-    private void initView() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    private void initView(Bundle savedInstanceState) {
+        myScrollView = getView().findViewById(R.id.scrollId);
+        bgRl = getView().findViewById(R.id.bgRl);
+        mapView = getView().findViewById(R.id.map);
+        mapBackView = getView().findViewById(R.id.mapBackView);
+        mapBackView.getBackground().setAlpha(0);
+
         timeTv = getView().findViewById(R.id.timeTv);
         sportTimeTv = getView().findViewById(R.id.sportTimeTv);
         distanceTv = getView().findViewById(R.id.distanceTv);
@@ -62,11 +103,17 @@ public class RunFragment extends BaseFragment {
         sportSpeed = getView().findViewById(R.id.sportSpeed);
         dataTv = getView().findViewById(R.id.dataTv);
 
+
         if(sportData.type==6){
             ((TextView)getView().findViewById(R.id.sportIdTv)).setText(R.string.training);
-            getView().findViewById(R.id.bgRl).setBackground(getView().getResources().getDrawable(R.drawable.sport_bg_purple));
+            bgRl.setBackground(getView().getResources().getDrawable(R.drawable.sport_bg_purple));
             ((ImageView)getView().findViewById(R.id.bgIv)).setImageResource(R.mipmap.sport_bg_trainrun);
-
+        }
+        if (sportData.latArray!=null&&!sportData.latArray.equals("")){
+            mapView.onCreate(savedInstanceState);
+            myScrollView.setOnScrollListener(listener);
+        }else {
+            getView().findViewById(R.id.mapViewtop).setVisibility(View.GONE);
         }
     }
 
@@ -99,6 +146,29 @@ public class RunFragment extends BaseFragment {
         tableView4.addData(altitudeArray);
         sportSpeed.addData(speedArray);
 
+        if (sportData.latArray!=null&&!sportData.latArray.equals("")){
+            AMap aMap = mapView.getMap();
+            List<LatLng> latLngs = new ArrayList<LatLng>();
+            String[] lats = sportData.latArray.split(",");
+            String[] lngs = sportData.lngArray.split(",");
+            double [] option = MathUitl.getMapOption(lats,lngs);
+
+            LatLng centerBJPoint= new LatLng(option[0],
+                    option[1]);
+            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(centerBJPoint,
+                    (float) option[2], 0, 0)));
+            for (int a = 1;a<lats.length;a++){
+                latLngs.add(new LatLng((Integer.valueOf(lats[0])+Integer.valueOf(lats[a]))/1000000.0,
+                        (Integer.valueOf(lngs[0])+Integer.valueOf(lngs[a]))/1000000.0));
+            }
+            aMap.addPolyline(new PolylineOptions().
+                    addAll(latLngs).
+                    width(14).
+                    useGradient(true).
+                    color(Color.parseColor("#1BC416")));
+
+        }
+
         if (sportData.getHeartArray().equals("")){
             getView().findViewById(R.id.heartLl).setVisibility(View.GONE);
         }
@@ -109,4 +179,16 @@ public class RunFragment extends BaseFragment {
             getView().findViewById(R.id.speedPerHourLl).setVisibility(View.GONE);
         }
     }
+
+    private MyScrollView.OnScrollListener listener = new MyScrollView.OnScrollListener() {
+        @Override
+        public void onScroll(int scrollY) {
+            Log.d("LOCATION******","TOP = "+bgRl.getTop()+" ;scrolly = "+scrollY);
+            int alpha = 0;
+            alpha = scrollY/(bgRl.getTop()/255);
+            if (alpha>255)
+                alpha = 255;
+            mapBackView.getBackground().setAlpha(alpha);
+        }
+    };
 }

@@ -398,5 +398,7 @@
     <string name="heart_switch">قياس معدل ضربات القلب</string>
     <string name="runFinsh">يرجى تحديد ما إذا كان إنهاء الركض الحالي؟</string>
     <string name="runShort">وقت الركض أو المسافة قصيرة جدا لإحصاءات.</string>
+    <string name="started">يرجى بدء حركة الجري</string>
+    <string name="touchAgain1">اضغط على الخروج مرة أخرى</string>
 
 </resources>

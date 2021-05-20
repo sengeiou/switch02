@@ -382,5 +382,7 @@
     <string name="heart_switch">Измерение по времени</string>
     <string name="runFinsh">Пожалуйста, определите, завершено ли текущее движение?</string>
     <string name="runShort">Бег слишком длинный или слишком короткий для статистики.</string>
+    <string name="started">Пожалуйста, начните с бега</string>
+    <string name="touchAgain1">Нажмите еще раз, чтобы выйти из гонки</string>
 
 </resources>

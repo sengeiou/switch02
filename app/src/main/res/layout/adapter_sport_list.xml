@@ -63,7 +63,9 @@
                     <ImageView
                         android:id="@+id/locateIv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sport_list_icon_map"
+                        android:layout_marginRight="5dp"/>
 
 
 

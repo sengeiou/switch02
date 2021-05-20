@@ -117,7 +117,7 @@
     <string name="sport">运动</string>
     <string name="mine">我的</string>
     <string name="touchAgain">再按一次退出程序</string>
-
+    <string name="touchAgain1">再按一次退出跑步</string>
     <!--健康页面-->
     <string name="planStep">目标步数%d</string>
     <string name="sleep">睡眠</string>
@@ -180,7 +180,7 @@
     <string name="golf">高尔夫</string>
     <string name="runFinsh">是否结束当前跑步运动？</string>
     <string name="runShort">跑步时长或距离太短，无法统计数据。</string>
-
+    <string name="started">请先开启跑步运动</string>
     <!--我的页面-->
     <string name="device">设备</string>
     <string name="stepPlan">计步目标</string>

@@ -384,5 +384,7 @@
     <string name="heart_switch">" "</string>
     <string name="runFinsh">" "</string>
     <string name="runShort">" "</string>
+    <string name="started">เริ่มออกกำลังกายก่อน</string>
+    <string name="touchAgain1">และกดอีกครั้งออกจากการทำงาน</string>
 
 </resources>

@@ -373,5 +373,7 @@
     <string name="heart_switch">" "</string>
     <string name="runFinsh">" "</string>
     <string name="runShort">" "</string>
+    <string name="started">पहले दौड़ना शुरू करें</string>
+    <string name="touchAgain1">रन से बाहर निकलने के लिए फिर से दबाएं</string>
 
 </resources>

@@ -32,5 +32,8 @@ public class Migration1 extends AlterTableMigration<SportData> {
         addColumn(SQLiteType.get(String.class.getName()), "deviceCode");//基本数据类型
         addColumn(SQLiteType.get(String.class.getName()), "tempArray");//基本数据类型
         addColumn(SQLiteType.get(String.class.getName()), "speedPerHourArray");//基本数据类型
+        addColumn(SQLiteType.get(String.class.getName()), "lngArray");//基本数据类型
+        addColumn(SQLiteType.get(String.class.getName()), "latArray");//基本数据类型
+
     }
 }

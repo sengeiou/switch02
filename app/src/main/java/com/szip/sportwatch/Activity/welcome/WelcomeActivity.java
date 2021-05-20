@@ -8,6 +8,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.szip.sportwatch.Activity.BaseActivity;

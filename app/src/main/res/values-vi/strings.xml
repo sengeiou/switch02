@@ -449,4 +449,6 @@ mối quan hệ. \ n \ nLưu ý: Đồng hồ không thể sử dụng chức n�
     <string name="heart_switch">Đo lường thời gian</string>
     <string name="runFinsh">Bạn có chắc chắn kết thúc các hoạt động chạy hiện tại?</string>
     <string name="runShort">Chạy trong một thời gian ngắn không thể lưu dữ liệu chạy bộ, hãy tiếp tục chạy hơn 30 giây.</string>
+    <string name="started">Xin vui lòng bắt đầu chạy</string>
+    <string name="touchAgain1">Nhấn nút rút lui lần nữa</string>
 </resources>

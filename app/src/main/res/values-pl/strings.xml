@@ -444,5 +444,7 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name="heart_switch">Pomiary czasowe</string>
     <string name="runFinsh">Czy na pewno chcesz zakończyć bieżące bieganie?</string>
     <string name="runShort">Długość lub odległość biegu jest zbyt krótka, aby można było ich statystyce.</string>
+    <string name="started">Zacznij działać jako pierwszy</string>
+    <string name="touchAgain1">Naciśnij ponownie, aby zakończyć bieg</string>
 
 </resources>

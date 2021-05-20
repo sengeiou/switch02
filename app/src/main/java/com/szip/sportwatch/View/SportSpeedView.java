@@ -42,7 +42,6 @@ public class SportSpeedView extends View {
     private int mInterval = 20;//柱状图间隔
     private int[] datas;//数据
 
-
     public SportSpeedView(Context context) {
         super(context);
         initView();
@@ -121,9 +120,9 @@ public class SportSpeedView extends View {
 
                 String speedStr = String.format("%02d'%02d''",datas[i]/60,datas[i]%60);
                 String numStr = String.format("%d",i+1);
-                if (i == datas.length-1){
-                    numStr +=("(<1km)");
-                }
+//                if (i == datas.length-1){
+//                    numStr +=("(<1km)");
+//                }
                 textWidth = textPaint.measureText(speedStr);
                 textWidth1 = textPaint1.measureText(numStr);
                 Path path = new Path();

@@ -107,12 +107,12 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void initHostFinish(ArrayList<HostTabView> hostTabViews) {
         mTableItemList =hostTabViews;
-        mTableItemList.get(1).setView(app.getSportVisiable());
+//        mTableItemList.get(1).setView(app.getSportVisiable());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateSport(UpdateSportView updateSportView){
-        mTableItemList.get(1).setView(app.getSportVisiable());
+//        mTableItemList.get(1).setView(app.getSportVisiable());
     }
 
     /**

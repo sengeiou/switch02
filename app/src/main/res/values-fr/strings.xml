@@ -378,5 +378,7 @@
     <string name="heart_switch">Mesure temporelle</string>
     <string name="runFinsh">Veuillez déterminer si vous mettez un terme à la course actuelle?</string>
     <string name="runShort">Les durées de parcours ou les distances parcourues sont trop courtes pour être chiffrées.</string>
+    <string name="started">S’il vous plaît, commencez la course</string>
+    <string name="touchAgain1">Appuyez à nouveau sur la touche pour sortir de la course</string>
 
 </resources>

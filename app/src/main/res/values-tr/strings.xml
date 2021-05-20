@@ -387,5 +387,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name="heart_switch">Zamanlanmış ölçümler</string>
     <string name="runFinsh">Geçerli çalışmanızı sonlandırmak istediğinizden emin misiniz?</string>
     <string name="runShort">Çalışan verilerinizi daha kısa bir çalışma için kaydedemiyorsanız, 30 saniyeden fazla çalışmaya devam edin.</string>
+    <string name="started">Önce çalışmaya başla</string>
+    <string name="touchAgain1">Çalıştırmadan çıkmak için yeniden basın</string>
 
 </resources>

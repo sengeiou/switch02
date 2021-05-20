@@ -402,5 +402,7 @@
     <string name="heart_switch">מדידות תזמנות</string>
     <string name="runFinsh">האם אתה בטוח שברצונך לסיים את הריצה הנוכחית שלך?</string>
     <string name="runShort">אורך הריצה או מרחקה קצרים מכדי להיות נתונים סטטיסטיים.</string>
+    <string name="started">התחל לפעול תחילה</string>
+    <string name="touchAgain1">לחץ שוב כדי לצאת מההפעלה</string>
 
 </resources>

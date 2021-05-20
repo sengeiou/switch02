@@ -401,4 +401,6 @@
     <string name="heart_switch">정시 측정</string>
     <string name="runFinsh">현재 달리기를 완료했는지 확인해주세요?</string>
     <string name="runShort">달리는 길이나 거리가 너무 짧아 통계를 낼 수 없다.</string>
+    <string name="started">달리기 시작하세요</string>
+    <string name="touchAgain1">다시 버튼을 눌러 달리기 종료</string>
 </resources>

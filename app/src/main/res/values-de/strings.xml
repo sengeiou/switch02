@@ -387,5 +387,7 @@
     <string name="heart_switch">Zeitrechnung.</string>
     <string name="runFinsh">Würden sie bitte den laufsport beenden?</string>
     <string name="runShort">Dauer Oder entfernungen der läufer ist zu kurz für statistiken.</string>
+    <string name="started">Bitte starten sie zuerst den laufsport</string>
+    <string name="touchAgain1">Und nochmal kurz raus aus dem rennen</string>
 
 </resources>

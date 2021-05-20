@@ -48,7 +48,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
             0.9f, 50f, 50f);
 
     private long firstime = 0;
-
+    private boolean started = false;
 
 
     /** Called when the activity is first created. */
@@ -60,7 +60,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_gps);
-        iGpsPresenter = new GpsPresenterImpl(getApplicationContext(),this,(LocationManager) getSystemService(LOCATION_SERVICE));
+        iGpsPresenter = new GpsPresenterImpl(getApplicationContext(),this);
         initView();
         initEvent();
         initAnimation();
@@ -69,7 +69,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        iGpsPresenter.stopLocationService();
+        iGpsPresenter.finishLocationService();
     }
 
     private void initView() {
@@ -149,8 +149,10 @@ public class GpsActivity extends BaseActivity implements IGpsView{
                     lockFl.setVisibility(View.VISIBLE);
                     break;
                 case R.id.mapIv:
-                    if (iGpsPresenter!=null)
+                    if (iGpsPresenter!=null&&started)
                         iGpsPresenter.openMap(getSupportFragmentManager());
+                    else
+                        showToast(getString(R.string.started));
                     break;
                 case R.id.switchRl:
                     switchRl.startAnimation(touchAnimation);
@@ -173,6 +175,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
 
     @Override
     public void startCountDown() {
+        started = true;
         lockFl.setVisibility(View.VISIBLE);
         countDownTv.setVisibility(View.VISIBLE);
         updateRl.setVisibility(View.GONE);
@@ -245,7 +248,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             long secondtime = System.currentTimeMillis();
             if (secondtime - firstime > 3000) {
-                Toast.makeText(this, getString(R.string.touchAgain),
+                Toast.makeText(this, getString(R.string.touchAgain1),
                         Toast.LENGTH_SHORT).show();
                 firstime = System.currentTimeMillis();
                 return true;

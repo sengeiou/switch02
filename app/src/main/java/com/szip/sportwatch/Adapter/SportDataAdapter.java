@@ -61,6 +61,7 @@ public class SportDataAdapter extends BaseAdapter {
             holder.typeIv = convertView.findViewById(R.id.typeIv);
             holder.buttonFirstUnitTv = convertView.findViewById(R.id.buttonFirstUnitTv);
             holder.buttonFirstIv = convertView.findViewById(R.id.buttonFirstIv);
+            holder.locateIv = convertView.findViewById(R.id.locateIv);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -70,6 +71,11 @@ public class SportDataAdapter extends BaseAdapter {
 
         holder.timeTv.setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/dd HH:mm:ss"));
 
+        if (sportData.latArray!=null&&!sportData.latArray.equals("")){
+            holder.locateIv.setVisibility(View.VISIBLE);
+        }else {
+            holder.locateIv.setVisibility(View.GONE);
+        }
         holder.buttonFirstUnitTv.setVisibility(View.VISIBLE);
         holder.buttonFirstIv.setVisibility(View.VISIBLE);
         holder.buttonFirstTv.setVisibility(View.VISIBLE);
@@ -245,6 +251,6 @@ public class SportDataAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         TextView timeTv,dataTv, buttonFirstTv,buttonFirstUnitTv;
-        ImageView typeIv, buttonFirstIv;
+        ImageView typeIv, buttonFirstIv,locateIv;
     }
 }

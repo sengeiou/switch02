@@ -398,5 +398,7 @@
     <string name="heart_switch">タイミング測定</string>
     <string name="runFinsh">現在のランニングを終了するかどうかを確認してください。</string>
     <string name="runShort">ランニングタイムや距離が短すぎて、統計にならない。</string>
+    <string name="started">まずはランニングを始めてください</string>
+    <string name="touchAgain1">もう一度押して走るのをやめる</string>
 
 </resources>

@@ -353,5 +353,7 @@
     <string name="heart_switch">Pengukuran waktu</string>
     <string name="runFinsh">Tolong tentukan apakah akhir dari olahraga lari saat ini?</string>
     <string name="runShort">Panjang atau jarak lari terlalu pendek untuk statistik.</string>
+    <string name="started">Silahkan dimulai dengan latihan lari</string>
+    <string name="touchAgain1">Tekan sekali lagi untuk keluar</string>
 
 </resources>
