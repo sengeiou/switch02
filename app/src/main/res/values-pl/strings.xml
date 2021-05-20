@@ -442,5 +442,7 @@ związek. \ n \ nUwaga: zegarek nie może używać funkcji połączenia Bluetoot
     <string name="speedPerHour">Prędkość</string>
     <string name="training">Pociąg do uruchomienia</string>
     <string name="heart_switch">Pomiary czasowe</string>
+    <string name="runFinsh">Czy na pewno chcesz zakończyć bieżące bieganie?</string>
+    <string name="runShort">Długość lub odległość biegu jest zbyt krótka, aby można było ich statystyce.</string>
 
 </resources>

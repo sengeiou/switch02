@@ -32,7 +32,7 @@ public class LocationUtil {
         criteria.setAltitudeRequired(false); //海拔信息：不需要
         criteria.setBearingRequired(false); //方位信息: 不需要
         criteria.setCostAllowed(true);  //是否允许付费
-        criteria.setPowerRequirement(Criteria.POWER_LOW); //耗电量: 低功耗
+        criteria.setPowerRequirement(Criteria.POWER_HIGH); //耗电量: 低功耗
 //        String provider = myLocationManager.getBestProvider(criteria, true); //获取GPS信息
 //        myLocationManager.requestLocationUpdates(provider,2000,5,locationListener);
 //        Log.e("provider", provider);
@@ -83,10 +83,6 @@ public class LocationUtil {
         criteria.setBearingRequired(false); //方位信息: 不需要
         criteria.setCostAllowed(true);  //是否允许付费
         criteria.setPowerRequirement(Criteria.POWER_LOW); //耗电量: 低功耗
-
-//        Log.e("provider", provider);
-//        List<String> list = myLocationManager.getAllProviders();
-//        Log.e("provider", list.toString());
 //
         Location gpsLocation = null;
         myLocationManager.addGpsStatusListener(myListener);

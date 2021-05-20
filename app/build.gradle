@@ -160,4 +160,7 @@ dependencies {
     implementation project(path: ':library')
     implementation files('libs\\wearable.jar')
 
+    //地图SDK
+    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
 }

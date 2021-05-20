@@ -389,5 +389,7 @@
     <string name="speedPerHour">velocidade</string>
     <string name="training">Corrida de treino</string>
     <string name="heart_switch">Medição programada</string>
+    <string name="runFinsh">Por favor, determine se você quer terminar a corrida atual?</string>
+    <string name="runShort">O tempo de corrida ou as distâncias são muito curtas para as estatísticas.</string>
 
 </resources>

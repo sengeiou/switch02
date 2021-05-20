@@ -14,6 +14,11 @@
         <item name="android:windowExitAnimation">@anim/custom_push_up_out</item>
     </style>
 
+    <style name="MapAnim">
+        <item name="android:windowEnterAnimation">@anim/anim_map_open</item>
+        <item name="android:windowExitAnimation">@anim/anim_map_close</item>
+    </style>
+
     <style name="CustomTabTextAppearanceStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">12sp</item>

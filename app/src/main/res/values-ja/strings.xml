@@ -396,5 +396,7 @@
     <string name="speedPerHour">時速</string>
     <string name="training">トレーニングで走る</string>
     <string name="heart_switch">タイミング測定</string>
+    <string name="runFinsh">現在のランニングを終了するかどうかを確認してください。</string>
+    <string name="runShort">ランニングタイムや距離が短すぎて、統計にならない。</string>
 
 </resources>

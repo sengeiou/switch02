@@ -376,5 +376,7 @@
     <string name="speedPerHour">La vitesse</string>
     <string name="training">Parcours d’entraînement</string>
     <string name="heart_switch">Mesure temporelle</string>
+    <string name="runFinsh">Veuillez déterminer si vous mettez un terme à la course actuelle?</string>
+    <string name="runShort">Les durées de parcours ou les distances parcourues sont trop courtes pour être chiffrées.</string>
 
 </resources>

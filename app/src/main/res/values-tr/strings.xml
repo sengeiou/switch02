@@ -385,5 +385,7 @@ Diğer amaçlar için，veya belirli bir amaç için toplanan bilgiler başka am
     <string name="speedPerHour">Hız</string>
     <string name="training">Tren çalıştırmak için</string>
     <string name="heart_switch">Zamanlanmış ölçümler</string>
+    <string name="runFinsh">Geçerli çalışmanızı sonlandırmak istediğinizden emin misiniz?</string>
+    <string name="runShort">Çalışan verilerinizi daha kısa bir çalışma için kaydedemiyorsanız, 30 saniyeden fazla çalışmaya devam edin.</string>
 
 </resources>

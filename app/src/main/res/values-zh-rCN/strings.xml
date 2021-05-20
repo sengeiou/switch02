@@ -178,6 +178,9 @@
     <string name="climb">攀岩</string>
     <string name="skii">滑雪</string>
     <string name="golf">高尔夫</string>
+    <string name="runFinsh">是否结束当前跑步运动？</string>
+    <string name="runShort">跑步时长或距离太短，无法统计数据。</string>
+
     <!--我的页面-->
     <string name="device">设备</string>
     <string name="stepPlan">计步目标</string>

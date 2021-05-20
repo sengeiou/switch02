@@ -75,7 +75,7 @@ public class SportReportView extends View {
         yValueAble = a.getBoolean(R.styleable.SportReportView_value_y,false);
         mBarWidth = a.getDimension(R.styleable.SportReportView_width_bar, MathUitl.dipToPx(10,getContext()));
         textSize = a.getDimension(R.styleable.SportReportView_size_text, MathUitl.dipToPx(15,getContext()));
-        data_num = a.getInteger(R.styleable.SportReportView_number_data,7);
+        data_num = a.getInteger(R.styleable.SportReportView_number_data,2);
         flag = a.getInteger(R.styleable.SportReportView_flag_y,0);
         a.recycle();
         pad15 = MathUitl.dipToPx(15,context);
@@ -230,8 +230,8 @@ public class SportReportView extends View {
             }else {
                 data_num = list.length;
                 datas = new int[list.length];
-                if(data_num<10)
-                    data_num = 10;
+                if(data_num<2)
+                    data_num = 2;
                 maxDraw = Integer.valueOf(list[0]);
                 minDraw = Integer.valueOf(list[0]);
                 for (int i = 0;i<list.length;i++){

@@ -44,10 +44,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/sport_margin_parallel">
+
+                <ImageView
+                    android:id="@+id/runIv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/sport_icon_type"
+                    android:layout_toLeftOf="@+id/historyIv"
+                    android:padding="10dp"/>
+
                 <ImageView
                     android:id="@+id/historyIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@mipmap/sport_icon_list"
                     android:layout_alignParentEnd="true"
                     android:padding="10dp"/>
@@ -161,7 +170,7 @@
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textColor="@color/rayblue"
                     android:textStyle="bold"
-                    android:text="00"
+                    android:text="--"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -200,7 +209,7 @@
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textColor="@color/rayblue"
                     android:textStyle="bold"
-                    android:text="00"
+                    android:text="--"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -239,7 +248,7 @@
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textColor="@color/rayblue"
                     android:textStyle="bold"
-                    android:text="00:00:00"
+                    android:text="--:--:--"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -283,7 +292,7 @@
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textColor="@color/rayblue"
                     android:textStyle="bold"
-                    android:text="00'00''"
+                    android:text="--'--''"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -322,7 +331,7 @@
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textColor="@color/rayblue"
                     android:textStyle="bold"
-                    android:text="00"
+                    android:text="--"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -359,7 +368,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="0"
+                    android:text="--"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/sport_text_size_normal"
                     android:textStyle="bold" />

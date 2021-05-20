@@ -400,5 +400,7 @@
     <string name="speedPerHour">מהירות</string>
     <string name="training">רכבת להפעלה</string>
     <string name="heart_switch">מדידות תזמנות</string>
+    <string name="runFinsh">האם אתה בטוח שברצונך לסיים את הריצה הנוכחית שלך?</string>
+    <string name="runShort">אורך הריצה או מרחקה קצרים מכדי להיות נתונים סטטיסטיים.</string>
 
 </resources>

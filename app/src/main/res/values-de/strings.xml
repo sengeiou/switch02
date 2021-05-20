@@ -385,5 +385,7 @@
     <string name="speedPerHour">Geschwindigkeit.</string>
     <string name="training">Trainer. Lauftraining.</string>
     <string name="heart_switch">Zeitrechnung.</string>
+    <string name="runFinsh">Würden sie bitte den laufsport beenden?</string>
+    <string name="runShort">Dauer Oder entfernungen der läufer ist zu kurz für statistiken.</string>
 
 </resources>

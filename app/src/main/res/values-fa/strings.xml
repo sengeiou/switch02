@@ -379,5 +379,7 @@
     <string name="speedPerHour">سرعت</string>
     <string name="training">قطار برای اجرا</string>
     <string name="heart_switch">اندازه گیری های به موقع</string>
+    <string name="runFinsh">آیا مطمئن هستید که می خواهید در حال اجرا فعلی خود را به پایان برسونید؟</string>
+    <string name="runShort">طول یا فاصله اجرا بیش از حد کوتاه است تا آمار باشد.</string>
 
 </resources>

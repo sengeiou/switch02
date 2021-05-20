@@ -99,12 +99,14 @@ public class RunFragment extends BaseFragment {
         tableView4.addData(altitudeArray);
         sportSpeed.addData(speedArray);
 
-        if (MyApplication.getInstance().isMtk()){
-            getView().findViewById(R.id.altitudeLl).setVisibility(View.GONE);
-            getView().findViewById(R.id.speedPerHourLl).setVisibility(View.GONE);
-        }else {
-
+        if (sportData.getHeartArray().equals("")){
+            getView().findViewById(R.id.heartLl).setVisibility(View.GONE);
         }
-
+        if (sportData.getAltitudeArray().equals("")){
+            getView().findViewById(R.id.altitudeLl).setVisibility(View.GONE);
+        }
+        if (sportData.getSpeedPerHourArray().equals("")){
+            getView().findViewById(R.id.speedPerHourLl).setVisibility(View.GONE);
+        }
     }
 }

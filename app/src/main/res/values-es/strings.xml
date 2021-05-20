@@ -380,5 +380,7 @@ Recomendamos que los menores alienten a sus padres o tutores a leer esta políti
     <string name="speedPerHour">viajan</string>
     <string name="training">Carrera de entrenamiento</string>
     <string name="heart_switch">Medición programada</string>
+    <string name="runFinsh">Por favor, determine si desea terminar su carrera actual.</string>
+    <string name="runShort">La duración de la carrera o la distancia son demasiado cortas como para hacer estadísticas.</string>
 
 </resources>

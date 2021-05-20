@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.szip.sportwatch.Activity.GpsSport.GpsActivity;
 import com.szip.sportwatch.Activity.SportDataListActivity;
 import com.szip.sportwatch.Activity.userInfo.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -51,10 +52,10 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
     }
 
     private void initEvent() {
-
         getView().findViewById(R.id.pictureIv).setOnClickListener(this);
         getView().findViewById(R.id.userNameTv).setOnClickListener(this);
         getView().findViewById(R.id.historyIv).setOnClickListener(this);
+        getView().findViewById(R.id.runIv).setOnClickListener(this);
     }
 
     private void initView() {
@@ -154,8 +155,10 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         speedTv.setText(String.format(Locale.ENGLISH,"%02d'%02d''",sportData.speed/60,sportData.speed%60));
         calorieTv.setText(String.format(Locale.ENGLISH,"%.1f", sportData.calorie/1000f));
         sportTimeTv.setText(String.format(Locale.ENGLISH,"%02d:%02d:%02d",sportData.sportTime/3600, sportData.sportTime%3600/60,sportData.sportTime%3600%60));
-        heartTv.setText(sportData.heart+"");
-        strideTv.setText(sportData.stride+"");
+        if (sportData.heart!=0)
+            heartTv.setText(sportData.heart+"");
+        if (sportData.stride!=0)
+            strideTv.setText(sportData.stride+"");
         if (sportData.time!=0)
             ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/dd HH:mm:ss"));
         else
@@ -180,6 +183,9 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.historyIv:
                 startActivity(new Intent(getActivity(), SportDataListActivity.class));
+                break;
+            case R.id.runIv:
+                startActivity(new Intent(getActivity(), GpsActivity.class));
                 break;
         }
     }

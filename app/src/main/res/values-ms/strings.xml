@@ -382,5 +382,7 @@
     <string name="speedPerHour">Kelajuan</string>
     <string name="training">Kereta api untuk berlari</string>
     <string name="heart_switch">Pengukuran masa</string>
+    <string name="runFinsh">Adakah awda pasti hendak menamatkan sedang berjalan semasa awda?</string>
+    <string name="runShort">Panjang atau jarak larian terlalu singkat untuk menjadi statistik.</string>
 
 </resources>

@@ -380,5 +380,7 @@
     <string name="speedPerHour">скорост</string>
     <string name="training">Бегом!</string>
     <string name="heart_switch">Измерение по времени</string>
+    <string name="runFinsh">Пожалуйста, определите, завершено ли текущее движение?</string>
+    <string name="runShort">Бег слишком длинный или слишком короткий для статистики.</string>
 
 </resources>

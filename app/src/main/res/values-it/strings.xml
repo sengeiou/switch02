@@ -380,5 +380,7 @@
     <string name="speedPerHour">velocità</string>
     <string name="training">Corsi di formazione</string>
     <string name="heart_switch">Misurazione del tempo</string>
+    <string name="runFinsh">Per favore, siate certi che la campagna attuale sia finita?</string>
+    <string name="runShort">I tempi di percorrenza sono troppo lunghi o le distanze troppo brevi per essere statisticamente significative.</string>
 
 </resources>

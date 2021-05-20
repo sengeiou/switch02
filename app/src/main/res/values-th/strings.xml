@@ -382,5 +382,7 @@
     <string name="speedPerHour">"  "</string>
     <string name="training">" "</string>
     <string name="heart_switch">" "</string>
+    <string name="runFinsh">" "</string>
+    <string name="runShort">" "</string>
 
 </resources>

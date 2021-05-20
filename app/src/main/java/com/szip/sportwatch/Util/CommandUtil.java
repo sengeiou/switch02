@@ -622,7 +622,7 @@ public class CommandUtil {
                 if (data == 0)
                     continue;
                 allData+=data;
-                str.append(String.format(Locale.ENGLISH,",%d",((short)(datas[i] & 0xff) + (short) ((datas[i+1] & 0xFF) << 8))));
+                str.append(String.format(Locale.ENGLISH,",%d",((datas[i] & 0xff) + ((datas[i+1] & 0xFF) << 8))));
             }
             sum++;
         }

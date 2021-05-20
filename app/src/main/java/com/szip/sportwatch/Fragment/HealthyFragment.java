@@ -409,7 +409,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
             // TODO Auto-generated method stub
             if (location != null) {
                 //获取国家，省份，城市的名称
-                Log.e("SZIP******", location.toString());
+                Log.e("LOCATION******", location.toString());
                 try {
                     HttpMessgeUtil.getInstance().getWeather(location.getLatitude()+"", location.getLongitude()+"",
                             new GenericsCallback<WeatherBean>(new JsonGenericsSerializator()) {

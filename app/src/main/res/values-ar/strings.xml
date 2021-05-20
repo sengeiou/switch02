@@ -396,5 +396,7 @@
     <string name="speedPerHour">بسرعة</string>
     <string name="training">التدريب الجري</string>
     <string name="heart_switch">قياس معدل ضربات القلب</string>
+    <string name="runFinsh">يرجى تحديد ما إذا كان إنهاء الركض الحالي؟</string>
+    <string name="runShort">وقت الركض أو المسافة قصيرة جدا لإحصاءات.</string>
 
 </resources>

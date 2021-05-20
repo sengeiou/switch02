@@ -56,7 +56,7 @@ public class CameraActivity extends BaseActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_camera);
-//        StatusBarCompat.translucentStatusBar(CameraActivity.this,true);
+        StatusBarCompat.translucentStatusBar(CameraActivity.this,true);
         mCamera = openCamera(BACK); //通过自己封装的方法，获取Camera类
 
         preview = findViewById(R.id.camera_preview);

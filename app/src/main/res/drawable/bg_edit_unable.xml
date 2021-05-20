@@ -77,7 +77,6 @@
 <!-- 第二层前景：：底偏移4dp，右偏移2dp -->
     <item>
         <shape>
-
             <gradient android:startColor="@color/startBlue"
                 android:endColor="@color/endBlue"
                 android:angle="0"/>

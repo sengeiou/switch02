@@ -44,7 +44,7 @@ public class SelectDialPresenterImpl implements ISelectDialPresenter{
                     R.raw.bg24,R.raw.bg25,R.raw.bg32,R.raw.bg26,R.raw.bg27,R.raw.bg28,R.raw.bg29,R.raw.bg30,R.raw.bg31,R.raw.bg10,
                     R.raw.bg35,R.raw.bg37,R.raw.bg39};
 
-            clock = new int[]{15,7,16,11,17,11,11,11,18,19,20,21,22,23,24,25,26,27,31,30,34};;
+            clock = new int[]{15,7,16,11,17,11,11,11,18,19,20,21,22,23,24,25,26,27,31,30,34};
 
         }else {
             dials = new int[]{R.mipmap.nowwatch_1,R.mipmap.nowwatch_2,R.mipmap.nowwatch_3,R.mipmap.nowwatch_4,

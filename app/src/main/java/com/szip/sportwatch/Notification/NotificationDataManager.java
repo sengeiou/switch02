@@ -465,32 +465,17 @@ public class NotificationDataManager {
                                     String tickerText = null;
                                     if(!StringUtils.isEmpty(notificationData.getTickerText())) {
                                         tickerText = notificationData.getTickerText().toString();
-
-//                                        if(messType == 2){   //TODO NeNotificationService 发送
-//                                            time2 = System.currentTimeMillis();   // 1517555810015   todo --- 进此方法的时间
-//                                            Log.e(TAG, "time2的值为----" + time2);
-//                                            Log.e(TAG, "Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
-//                                            Log.e(TAG, "当前消息为--" + tickerText + "旧的消息为--" + messTemp);
-//                                            if(Math.abs(time2 - time1) <1000  && messTemp.equals(tickerText) ){  // && messTemp.equals(tickerText)
-//                                                Log.e(TAG, "短时间内有重复消息，已过滤掉了--- Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
-////                                            mHandler.removeCallbacksAndMessages(null);
-//                                                return ;
-//                                            }else {
-//                                                messTemp = tickerText;
-//                                            }
-//                                        }else if(messType == 1){   //TODO NotificationReceiver19 发送
-                                            time1 = System.currentTimeMillis();   // 1517555810015   todo --- 进此方法的时间
-                                            Log.e(TAG, "time1的值为----" + time1);
-                                            Log.e(TAG, "Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
-                                            Log.e(TAG, "当前消息为--" + tickerText + "旧的消息为--" + messTemp);
-                                            if(Math.abs(time2 - time1) <1000  && messTemp.equals(tickerText) ){ //  && messTemp.equals(tickerText)
-                                                Log.e(TAG, "短时间内有重复消息，已过滤掉了--- Math.abs(time2 - time1) 的值为--" + Math.abs(time2 - time1));
-//                                            mHandler.removeCallbacksAndMessages(null);
-                                                return ;
-                                            }else {
-                                                messTemp = tickerText;
-                                            }
-//                                        }
+                                        time1 = System.currentTimeMillis();   // 1517555810015   todo --- 进此方法的时间
+                                        Log.e(TAG, "time1的值为----" + time1);
+                                        Log.e(TAG, "Math.abs(time1 - time2) 的值为--" + Math.abs(time2 - time1));
+                                        Log.e(TAG, "当前消息为--" + tickerText + "旧的消息为--" + messTemp);
+                                        if(Math.abs(time1 - time2) <1000  && messTemp.equals(tickerText) ){ //  && messTemp.equals(tickerText)
+                                            Log.e(TAG, "短时间内有重复消息，已过滤掉了--- Math.abs(time1 - time2) 的值为--" + Math.abs(time1 - time2));
+                                            return ;
+                                        }else {
+                                            time2 = System.currentTimeMillis();
+                                            messTemp = tickerText;
+                                        }
                                     }
                                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                    //mtk
