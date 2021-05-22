@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps.MapView;
 import com.szip.sportwatch.Activity.BaseActivity;
 import com.szip.sportwatch.Activity.SportDataListActivity;
 import com.szip.sportwatch.Activity.SportTrackActivity;
@@ -60,7 +61,8 @@ public class GpsActivity extends BaseActivity implements IGpsView{
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_gps);
-        iGpsPresenter = new GpsPresenterImpl(getApplicationContext(),this);
+//        iGpsPresenter = new GpsPresenterImpl(getApplicationContext(),this);
+        iGpsPresenter = new GpsPresenterImpl(getApplicationContext(),this,(LocationManager) getSystemService(LOCATION_SERVICE));
         initView();
         initEvent();
         initAnimation();
@@ -107,7 +109,7 @@ public class GpsActivity extends BaseActivity implements IGpsView{
         touchAnimation.setRepeatCount(0);//设置重复次数
         touchAnimation.setInterpolator(new LinearInterpolator());
         scaleAnimation.setDuration(1000);//设置动画持续时间
-        scaleAnimation.setRepeatCount(2);//设置重复次数
+        scaleAnimation.setRepeatCount(3);//设置重复次数
         scaleAnimation.setInterpolator(new LinearInterpolator());
         scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -124,7 +126,10 @@ public class GpsActivity extends BaseActivity implements IGpsView{
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                countDownTv.setText(String.valueOf(--countDownTime));
+                if (countDownTime==1)
+                    countDownTv.setText("GO!");
+                else
+                    countDownTv.setText(String.valueOf(--countDownTime));
             }
         });
     }

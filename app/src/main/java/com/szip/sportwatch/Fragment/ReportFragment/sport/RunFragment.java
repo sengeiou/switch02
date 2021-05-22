@@ -15,8 +15,10 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.szip.sportwatch.Fragment.BaseFragment;
@@ -161,6 +163,16 @@ public class RunFragment extends BaseFragment {
                 latLngs.add(new LatLng((Integer.valueOf(lats[0])+Integer.valueOf(lats[a]))/1000000.0,
                         (Integer.valueOf(lngs[0])+Integer.valueOf(lngs[a]))/1000000.0));
             }
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLngs.get(0));
+            markerOptions.icon(BitmapDescriptorFactory
+                    .fromResource(R.mipmap.sport_icon_gps_start));
+            aMap.addMarker(markerOptions);
+            MarkerOptions markerOptions1 = new MarkerOptions();
+            markerOptions1.position(latLngs.get(latLngs.size()-1));
+            markerOptions1.icon(BitmapDescriptorFactory
+                    .fromResource(R.mipmap.sport_icon_gps_end));
+            aMap.addMarker(markerOptions1);
             aMap.addPolyline(new PolylineOptions().
                     addAll(latLngs).
                     width(14).
@@ -183,7 +195,6 @@ public class RunFragment extends BaseFragment {
     private MyScrollView.OnScrollListener listener = new MyScrollView.OnScrollListener() {
         @Override
         public void onScroll(int scrollY) {
-            Log.d("LOCATION******","TOP = "+bgRl.getTop()+" ;scrolly = "+scrollY);
             int alpha = 0;
             alpha = scrollY/(bgRl.getTop()/255);
             if (alpha>255)

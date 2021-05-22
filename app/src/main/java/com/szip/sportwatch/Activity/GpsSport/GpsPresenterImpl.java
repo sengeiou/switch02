@@ -17,6 +17,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.Util.LocationUtil;
@@ -28,24 +30,26 @@ public class GpsPresenterImpl implements IGpsPresenter {
     private Context context;
     private IGpsView iGpsView;
 
-    private AMapLocation preLocation;
+    private Location preLocation;
     //声明AMapLocationClient类对象
-    public AMapLocationClient mLocationClient = null;
+    private AMapLocationClient mLocationClient = null;
 
+    private LocationManager locationManager;
 
 
 
 
     private boolean firstTime = true;
 
-    private int time = 0;
-    private int preTime = 0;
-    private float distance = 0;
-    private float preDistance = 0;
+    private int time = 0;//运动时长
+    private int uiTime = 0;//上次更新UI的时间，用于定时更新ui
+    private int speedTime = 0;//记录一公里配速的时长
+    private float distance = 0;//两个点之间的距离
+    private float preDistance = 0;//30秒之内移动的距离，用于计算平均速度
     private float calorie = 0;
     private int speed = 0;
-    private long preTime1 = 0;
-    private float preDistance1 = 0;
+    private long preTime = 0;//上一次定位的时间，用于计算两次定位之间的瞬时速度
+    private float preDistance1 = 0;//整数公里数，用于计算1公里的配速
     private StringBuffer speedStr = new StringBuffer();
     private StringBuffer speedPerHour = new StringBuffer();
     private StringBuffer strideStr = new StringBuffer();
@@ -64,6 +68,11 @@ public class GpsPresenterImpl implements IGpsPresenter {
         this.iGpsView = iGpsView;
         initLocationService();
     }
+    public GpsPresenterImpl(Context context, IGpsView iGpsView,LocationManager locationManager) {
+        this.context = context;
+        this.iGpsView = iGpsView;
+        this.locationManager = locationManager;
+    }
 
     private void initLocationService() {
         //初始化定位
@@ -74,7 +83,9 @@ public class GpsPresenterImpl implements IGpsPresenter {
         AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
         mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.Sport);
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setInterval(5000);
+        mLocationOption.setNeedAddress(false);
+        mLocationOption.setMockEnable(false);
+        mLocationOption.setLocationCacheEnable(false);
         mLocationClient.setLocationOption(mLocationOption);
     }
 
@@ -87,6 +98,14 @@ public class GpsPresenterImpl implements IGpsPresenter {
         }else {
             if (mLocationClient!=null) {
                 mLocationClient.startLocation();
+                initTask();
+                timer.schedule(timerTask,0,1000);
+                if (iGpsView!=null)
+                    iGpsView.startRun();
+            }
+
+            if (locationManager!=null) {
+                LocationUtil.getInstance().getLocation(locationManager,myListener,locationListener);
                 initTask();
                 timer.schedule(timerTask,0,1000);
                 if (iGpsView!=null)
@@ -108,6 +127,18 @@ public class GpsPresenterImpl implements IGpsPresenter {
             if (iGpsView!=null)
                 iGpsView.stopRun();
         }
+
+        if(locationManager!=null){
+            locationManager.removeUpdates(locationListener);
+            if (timer!=null){
+                timer.cancel();
+                timerTask.cancel();
+                timer = null;
+                timerTask = null;
+            }
+            if (iGpsView!=null)
+                iGpsView.stopRun();
+        }
     }
 
     @Override
@@ -120,11 +151,21 @@ public class GpsPresenterImpl implements IGpsPresenter {
                 timerTask.cancel();
             }
             if (distance-preDistance1>200){
-                speedStr.append(","+getInstantaneousSpeed((distance-preDistance1)/(time-preTime)));
+                speedStr.append(","+getInstantaneousSpeed((distance-preDistance1)/(time- speedTime)));
             }
-//            Log.d("LOCATION******","本次运动统计到的数据：\n运动时长 = "+String.format("%02d:%02d:%02d",time/60/60,time/60%60,time%60)+
-//                    "\n运动配速数组 = "+speedStr.toString()+"\n平均速度数组 = "+speedPerHour.toString()+"\n经度数组 = "+latStr.toString()+
-//                    "\n纬度数组 = "+lngStr.toString()+"\n运动里程 = "+distance+"\n卡路里 = "+calorie+"\n步频数组 = "+strideStr.toString());
+            if (iGpsView!=null)
+                iGpsView.saveRun(getSportData());
+        }
+
+        if(locationManager!=null){
+            locationManager.removeUpdates(locationListener);
+            if (timer!=null){
+                timer.cancel();
+                timerTask.cancel();
+            }
+            if (distance-preDistance1>200){
+                speedStr.append(","+getInstantaneousSpeed((distance-preDistance1)/(time- speedTime)));
+            }
             if (iGpsView!=null)
                 iGpsView.saveRun(getSportData());
         }
@@ -168,42 +209,78 @@ public class GpsPresenterImpl implements IGpsPresenter {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
             updateWithNewLocation(aMapLocation);
+
         }
     };
 
-    private void updateWithNewLocation(AMapLocation location) {
-        Log.d("LOCATION******",location.toStr());
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            updateWithNewLocation(LocationUtil.getInstance().getGaoLocation(location,context));
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+    private GpsStatus.Listener myListener = new GpsStatus.Listener() {
+        @Override
+        public void onGpsStatusChanged(int i) {
+
+        }
+    };
+
+    private void updateWithNewLocation(Location location) {
+        Log.d("LOCATION******",location.toString());
         if (location != null) {
             if (preLocation!=null){
-                long subTime=(System.currentTimeMillis()-preTime1)/1000;
-                float d = preLocation.distanceTo(location);
-                float v = (subTime==0)?0:(d/subTime);
-                speed = getInstantaneousSpeed(v);
-                distance+=d;
-                calorie+=getCalorie(d);
-                if (distance-preDistance1>1000){
-                    speedStr.append(String.format(",%d",time-preTime));
-                    preDistance1+=1000;
-                    preTime = time;
-                }
-                latStr.append(String.format(",%d",(int)((location.getLatitude()-lat)*1000000)));
-                lngStr.append(String.format(",%d",(int)((location.getLongitude()-lng)*1000000)));
-                if (iGpsView!=null)
-                    iGpsView.upDateRunData(speed,distance,calorie);
-                if (mapFragment!=null&&!mapFragment.isHidden()){
-                    mapFragment.setData(speed,distance,calorie,location);
-                    Log.d("LOCATION******","fragment 没有隐藏");
-                }else {
-                    Log.d("LOCATION******","fragment 已经隐藏");
+                if (time-uiTime>4&&location.getLatitude()!=0&&location.getLongitude()!=0){
+                    latStr.append(String.format(",%d",(int)((location.getLatitude()-lat)*1000000)));
+                    lngStr.append(String.format(",%d",(int)((location.getLongitude()-lng)*1000000)));
+                    long subTime=(System.currentTimeMillis()- preTime)/1000;
+                    float d = AMapUtils.calculateLineDistance(new LatLng(preLocation.getLatitude(),preLocation.getLongitude()),
+                            new LatLng(location.getLatitude(),location.getLongitude()));
+                    float v = (subTime==0)?0:(d/subTime);
+                    speed = getInstantaneousSpeed(v);
+                    distance+=d;
+                    calorie+=getCalorie(d);
+                    if (iGpsView!=null)
+                        iGpsView.upDateRunData(speed,distance,calorie);
+                    if (mapFragment!=null&&!mapFragment.isHidden()){
+                        mapFragment.setData(speed,distance,calorie);
+                    }
+                    if (distance-preDistance1>1000){
+                        speedStr.append(String.format(",%d",time- speedTime));
+                        preDistance1+=1000;
+                        speedTime = time;
+                    }
+                    preLocation=location;
+                    preTime =System.currentTimeMillis();
+                    uiTime = time;
                 }
             }else {
                 lat = location.getLatitude();
                 lng = location.getLongitude();
                 latStr.append(String.format(",%d",(int)(lat*1000000)));
                 lngStr.append(String.format(",%d",(int)(lng*1000000)));
+                preLocation=location;
+                preTime =System.currentTimeMillis();
             }
-            preLocation=location;
-            preTime1=System.currentTimeMillis();
+            if (mapFragment!=null&&!mapFragment.isHidden()){
+                mapFragment.setLocation(location);
+            }
         }
     }
 

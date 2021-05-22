@@ -32,7 +32,6 @@ import androidx.fragment.app.FragmentTabHost;
 
 public class MainActivity extends BaseActivity implements IMainView{
 
-    private ArrayList<HostTabView> mTableItemList;
     private MyApplication app;
     private RelativeLayout layout;
     private FragmentTabHost fragmentTabHost;
@@ -106,13 +105,12 @@ public class MainActivity extends BaseActivity implements IMainView{
 
     @Override
     public void initHostFinish(ArrayList<HostTabView> hostTabViews) {
-        mTableItemList =hostTabViews;
-//        mTableItemList.get(1).setView(app.getSportVisiable());
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateSport(UpdateSportView updateSportView){
-//        mTableItemList.get(1).setView(app.getSportVisiable());
+
     }
 
     /**

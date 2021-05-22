@@ -2,7 +2,9 @@ package com.szip.sportwatch.Activity.GpsSport;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,28 +31,34 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.szip.sportwatch.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class MapFragment extends DialogFragment implements LocationSource {
     private OnLocationChangedListener mListener;
     private TextView distanceTv,speedTv,calorieTv;
     private View mRootView;
     private MapView mapView;
     private AMap aMap;
-    private AMapLocation location;
+    private Location location;
 
     private int speed;
     private float distance,calorie;
 
-    public MapFragment(int speed, float distance, float calorie,AMapLocation location) {
+
+    public MapFragment(int speed, float distance, float calorie, Location location) {
         this.speed = speed;
         this.distance = distance;
         this.calorie = calorie;
         this.location = location;
     }
 
-    public void setData(int speed, float distance, float calorie,AMapLocation location){
+    public void setData(int speed, float distance, float calorie){
         speedTv.setText(String.format("%d'%d''",speed/60,speed%60));
         distanceTv.setText(String.format("%.2f",distance/1000));
         calorieTv.setText(String.format("%.1f",calorie));
+    }
+
+    public void setLocation(Location location){
         if (mListener!=null)
             mListener.onLocationChanged(location);
     }
@@ -62,7 +70,6 @@ public class MapFragment extends DialogFragment implements LocationSource {
             mRootView = inflater.inflate(R.layout.fragment_map, container, false);
         }
         initView(savedInstanceState);
-
         return mRootView;
     }
 
@@ -72,7 +79,6 @@ public class MapFragment extends DialogFragment implements LocationSource {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         Window window = dialog.getWindow();
-
         if(window != null) {
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawableResource(android.R.color.transparent);
@@ -82,7 +88,7 @@ public class MapFragment extends DialogFragment implements LocationSource {
         return dialog;
     }
 
-    private void initView(Bundle savedInstanceState) {
+    private void initView(final Bundle savedInstanceState) {
         speedTv = mRootView.findViewById(R.id.speedTv);
         distanceTv = mRootView.findViewById(R.id.distanceTv);
         calorieTv = mRootView.findViewById(R.id.calorieTv);
@@ -92,11 +98,7 @@ public class MapFragment extends DialogFragment implements LocationSource {
         distanceTv.setText(String.format("%.2f",distance/1000));
         calorieTv.setText(String.format("%.1f",calorie));
         mapView = mRootView.findViewById(R.id.map);
-        mapView.onCreate(savedInstanceState);
-        if (aMap == null) {
-            aMap = mapView.getMap();
-            setUpMap();
-        }
+
         mRootView.findViewById(R.id.backIv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,18 +108,26 @@ public class MapFragment extends DialogFragment implements LocationSource {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mapView!=null)
-            mapView.onDestroy();
-        deactivate();
+    public void onResume() {
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mapView.onCreate(getArguments());
+                mapView.onResume();
+                aMap = mapView.getMap();
+                setUpMap();
+            }
+        },10);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (mapView!=null)
-            mapView.onResume();
+    public void onPause() {
+        if (mapView!=null){
+            Log.d("LOCATION******","onPause");
+            mapView.onDestroy();
+        }
+        super.onPause();
     }
 
     @Override
@@ -138,14 +148,13 @@ public class MapFragment extends DialogFragment implements LocationSource {
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory
                 .fromResource(R.mipmap.sport_icon_direction));// 设置小蓝点的图标
         myLocationStyle.strokeColor(Color.TRANSPARENT);// 设置圆形的边框颜色
+        myLocationStyle.radiusFillColor(Color.TRANSPARENT);// 设置圆形的填充颜色
         myLocationStyle.showMyLocation(true);
-        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
-        myLocationStyle.strokeWidth(1.0f);// 设置圆形的边框粗细
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.setLocationSource(this);// 设置定位监听
         aMap.getUiSettings().setZoomControlsEnabled(false);// 隐藏缩放按钮
         aMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(18f));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(19f));
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         if (mListener!=null)
             mListener.onLocationChanged(location);

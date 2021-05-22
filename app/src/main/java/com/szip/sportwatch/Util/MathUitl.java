@@ -970,7 +970,7 @@ public class MathUitl {
 
             if (Integer.valueOf(lngs[i]) > maxLng) {
                 maxLng = Integer.valueOf(lngs[i]);
-                maxLatIndex = i;
+                maxLngIndex = i;
             }
 
             //当前遍历的数如果比 min 小，就将该数赋值给 min
@@ -987,28 +987,26 @@ public class MathUitl {
         double distance;
         if (latDistance>lngDistance){
             if (latDistance<70)
-                option[2] =20;
+                option[2] =18.5;
             else
-                option[2] = 20-(int)(Math.log(latDistance/70)/Math.log(2))-0.5;
-            distance = 70*Math.pow(2,20-option[2])/100000.0/2;
+                option[2] = 20-(int)(Math.log(latDistance/70)/Math.log(2))-1.5;
+            distance = 70*Math.pow(2,19-option[2])/100000.0/2;
             option[0] = (Integer.valueOf(lats[0])+((Integer.valueOf(lats[minLatIndex])+
                     Integer.valueOf(lats[maxLatIndex]))/2))/1000000.0-distance;
             option[1] = (Integer.valueOf(lngs[0])+((Integer.valueOf(lngs[minLatIndex])+
                     Integer.valueOf(lngs[maxLatIndex]))/2))/1000000.0;
         }else {
-            if (latDistance<70)
-                option[2] = 20;
+            if (lngDistance<70)
+                option[2] = 18.5;
             else
-                option[2] = 20-(int)(Math.log(lngDistance/70)/Math.log(2))-0.5;
-            distance = 70*Math.pow(2,20-option[2])/100000.0/2;
+                option[2] = 20-(int)(Math.log(lngDistance/70)/Math.log(2))-1.5;
+            distance = 70*Math.pow(2,19-option[2])/100000.0/2;
             option[0] = (Integer.valueOf(lats[0])+((Integer.valueOf(lats[minLngIndex])+
                     Integer.valueOf(lats[maxLngIndex]))/2))/1000000.0-distance;
             option[1] = (Integer.valueOf(lngs[0])+((Integer.valueOf(lngs[minLngIndex])+
                     Integer.valueOf(lngs[maxLngIndex]))/2))/1000000.0;
 
         }
-
-
         return option;
     }
 }

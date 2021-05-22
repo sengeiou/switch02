@@ -58,7 +58,6 @@ public class PulldownUpdateView extends LinearLayout{
                 if (releasedChild == mAutoComeBackView){
                     mDragHelper.settleCapturedViewAt(mAutoBackOriginPos.x,mAutoBackOriginPos.y);
                     invalidate();
-//                    Log.d("LOCATION******","x = "+mAutoComeBackView.getRight()+"width ="+getWidth());
                     if (getWidth()-mAutoComeBackView.getRight()<10)
                         if (listener!=null){
                             listener.updateNow();

@@ -1,11 +1,15 @@
 package com.szip.sportwatch.Util;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+
+import com.amap.api.maps.CoordinateConverter;
+import com.amap.api.maps.model.LatLng;
 
 public class LocationUtil {
 
@@ -44,12 +48,12 @@ public class LocationUtil {
         myLocationManager.addGpsStatusListener(myListener);
         if (netWorkIsOpen(myLocationManager)) {
             //2000代表每2000毫秒更新一次，5代表每5秒更新一次
-            myLocationManager.requestLocationUpdates("network", 2000, 5, locationListener);
+            myLocationManager.requestLocationUpdates("network", 1000, 1, locationListener);
             netLocation = myLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
 
         if (gpsIsOpen(myLocationManager)) {
-            myLocationManager.requestLocationUpdates("gps", 2000, 5, locationListener);
+            myLocationManager.requestLocationUpdates("gps", 1000, 1, locationListener);
             gpsLocation = myLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
 
@@ -70,6 +74,27 @@ public class LocationUtil {
         } else {
             return gpsLocation;
         }
+    }
+
+    public Location getGaoLocation(Location location, Context context){
+        LatLng mark = null;
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        //初始化坐标转换类
+        CoordinateConverter converter = new CoordinateConverter(context);
+        converter.from(CoordinateConverter.CoordType.GPS);
+        //设置需要转换的坐标
+        try {
+            converter.coord(new LatLng(latitude,longitude));
+            mark=converter.convert();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (mark!=null){
+            location.setLatitude(mark.latitude);
+            location.setLongitude(mark.longitude);
+        }
+        return location;
     }
 
     @SuppressLint("MissingPermission")
