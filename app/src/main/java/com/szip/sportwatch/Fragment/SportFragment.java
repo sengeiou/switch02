@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.szip.sportwatch.Activity.GpsSport.GpsActivity;
+import com.szip.sportwatch.Activity.gpsSport.GpsActivity;
 import com.szip.sportwatch.Activity.SportDataListActivity;
 import com.szip.sportwatch.Activity.userInfo.UserInfoActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
@@ -160,7 +160,7 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
         if (sportData.stride!=0)
             strideTv.setText(sportData.stride+"");
         if (sportData.time!=0)
-            ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/dd HH:mm:ss"));
+            ((TextView)getView().findViewById(R.id.time)).setText(DateUtil.getStringDateFromSecond(sportData.time,"yyyy/MM/dd HH:mm:ss"));
         else
             ((TextView)getView().findViewById(R.id.time)).setText("----/--/-- --:--:--");
         Log.d("DATA******","time = "+sportData.time);

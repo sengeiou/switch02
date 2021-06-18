@@ -102,6 +102,12 @@ public class SportWatchAppFunctionConfigDTO extends BaseModel {
     @Column
     public byte useMtkConnect;
 
+    /**
+     * 表盘列表的ID
+     */
+    @Column
+    public int watchPlateGroupId;
+
 
     private HealthyConfig healthMonitorConfig;
 
@@ -219,5 +225,13 @@ public class SportWatchAppFunctionConfigDTO extends BaseModel {
 
     public void setUseMtkConnect(byte useMtkConnect) {
         this.useMtkConnect = useMtkConnect;
+    }
+
+    public int getWatchPlateGroupId() {
+        return watchPlateGroupId;
+    }
+
+    public void setWatchPlateGroupId(int watchPlateGroupId) {
+        this.watchPlateGroupId = watchPlateGroupId;
     }
 }

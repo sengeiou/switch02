@@ -96,8 +96,7 @@ public class TokenInterceptor implements Interceptor {
             if (mediaType.subtype().equals("json") ||
                     mediaType.subtype().equals("xml") ||
                     mediaType.subtype().equals("html") ||
-                    mediaType.subtype().equals("webviewhtml")
-            )
+                    mediaType.subtype().equals("webviewhtml"))
                 return true;
         }
         return false;

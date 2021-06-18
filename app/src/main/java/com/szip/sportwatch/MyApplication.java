@@ -25,6 +25,7 @@ import com.szip.sportwatch.Broadcat.UtilBroadcat;
 import com.szip.sportwatch.Activity.LoginActivity;
 import com.szip.sportwatch.DB.LoadDataUtil;
 import com.szip.sportwatch.DB.SaveDataUtil;
+import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Model.HttpBean.WeatherBean;
 import com.szip.sportwatch.Model.UserInfo;
 import com.szip.sportwatch.Notification.IgnoreList;
@@ -74,7 +75,9 @@ public class MyApplication extends Application{
         return mInstance;
     }
 
+    private boolean isCircle = true;
     private boolean isMtk = true;
+    private String dialGroupId = "0";
     private boolean isFirst = true;
     private String BtMac;
 
@@ -160,6 +163,8 @@ public class MyApplication extends Application{
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences(FILE,MODE_PRIVATE);
         isMtk = sharedPreferences.getBoolean("bleConfig",true);
+        isCircle = sharedPreferences.getBoolean("isCircle",true);
+        dialGroupId = sharedPreferences.getString("dialGroup","0");
         //获取上次退出之后剩余的倒计时上传时间
         updownTime = sharedPreferences.getInt("updownTime",3600);
         //获取手机缓存的远程拍照状态
@@ -406,29 +411,31 @@ public class MyApplication extends Application{
             return deviceNum;
     }
 
-    public boolean getSportVisiable(){
-        if (deviceNum==null){
-            deviceNum = sharedPreferences.getString("deviceNum",null);
-            if (deviceNum==null)
-                return true;
-        }
 
-        return LoadDataUtil.newInstance().getSportConfig(Integer.valueOf(deviceNum));
-    }
-
-    public boolean isCirlce(){
-        if (deviceNum==null){
-            deviceNum = sharedPreferences.getString("deviceNum",null);
-            if (deviceNum==null)
-                return true;
-        }
-
-        return LoadDataUtil.newInstance().getDialConfig(Integer.valueOf(deviceNum));
-    }
-
-    public void setMtk(String deviceName) {
-        isMtk = LoadDataUtil.newInstance().getBleConfig(deviceName);
+    public void setDeviceConfig(String deviceName) {
+        Log.d("DATA******","deviceName = "+deviceName);
+        SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = LoadDataUtil.newInstance().getDeviceConfig(deviceName);
+        isMtk = sportWatchAppFunctionConfigDTO.getUseMtkConnect()==1;
+        isCircle = sportWatchAppFunctionConfigDTO.getScreenType()==0;
+        dialGroupId = Integer.toString(sportWatchAppFunctionConfigDTO.getWatchPlateGroupId());
         sharedPreferences.edit().putBoolean("bleConfig",isMtk).commit();
+        sharedPreferences.edit().putBoolean("isCircle",isCircle).commit();
+        sharedPreferences.edit().putString("dialGroup",dialGroupId).commit();
+
+    }
+
+    public boolean isMtk() {
+        return isMtk;
+    }
+
+
+
+    public boolean isCircle() {
+        return isCircle;
+    }
+
+    public String getDialGroupId() {
+        return dialGroupId;
     }
 
 
@@ -443,8 +450,14 @@ public class MyApplication extends Application{
 
     }
 
-    public boolean isMtk() {
-        return isMtk;
+
+
+    public void setDialUrl(String url){
+        sharedPreferences.edit().putString("dialUrl",url).commit();
+    }
+
+    public String getDiadUrl(){
+        return sharedPreferences.getString("dialUrl","");
     }
 
     public void tokenTimeOut(){

@@ -392,8 +392,6 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
     private Sensor mPressure = null;
     private SensorManager sensorManager = null;
 
-
-
     private LocationManager locationManager;
     private LocationProvider locationProvider;
     private GpsStatus.Listener myListener = new GpsStatus.Listener() {
@@ -466,6 +464,5 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         public void onProviderDisabled(String provider) {
 
         }
-
     };
 }

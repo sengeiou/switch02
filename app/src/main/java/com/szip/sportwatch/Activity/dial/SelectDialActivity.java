@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.szip.sportwatch.Activity.BaseActivity;
 import com.szip.sportwatch.Activity.diy.DIYActivity;
 import com.szip.sportwatch.BLE.BleClient;
 import com.szip.sportwatch.BLE.EXCDController;
 import com.szip.sportwatch.Model.EvenBusModel.UpdateView;
+import com.szip.sportwatch.Model.SendDialModel;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.ProgressHudModel;
 import com.szip.sportwatch.Util.StatusBarCompat;
 
@@ -26,7 +29,7 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
 
 
     private ISelectDialPresenter iSelectDialPresenter;
-    private int pictureId = -1;
+    private String pictureUrl;
     private int clock = -1;
     private ImageView dialIv,changeIv;
     private int progress = 0;
@@ -46,8 +49,6 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
         StatusBarCompat.translucentStatusBar(this,true);
         setAndroidNativeLightStatusBar(this,true);
         EventBus.getDefault().register(this);
-        initView();
-        initEvent();
     }
 
 
@@ -82,10 +83,7 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
                 if (!ProgressHudModel.newInstance().isShow()){
                     ProgressHudModel.newInstance().show(SelectDialActivity.this,getString(R.string.loading),
                             getString(R.string.connect_error),10000);
-                    if (MyApplication.getInstance().isMtk())
-                        EXCDController.getInstance().initDialInfo();
-                    else
-                        BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+                    MainService.getInstance().downloadFirmsoft(pictureUrl,"dial.jpg");
                 }
             }
         });
@@ -105,7 +103,7 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
     public void onUpdataView(UpdateView updateView){
         if(updateView.getState().equals("0")){//进度+1
             progress++;
-            iSelectDialPresenter.sendDial(-1,-1);
+            iSelectDialPresenter.sendDial(null,-1);
             ProgressHudModel.newInstance().setProgress(progress);
         }else if (updateView.getState().equals("1")){//完成
             isSendPic = false;
@@ -123,32 +121,53 @@ public class SelectDialActivity extends BaseActivity implements ISelectDialView{
             isSendPic = true;
             progress = 0;
             ProgressHudModel.newInstance().diss();
-            iSelectDialPresenter.sendDial(pictureId,clock);
+            iSelectDialPresenter.sendDial(MyApplication.getInstance().getPrivatePath()+"dial.jpg",clock);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSendPicture(SendDialModel sendDialModel){
+        if (sendDialModel.isLoadSuccess()){
+            if (MyApplication.getInstance().isMtk())
+                EXCDController.getInstance().initDialInfo();
+            else
+                BleClient.getInstance().writeForSendPicture(0,clock,0,0,new byte[0]);
+        }else {
+            showToast(getString(R.string.httpError));
+            ProgressHudModel.newInstance().diss();
         }
     }
 
     @Override
-    public void setView(boolean isCircle, int id,int pictureId,int clock) {
-        if (isCircle){
+    public void initList(boolean initSuccess) {
+        if (!initSuccess)
+            showToast(getString(R.string.httpError));
+        initView();
+        initEvent();
+    }
+
+    @Override
+    public void setView(String id, String pictureId, int clock) {
+        if (MyApplication.getInstance().isCircle()){
             changeIv.setImageResource(R.mipmap.change_watch_c);
             dialIv = findViewById(R.id.dialIv_c);
         }else {
             dialIv = findViewById(R.id.dialIv_r);
         }
-        this.pictureId = pictureId;
+        this.pictureUrl = pictureId;
         this.clock = clock;
-        dialIv.setImageResource(id);
+        Glide.with(this).load(id).into(dialIv);
     }
 
     @Override
-    public void setDialView(int dialId, int pictureId, int clock) {
-        if (dialId==-1){
+    public void setDialView(String dialId, String pictureId, int clock) {
+        if (dialId==null){
             startActivity(new Intent(SelectDialActivity.this, DIYActivity.class));
             finish();
         }else {
-            this.pictureId = pictureId;
+            this.pictureUrl = pictureId;
             this.clock = clock;
-            dialIv.setImageResource(dialId);
+            Glide.with(this).load(dialId).into(dialIv);
         }
     }
 

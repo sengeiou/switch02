@@ -2,6 +2,10 @@ package com.szip.sportwatch.Util;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -15,11 +19,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.szip.sportwatch.MyApplication;
+
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 
@@ -68,6 +76,25 @@ public class FileUtil {
             fout.close();
         } catch (Exception e) {
             Log.d("SZIP******","保存失败 = "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void writeUriSdcardFile(Uri uri){
+
+        try {
+            AssetFileDescriptor audioAsset = context.getContentResolver()
+                    .openAssetFileDescriptor(uri, "r");
+            InputStream in = audioAsset.createInputStream();
+            OutputStream out = new FileOutputStream(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

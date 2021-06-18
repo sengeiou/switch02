@@ -290,7 +290,6 @@ public class NotificationAppListActivity extends BaseActivity {
                     }
                 }
             }
-            Log.i(TAG, "loadPackageList(), PersonalAppList=" + mPersonalAppList);
         }
 
         private synchronized void sortPackageList() {
@@ -301,8 +300,6 @@ public class NotificationAppListActivity extends BaseActivity {
             if (mPersonalAppList != null) {
                 Collections.sort(mPersonalAppList, comparator);
             }
-
-            Log.i(TAG, "sortPackageList(), PersonalAppList=" + mPersonalAppList);
         }
     }
 

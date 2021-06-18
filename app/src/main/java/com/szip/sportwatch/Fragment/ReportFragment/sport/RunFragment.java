@@ -1,26 +1,26 @@
 package com.szip.sportwatch.Fragment.ReportFragment.sport;
 
-import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMapOptions;
-import com.amap.api.maps.AMapUtils;
-import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.szip.sportwatch.Fragment.BaseFragment;
 import com.szip.sportwatch.DB.dbModel.SportData;
 import com.szip.sportwatch.MyApplication;
@@ -32,15 +32,16 @@ import com.szip.sportwatch.View.SportReportView;
 import com.szip.sportwatch.View.SportSpeedView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class RunFragment extends BaseFragment {
+public class RunFragment extends BaseFragment implements OnMapReadyCallback {
 
     private MyScrollView myScrollView;
     private RelativeLayout bgRl;
     private MapView mapView;
+    private com.google.android.gms.maps.MapView googleMapView;
+    private GoogleMap googleMap;
     private View mapBackView;
 
     private TextView dataTv,timeTv,distanceTv,unitTv,kcalTv,sportTimeTv,averageTv1, averageTv2,averageTv3,averageTv4,averageTv5;
@@ -72,19 +73,22 @@ public class RunFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (mapView!=null)
         mapView.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mapView!=null)
         mapView.onDestroy();
     }
 
     private void initView(Bundle savedInstanceState) {
         myScrollView = getView().findViewById(R.id.scrollId);
         bgRl = getView().findViewById(R.id.bgRl);
-        mapView = getView().findViewById(R.id.map);
+        googleMapView = getView().findViewById(R.id.googleMap);
+        mapView = getView().findViewById(R.id.gaodeMap);
         mapBackView = getView().findViewById(R.id.mapBackView);
         mapBackView.getBackground().setAlpha(0);
 
@@ -112,7 +116,27 @@ public class RunFragment extends BaseFragment {
             ((ImageView)getView().findViewById(R.id.bgIv)).setImageResource(R.mipmap.sport_bg_trainrun);
         }
         if (sportData.latArray!=null&&!sportData.latArray.equals("")){
-            mapView.onCreate(savedInstanceState);
+            if (getResources().getConfiguration().locale.getCountry().equals("CN")) {
+                mapView.onCreate(savedInstanceState);
+                googleMapView.setVisibility(View.GONE);
+                makeLine();
+            } else {
+                googleMapView.onCreate(getArguments());
+                googleMapView.onResume();
+                try {
+                    MapsInitializer.initialize(getActivity());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                int errorCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
+                if (ConnectionResult.SUCCESS != errorCode) {
+                    GooglePlayServicesUtil.getErrorDialog(errorCode, getActivity(), 0).show();
+                } else {
+                    googleMapView.getMapAsync(this);
+                }
+                mapView.setVisibility(View.GONE);
+            }
             myScrollView.setOnScrollListener(listener);
         }else {
             getView().findViewById(R.id.mapViewtop).setVisibility(View.GONE);
@@ -148,7 +172,19 @@ public class RunFragment extends BaseFragment {
         tableView4.addData(altitudeArray);
         sportSpeed.addData(speedArray);
 
-        if (sportData.latArray!=null&&!sportData.latArray.equals("")){
+        if (sportData.getHeartArray().equals("")){
+            getView().findViewById(R.id.heartLl).setVisibility(View.GONE);
+        }
+        if (sportData.getAltitudeArray().equals("")){
+            getView().findViewById(R.id.altitudeLl).setVisibility(View.GONE);
+        }
+        if (sportData.getSpeedPerHourArray().equals("")){
+            getView().findViewById(R.id.speedPerHourLl).setVisibility(View.GONE);
+        }
+    }
+
+    private void makeLine(){
+        if (getResources().getConfiguration().locale.getCountry().equals("CN")){
             AMap aMap = mapView.getMap();
             List<LatLng> latLngs = new ArrayList<LatLng>();
             String[] lats = sportData.latArray.split(",");
@@ -178,17 +214,36 @@ public class RunFragment extends BaseFragment {
                     width(14).
                     useGradient(true).
                     color(Color.parseColor("#1BC416")));
+        }else {
+            List<com.google.android.gms.maps.model.LatLng> latLngs = new ArrayList<com.google.android.gms.maps.model.LatLng>();
+            String[] lats = sportData.latArray.split(",");
+            String[] lngs = sportData.lngArray.split(",");
+            double [] option = MathUitl.getMapOption(lats,lngs);
 
-        }
-
-        if (sportData.getHeartArray().equals("")){
-            getView().findViewById(R.id.heartLl).setVisibility(View.GONE);
-        }
-        if (sportData.getAltitudeArray().equals("")){
-            getView().findViewById(R.id.altitudeLl).setVisibility(View.GONE);
-        }
-        if (sportData.getSpeedPerHourArray().equals("")){
-            getView().findViewById(R.id.speedPerHourLl).setVisibility(View.GONE);
+            googleMap.getUiSettings().setZoomControlsEnabled(false);// 隐藏缩放按钮
+            googleMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
+            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.zoomTo((float) option[2]));
+            com.google.android.gms.maps.model.LatLng centerBJPoint= new com.google.android.gms.maps.model.LatLng(option[0],
+                    option[1]);
+            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(centerBJPoint));
+            for (int a = 1;a<lats.length;a++){
+                latLngs.add(new com.google.android.gms.maps.model.LatLng((Integer.valueOf(lats[0])+Integer.valueOf(lats[a]))/1000000.0,
+                        (Integer.valueOf(lngs[0])+Integer.valueOf(lngs[a]))/1000000.0));
+            }
+            com.google.android.gms.maps.model.MarkerOptions markerOptions = new com.google.android.gms.maps.model.MarkerOptions();
+            markerOptions.position(latLngs.get(0));
+            markerOptions.icon(com.google.android.gms.maps.model.BitmapDescriptorFactory
+                    .fromResource(R.mipmap.sport_icon_gps_start));
+            googleMap.addMarker(markerOptions);
+            com.google.android.gms.maps.model.MarkerOptions markerOptions1 = new com.google.android.gms.maps.model.MarkerOptions();
+            markerOptions1.position(latLngs.get(latLngs.size()-1));
+            markerOptions1.icon(com.google.android.gms.maps.model.BitmapDescriptorFactory
+                    .fromResource(R.mipmap.sport_icon_gps_end));
+            googleMap.addMarker(markerOptions1);
+            googleMap.addPolyline(new com.google.android.gms.maps.model.PolylineOptions().
+                    addAll(latLngs).
+                    width(14).
+                    color(Color.parseColor("#1BC416")));
         }
     }
 
@@ -202,4 +257,10 @@ public class RunFragment extends BaseFragment {
             mapBackView.getBackground().setAlpha(alpha);
         }
     };
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        makeLine();
+    }
 }

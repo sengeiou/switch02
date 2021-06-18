@@ -69,7 +69,7 @@ public class SportDataAdapter extends BaseAdapter {
 
         SportData sportData = list.get(position);
 
-        holder.timeTv.setText(DateUtil.getStringDateFromSecond(sportData.time,"YYYY/MM/dd HH:mm:ss"));
+        holder.timeTv.setText(DateUtil.getStringDateFromSecond(sportData.time,"yyyy/MM/dd HH:mm:ss"));
 
         if (sportData.latArray!=null&&!sportData.latArray.equals("")){
             holder.locateIv.setVisibility(View.VISIBLE);

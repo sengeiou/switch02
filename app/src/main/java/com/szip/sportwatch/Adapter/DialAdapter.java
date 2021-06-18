@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.szip.sportwatch.Model.HttpBean.DialBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.View.CircularImageView;
@@ -12,14 +14,25 @@ import com.szip.sportwatch.View.CircularImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
 
     private int [] dials;
     private int select = 0;
+    private Context mContext;
+
+    private ArrayList<DialBean.Dial> dialArrayList;
 
     public DialAdapter(int[] dials) {
         this.dials = dials;
     }
+
+    public DialAdapter(ArrayList<DialBean.Dial> dialArrayList,Context context) {
+        this.dialArrayList = dialArrayList;
+        mContext = context;
+    }
+
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +47,7 @@ public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
             @Override
             public void onClick(View v) {
                 select = holder.getAdapterPosition();
-                onItemClickListener.onItemClick(holder.getAdapterPosition()==dials.length?-1:holder.getAdapterPosition());
+                onItemClickListener.onItemClick(holder.getAdapterPosition()==dialArrayList.size()?-1:holder.getAdapterPosition());
                 notifyDataSetChanged();
             }
         });
@@ -63,20 +76,21 @@ public class DialAdapter extends RecyclerView.Adapter<DialAdapter.Holder> {
             holder.selectView.setVisibility(View.GONE);
         }
 
-        if (position==dials.length) {
+        if (position==dialArrayList.size()) {
             holder.fruitView.findViewById(R.id.diyRl).setVisibility(View.VISIBLE);
             holder.fruitView.findViewById(R.id.dailRl).setVisibility(View.GONE);
         } else {
             holder.fruitView.findViewById(R.id.diyRl).setVisibility(View.GONE);
             holder.fruitView.findViewById(R.id.dailRl).setVisibility(View.VISIBLE);
-            holder.imageView.setImageResource(dials[position]);
+            Glide.with(mContext).load(dialArrayList.get(position).getPreviewUrl()).into(holder.imageView);
+//            holder.imageView.setImageResource(dials[position]);
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return dials.length+1;
+        return dialArrayList.size()+1;
     }
 
 

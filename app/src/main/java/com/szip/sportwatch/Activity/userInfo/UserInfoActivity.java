@@ -30,6 +30,7 @@ import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.DateUtil;
+import com.szip.sportwatch.Util.FileUtil;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
 import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.MathUitl;
@@ -254,9 +255,18 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             }
                 break;
             case IMAGE_MEDIA:{
-                Log.d("IMAGE******","相册回调");
                 if (data!=null)
-                    iUserInfoPresenter.cropPhoto(data.getData());
+                    FileUtil.getInstance().writeUriSdcardFile(data.getData());
+                File file = new File(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
+                if (file.exists()) {
+                    Uri uri;
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        uri = Uri.fromFile(file);
+                    } else {
+                        uri = FileProvider.getUriForFile(this, "com.szip.sportwatch.fileprovider", file);
+                    }
+                    iUserInfoPresenter.cropPhoto(uri);
+                }
             }
                 break;
             case  UCrop.REQUEST_CROP:{

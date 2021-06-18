@@ -1228,27 +1228,15 @@ public class LoadDataUtil {
     }
 
     /**
-     * 判断圆屏方屏
-     * */
-    public boolean getDialConfig(int deviceNum){
-        SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
-                .from(SportWatchAppFunctionConfigDTO.class)
-                .where(SportWatchAppFunctionConfigDTO_Table.identifier.is(deviceNum))
-                .querySingle();
-
-        return sportWatchAppFunctionConfigDTO==null?false:sportWatchAppFunctionConfigDTO.getScreenType()==0;
-    }
-
-    /**
      * 判断是否支持mtk蓝牙库
      * */
-    public boolean getBleConfig(String deviceName){
+    public SportWatchAppFunctionConfigDTO getDeviceConfig(String deviceName){
         SportWatchAppFunctionConfigDTO sportWatchAppFunctionConfigDTO = SQLite.select()
                 .from(SportWatchAppFunctionConfigDTO.class)
                 .where(SportWatchAppFunctionConfigDTO_Table.appName.is(deviceName))
                 .querySingle();
 
-        return sportWatchAppFunctionConfigDTO==null?true:sportWatchAppFunctionConfigDTO.getUseMtkConnect()==1;
+        return sportWatchAppFunctionConfigDTO==null?new SportWatchAppFunctionConfigDTO():sportWatchAppFunctionConfigDTO;
     }
 
     /**

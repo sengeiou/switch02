@@ -32,7 +32,7 @@ public class DiyPresenterImpl implements IDiyPresenter{
         dialRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         final int [] dials;
         final int [] clock;
-        final boolean isCircle = MyApplication.getInstance().isCirlce();
+        final boolean isCircle = MyApplication.getInstance().isCircle();
         if (isCircle){
             dials = new int[]{R.mipmap.diy_preview_c_1_1,R.mipmap.diy_preview_c_2_1,R.mipmap.diy_preview_c_3_1,
                     R.mipmap.diy_preview_c_4_1, R.mipmap.diy_preview_c_5_1,R.mipmap.diy_preview_c_6_1, R.mipmap.diy_preview_c_7_1,
@@ -111,7 +111,6 @@ public class DiyPresenterImpl implements IDiyPresenter{
             options.setToolbarColor(context.getResources().getColor(R.color.rayblue));
             options.setStatusBarColor(context.getResources().getColor(R.color.rayblue));
             options.setActiveWidgetColor(context.getResources().getColor(R.color.rayblue));
-            options.setCompressionQuality(80);
             UCrop uCrop = UCrop.of(path, target)
                     .withAspectRatio(1f, 1f)
                     .withMaxResultSize(240, 240)

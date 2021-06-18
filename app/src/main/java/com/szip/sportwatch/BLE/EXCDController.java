@@ -7,7 +7,7 @@ import android.util.Log;
 import android.text.format.DateFormat;
 import com.mediatek.ctrl.music.RemoteMusicController;
 import com.mediatek.wearable.Controller;
-import com.szip.sportwatch.Activity.CameraActivity;
+import com.szip.sportwatch.Activity.camera.CameraActivity;
 import com.szip.sportwatch.Interface.OnCameraListener;
 import com.szip.sportwatch.Interface.ReviceDataCallback;
 import com.szip.sportwatch.Model.EvenBusModel.PlanModel;
@@ -299,17 +299,17 @@ public class EXCDController extends Controller {
                 writeForRET("SET,"+commands[1]);
             }else if (commands[1].equals("14")){//操作相机指令
                 if (((MyApplication)mContext.getApplicationContext()).isCamerable())
-                if (commands[2].equals("1")){//打开相机
-                    Intent intent1=new Intent(mContext, CameraActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent1);
-                }else if (commands[2].equals("0")){//关闭相机
-                    if (onCameraListener!=null)
-                        onCameraListener.onCamera(0);
-                }else {//拍照
-                    if (onCameraListener!=null)
-                        onCameraListener.onCamera(1);
-                }
+                    if (commands[2].equals("1")){//打开相机
+                        Intent intent1=new Intent(mContext, CameraActivity.class);
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent1);
+                    }else if (commands[2].equals("0")){//关闭相机
+                        if (onCameraListener!=null)
+                            onCameraListener.onCamera(0);
+                    }else {//拍照
+                        if (onCameraListener!=null)
+                            onCameraListener.onCamera(1);
+                    }
                 writeForRET("SET,"+commands[1]+","+commands[2]);
             }else if (commands[1].equals("35")){//同步单位制式
                 UserInfo userInfo =((MyApplication)mContext.getApplicationContext()).getUserInfo();

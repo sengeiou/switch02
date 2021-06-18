@@ -62,6 +62,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -894,8 +896,16 @@ public class MathUitl {
         String filePath = MyApplication.getInstance().getPrivatePath()+"crop.jpg";
         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
         try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            int options = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            while (baos.toByteArray().length / 1024 > 40) { // 循环判断如果压缩后图片是否大于40kb,大于继续压缩
+                baos.reset(); // 重置baos即清空baos
+                bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+                options -= 5;// 每次都减少5
+            }
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, options, bos)) {
                 bos.flush();
             }
             bos.close();
@@ -903,7 +913,6 @@ public class MathUitl {
             e.printStackTrace();
         } finally {
             bitmap.recycle();
-            bitmap = null;
         }
     }
 

@@ -1,5 +1,8 @@
 package com.szip.sportwatch.Activity;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -291,7 +294,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         editor.putString("mail",loginBean.getData().getUserInfo().getEmail());
         ((MyApplication)getApplicationContext()).setUserInfo(loginBean.getData().getUserInfo());
         editor.putString("password",passwordEt.getText().toString());
-
+        if (loginBean.getData().getUserInfo().getDeviceCode()!=null&&!loginBean.getData().getUserInfo().getDeviceCode().equals("")){
+            if (MyApplication.getInstance().getDialGroupId().equals("0")){
+                BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(loginBean.getData().getUserInfo().getDeviceCode());
+                if (device!=null)
+                    MyApplication.getInstance().setDeviceConfig(device.getName().indexOf("_LE")>=0?
+                            device.getName().substring(0,device.getName().length()-3):
+                            device.getName());
+            }
+        }
 
         if (loginBean.getData().getUserInfo().getPhoneNumber()!=null||loginBean.getData().getUserInfo().getEmail()!=null){
             //获取云端数据

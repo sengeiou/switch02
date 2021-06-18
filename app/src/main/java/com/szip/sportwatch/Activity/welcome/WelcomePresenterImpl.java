@@ -1,10 +1,14 @@
 package com.szip.sportwatch.Activity.welcome;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableManager;
@@ -13,6 +17,7 @@ import com.szip.sportwatch.DB.dbModel.HealthyConfig;
 import com.szip.sportwatch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
+import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
 import com.szip.sportwatch.Service.MainService;
 import com.szip.sportwatch.Util.HttpMessgeUtil;
@@ -133,6 +138,18 @@ public class WelcomePresenterImpl implements IWelcomePresenter{
                     public void onResponse(UserInfoBean response, int id) {
                         if (response.getCode() == 200){
                             getInstance().setUserInfo(response.getData());
+                            if (response.getData().getDeviceCode()!=null&&!response.getData().getDeviceCode().equals("")){
+                                if (MyApplication.getInstance().getDialGroupId().equals("0")){
+                                    Log.d("DATA******","deviceCode = "+response.getData().getDeviceCode());
+                                    BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+                                    BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+                                    BluetoothDevice device = bluetoothAdapter.getRemoteDevice(response.getData().getDeviceCode());
+                                    if (device!=null)
+                                        MyApplication.getInstance().setDeviceConfig(device.getName().indexOf("_LE")>=0?
+                                                device.getName().substring(0,device.getName().length()-3):
+                                                device.getName());
+                                }
+                            }
                             if (iWelcomeView!=null)
                                 iWelcomeView.initUserinfoFinish(false);
                         }else if (response.getCode() == 401){

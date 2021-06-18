@@ -1,10 +1,15 @@
 package com.szip.sportwatch.Activity.diy;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -29,8 +34,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.io.IOException;
-
 
 public class DIYActivity extends BaseActivity implements IDiyView{
 
@@ -72,12 +77,12 @@ public class DIYActivity extends BaseActivity implements IDiyView{
         }
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         FileUtil.getInstance().deleteFile(MyApplication.getInstance().getPrivatePath()+"crop.jpg");
+        FileUtil.getInstance().deleteFile(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
     }
 
     private void initEvent() {
@@ -131,6 +136,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == UCrop.RESULT_ERROR){
+            Log.d("SZIP******","URI = "+data.getData());
             showToast(getString(R.string.crop_pic_failed));
             return;
         }
@@ -138,7 +144,18 @@ public class DIYActivity extends BaseActivity implements IDiyView{
             case 1:{
                 if (data==null||data.getData()==null)
                     return;
-                iDiyPresenter.cropPhoto(data.getData());
+                Log.d("SZIP******","URI1 = "+data.getData());
+                FileUtil.getInstance().writeUriSdcardFile(data.getData());
+                File file = new File(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
+                if (file.exists()) {
+                    Uri uri;
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        uri = Uri.fromFile(file);
+                    } else {
+                        uri = FileProvider.getUriForFile(this, "com.szip.sportwatch.fileprovider", file);
+                    }
+                    iDiyPresenter.cropPhoto(uri);
+                }
 
             }
             break;
@@ -146,7 +163,6 @@ public class DIYActivity extends BaseActivity implements IDiyView{
                 if (data!=null){
                     MathUitl.toJpgFile();
                     resultUri = UCrop.getOutput(data);
-                    Log.d("SZIP******","URI = "+UCrop.getOutput(data)+" ;uri = "+resultUri);
                     try {
                         backgroundIv.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri));
                     } catch (IOException e) {

@@ -77,22 +77,24 @@ public class LocationUtil {
     }
 
     public Location getGaoLocation(Location location, Context context){
-        LatLng mark = null;
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        //初始化坐标转换类
-        CoordinateConverter converter = new CoordinateConverter(context);
-        converter.from(CoordinateConverter.CoordType.GPS);
-        //设置需要转换的坐标
-        try {
-            converter.coord(new LatLng(latitude,longitude));
-            mark=converter.convert();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (mark!=null){
-            location.setLatitude(mark.latitude);
-            location.setLongitude(mark.longitude);
+        if (context.getResources().getConfiguration().locale.getCountry().equals("CN")){
+            LatLng mark = null;
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            //初始化坐标转换类
+            CoordinateConverter converter = new CoordinateConverter(context);
+            converter.from(CoordinateConverter.CoordType.GPS);
+            //设置需要转换的坐标
+            try {
+                converter.coord(new LatLng(latitude,longitude));
+                mark=converter.convert();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (mark!=null){
+                location.setLatitude(mark.latitude);
+                location.setLongitude(mark.longitude);
+            }
         }
         return location;
     }

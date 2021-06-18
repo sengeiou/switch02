@@ -1,92 +1,141 @@
 package com.szip.sportwatch.Activity.dial;
 
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.szip.sportwatch.Adapter.DialAdapter;
 import com.szip.sportwatch.BLE.BleClient;
+import com.szip.sportwatch.Model.HttpBean.DialBean;
 import com.szip.sportwatch.MyApplication;
 import com.szip.sportwatch.R;
+import com.szip.sportwatch.Util.HttpMessgeUtil;
+import com.szip.sportwatch.Util.JsonGenericsSerializator;
 import com.szip.sportwatch.Util.ScreenCapture;
+import com.zhy.http.okhttp.callback.GenericsCallback;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import okhttp3.Call;
+
 public class SelectDialPresenterImpl06 implements ISelectDialPresenter{
 
-    private Handler handler;
     private Context context;
     private ISelectDialView iSelectDialView;
-
+    private ArrayList<DialBean.Dial> dialArrayList = new ArrayList<>();
     public SelectDialPresenterImpl06(Context context, ISelectDialView iSelectDialView) {
         this.context = context;
         this.iSelectDialView = iSelectDialView;
-        handler = new Handler(Looper.getMainLooper());
+        getDialList();
+    }
+
+    private void getDialList() {
+        try {
+            HttpMessgeUtil.getInstance().getDialList(MyApplication.getInstance().getDialGroupId(),
+                    new GenericsCallback<DialBean>(new JsonGenericsSerializator()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    if (iSelectDialView!=null)
+                        iSelectDialView.initList(false);
+                }
+
+                @Override
+                public void onResponse(DialBean response, int id) {
+                    if (response.getCode() == 200){
+                        dialArrayList = response.getData().getList();
+                        if (iSelectDialView!=null)
+                            iSelectDialView.initList(true);
+                    }else {
+                        if (iSelectDialView!=null)
+                            iSelectDialView.initList(false);
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void getViewConfig(RecyclerView dialRv) {
         dialRv.setLayoutManager(new GridLayoutManager(context, 3));
-        final int [] dials;
-        final int [] picture;
-        final int [] clock;
-        final boolean isCircle = MyApplication.getInstance().isCirlce();
-        if (isCircle){
-            dials = new int[]{R.mipmap.nowwatch_c_1};
-            picture = new int[]{R.raw.bg5};
-            clock = new int[]{15};
-        }else {
-            dials = new int[]{R.mipmap.watch_2523_1,R.mipmap.watch_2523_2,R.mipmap.watch_2523_3,R.mipmap.watch_2523_4,
-                    R.mipmap.watch_2523_5,R.mipmap.watch_2523_6,R.mipmap.watch_2523_7,R.mipmap.watch_2523_8,R.mipmap.watch_2523_9};
-            picture =  new int[]{R.raw.bg_2523_1,R.raw.bg_2523_2,R.raw.bg_2523_3,R.raw.bg_2523_4,R.raw.bg_2523_5,R.raw.bg_2523_6,
-                    R.raw.bg_2523_7,R.raw.bg_2523_8,R.raw.bg_2523_9};
-            clock = new int[]{1,2,3,4,5,6,7,8,9};
-
-        }
-        DialAdapter dialAdapter = new DialAdapter(dials);
+        DialAdapter dialAdapter = new DialAdapter(dialArrayList,context);
         dialRv.setAdapter(dialAdapter);
         dialRv.setHasFixedSize(true);
         dialRv.setNestedScrollingEnabled(false);
 
-        if (iSelectDialView!=null)
-            iSelectDialView.setView(isCircle,dials[0],picture[0],clock[0]);
+        if (iSelectDialView!=null&&dialArrayList.size()!=0)
+            iSelectDialView.setView(dialArrayList.get(0).getPreviewUrl(),
+                    dialArrayList.get(0).getPlateBgUrl(),dialArrayList.get(0).getPointerNumber());
 
         dialAdapter.setOnItemClickListener(new DialAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (position==-1){
                     if (iSelectDialView!=null)
-                        iSelectDialView.setDialView(-1,-1,-1);
+                        iSelectDialView.setDialView(null,null,-1);
                 } else{
                     if (iSelectDialView!=null){
-                        iSelectDialView.setDialView(dials[position],picture[position],clock[position]);
+                        iSelectDialView.setDialView(dialArrayList.get(position).getPreviewUrl(),
+                                dialArrayList.get(position).getPlateBgUrl(),dialArrayList.get(position).getPointerNumber());
                     }
                 }
             }
         });
     }
 
+
     private int i = 0;
     private byte datas[];
 
     @Override
-    public void sendDial(int pictureId, int clock) {
-        if (pictureId != -1) {
+    public void sendDial(String resultUri, int clock) {
+        if (resultUri != null) {
             final int PAGENUM = 128;//分包长度
-            final byte[] datas = ScreenCapture.imageToByte(context, pictureId);
-            int num = datas.length / PAGENUM;
-            num = datas.length % PAGENUM == 0 ? num : num + 1;
-            if (iSelectDialView != null)
-                iSelectDialView.setDialProgress(num);
-            this.datas = datas;
-            this.i = 0;
+            InputStream in = null;
+            try {
+                in = new FileInputStream(MyApplication.getInstance().getPrivatePath()+"dial.jpg");
+                byte[] datas = toByteArray(in);
+                in.close();
+                int num = datas.length / PAGENUM;
+                num = datas.length % PAGENUM == 0 ? num : num + 1;
+                if (iSelectDialView != null)
+                    iSelectDialView.setDialProgress(num);
+                this.datas = datas;
+                this.i = 0;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         sendByte();
+    }
 
+    private byte[] toByteArray(InputStream in) throws IOException {
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024 * 4];
+        int n = 0;
+        while ((n = in.read(buffer)) != -1) {
+            out.write(buffer, 0, n);
+        }
+        return out.toByteArray();
     }
 
     private void sendByte(){

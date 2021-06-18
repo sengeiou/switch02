@@ -350,8 +350,8 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
                         if (iUserInfoView!=null)
                             iUserInfoView.setPhoto(response.getData().getUrl());
                         //裁剪成功之后，删掉之前拍的照片
-                        new File(context.getExternalCacheDir().getPath()+"/camera.jpg").delete();
-                        new File(context.getExternalCacheDir().getPath()+"/crop.jpg").delete();
+                        new File(MyApplication.getInstance().getPrivatePath()+"camera.jpg").delete();
+                        new File(MyApplication.getInstance().getPrivatePath()+"crop.jpg").delete();
                     }
                 }
             });

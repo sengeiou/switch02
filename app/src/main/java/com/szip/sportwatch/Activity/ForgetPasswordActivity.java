@@ -50,7 +50,6 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     private Timer timer;
     private int time;
 
-    private Context mContext;
 
     private int flagForEt;
 
@@ -81,7 +80,6 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_forget_password);
-        mContext = this;
         initView();
         initEvent();
     }

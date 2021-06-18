@@ -14,6 +14,7 @@ import com.szip.sportwatch.Model.HttpBean.BindBean;
 import com.szip.sportwatch.Model.HttpBean.CheckUpdateBean;
 import com.szip.sportwatch.Model.HttpBean.CheckVerificationBean;
 import com.szip.sportwatch.Model.HttpBean.DeviceConfigBean;
+import com.szip.sportwatch.Model.HttpBean.DialBean;
 import com.szip.sportwatch.Model.HttpBean.DownloadDataBean;
 import com.szip.sportwatch.Model.HttpBean.LoginBean;
 import com.szip.sportwatch.Model.HttpBean.UserInfoBean;
@@ -470,6 +471,20 @@ public class HttpMessgeUtil {
                 .execute(callback,new TokenInterceptor());
     }
 
+    private void _getDialList(String watchPlateGroupId,GenericsCallback<DialBean> callback)throws IOException{
+        String url = this.url+"device/watchPlate";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .addHeader("Time-Diff",time)
+                .addHeader("Accept-Language",language)
+                .addHeader("token",token)
+                .addParams("pageNum","1")
+                .addParams("pageSize","20")
+                .addParams("watchPlateGroupId",watchPlateGroupId)
+                .build()
+                .execute(callback,new TokenInterceptor());
+    }
 
     public void getDeviceConfig(GenericsCallback<DeviceConfigBean> callback)throws IOException{
         _getDeviceConfig(callback);
@@ -563,9 +578,13 @@ public class HttpMessgeUtil {
     public void postForCheckUpdate(String var ,GenericsCallback<CheckUpdateBean> callback)throws IOException{
         _postForCheckUpdate(var,callback);
     }
+
+    public void getDialList(String watchPlateGroupId ,GenericsCallback<DialBean> callback)throws IOException{
+        _getDialList(watchPlateGroupId,callback);
+    }
     /**
      * 接口回调
-     * */
+     **/
     private GenericsCallback<BaseApi> baseApiGenericsCallback = new GenericsCallback<BaseApi>(new JsonGenericsSerializator()) {
         @Override
         public void onError(Call call, Exception e, int id) {

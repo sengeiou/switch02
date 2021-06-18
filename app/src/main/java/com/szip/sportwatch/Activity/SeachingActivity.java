@@ -19,7 +19,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
@@ -241,7 +240,8 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                             MathUitl.saveInfoData(SeachingActivity.this,app.getUserInfo()).commit();
 
                             //启动后台自动连接线程
-                            app.setMtk(device.getName());
+                            app.setDeviceConfig(device.getName().indexOf("_LE")>=0?device.getName().substring(0,device.getName().length()-3):
+                                    device.getName());
                             WearableManager.getInstance().setRemoteDevice(device);
                             MainService.getInstance().startConnect();
 

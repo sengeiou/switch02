@@ -38,7 +38,7 @@ public class DiyPresenterImpl06 implements IDiyPresenter{
         dialRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         final int [] dials;
         final int [] clock;
-        final boolean isCircle = MyApplication.getInstance().isCirlce();
+        final boolean isCircle = MyApplication.getInstance().isCircle();
         if (isCircle){
             dials = new int[]{R.mipmap.diy_preview_c_1_1};
             clock = new int[]{15};
