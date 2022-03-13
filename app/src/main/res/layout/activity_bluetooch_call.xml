@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.BluetoochCallActivity"
+    tools:context=".Activity.help.BluetoochCallActivity"
     android:orientation="vertical"
     android:background="@color/bgColor">
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.szip.sportwatch.View.NoScrollViewPager
+        <com.szip.jswitch.View.NoScrollViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

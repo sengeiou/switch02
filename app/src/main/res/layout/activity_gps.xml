@@ -7,6 +7,30 @@
     tools:context=".Activity.gpsSport.GpsActivity"
     android:background="#564f5e">
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sport_runing_gps"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/gpsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sport_icon_gps_0"
+            android:padding="8dp"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/distanceLl"
         android:layout_width="wrap_content"
@@ -230,16 +254,7 @@
         android:clickable="true"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/countDownTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="200sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="3"/>
+
 
         <RelativeLayout
             android:id="@+id/updateRl"
@@ -259,11 +274,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:text="向右滑动解锁"
+                android:text="@string/unlock"
                 android:textColor="@color/white"
                 android:textSize="15sp"/>
 
-            <com.szip.sportwatch.View.PulldownUpdateView
+            <com.szip.jswitch.View.PulldownUpdateView
                 android:id="@+id/updateView"
                 android:layout_width="250dp"
                 android:layout_height="50dp">
@@ -276,19 +291,30 @@
                     android:scaleType="fitXY"
                     />
 
-            </com.szip.sportwatch.View.PulldownUpdateView>
-
-
+            </com.szip.jswitch.View.PulldownUpdateView>
 
         </RelativeLayout>
 
-
-
     </FrameLayout>
 
-    <com.amap.api.maps.MapView
-        android:id="@+id/gaodeMap"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:id="@+id/startTimeFl"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/countDownTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="200sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="3"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

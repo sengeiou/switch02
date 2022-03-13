@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
 def dbflow_version = "4.2.4"
 android {
     signingConfigs {
@@ -21,17 +20,30 @@ android {
         abortOnError false
     }
     defaultConfig {
-        applicationId project.APPLICATION_ID
+        applicationId 'com.szip.jswitch'
         minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
         targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
         versionName project.APP_VERSION
         versionCode Integer.parseInt(project.VERSION_CODE)
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi','arm64-v8a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.szp
+            debuggable false
         }
         debug {
             signingConfig signingConfigs.szp
@@ -41,42 +53,42 @@ android {
     productFlavors {
         Cloud {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '""')
         }
 
         Local {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://test.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '""')
         }
 
         Tencent {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.tencent.android.qqdownloader"')
         }
 
         Vivo {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.bbk.appstore"')
         }
 
         Huawei {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.huawei.appmarket"')
         }
 
         Google {
             dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            buildConfigField("String", "APP_NAME", '"mycandy"')
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.android.vending"')
         }
@@ -85,43 +97,9 @@ android {
 
 }
 
-MobSDK {
-    appKey "2dd1dcd33f540"
-    appSecret "56e7427a1f9bb5453c8c277add84d55a"
-    ShareSDK {
-        loopShare true
-        devInfo {
-            Wechat {
-                appId "wxa6cff3088f1c746b"
-                appSecret "e30d51162bd98723db04696fa3a5ca89"
-                bypassApproval false
-            }
-            WechatMoments {
-                appId "wxa6cff3088f1c746b"
-                appSecret "e30d51162bd98723db04696fa3a5ca89"
-                shareByAppClient true
-            }
-//            QQ {
-//                appId "100371282"
-//                appKey "aed9b0303e3ed1e27bae87c33761161d"
-//                shareByAppClient true
-//            }
-//            Facebook {
-//                appKey "1412473428822331"
-//                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
-//                callbackUri "https://mob.com"
-//            }
-            SinaWeibo {
-                appKey "3865839557"
-                appSecret "94316b8ff7988126551e58837817de23"
-                shareByAppClient true
-            }
-        }
-    }
-}
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     implementation project(':ncalendar')
     implementation 'androidx.appcompat:appcompat:1.0.0'

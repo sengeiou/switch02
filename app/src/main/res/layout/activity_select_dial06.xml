@@ -38,7 +38,7 @@
                 android:src="@mipmap/change_watch_06"/>
 
 
-            <com.szip.sportwatch.View.CircularImageView
+            <com.szip.jswitch.View.CircularImageView
                 android:id="@+id/dialIv_r"
                 android:layout_width="103dp"
                 android:layout_height="124dp"
@@ -46,7 +46,7 @@
                 app:radius="15dp"
                 app:is_allRadius="true"/>
 
-            <com.szip.sportwatch.View.CircularImageView
+            <com.szip.jswitch.View.CircularImageView
                 android:id="@+id/dialIv_c"
                 android:layout_width="106dp"
                 android:layout_height="106dp"

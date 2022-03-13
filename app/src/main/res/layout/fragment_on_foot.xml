@@ -1,125 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollId"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/googleMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/gaodeMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/mapBackView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgColor"
+        />
+
+
+    <com.szip.jswitch.View.MyScrollView
+        android:id="@+id/scrollId"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/sport_bg_green_light">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/bgIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/sport_bg_walk"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"/>
+            <com.szip.jswitch.View.MyRelativeLayout
+                android:id="@+id/mapRl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <View
+                    android:id="@+id/mapViewtop"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+            </com.szip.jswitch.View.MyRelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:text="@string/walk"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/timeTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginTop="43dp"
-                android:layout_marginStart="15dp"
-                android:textSize="12sp" />
-
-
-            <TextView
-                android:id="@+id/dataTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_alignParentEnd="true"
-                android:textSize="25sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginTop="43dp"
-                android:layout_marginEnd="15dp"
-                android:layout_alignParentEnd="true"
-                android:text="steps"
-                android:textSize="12sp" />
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/bgRl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_alignBottom="@+id/bgIv">
+                android:background="@drawable/sport_bg_green_light">
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/image1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_icon_time_w"
-                        android:layout_gravity="center" />
+                <ImageView
+                    android:id="@+id/bgIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/sport_bg_walk"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/walk"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="12sp" />
 
 
-                    <TextView
-                        android:id="@+id/sportTimeTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:layout_toEndOf="@id/image1"
-                        android:layout_alignParentBottom="true"/>
+                <TextView
+                    android:id="@+id/dataTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="25sp" />
 
-                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="steps"
+                    android:textSize="12sp" />
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignBottom="@+id/bgIv">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/sport_icon_time_w"
+                            android:layout_gravity="center" />
+
+
+                        <TextView
+                            android:id="@+id/sportTimeTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_toEndOf="@id/image1"
+                            android:layout_alignParentBottom="true"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/image2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/sport_icon_kcal_w"
+                            android:layout_gravity="center" />
+
+
+                        <TextView
+                            android:id="@+id/kcalTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_toEndOf="@id/image2"
+                            android:layout_alignParentBottom="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="kcal"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            android:layout_toEndOf="@id/kcalTv"
+                            android:layout_alignParentBottom="true"/>
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="end">
+
+
+                        <ImageView
+                            android:id="@+id/image3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/sport_icon_mileage_w"
+                            android:layout_gravity="center" />
+
+
+                        <TextView
+                            android:id="@+id/distanceTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_toEndOf="@id/image3"
+                            android:layout_alignParentBottom="true"/>
+
+                        <TextView
+                            android:id="@+id/unitTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="km"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            android:layout_toEndOf="@id/distanceTv"
+                            android:layout_alignParentBottom="true"/>
+
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/heartLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_mine_item">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/image2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_icon_kcal_w"
-                        android:layout_gravity="center" />
-
+                        android:src="@mipmap/sport_icon_hr"/>
 
                     <TextView
-                        android:id="@+id/kcalTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/heart"
                         android:textSize="16sp"
-                        android:textColor="@color/white"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/averageTv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:layout_toEndOf="@id/image2"
                         android:layout_alignParentBottom="true"/>
@@ -127,502 +265,402 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="kcal"
+                        android:text="bpm"
                         android:textSize="12sp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
+                        android:layout_toEndOf="@id/kcalTv"
+                        android:layout_alignParentBottom="true"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/averageHeart"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/kcalTv"
+                    android:layout_gravity="center"/>
+
+                <com.szip.jswitch.View.SportReportView
+                    android:id="@+id/tableView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    app:number_data="10"
+                    app:color_text="@color/gray"
+                    app:size_text="@dimen/report_text_size_table"
+                    app:value_y="true"
+                    app:value_max="120"
+                    app:width_bar="3dp"
+                    app:color_pross="@color/color3"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/strideLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_mine_item">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sport_data_icon_frequency"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/cadence"
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/averageTv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@id/image2"
+                        android:layout_alignParentBottom="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="spm"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
                         android:layout_toEndOf="@id/kcalTv"
                         android:layout_alignParentBottom="true"/>
 
-                </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strideData"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/kcalTv"
+                    android:layout_gravity="center"/>
 
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:gravity="end">
+                <com.szip.jswitch.View.SportReportView
+                    android:id="@+id/tableView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    app:number_data="10"
+                    app:color_text="@color/gray"
+                    app:size_text="@dimen/report_text_size_table"
+                    app:value_y="true"
+                    app:value_max="120"
+                    app:width_bar="3dp"
+                    app:color_pross="@color/green"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/speedPerHourLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_mine_item">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/image3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/sport_icon_mileage_w"
-                        android:layout_gravity="center" />
-
+                        android:src="@mipmap/sport_icon_v"/>
 
                     <TextView
-                        android:id="@+id/distanceTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/speedPerHour"
                         android:textSize="16sp"
-                        android:textColor="@color/white"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/averageTv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:layout_toEndOf="@id/image3"
+                        android:layout_toEndOf="@id/image2"
                         android:layout_alignParentBottom="true"/>
 
                     <TextView
-                        android:id="@+id/unitTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="km"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_toEndOf="@id/distanceTv"
-                        android:layout_alignParentBottom="true"/>
-
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/heartLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_mine_item">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_icon_hr"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/heart"
-                    android:textSize="16sp"
-                    android:layout_marginStart="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/averageTv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/image2"
-                    android:layout_alignParentBottom="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="bpm"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:layout_toEndOf="@id/kcalTv"
-                    android:layout_alignParentBottom="true"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/averageHeart"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:layout_toEndOf="@id/kcalTv"
-                android:layout_gravity="center"/>
-
-            <com.szip.sportwatch.View.SportReportView
-                android:id="@+id/tableView1"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                app:number_data="10"
-                app:color_text="@color/gray"
-                app:size_text="@dimen/report_text_size_table"
-                app:value_y="true"
-                app:value_max="120"
-                app:width_bar="3dp"
-                app:color_pross="@color/color3"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/strideLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_mine_item">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_data_icon_frequency"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/cadence"
-                    android:textSize="16sp"
-                    android:layout_marginStart="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/averageTv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/image2"
-                    android:layout_alignParentBottom="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="spm"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:layout_toEndOf="@id/kcalTv"
-                    android:layout_alignParentBottom="true"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/strideData"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:layout_toEndOf="@id/kcalTv"
-                android:layout_gravity="center"/>
-
-
-            <com.szip.sportwatch.View.SportReportView
-                android:id="@+id/tableView2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                app:number_data="10"
-                app:color_text="@color/gray"
-                app:size_text="@dimen/report_text_size_table"
-                app:value_y="true"
-                app:value_max="120"
-                app:width_bar="3dp"
-                app:color_pross="@color/green"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/speedPerHourLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_mine_item">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_icon_v"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/speedPerHour"
-                    android:textSize="16sp"
-                    android:layout_marginStart="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/averageTv3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/image2"
-                    android:layout_alignParentBottom="true"/>
-
-                <TextView
+                        android:id="@+id/speedUnitTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="km/h"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:layout_toEndOf="@id/kcalTv"
+                        android:layout_alignParentBottom="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/speedPerHour"
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:layout_toEndOf="@id/kcalTv"
-                    android:layout_alignParentBottom="true"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/speedPerHour"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:layout_toEndOf="@id/kcalTv"
-                android:layout_gravity="center"/>
-
-
-            <com.szip.sportwatch.View.SportReportView
-                android:id="@+id/tableView3"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                app:number_data="10"
-                app:color_text="@color/gray"
-                app:size_text="@dimen/report_text_size_table"
-                app:value_y="true"
-                app:flag_y="1"
-                app:value_max="150"
-                app:width_bar="3dp"
-                app:color_pross="@android:color/holo_blue_dark"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/altitudeLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_mine_item">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_icon_high"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/altitude"
-                    android:textSize="16sp"
-                    android:layout_marginStart="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/averageTv4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/image2"
-                    android:layout_alignParentBottom="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="meter"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:layout_toEndOf="@id/kcalTv"
-                    android:layout_alignParentBottom="true"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/avarageAltitude"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:layout_toEndOf="@id/kcalTv"
-                android:layout_gravity="center"/>
-
-
-            <com.szip.sportwatch.View.SportReportView
-                android:id="@+id/tableView4"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                app:number_data="10"
-                app:color_text="@color/gray"
-                app:size_text="@dimen/report_text_size_table"
-                app:value_y="true"
-                app:flag_y="2"
-                app:value_max="120"
-                app:width_bar="3dp"
-                app:color_pross="@android:color/holo_purple"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/speedLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_mine_item">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sport_icon_speed"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/speed"
-                    android:textSize="16sp"
-                    android:layout_marginStart="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:id="@+id/averageTv5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/image2"
-                    android:layout_alignParentBottom="true"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/speedData"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:layout_toEndOf="@id/kcalTv"
-                android:layout_gravity="center"/>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/distanceData"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
                     android:layout_gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/speed"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center"
-                    android:layout_alignParentEnd="true"/>
 
-            </RelativeLayout>
+                <com.szip.jswitch.View.SportReportView
+                    android:id="@+id/tableView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    app:number_data="10"
+                    app:color_text="@color/gray"
+                    app:size_text="@dimen/report_text_size_table"
+                    app:value_y="true"
+                    app:flag_y="1"
+                    app:value_max="150"
+                    app:width_bar="3dp"
+                    app:color_pross="@android:color/holo_blue_dark"/>
 
-            <com.szip.sportwatch.View.SportSpeedView
-                android:id="@+id/sportSpeed"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/altitudeLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_mine_item">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sport_icon_high"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/altitude"
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/averageTv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@id/image2"
+                        android:layout_alignParentBottom="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="meter"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:layout_toEndOf="@id/kcalTv"
+                        android:layout_alignParentBottom="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/avarageAltitude"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/kcalTv"
+                    android:layout_gravity="center"/>
+
+
+                <com.szip.jswitch.View.SportReportView
+                    android:id="@+id/tableView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    app:number_data="10"
+                    app:color_text="@color/gray"
+                    app:size_text="@dimen/report_text_size_table"
+                    app:value_y="true"
+                    app:flag_y="2"
+                    app:value_max="120"
+                    app:width_bar="3dp"
+                    app:color_pross="@android:color/holo_purple"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/speedLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_mine_item">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sport_icon_speed"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/speed"
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/averageTv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@id/image2"
+                        android:layout_alignParentBottom="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/speedData"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/kcalTv"
+                    android:layout_gravity="center"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/distanceData"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/speed"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+                <com.szip.jswitch.View.SportSpeedView
+                    android:id="@+id/sportSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </com.szip.jswitch.View.MyScrollView>
 
-</ScrollView>
+</RelativeLayout>
+
 

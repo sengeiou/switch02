@@ -240,7 +240,7 @@
                 android:layout_toEndOf="@id/kcalTv"
                 android:layout_gravity="center"/>
 
-            <com.szip.sportwatch.View.SportReportView
+            <com.szip.jswitch.View.SportReportView
                 android:id="@+id/tableView1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"

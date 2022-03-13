@@ -18,7 +18,7 @@
             android:layout_height="124dp"
             android:background="@drawable/select_back"/>
 
-        <com.szip.sportwatch.View.CircularImageView
+        <com.szip.jswitch.View.CircularImageView
             android:id="@+id/imageView"
             android:layout_width="102dp"
             android:layout_height="124dp"

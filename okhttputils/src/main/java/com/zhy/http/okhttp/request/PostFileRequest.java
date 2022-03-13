@@ -44,7 +44,7 @@ public class PostFileRequest extends OkHttpRequest
         RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file","iSmarport_6",fileBody)
+                .addFormDataPart("file","MyCandy_6",fileBody)
                 .build();
         return requestBody;
     }

@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="15dp">
 
-        <com.szip.sportwatch.View.CircularImageView
+        <com.szip.jswitch.View.CircularImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"

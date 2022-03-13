@@ -10,18 +10,10 @@
 
     <include layout="@layout/title"/>
 
-    <ScrollView
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/privacyWeb"
-            android:textColor="@color/black1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/privacy2"></TextView>
-
-    </ScrollView>
+        android:layout_height="match_parent"/>
 
 
 

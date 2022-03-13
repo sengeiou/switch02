@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.szip.sportwatch",
+  "applicationId": "com.szip.jswitch",
   "variantName": "processVivoReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 33,
-      "versionName": "1.33",
+      "versionCode": 35,
+      "versionName": "1.35",
       "outputFile": "app-Vivo-release.apk"
     }
   ]

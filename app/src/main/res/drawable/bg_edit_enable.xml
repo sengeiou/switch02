@@ -11,7 +11,7 @@
                 android:left="0dp"
                 android:right="0.6dp"
                 android:top="0dp" />
-            <solid android:color="#0D0251C4" />
+            <solid android:color="#0D6dcdb8" />
             <corners android:radius="30dp" />
         </shape>
     </item>
@@ -22,7 +22,7 @@
                 android:left="0dp"
                 android:right="0.6dp"
                 android:top="0dp" />
-            <solid android:color="#150251C4" />
+            <solid android:color="#156dcdb8" />
             <corners android:radius="30dp" />
         </shape>
     </item>
@@ -33,7 +33,7 @@
                 android:left="0dp"
                 android:right="0.6dp"
                 android:top="0dp" />
-            <solid android:color="#300251C4" />
+            <solid android:color="#306dcdb8" />
             <corners android:radius="30dp" />
         </shape>
     </item>
@@ -44,19 +44,7 @@
                 android:left="0dp"
                 android:right="0.6dp"
                 android:top="0dp" />
-            <solid android:color="#400251C4" />
-            <corners android:radius="30dp" />
-        </shape>
-    </item>
-
-    <item>
-        <shape android:shape="rectangle">
-            <padding
-                android:bottom="0.8dp"
-                android:left="0dp"
-                android:right="0.6dp"
-                android:top="0dp" />
-            <solid android:color="#600251C4" />
+            <solid android:color="#406dcdb8" />
             <corners android:radius="30dp" />
         </shape>
     </item>
@@ -68,7 +56,19 @@
                 android:left="0dp"
                 android:right="0.6dp"
                 android:top="0dp" />
-            <solid android:color="#800251C4" />
+            <solid android:color="#606dcdb8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#806dcdb8" />
             <corners android:radius="30dp" />
         </shape>
     </item>
@@ -77,8 +77,8 @@
     <item>
         <shape>
 
-            <gradient android:startColor="@color/startBlue1"
-                android:endColor="@color/endBlue1"
+            <gradient android:startColor="@color/lineGreen"
+                android:endColor="@color/startGreen"
                 android:angle="0"/>
             <!--圆角-->
 

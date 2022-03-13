@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ismarport.iml" filepath="$PROJECT_DIR$/ismarport.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ismarport.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ismarport.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/citypicker/ismarport.citypicker.iml" filepath="$PROJECT_DIR$/.idea/modules/citypicker/ismarport.citypicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/ismarport.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/ismarport.library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ismarport.ncalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ismarport.ncalendar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/okhttputils/ismarport.okhttputils.iml" filepath="$PROJECT_DIR$/.idea/modules/okhttputils/ismarport.okhttputils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/run/ismarport.run.iml" filepath="$PROJECT_DIR$/.idea/modules/run/ismarport.run.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/standard/ismarport.standard.iml" filepath="$PROJECT_DIR$/.idea/modules/standard/ismarport.standard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/switch02.iml" filepath="$PROJECT_DIR$/.idea/modules/switch02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/switch02.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/switch02.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/citypicker/switch02.citypicker.iml" filepath="$PROJECT_DIR$/.idea/modules/citypicker/switch02.citypicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/switch02.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/switch02.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/switch02.ncalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/switch02.ncalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/okhttputils/switch02.okhttputils.iml" filepath="$PROJECT_DIR$/.idea/modules/okhttputils/switch02.okhttputils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/run/switch02.run.iml" filepath="$PROJECT_DIR$/.idea/modules/run/switch02.run.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/standard/switch02.standard.iml" filepath="$PROJECT_DIR$/.idea/modules/standard/switch02.standard.iml" />
     </modules>
   </component>
 </project>

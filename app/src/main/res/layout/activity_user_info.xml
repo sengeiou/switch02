@@ -31,7 +31,7 @@
             android:padding="@dimen/item_pad_text"/>
 
 
-        <com.szip.sportwatch.View.CircularImageView
+        <com.szip.jswitch.View.CircularImageView
             android:id="@+id/pictureIv"
             android:layout_width="36dp"
             android:layout_height="36dp"

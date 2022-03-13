@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
 
 
+
+
     <com.amap.api.maps.MapView
         android:id="@+id/gaodeMap"
         android:layout_width="match_parent"
@@ -19,7 +21,7 @@
         android:id="@+id/backIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/registor_icon_back"
+        android:src="@mipmap/sport_icon_gps_back"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"/>
 
@@ -124,5 +126,29 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_item_normal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sport_icon_gps"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/gpsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sport_icon_gps_0"
+            android:padding="8dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

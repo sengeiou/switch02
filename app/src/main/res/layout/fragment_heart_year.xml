@@ -78,7 +78,7 @@
             android:textColor="@color/white"
             android:text="@string/averageHeart"/>
 
-        <com.szip.sportwatch.View.ReportView
+        <com.szip.jswitch.View.ReportView
             android:id="@+id/tableView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

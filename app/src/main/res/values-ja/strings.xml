@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">iSmarport</string>
+    <string name="app_name">mycandy</string>
 
     <!--ログインページ/パスワードの取得ページ/登録ページ-->
-    <string name="logo">iSmarportへようこそ</string>
+    <string name="logo">mycandyへようこそ</string>
     <string name="user">アカウント</string>
     <string name="phoneOrEmail">電話番号/メールアドレスを入力してください</string>
     <string name="password">パスワード</string>
@@ -99,7 +99,7 @@
 
 \n\n2） 当社のサービスで広告サービスを実行する他の会社または代理店が収集した情報；
 
-\n\n3） iPhoneやiPadなどのAppleデバイスを使用している場合、運動データを計算するために、承認を得て、Appleのヘルスキットから運動データを送受信します。当社はHealthkitからあなたの身長、体重、性別データを読み取ります。同時に、iSmarport APPによって生成された歩数、歩行+走行距離、アクティブエネルギー、走行距離、睡眠分析データがApple Healthkitに書き込まれます。 Healthkitを通じて取得したデータは第三者の会社に共有または販売されることはなく、当社はHealthkitから取得した情報を広告やマーケティングなどの商業目的に使用しません。
+\n\n3） iPhoneやiPadなどのAppleデバイスを使用している場合、運動データを計算するために、承認を得て、Appleのヘルスキットから運動データを送受信します。当社はHealthkitからあなたの身長、体重、性別データを読み取ります。同時に、mycandy APPによって生成された歩数、歩行+走行距離、アクティブエネルギー、走行距離、睡眠分析データがApple Healthkitに書き込まれます。 Healthkitを通じて取得したデータは第三者の会社に共有または販売されることはなく、当社はHealthkitから取得した情報を広告やマーケティングなどの商業目的に使用しません。
 
 
 
@@ -150,7 +150,6 @@
     <string name="kcal">消費（kcal）</string>
     <string name="time">時間</string>
     <string name="heart_rate">心拍数（bpm）</string>
-    <string name="stride">ストライド（spm）</string>
     <string name="cadence">ストライド</string>
     <string name="distance">距離</string>
     <string name="speedData">平均速度</string>
@@ -171,8 +170,6 @@
     <string name="runWithout">外で走る</string>
     <string name="marathon">マラソン</string>
     <string name="sufing">サーフィンをする</string>
-    <string name="shudu">速度</string>
-    <string name="averageShudu">平均速度</string>
     <string name="boat">船をこぐ
 
 </string>
@@ -320,8 +317,7 @@
     <string name="passwordUnSame">間違ったパスワードを2回入力してください</string>
     <string name="saved">正常に保存</string>
     <string name="notificationlistener_prompt_title">通知を有効にします</string>
-    <string name="notificationlistener_prompt_content">iSmarportは、アプリケーション通知をリモートスマートデバイスに転送する必要があります。アクティベートするには、[\] [確認\] Enter通知ページを入力してください。</string>
-    <string name="tokenTimeout">ログインが期限切れです、もう一度ログインしてください</string>
+    <string name="notificationlistener_prompt_content">mycandyは、アプリケーション通知をリモートスマートデバイスに転送する必要があります。アクティベートするには、[\] [確認\] Enter通知ページを入力してください。</string>
     <string name="lostDevice">デバイスが接続されていません</string>
     <string name="permissionErrorForCamare">許可に失敗しました、カメラ機能をオンにできません</string>
     <string name="findPermission">権限が失敗しました。デバイスリストを検索できません</string>
@@ -332,30 +328,10 @@
     <string name="privacyTip">ライバシー契約を明確に読みましたか？弊社の新規ユーザーとして登録することに同意しましたか？「確認」をクリックすると、契約条件に同意したことになります。\nユーザーのプライバシーポリシーには、主に次の1.個人情報（プロフィール写真、ニックネーム、身長、体重、スポーツデータなど）の収集、保存、共有が含まれます。2。デバイスのアクセス許可（場所、連絡先リスト、カメラなど）を使用する。</string>
     <string name="crop_pic_failed">画像のキャプチャに失敗しました。JPG/ PNG形式の画像を選択してください！</string>
     <string name="visiter">この機能はビジターモードではサポートされていません</string>
-    <string name="chooseJpg">jpg形式の写真を選んでください</string>
     <string name="newVersion">新しいソフトウェアのバージョンが検出され、現在更新されていますか?</string>
 
 
     <!--共有インターフェース-->
-        <string name="planOK">今日の目標が達成されました</string>
-    <string name="planNO">今日の目標は達成されませんでした</string>
-    <string name="planStepShare">ターゲットステップ: %dsteps</string>
-    <string name="distanceShare">歩行距離: %.1fKm</string>
-    <string name="calurieShare">焦げたカロリー: %.1fKcal</string>
-
-    <string name="planSleep">目標期間: %.1fh</string>
-    <string name="deepSleepShare">深い眠り: %02dh%02dmin</string>
-    <string name="lightSleepShare">浅い眠り: %02dh%02dmin</string>
-
-    <string name="testTimes">測定時間: %d</string>
-    <string name="maxHeartShare">最大心拍数: %dbpm</string>
-    <string name="minHeartShare">最小心拍数: %dbpm</string>
-
-    <string name="bloodOxygenData">血中酸素飽和度</string>
-    <string name="testValue">試験結果:</string>
-    <string name="passTimeData">合格率: %.1f%%</string>
-
-    <string name="bloodPressureData">平均収縮期血圧/拡張期血圧</string>
 
     <!-- Scan & Connect -->
         <string name="connect_error">Connect Error</string>
@@ -400,5 +376,9 @@
     <string name="runShort">ランニングタイムや距離が短すぎて、統計にならない。</string>
     <string name="started">まずはランニングを始めてください</string>
     <string name="touchAgain1">もう一度押して走るのをやめる</string>
+    <string name="unlock">右にスライドしてロックを解除します</string>
+    <string name="startRun">から</string>
+    <string name="product">ごりよー利用したいサービスをおえらび選びください</string>
+    <string name="bodyFat">Smart body fat scale</string>
 
 </resources>

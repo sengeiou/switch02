@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.szip.sportwatch",
+  "applicationId": "com.szip.jswitch",
   "variantName": "processReleaseResources",
   "elements": [
     {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.EcgDataActivity"
+    tools:context=".Activity.ecg.EcgDataActivity"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -41,16 +41,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.szip.sportwatch.View.DrawGradView
+        <com.szip.jswitch.View.DrawGradView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.szip.sportwatch.View.WH_ECGView
+        <com.szip.jswitch.View.WH_ECGView
             android:id="@+id/ecg_data_ecgView"
             android:layout_width="match_parent"
             android:layout_height="80dp" />
 
-        <com.szip.sportwatch.View.WH_ECGView
+        <com.szip.jswitch.View.WH_ECGView
             android:id="@+id/ecg_data_ecgView1"
             android:layout_width="match_parent"
             android:layout_height="80dp"

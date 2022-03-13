@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="bmi_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_yellow</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="bmi_text">
+        <item>@string/lean</item>
+        <item>@string/standard</item>
+        <item>@string/chubby</item>
+        <item>@string/obesity</item>
+    </string-array>
+
+    <string-array name="bmi_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyYellow</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="bmr_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+    </string-array>
+
+
+    <string-array name="bmr_text">
+        <item>@string/lack</item>
+        <item>@string/standard</item>
+    </string-array>
+
+    <string-array name="bmr_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+    </string-array>
+
+    <string-array name="obesity_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_grass</item>
+        <item>@drawable/bg_body_yellow</item>
+        <item>@drawable/bg_body_orange</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="obesity_text">
+        <item>@string/lean</item>
+        <item>@string/normal</item>
+        <item>@string/slightly</item>
+        <item>@string/moderately</item>
+        <item>@string/severe</item>
+        <item>@string/enormously</item>
+    </string-array>
+
+    <string-array name="obesity_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyGrass</item>
+        <item>@color/bodyYellow</item>
+        <item>@color/bodyOrange</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="visceral_back">
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_yellow</item>
+        <item>@drawable/bg_body_orange</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="visceral_text">
+        <item>@string/normal</item>
+        <item>@string/uptilted</item>
+        <item>@string/high</item>
+        <item>@string/particularly</item>
+    </string-array>
+
+    <string-array name="visceral_text_color">
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyYellow</item>
+        <item>@color/bodyOrange</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="body_fat_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_yellow</item>
+        <item>@drawable/bg_body_orange</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="body_fat_text">
+        <item>@string/lean</item>
+        <item>@string/normal</item>
+        <item>@string/warning</item>
+        <item>@string/slightly</item>
+        <item>@string/severe</item>
+    </string-array>
+
+    <string-array name="body_fat_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyYellow</item>
+        <item>@color/bodyOrange</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="muscle_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="muscle_text">
+        <item>@string/lack</item>
+        <item>@string/standard</item>
+        <item>@string/perfect</item>
+    </string-array>
+
+    <string-array name="muscle_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="protein_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+    <string-array name="protein_text">
+        <item>@string/lack</item>
+        <item>@string/standard</item>
+        <item>@string/perfect</item>
+    </string-array>
+
+    <string-array name="protein_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="skeletal_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+    <string-array name="skeletal_text">
+        <item>@string/lack</item>
+        <item>@string/standard</item>
+        <item>@string/perfect</item>
+    </string-array>
+
+    <string-array name="skeletal_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="subcutaneous_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="subcutaneous_text">
+        <item>@string/lean</item>
+        <item>@string/normal</item>
+        <item>@string/uptilted</item>
+    </string-array>
+
+    <string-array name="subcutaneous_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+
+    <string-array name="bone_back">
+        <item>@drawable/bg_body_blue</item>
+        <item>@drawable/bg_body_green</item>
+        <item>@drawable/bg_body_red</item>
+    </string-array>
+
+
+    <string-array name="bone_text">
+        <item>@string/lean</item>
+        <item>@string/normal</item>
+        <item>@string/perfect</item>
+    </string-array>
+
+    <string-array name="bone_text_color">
+        <item>@color/bodyBlue</item>
+        <item>@color/bodyGreen</item>
+        <item>@color/bodyRed</item>
+    </string-array>
+</resources>

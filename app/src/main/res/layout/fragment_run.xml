@@ -10,20 +10,22 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/googleMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <com.amap.api.maps.MapView
         android:id="@+id/gaodeMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <View
         android:id="@+id/mapBackView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor" />
+        android:background="@color/bgColor"
+        />
 
-    <com.szip.sportwatch.View.MyScrollView
+
+    <com.szip.jswitch.View.MyScrollView
         android:id="@+id/scrollId"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,10 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.szip.jswitch.View.MyRelativeLayout
+                android:id="@+id/mapRl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <View
                 android:id="@+id/mapViewtop"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                android:layout_height="300dp" />
+            </com.szip.jswitch.View.MyRelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/bgRl"
@@ -277,7 +284,7 @@
                     android:layout_toEndOf="@id/kcalTv"
                     android:layout_gravity="center"/>
 
-                <com.szip.sportwatch.View.SportReportView
+                <com.szip.jswitch.View.SportReportView
                     android:id="@+id/tableView1"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -364,7 +371,7 @@
                     android:layout_gravity="center"/>
 
 
-                <com.szip.sportwatch.View.SportReportView
+                <com.szip.jswitch.View.SportReportView
                     android:id="@+id/tableView2"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -430,9 +437,10 @@
                         android:layout_alignParentBottom="true"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="km/h"
+                        android:id="@+id/speedUnitTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="km/h"
                         android:textSize="12sp"
                         android:textColor="@color/black"
                         android:layout_toEndOf="@id/kcalTv"
@@ -450,7 +458,7 @@
                     android:layout_gravity="center"/>
 
 
-                <com.szip.sportwatch.View.SportReportView
+                <com.szip.jswitch.View.SportReportView
                     android:id="@+id/tableView3"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -537,7 +545,7 @@
                     android:layout_gravity="center"/>
 
 
-                <com.szip.sportwatch.View.SportReportView
+                <com.szip.jswitch.View.SportReportView
                     android:id="@+id/tableView4"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -642,7 +650,7 @@
 
                 </RelativeLayout>
 
-                <com.szip.sportwatch.View.SportSpeedView
+                <com.szip.jswitch.View.SportSpeedView
                     android:id="@+id/sportSpeed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -654,7 +662,7 @@
 
         </LinearLayout>
 
-    </com.szip.sportwatch.View.MyScrollView>
+    </com.szip.jswitch.View.MyScrollView>
 
 </RelativeLayout>
 

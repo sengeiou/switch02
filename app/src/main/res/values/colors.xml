@@ -31,10 +31,24 @@
 
     <color name="lineColor">#E6E6E6</color>
 
-    <color name="stepBarBg">#2A8BCF</color>
-    <color name="lineBlue">#829bf6</color>
-    <color name="startBlue">#23BEFF</color>
-    <color name="endBlue">#4b68fa</color>
-    <color name="startBlue1">#aa23BEFF</color>
-    <color name="endBlue1">#aa4b68fa</color>
+    <color name="stepBarBg">#33024206</color>
+    <color name="lineGreen">#6dcdb8</color>acd830
+    <color name="startGreen">#38E1CA</color>
+    <color name="endGreen">#3EE59D</color>
+    <color name="startGreen1">#aa38E1CA</color>
+    <color name="endGreen2">#aa3EE59D</color>
+
+    <!--体重秤的颜色-->
+    <color name="bodyGreen">#30d8ac</color>
+    <color name="bodyGreen1">#5530d8ac</color>
+    <color name="bodyBlue">#3998ff</color>
+    <color name="bodyBlue1">#553998ff</color>
+    <color name="bodyYellow">#f4c606</color>
+    <color name="bodyYellow1">#55f4c606</color>
+    <color name="bodyOrange">#ff8017</color>
+    <color name="bodyOrange1">#55ff8017</color>
+    <color name="bodyRed">#ee2d4d</color>
+    <color name="bodyRed1">#55ee2d4d</color>
+    <color name="bodyGrass">#1fdd00</color>
+    <color name="bodyGrass1">#551fdd00</color>
 </resources>

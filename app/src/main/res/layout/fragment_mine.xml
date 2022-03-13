@@ -204,6 +204,45 @@
                 android:textColor="@color/rayblue"
                 android:textSize="@dimen/item_text_size" />
 
+            <RelativeLayout
+                android:id="@+id/bodyFatLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/item_margin_parallel"
+                android:layout_marginStart="@dimen/item_margin_parallel"
+                android:background="@drawable/bg_mine_item"
+                android:layout_marginTop="@dimen/item_margin_model_top">
+
+                <ImageView
+                    android:id="@+id/imageFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/my_icon_bodyfatscal"
+                    android:padding="@dimen/item_pad"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/body_fat"
+                    android:textColor="@color/rayblue"
+                    android:textSize="@dimen/item_text_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/imageFat"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/item_margin_model_right"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_icon_arrow"/>
+
+            </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/findLl"
@@ -297,14 +336,14 @@
                     android:id="@+id/image4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/my_icon_call"
+                    android:src="@mipmap/my_icon_faq"
                     android:padding="@dimen/item_pad"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/blePhone"
+                    android:text="@string/FAQ"
                     android:textColor="@color/rayblue"
                     android:textSize="@dimen/item_text_size"
                     android:layout_centerVertical="true"
@@ -570,7 +609,7 @@
         android:background="@mipmap/my_head_bg"
         android:clickable="true">
 
-        <com.szip.sportwatch.View.CircularImageView
+        <com.szip.jswitch.View.CircularImageView
             android:id="@+id/pictureIv"
             android:layout_width="50dp"
             android:layout_height="50dp"

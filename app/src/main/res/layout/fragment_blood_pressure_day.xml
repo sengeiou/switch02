@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.szip.sportwatch.View.ReportTableView
+            <com.szip.jswitch.View.ReportTableView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/report_margin"
@@ -90,7 +90,7 @@
                 app:bar_width="6dp"
                 app:pross_color1="@color/white"/>
 
-            <com.szip.sportwatch.View.ReportScorllView
+            <com.szip.jswitch.View.ReportScorllView
                 android:id="@+id/reportView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

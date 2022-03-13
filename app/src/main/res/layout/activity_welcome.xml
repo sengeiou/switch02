@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.welcome.WelcomeActivity"
-    android:background="@mipmap/launch_bg">
+    android:background="@color/bgColor">
 
     <ImageView
         android:id="@+id/image"
@@ -23,13 +23,14 @@
         android:layout_below="@+id/image"
         android:textColor="@color/rayblue"
         android:textSize="20sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/launch_people"
+        android:src="@mipmap/launch_text"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="80dp"/>
 </RelativeLayout>

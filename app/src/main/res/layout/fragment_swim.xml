@@ -239,7 +239,7 @@
                 android:layout_toEndOf="@id/kcalTv"
                 android:layout_gravity="center"/>
 
-            <com.szip.sportwatch.View.SportReportView
+            <com.szip.jswitch.View.SportReportView
                 android:id="@+id/tableView1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -306,6 +306,7 @@
                     android:layout_alignParentBottom="true"/>
 
                 <TextView
+                    android:id="@+id/speedUnitTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="km/h"
@@ -326,7 +327,7 @@
                 android:layout_gravity="center"/>
 
 
-            <com.szip.sportwatch.View.SportReportView
+            <com.szip.jswitch.View.SportReportView
                 android:id="@+id/tableView2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
