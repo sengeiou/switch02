@@ -185,7 +185,7 @@ public class MyApplication extends Application{
         sportWatchAppFunctionConfigDTO = LoadDataUtil.newInstance().getDeviceConfig(sharedPreferences.getString("deviceName",null));
         isSyncSport = sharedPreferences.getBoolean("isSyncSport",false);
         //获取上次退出之后剩余的倒计时上传时间
-        updownTime = sharedPreferences.getInt("updownTime",3600);
+        updownTime = sharedPreferences.getInt("updownTime",600);
         //获取手机缓存的远程拍照状态
         camerable = sharedPreferences.getBoolean("camera",false);
         heartSwitch = sharedPreferences.getBoolean("heartSwitch",false);
@@ -290,6 +290,8 @@ public class MyApplication extends Application{
                 while (true){
                     try {
                         Thread.sleep(1000);
+                        if (updownTime%20==0)
+                            getSharedPreferences(FILE,MODE_PRIVATE).edit().putInt("updownTime",updownTime).commit();
                         updownTime--;
                         if (updownTime == 0)
                             break;
@@ -302,7 +304,7 @@ public class MyApplication extends Application{
                     try {
                         String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
                         HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
-                        updownTime = 3600;
+                        updownTime = 600;
                         startUpdownThread();
                     } catch (IOException e) {
                         e.printStackTrace();

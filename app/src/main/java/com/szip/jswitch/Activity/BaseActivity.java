@@ -82,7 +82,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         LogUtil.getInstance().logd("SZIP******","退出保存");
         ProgressHudModel.newInstance().diss();
-        getSharedPreferences(FILE,MODE_PRIVATE).edit().putInt("updownTime",((MyApplication)getApplication()).getUpdownTime()).commit();
     }
 
     /**

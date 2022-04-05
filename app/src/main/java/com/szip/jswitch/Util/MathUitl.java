@@ -660,7 +660,8 @@ public class MathUitl {
                 object.put("bloodOxygenData",bloodOxygenDataList.get(i).bloodOxygenData);
                 array.put(object);
             }
-            data.put("bloodOxygenDataList",array);
+            if (bloodOxygenDataList.size()!=0)
+                data.put("bloodOxygenDataList",array);
 
             array = new JSONArray();
             for (int i = 0;i<bloodPressureDataList.size();i++){
@@ -670,7 +671,8 @@ public class MathUitl {
                 object.put("dbpDate",bloodPressureDataList.get(i).dbpDate);
                 array.put(object);
             }
-            data.put("bloodPressureDataList",array);
+            if (bloodPressureDataList.size()!=0)
+                data.put("bloodPressureDataList",array);
 
             array = new JSONArray();
             for (int i = 0;i<ecgDataList.size();i++){
@@ -679,7 +681,8 @@ public class MathUitl {
                 object.put("heart",ecgDataList.get(i).heart);
                 array.put(object);
             }
-            data.put("ecgDataList",array);
+            if (ecgDataList.size()!=0)
+                data.put("ecgDataList",array);
 
             array = new JSONArray();
             for (int i = 0;i<heartDataList.size();i++){
@@ -689,6 +692,7 @@ public class MathUitl {
                 object.put("heartArray",heartDataList.get(i).getHeartArray());
                 array.put(object);
             }
+            if (heartDataList.size()!=0)
             data.put("heartDataList",array);
 
             array = new JSONArray();
@@ -700,6 +704,7 @@ public class MathUitl {
                 object.put("dataForHour",sleepDataList.get(i).dataForHour);
                 array.put(object);
             }
+            if (sleepDataList.size()!=0)
             data.put("sleepDataList",array);
 
             array = new JSONArray();
@@ -728,6 +733,7 @@ public class MathUitl {
                 object.put("latArray",sportDataList.get(i).latArray);
                 array.put(object);
             }
+            if (sportDataList.size()!=0)
             data.put("sportDataList",array);
 
             array = new JSONArray();
@@ -740,6 +746,8 @@ public class MathUitl {
                 object.put("dataForHour",stepDataList.get(i).dataForHour);
                 array.put(object);
             }
+
+            if (stepDataList.size()!=0)
             data.put("stepDataList",array);
 
             array = new JSONArray();
@@ -749,11 +757,11 @@ public class MathUitl {
                 object.put("tempData",animalHeatDataList.get(i).tempData);
                 array.put(object);
             }
+            if (animalHeatDataList.size()!=0)
             data.put("tempDataList",array);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("TOKENSZIP******","array = "+data.toString());
         return data.toString();
     }
 
