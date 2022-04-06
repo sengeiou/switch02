@@ -610,7 +610,8 @@ public class HttpMessgeUtil {
     }
 
     public void postForUpdownReportData(String data)throws IOException{
-        _postForUpdownReportData(data,baseApiGenericsCallback);
+        if(data!=null)
+            _postForUpdownReportData(data,baseApiGenericsCallback);
     }
 
     public void getForDownloadReportData(String time, String size)throws IOException{

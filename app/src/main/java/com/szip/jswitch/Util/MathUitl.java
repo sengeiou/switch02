@@ -762,7 +762,7 @@ public class MathUitl {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return data.toString();
+        return data.toString().equals("{}")?null:data.toString();
     }
 
 
