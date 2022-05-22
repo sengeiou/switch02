@@ -19,6 +19,8 @@ import com.szip.jswitch.DB.dbModel.HealthyConfig;
 import com.szip.jswitch.DB.dbModel.HealthyConfig_Table;
 import com.szip.jswitch.DB.dbModel.HeartData;
 import com.szip.jswitch.DB.dbModel.HeartData_Table;
+import com.szip.jswitch.DB.dbModel.NotificationData;
+import com.szip.jswitch.DB.dbModel.NotificationData_Table;
 import com.szip.jswitch.DB.dbModel.SleepData;
 import com.szip.jswitch.DB.dbModel.SleepData_Table;
 import com.szip.jswitch.DB.dbModel.SportData;
@@ -1363,6 +1365,34 @@ public class LoadDataUtil {
             data[1] = sum1/b;
 
         return data;
+    }
+
+
+    public List<NotificationData> getNotificationList(){
+        List<NotificationData> list = SQLite.select()
+                .from(NotificationData.class)
+                .queryList();
+        return list;
+    }
+
+    public boolean needNotify(String packageName){
+        NotificationData notificationData = SQLite.select()
+                .from(NotificationData.class)
+                .where(NotificationData_Table.packageName.is(packageName))
+                .querySingle();
+        if (notificationData == null)
+            return false;
+        return notificationData.state;
+    }
+
+    public String getNotifyName(String packageName){
+        NotificationData notificationData = SQLite.select()
+                .from(NotificationData.class)
+                .where(NotificationData_Table.packageName.is(packageName))
+                .querySingle();
+        if (notificationData == null)
+            return "";
+        return notificationData.name;
     }
 
 }

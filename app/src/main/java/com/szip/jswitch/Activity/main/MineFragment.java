@@ -22,12 +22,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mediatek.wearable.WearableManager;
+import com.szip.jswitch.Activity.NotificationActivity;
 import com.szip.jswitch.Activity.bodyFat.BodyFatActivity;
 import com.szip.jswitch.Activity.help.FaqActivity;
 import com.szip.jswitch.BLE.BleClient;
 import com.szip.jswitch.Activity.AboutActivity;
 import com.szip.jswitch.Activity.LoginActivity;
-import com.szip.jswitch.Activity.AppListActivity;
 import com.szip.jswitch.Activity.SeachingActivity;
 import com.szip.jswitch.Activity.dial.SelectDialActivity;
 import com.szip.jswitch.Activity.UnitSelectActivity;
@@ -482,7 +482,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 window1.showAtLocation(v, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.notificationLl:
-                startActivity(new Intent(getActivity(), AppListActivity.class));
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
                 break;
             case R.id.findLl:
                 if(MainService.getInstance().getState()!=3)

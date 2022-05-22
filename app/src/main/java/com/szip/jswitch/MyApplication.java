@@ -10,7 +10,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -28,10 +27,10 @@ import com.szip.jswitch.Broadcat.UtilBroadcat;
 import com.szip.jswitch.Activity.LoginActivity;
 import com.szip.jswitch.DB.LoadDataUtil;
 import com.szip.jswitch.DB.SaveDataUtil;
+import com.szip.jswitch.DB.dbModel.NotificationData;
 import com.szip.jswitch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.jswitch.Model.HttpBean.WeatherBean;
 import com.szip.jswitch.Model.UserInfo;
-import com.szip.jswitch.Notification.IgnoreList;
 import com.szip.jswitch.Notification.MyNotificationReceiver;
 import com.szip.jswitch.Notification.NotificationView;
 import com.szip.jswitch.Service.MainService;
@@ -41,7 +40,6 @@ import com.szip.jswitch.Util.LogUtil;
 import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.Util.MusicUtil;
 import com.szip.jswitch.Util.ProgressHudModel;
-import com.szip.jswitch.Util.TopExceptionHandler;
 import com.szip.jswitch.View.MyAlerDialog;
 
 import org.json.JSONArray;
@@ -50,7 +48,6 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -191,12 +188,7 @@ public class MyApplication extends Application{
         heartSwitch = sharedPreferences.getBoolean("heartSwitch",false);
         //获取手机缓存的自动更新信息
         isNewVersion = sharedPreferences.getBoolean("version",false);
-        if (sharedPreferences.getBoolean("first",true)){
-            initIgnoreList();
-            sharedPreferences.edit().putBoolean("first",false).commit();
-        }
-
-
+        initNotifyList();
 
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
@@ -271,7 +263,7 @@ public class MyApplication extends Application{
             localPackageManager.setComponentEnabledSetting(localComponentName, 1, 1);
         }
 
-       startUpdownThread();
+//       startUpdownThread();
     }
 
 
@@ -305,7 +297,7 @@ public class MyApplication extends Application{
                         String datas = MathUitl.getStringWithJson(getSharedPreferences(FILE,MODE_PRIVATE));
                         HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
                         updownTime = 600;
-                        startUpdownThread();
+//                        startUpdownThread();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -316,30 +308,17 @@ public class MyApplication extends Application{
     }
 
 
-    private void initIgnoreList() {
-        HashSet<String> exclusionList = IgnoreList.getInstance().getExclusionList();
-        List<PackageInfo> packagelist = getPackageManager().getInstalledPackages(0);
-
-        for (PackageInfo packageInfo : packagelist) {
-            if (packageInfo != null) {
-                Log.i("SZIP******","name = "+packageInfo.packageName);
-                // Whether this package should be exclude;
-                if (exclusionList.contains(packageInfo.packageName)) {
-                    continue;
-                }
-                // Add app name
-                String appName = packageInfo.packageName;
-                // Add to package list
-                if (MathUitl.isSystemApp(packageInfo.applicationInfo)) {
-                    IgnoreList.getInstance().addIgnoreItem(appName);
-                }else {
-                    Log.i("SZIP******","add name = "+appName);
-                    if (!(appName.equals("com.tencent.mm")||appName.equals("com.tencent.mobileqq")))
-                        IgnoreList.getInstance().addIgnoreItem(appName);
-                }
-            }
-        }
-        IgnoreList.getInstance().saveIgnoreList();
+    private void initNotifyList() {
+        List<NotificationData> list = new ArrayList<>();
+        list.add(new NotificationData("massage", R.mipmap.cp_icon_empty, getString(R.string.message), true));
+        list.add(new NotificationData("com.tencent.mm", R.mipmap.cp_icon_empty, getString(R.string.wechat), true));
+        list.add(new NotificationData("com.tencent.mobileqq", R.mipmap.cp_icon_empty, getString(R.string.qq), true));
+        list.add(new NotificationData("com.facebook.katana", R.mipmap.cp_icon_empty, getString(R.string.facebook), true));
+        list.add(new NotificationData("com.facebook.orca", R.mipmap.cp_icon_empty, getString(R.string.facebook_massage), true));
+        list.add(new NotificationData("com.twitter.android", R.mipmap.cp_icon_empty, getString(R.string.twitter), true));
+        list.add(new NotificationData("com.whatsapp", R.mipmap.cp_icon_empty, getString(R.string.whatsApp), true));
+        list.add(new NotificationData("com.instagram.android", R.mipmap.cp_icon_empty, getString(R.string.instagram), true));
+        SaveDataUtil.newInstance().saveNotificationList(list);
     }
 
     public void checkGpsState(final Context context){

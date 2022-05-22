@@ -17,6 +17,7 @@ import com.szip.jswitch.DB.dbModel.HealthyConfig;
 import com.szip.jswitch.DB.dbModel.SportWatchAppFunctionConfigDTO;
 import com.szip.jswitch.Model.HttpBean.DeviceConfigBean;
 import com.szip.jswitch.Model.HttpBean.UserInfoBean;
+import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Service.MainService;
@@ -138,6 +139,7 @@ public class WelcomePresenterImpl implements IWelcomePresenter{
                         if (response.getCode() == 200){
                             getInstance().setUserInfo(response.getData());
                             if (response.getData().getDeviceCode()!=null&&!response.getData().getDeviceCode().equals("")){
+                                uploadData(context,response.getData());
                                 if (MyApplication.getInstance().getDialGroupId().equals("0")){
                                     BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
                                     BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
@@ -173,5 +175,20 @@ public class WelcomePresenterImpl implements IWelcomePresenter{
     @Override
     public void setViewDestory() {
         iWelcomeView = null;
+    }
+
+    /**
+     * 每次打开APP且用户已经登陆的时候上传数据
+     * */
+    private void uploadData(Context context, UserInfo userInfo) {
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(FILE,MODE_PRIVATE);
+        if (userInfo!=null&&userInfo.getDeviceCode()!=null){
+            try {
+                String datas = MathUitl.getStringWithJson(sharedPreferences);
+                HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

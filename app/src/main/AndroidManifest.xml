@@ -2,19 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.szip.jswitch">
-
-<!--    <queries>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--        <package android:name="com.tencent.mm"/>-->
-<!--    </queries>-->
-
+    <!-- <queries> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- <package android:name="com.tencent.mm"/> -->
+    <!-- </queries> -->
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
         android:required="false" />
@@ -42,7 +40,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <application
         android:name=".MyApplication"
@@ -51,7 +48,8 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.initInfo.InitInfoActivity"></activity>
+        <activity android:name=".Activity.NotificationActivity"></activity>
+        <activity android:name=".Activity.initInfo.InitInfoActivity" />
         <activity android:name=".Activity.bodyFat.BodyFatActivity" />
         <activity android:name=".Activity.help.GuideActivity" />
         <activity android:name=".Activity.help.ServicePrivacyActivity" />
@@ -171,9 +169,6 @@
         <activity
             android:name=".Activity.ecg.EcgDataActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".Activity.AppListActivity"
-            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

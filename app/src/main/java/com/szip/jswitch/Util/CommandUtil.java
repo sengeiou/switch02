@@ -1,31 +1,21 @@
 package com.szip.jswitch.Util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 
-import com.mediatek.ctrl.notification.NotificationData;
-import com.szip.jswitch.BLE.EXCDController;
 import com.szip.jswitch.Model.HttpBean.WeatherBean;
 import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
-import com.szip.jswitch.Notification.AppList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.media.AudioManager.STREAM_MUSIC;
 
 /**

@@ -22,7 +22,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.content.FileProvider;
 
 import com.mediatek.ctrl.map.MapController;
 import com.mediatek.ctrl.music.RemoteMusicController;
@@ -51,7 +50,6 @@ import com.szip.jswitch.Util.DateUtil;
 import com.szip.jswitch.Util.LogUtil;
 import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.BLE.EXCDController;
-import com.szip.jswitch.Notification.AppList;
 import com.szip.jswitch.Notification.NotificationReceiver;
 import com.szip.jswitch.Notification.NotificationService;
 import com.szip.jswitch.Notification.SmsService;
@@ -61,7 +59,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 import static android.media.AudioManager.STREAM_MUSIC;
@@ -516,29 +513,6 @@ public class MainService extends Service {
         mSevice = this;
         app = MyApplication.getInstance();
         mIsMainServiceActive = true;
-        Map<Object, Object> applist = AppList.getInstance().getAppList();
-        if (applist.size() == 0) {
-            applist.put(AppList.MAX_APP, (int) AppList.CREATE_LENTH);
-            applist.put(AppList.CREATE_LENTH, AppList.BATTERYLOW_APPID);
-            applist.put(AppList.CREATE_LENTH, AppList.SMSRESULT_APPID);
-            AppList.getInstance().saveAppList(applist);
-        }
-        if (!applist.containsValue(AppList.BATTERYLOW_APPID)) {
-            int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
-            applist.remove(AppList.MAX_APP);
-            max = max + 1;
-            applist.put(AppList.MAX_APP, max);
-            applist.put(max, AppList.BATTERYLOW_APPID);
-            AppList.getInstance().saveAppList(applist);
-        }
-        if (!applist.containsValue(AppList.SMSRESULT_APPID)) {
-            int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
-            applist.remove(AppList.MAX_APP);
-            max = max + 1;
-            applist.put(AppList.MAX_APP, max);
-            applist.put(max, AppList.SMSRESULT_APPID);
-            AppList.getInstance().saveAppList(applist);
-        }
 
         registerService();
     }
