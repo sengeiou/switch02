@@ -70,7 +70,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
         setAndroidNativeLightStatusBar(this,true);
         initView();
         initEvent();
-        iBodyFatPresenter = new BodyFatPresenterImp(getApplicationContext(),this);
+        iBodyFatPresenter = new BodyFatOkPresenterImp(getApplicationContext(),this);
         bodyFatDataList = LoadDataUtil.newInstance().getBodyFat(Calendar.getInstance().getTimeInMillis()/1000,dataSize);
         bodyFatData = LoadDataUtil.newInstance().getLastBodyFat();
         checkPermission();
@@ -172,8 +172,8 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
             subcutaneousDataTv.setText(String.format("%.1f%%",bodyFatData.ratioOfSubcutaneousFat));
             boneDataTv.setText(String.format("%.1f%%",bodyFatData.weightOfBone));
 
-            shapeIv.setImageResource(shapeImage[bodyFatData.bodyShape-1]);
-            shapeTv.setText(getString(shapeStr[bodyFatData.bodyShape-1]));
+//            shapeIv.setImageResource(shapeImage[bodyFatData.bodyShape-1]);
+//            shapeTv.setText(getString(shapeStr[bodyFatData.bodyShape-1]));
 
             bmiTv.setStyle(MathUitl.getBodyFatStateIndex(bodyFatData.bmiRange,bodyFatData.bmi));
             bmrTv.setStyle(MathUitl.getBodyFatStateIndex(bodyFatData.bmrRange,bodyFatData.bmr));
