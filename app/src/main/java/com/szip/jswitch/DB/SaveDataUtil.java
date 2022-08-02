@@ -687,6 +687,7 @@ public class SaveDataUtil {
         data.weightRange = Arrays.toString(model.getDetails().getWeightRange()).replace("[","").replace("]","");
         data.bodyShape = model.getDetails().getBodyShape();
         data.fatFreeBodyWeight = model.getDetails().getFatFreeBodyWeight();
+        data.idealWeight = model.getDetails().getIdealWeight();
         return data;
     }
 

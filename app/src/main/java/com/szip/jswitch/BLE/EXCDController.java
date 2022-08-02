@@ -12,6 +12,7 @@ import com.szip.jswitch.Interface.OnCameraListener;
 import com.szip.jswitch.Interface.ReviceDataCallback;
 import com.szip.jswitch.Model.EvenBusModel.PlanModel;
 import com.szip.jswitch.Model.EvenBusModel.UnitModel;
+import com.szip.jswitch.Model.EvenBusModel.UpdateDialView;
 import com.szip.jswitch.Model.EvenBusModel.UpdateReport;
 import com.szip.jswitch.Model.EvenBusModel.UpdateView;
 import com.szip.jswitch.Model.HttpBean.WeatherBean;
@@ -299,7 +300,7 @@ public class EXCDController extends Controller {
                     writeForRET("GET,"+commands[1]);
                 }
             }else if (commands[1].equals("81")){//初始化缓存完毕
-                EventBus.getDefault().post(new UpdateView("3"));
+                EventBus.getDefault().post(new UpdateDialView(3));
             }
         }else if (commands[0].contains("SET")){//SET指令
             if (commands[1].equals("10")){//设置计步目标
@@ -436,7 +437,7 @@ public class EXCDController extends Controller {
 
         }else if (commands[0].contains("RET")){//RET指令
             if(commands[2].equals("81")){
-                EventBus.getDefault().post(new UpdateView(commands[3]));
+                EventBus.getDefault().post(new UpdateDialView(Integer.valueOf(commands[3])));
             }
         }
     }

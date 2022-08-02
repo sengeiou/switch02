@@ -11,7 +11,10 @@ import com.szip.jswitch.DB.dbModel.SportData;
 import com.szip.jswitch.DB.dbModel.StepData;
 import com.szip.jswitch.Interface.IDataResponse;
 import com.szip.jswitch.Model.BleStepModel;
+import com.szip.jswitch.Model.EvenBusModel.UpdateDIYView;
+import com.szip.jswitch.Model.EvenBusModel.UpdateDialView;
 import com.szip.jswitch.Model.EvenBusModel.UpdateView;
+import com.szip.jswitch.Model.FileSendConst;
 import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
 
@@ -65,33 +68,77 @@ public class DataParser {
         }else if (data[1] == 0x16){
             mIDataResponse.findPhone(data[8]);
         }else if (data[1] == 0x46){
-            if (data[9]==2){
-                EventBus.getDefault().post(new UpdateView("2"));
+            if (data[9]==2||data[9]==5){
+                EventBus.getDefault().post(new UpdateDialView(FileSendConst.ERROR));
+            }else if (data[9]==6){
+                EventBus.getDefault().post(new UpdateDialView(FileSendConst.SEND_BIN));
             }else {
                 if (data[8]==0){
-                    EventBus.getDefault().post(new UpdateView(""));
+                    EventBus.getDefault().post(new UpdateDialView(FileSendConst.START_SEND));
                 }else if (data[8]==1){
-                    EventBus.getDefault().post(new UpdateView("0"));
+                    EventBus.getDefault().post(new UpdateDialView(FileSendConst.PROGRESS));
                 }else {
-                    EventBus.getDefault().post(new UpdateView("1"));
+                    EventBus.getDefault().post(new UpdateDialView(FileSendConst.FINISH));
                 }
             }
         }else if (data[1] == 0x47){
-            if (data.length==10&&data[9]==2){
-                if (mIDataResponse!=null)
-                    mIDataResponse.updateOtaProgress(0,0);
-            }else {
-                if (mIDataResponse!=null){
-                    if (data[8]==0){
+            switch (data[8]){
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:{
+                    if(data[9]==2){
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.FINISH));
+                    }else if (data[9] == 5){
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.ERROR));
+                    }else{
                         int address = (data[10] & 0xff) + ((data[11] & 0xFF) << 8) +
                                 ((data[12] & 0xff) << 16) + ((data[13] & 0xFF) << 24);
-                        mIDataResponse.updateOtaProgress(data[9],address);
-                    }else if (data[8]==1){
-                        mIDataResponse.updateOtaProgress(1,0);
-                    }else {
-                        mIDataResponse.updateOtaProgress(2,0);
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.START_SEND,address));
                     }
                 }
+                break;
+                case 4:{
+                    if (data[9]==1)
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.PROGRESS));
+                    else if (data[9] == 2)
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.CONTINUE,(data[10] & 0xff) + ((data[11] & 0xFF) << 8)));
+                    else
+                        EventBus.getDefault().post(new UpdateDialView(FileSendConst.ERROR));
+                }
+                break;
+                case 5:{
+                    EventBus.getDefault().post(new UpdateDialView(FileSendConst.FINISH));
+                }
+                break;
+                case 6:{
+                    if(data[9]==2){
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.FINISH));
+                    }else if (data[9] == 5){
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.ERROR));
+                    }else{
+                        int address = (data[10] & 0xff) + ((data[11] & 0xFF) << 8) +
+                                ((data[12] & 0xff) << 16) + ((data[13] & 0xFF) << 24);
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.START_SEND,address));
+                    }
+                }
+                break;
+                case 7:{
+                    if (data[9]==1)
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.PROGRESS));
+                    else if (data[9] == 2)
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.CONTINUE,(data[10] & 0xff) + ((data[11] & 0xFF) << 8)));
+                    else
+                        EventBus.getDefault().post(new UpdateDIYView(FileSendConst.ERROR));
+                }
+                break;
+                case 8:{
+                    EventBus.getDefault().post(new UpdateDIYView(FileSendConst.FINISH));
+                }
+                break;
             }
         }else if (data[1] == 0x48){//音乐控制
             if (mIDataResponse!=null){

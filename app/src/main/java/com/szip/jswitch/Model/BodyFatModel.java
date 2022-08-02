@@ -71,6 +71,8 @@ public class BodyFatModel extends BaseApi {
         float weightOfProtein;
         //水分重量
         float weightOfWater;
+        //理想体重
+        float idealWeight;
 
         public float getAgeOfBody() {
             return ageOfBody;
@@ -190,6 +192,10 @@ public class BodyFatModel extends BaseApi {
 
         public float getWeightOfWater() {
             return weightOfWater;
+        }
+
+        public float getIdealWeight() {
+            return idealWeight;
         }
     }
 }

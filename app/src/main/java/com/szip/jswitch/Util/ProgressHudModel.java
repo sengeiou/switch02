@@ -18,6 +18,7 @@ public class ProgressHudModel {
     private Context mContext;
     private String error;
     private OnProgressTimeout onProgressTimeout;
+    private int progressOld = -1,progressNew = -1;
 
     private ProgressHudModel(){
 
@@ -29,12 +30,26 @@ public class ProgressHudModel {
         @Override
         public void run() {
             if (progressHUD!=null){
-                progressHUD.dismiss();
-                progressHUD = null;
-                if(error!=null)
-                    Toast.makeText(mContext,error,Toast.LENGTH_SHORT).show();
-                if (onProgressTimeout!=null)
-                    onProgressTimeout.onTimeout();
+                if (progressOld==-1&&progressNew==-1){
+                    progressHUD.dismiss();
+                    progressHUD = null;
+                    if(error!=null)
+                        Toast.makeText(mContext,error,Toast.LENGTH_SHORT).show();
+                    if (onProgressTimeout!=null)
+                        onProgressTimeout.onTimeout();
+                }else {
+                    if (progressOld==progressNew){
+                        progressHUD.dismiss();
+                        progressHUD = null;
+                        progressOld = -1;
+                        progressNew = -1;
+                        if(error!=null)
+                            Toast.makeText(mContext,error,Toast.LENGTH_SHORT).show();
+                    }else {
+                        progressOld = progressNew;
+                        handler.postDelayed(run,30*1000);
+                    }
+                }
             }
         }
     };
@@ -100,6 +115,8 @@ public class ProgressHudModel {
     }
 
     public void showWithPie(final Context mContext, String title,int max,final String error, int delayMilis){
+        progressOld = 0;
+        progressNew = 0;
         progressHUD  = KProgressHUD.create(mContext)
                 .setMaxProgress(max)
                 .setStyle(KProgressHUD.Style.PIE_DETERMINATE)
@@ -111,12 +128,14 @@ public class ProgressHudModel {
         this.mContext = mContext;
         this.error = error;
         handler.postDelayed(run,delayMilis);
-
     }
 
-    public void setProgress(int num){
-        if (progressHUD!=null)
-            progressHUD.setProgress(num);
+    public void setProgress(){
+        if (progressHUD!=null){
+            progressNew++;
+            progressHUD.setProgress(progressNew);
+        }
+
     }
 
     public void setLabel(String label){
@@ -129,6 +148,8 @@ public class ProgressHudModel {
             progressHUD.dismiss();
             progressHUD = null;
             handler.removeCallbacks(run);
+            progressOld = -1;
+            progressNew = -1;
         }
     }
 }

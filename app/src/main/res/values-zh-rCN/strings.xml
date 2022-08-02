@@ -181,7 +181,7 @@
     <string name="unlock">向右滑动解锁</string>
     <string name="startRun">开始运动</string>
     <string name="tipForPrivacy">权限说明</string>
-    <string name="getPrivacy">在使用过程中，本应用需要访问定位权限，用于记录和校准运动轨迹与距离\n\n如果您不同意调用以上权限，将导致该功能无法正常使用，担不影响您使用本应用的基本功能。您可随时前往“设置”>“权限管理”，选择关闭以上权限调用以撤回您的同意</string>
+    <string name="getPrivacy">在使用过程中，本应用需要访问定位权限，用于记录和校准运动轨迹与距离\n\n如果您不同意调用以上权限，将导致该功能无法正常使用，但不影响您使用本应用的基本功能。您可随时前往“设置”>“权限管理”，选择关闭以上权限调用以撤回您的同意</string>
 
     <!--我的页面-->
     <string name="device">设备</string>
@@ -199,6 +199,9 @@
     <string name="diyDailing">更换中...</string>
     <string name="diyDailOK">更换成功</string>
     <string name="diyDailError">更换失败,请重试</string>
+    <string name="diyDailError1">手表SD卡正在使用，终止传输</string>
+    <string name="diy_send_background">正在发送背景...</string>
+    <string name="diy_send_bin">正在发送表盘</string>
     <string name="upDownBackground">请上传一张背景图片</string>
     <string name="chooseClock">请选择一个时钟样式</string>
     <string name="clock">时钟样式</string>
@@ -413,7 +416,7 @@
     <string name="message">短信</string>
     <string name="qq">QQ</string>
     <string name="facebook">脸书</string>
-    <string name="facebook_massage">脸书信息</string>
+    <string name="facebook_message">脸书信息</string>
     <string name="twitter">推特</string>
     <string name="whatsApp">WhatsApp</string>
     <string name="instagram">instagram</string>

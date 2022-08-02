@@ -240,6 +240,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
        if (resultCode == UCrop.RESULT_ERROR){
             showToast(getString(R.string.crop_pic_failed));
+            return;
         }
         switch (requestCode){
             case IMAGE_CAPTURE:{// 相机

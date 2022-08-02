@@ -20,5 +20,6 @@ public class Migration10  extends AlterTableMigration<BodyFatData> {
     public void onPreMigrate() {
         addColumn(SQLiteType.get(float.class.getName()), "ageOfBody");//基本数据类型
         addColumn(SQLiteType.get(String.class.getName()), "weightRange");//基本数据类型
+        addColumn(SQLiteType.get(float.class.getName()), "idealWeight");//基本数据类型
     }
 }

@@ -49,7 +49,6 @@ public class BodyFatOkPresenterImp implements IBodyFatPresenter{
 
     @Override
     public void initBle() {
-
         if (iBodyFatView!=null)
             iBodyFatView.initBleFinish(true);
     }
@@ -65,7 +64,7 @@ public class BodyFatOkPresenterImp implements IBodyFatPresenter{
 
     @Override
     public void disconnectDevice() {
-
+        ClientManager.getClient().stopSearch();
     }
 
     @Override
@@ -88,6 +87,7 @@ public class BodyFatOkPresenterImp implements IBodyFatPresenter{
 //                sb.append("**************************************\r\n");
                 bodyFatData.time = System.currentTimeMillis()/1000;
                 bodyFatData.weight = weight;
+                bodyFatData.idealWeight = weight+(float) cSBiasV235Resp.data.WC;
                 bodyFatData.weightRange = "0,50.4,56.7,69.3,75.6,113.4";
 //                sb.append("脂肪率%:" + cSBiasV235Resp.data.BFP + "\r\n");
                 bodyFatData.ratioOfFat = (float) cSBiasV235Resp.data.BFP;
@@ -152,7 +152,7 @@ public class BodyFatOkPresenterImp implements IBodyFatPresenter{
 
         @Override
         public void onDeviceFounded(SearchResult device) {
-            if (device.scanRecord!=null&&(device.scanRecord[9]==0x11||device.scanRecord[9]==0x21)){
+            if (device.scanRecord!=null&&(device.scanRecord[9]==0x11||device.scanRecord[9]==0x21||device.scanRecord[9]==0x01)){
                 LogUtil.getInstance().logd("data******","raw = "+DateUtil.byteToHexString(device.scanRecord));
                 byte[] raw = device.scanRecord;
                 if ((raw[10]&0x01)==0x01){
@@ -171,7 +171,7 @@ public class BodyFatOkPresenterImp implements IBodyFatPresenter{
                         Toast.makeText(context,context.getString(R.string.measurement),Toast.LENGTH_SHORT).show();
                     }else {
                         if (iBodyFatView!=null)
-                            iBodyFatView.showTipDialog(weight);
+                            iBodyFatView.showTipDialog(weight,1);
                     }
 
                 }

@@ -43,7 +43,7 @@ import static com.szip.jswitch.MyApplication.FILE;
 public class BodyFatActivity extends BaseActivity implements IBodyFatView {
 
     private IBodyFatPresenter iBodyFatPresenter;
-
+    private IBodyFatPresenter iBodyFatPresenter1;
     private int dataSize = 7;
     private ArrayList<BodyFatData> bodyFatDataList;
     private BodyFatData bodyFatData;
@@ -71,6 +71,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
         initView();
         initEvent();
         iBodyFatPresenter = new BodyFatOkPresenterImp(getApplicationContext(),this);
+        iBodyFatPresenter1 = new BodyFatPresenterImp(getApplicationContext(),this);
         bodyFatDataList = LoadDataUtil.newInstance().getBodyFat(Calendar.getInstance().getTimeInMillis()/1000,dataSize);
         bodyFatData = LoadDataUtil.newInstance().getLastBodyFat();
         checkPermission();
@@ -81,6 +82,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
     protected void onDestroy() {
         super.onDestroy();
         iBodyFatPresenter.disconnectDevice();
+        iBodyFatPresenter1.disconnectDevice();
     }
 
     private void checkPermission() {
@@ -92,10 +94,10 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         100);
             }else {
-                iBodyFatPresenter.initBle();
+                iBodyFatPresenter1.initBle();
             }
         }else {
-            iBodyFatPresenter.initBle();
+            iBodyFatPresenter1.initBle();
         }
     }
 
@@ -107,7 +109,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
             if (!(code == PackageManager.PERMISSION_GRANTED)){
                 showToast(getString(R.string.permissionErrorForLocation));
             }else {
-                iBodyFatPresenter.initBle();
+                iBodyFatPresenter1.initBle();
             }
         }
     }
@@ -115,6 +117,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
     @Override
     public void initBleFinish(boolean bleEnable) {
         iBodyFatPresenter.startScan(MyApplication.getInstance().getUserInfo());
+        iBodyFatPresenter1.startScan(MyApplication.getInstance().getUserInfo());
     }
 
     @Override
@@ -130,13 +133,16 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
     }
 
     @Override
-    public void showTipDialog(float weight) {
+    public void showTipDialog(float weight, final int type) {
         MyAlerDialog.getSingle().showAlerDialogForBodyFat(getString(R.string.tip), getString(R.string.new_body_fat_data), weight, false,
                 new MyAlerDialog.AlerDialogOnclickListener() {
                     @Override
                     public void onDialogTouch(boolean flag) {
                         if (flag){
-                            iBodyFatPresenter.saveData();
+                            if (type == 1)
+                                iBodyFatPresenter.saveData();
+                            else
+                                iBodyFatPresenter1.saveData();
                         }
                     }
                 },BodyFatActivity.this).show();
@@ -149,14 +155,14 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
             ageTv.setText(String.format("%d",(int)bodyFatData.ageOfBody));
             scoreTv.setText(String.format("%d",bodyFatData.score));
             if (MyApplication.getInstance().getUserInfo().getUnit() == 0){
-                weightTv.setText(String.format("%.1fKG",bodyFatData.weight));
+                weightTv.setText(String.format("%.1fKG",bodyFatData.idealWeight));
                 fatFreeTv.setText(String.format("%.1fKG",bodyFatData.fatFreeBodyWeight));
                 fatTv.setText(String.format("%.1fKG",bodyFatData.weightOfFat));
                 muscleWeightTv.setText(String.format("%.1fKG",bodyFatData.weightOfMuscle));
                 proteinWeightTv.setText(String.format("%.1fKG",bodyFatData.weightOfProtein));
                 waterTv.setText(String.format("%.1fKG",bodyFatData.weightOfWater));
             }else {
-                weightTv.setText(String.format("%.1flb", VTComUtils.kg2Lb(bodyFatData.weight)));
+                weightTv.setText(String.format("%.1flb", VTComUtils.kg2Lb(bodyFatData.idealWeight)));
                 fatFreeTv.setText(String.format("%.1flb",VTComUtils.kg2Lb(bodyFatData.fatFreeBodyWeight)));
                 fatTv.setText(String.format("%.1flb",VTComUtils.kg2Lb(bodyFatData.weightOfFat)));
                 muscleWeightTv.setText(String.format("%.1flb",VTComUtils.kg2Lb(bodyFatData.weightOfMuscle)));
@@ -285,6 +291,7 @@ public class BodyFatActivity extends BaseActivity implements IBodyFatView {
                     break;
                 case R.id.stateTv:
                     iBodyFatPresenter.startScan(MyApplication.getInstance().getUserInfo());
+                    iBodyFatPresenter1.startScan(MyApplication.getInstance().getUserInfo());
                     break;
             }
         }

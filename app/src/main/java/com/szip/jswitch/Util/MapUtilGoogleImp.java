@@ -2,6 +2,7 @@ package com.szip.jswitch.Util;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.szip.jswitch.Activity.gpsSport.IMapUtil;
 import com.szip.jswitch.R;
 
 import java.util.ArrayList;
@@ -27,8 +30,23 @@ public class MapUtilGoogleImp implements IMapUtil {
     private List<LatLng> latLngs = new ArrayList<LatLng>();
     private GoogleMap googleMap;
     private double [] option;
+
+    private LocationSource.OnLocationChangedListener listener;
+    private LocationSource locationSource;
+
     public MapUtilGoogleImp(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        locationSource = new LocationSource() {
+            @Override
+            public void activate(OnLocationChangedListener onLocationChangedListener) {
+                listener = onLocationChangedListener;
+            }
+
+            @Override
+            public void deactivate() {
+
+            }
+        };
     }
 
     @Override
@@ -44,6 +62,7 @@ public class MapUtilGoogleImp implements IMapUtil {
 
     @Override
     public void moveCamera() {
+
         googleMap.moveCamera(CameraUpdateFactory.zoomTo((float) option[2]));
         LatLng centerBJPoint= new LatLng(option[0],
                 option[1]);
@@ -68,8 +87,13 @@ public class MapUtilGoogleImp implements IMapUtil {
     public void addPolyline() {
         googleMap.addPolyline(new PolylineOptions().
                 addAll(latLngs).
-                width(14).
-                color(Color.parseColor("#1BC416")));
+                width(30).
+                color(Color.parseColor("#bbf246")));
+
+        googleMap.addPolyline(new PolylineOptions().
+                addAll(latLngs).
+                width(12).
+                color(Color.parseColor("#000000")));
     }
 
     @Override
@@ -85,6 +109,27 @@ public class MapUtilGoogleImp implements IMapUtil {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void setUpMap() {
+        // 自定义系统定位小蓝点
+        googleMap.setLocationSource(locationSource);// 设置定位监听
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(false);// 隐藏缩放按钮
+        googleMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(19f));
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        if (listener!=null){
+            double lat = location.getLatitude();
+            double lng = location.getLongitude();
+            LatLng appointLoc = new LatLng(lat, lng);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(appointLoc));
+            listener.onLocationChanged(location);
+        }
     }
 
 

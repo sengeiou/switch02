@@ -97,7 +97,7 @@ public class BodyFatPresenterImp implements IBodyFatPresenter{
             bodyFatModel = gson.fromJson(res, BodyFatModel.class);
             if (bodyFatModel!=null&&bodyFatModel.getCode()==0){
                 if (iBodyFatView!=null)
-                    iBodyFatView.showTipDialog(bodyFatModel.getDetails().getWeight());
+                    iBodyFatView.showTipDialog(bodyFatModel.getDetails().getWeight(),2);
             }else if (bodyFatModel!=null&&bodyFatModel.getCode()!=200){
                 Toast.makeText(context,context.getString(R.string.measurement),Toast.LENGTH_SHORT).show();
             }

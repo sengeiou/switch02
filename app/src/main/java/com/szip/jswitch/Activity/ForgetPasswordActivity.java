@@ -344,9 +344,11 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onResponse(BaseApi response, int id) {
-            ProgressHudModel.newInstance().diss();
-            showToast(getString(R.string.resetSuccess));
-            finish();
+            if(id!=100){
+                ProgressHudModel.newInstance().diss();
+                showToast(getString(R.string.resetSuccess));
+                finish();
+            }
         }
     };
 }

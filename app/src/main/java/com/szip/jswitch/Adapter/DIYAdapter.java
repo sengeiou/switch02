@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.szip.jswitch.Model.HttpBean.DialBean;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.R;
 import com.szip.jswitch.View.CircularImageView;
@@ -12,19 +14,24 @@ import com.szip.jswitch.View.CircularImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class DIYAdapter extends RecyclerView.Adapter<DIYAdapter.Holder>{
 
-    private int [] dials = new int[0];
+
+    private ArrayList<DialBean.Dial> dialArrayList = new ArrayList<>();
+    private Context context;
     private int select = -1;
 
-    public DIYAdapter(int[] dials) {
-        this.dials = dials;
+    public DIYAdapter(ArrayList<DialBean.Dial> dials,Context context) {
+        this.context = context;
+        this.dialArrayList = dials;
     }
     @NonNull
     @Override
     public DIYAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (MyApplication.getInstance().getFaceType().indexOf("320*385")<0)
+        if (!MyApplication.getInstance().getFaceType().equals("320*385"))
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaper_diy, null);
         else
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaper_diy_06, null);
@@ -61,12 +68,14 @@ public class DIYAdapter extends RecyclerView.Adapter<DIYAdapter.Holder>{
         }else {
             holder.selectView.setVisibility(View.GONE);
         }
-        holder.imageView.setImageResource(dials[position]);
+        Glide.with(context).load(dialArrayList.get(position).getPointerImg())
+                .placeholder(R.mipmap.dial_default)
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return dials.length;
+        return dialArrayList.size();
     }
 
 

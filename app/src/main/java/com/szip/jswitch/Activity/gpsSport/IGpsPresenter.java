@@ -6,7 +6,7 @@ public interface IGpsPresenter {
     void startLocationService();
     void stopLocationService();
     void finishLocationService();
-    void openMap(FragmentManager fragmentManager);
+//    void openMap(FragmentManager fragmentManager);
     void setViewDestory();
 
 

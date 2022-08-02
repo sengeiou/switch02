@@ -25,11 +25,12 @@ import androidx.annotation.RequiresApi;
 
 import com.mediatek.ctrl.map.MapController;
 import com.mediatek.ctrl.music.RemoteMusicController;
-import com.mediatek.ctrl.notification.NotificationController;
 import com.mediatek.wearable.WearableListener;
 import com.mediatek.wearable.WearableManager;
 import com.szip.jswitch.Activity.gpsSport.GpsActivity;
 import com.szip.jswitch.BLE.BleClient;
+import com.szip.jswitch.BLE.NotificationController;
+import com.szip.jswitch.DB.LoadDataUtil;
 import com.szip.jswitch.DB.SaveDataUtil;
 import com.szip.jswitch.DB.dbModel.AnimalHeatData;
 import com.szip.jswitch.DB.dbModel.BloodOxygenData;
@@ -39,14 +40,17 @@ import com.szip.jswitch.DB.dbModel.HeartData;
 import com.szip.jswitch.DB.dbModel.SleepData;
 import com.szip.jswitch.DB.dbModel.SportData;
 import com.szip.jswitch.DB.dbModel.StepData;
+import com.szip.jswitch.Interface.IOtaResponse;
 import com.szip.jswitch.Interface.ReviceDataCallback;
 import com.szip.jswitch.Model.EvenBusModel.ConnectState;
 import com.szip.jswitch.Model.SendDialModel;
 import com.szip.jswitch.Model.UpdateSportView;
 import com.szip.jswitch.MyApplication;
+import com.szip.jswitch.Notification.AppList;
 import com.szip.jswitch.Notification.NotificationView;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Util.DateUtil;
+import com.szip.jswitch.Util.FileUtil;
 import com.szip.jswitch.Util.LogUtil;
 import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.BLE.EXCDController;
@@ -58,7 +62,14 @@ import com.szip.jswitch.Util.MusicUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 import static android.media.AudioManager.STREAM_MUSIC;
@@ -514,6 +525,30 @@ public class MainService extends Service {
         app = MyApplication.getInstance();
         mIsMainServiceActive = true;
 
+        Map<Object, Object> applist = AppList.getInstance().getAppList();
+        if (applist.size() == 0) {
+            applist.put(AppList.MAX_APP, (int) AppList.CREATE_LENTH);
+            applist.put(AppList.CREATE_LENTH, AppList.BATTERYLOW_APPID);
+            applist.put(AppList.CREATE_LENTH, AppList.SMSRESULT_APPID);
+            AppList.getInstance().saveAppList(applist);
+        }
+        if (!applist.containsValue(AppList.BATTERYLOW_APPID)) {
+            int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
+            applist.remove(AppList.MAX_APP);
+            max = max + 1;
+            applist.put(AppList.MAX_APP, max);
+            applist.put(max, AppList.BATTERYLOW_APPID);
+            AppList.getInstance().saveAppList(applist);
+        }
+        if (!applist.containsValue(AppList.SMSRESULT_APPID)) {
+            int max = Integer.parseInt(applist.get(AppList.MAX_APP).toString());
+            applist.remove(AppList.MAX_APP);
+            max = max + 1;
+            applist.put(AppList.MAX_APP, max);
+            applist.put(max, AppList.SMSRESULT_APPID);
+            AppList.getInstance().saveAppList(applist);
+        }
+
         registerService();
     }
 
@@ -592,8 +627,8 @@ public class MainService extends Service {
         Log.i(TAG, "onDestroy()");
         WearableManager manager = WearableManager.getInstance();
         manager.removeController(MapController.getInstance(sContext));
-        manager.removeController(NotificationController.getInstance(sContext));
         manager.removeController(RemoteMusicController.getInstance(sContext));
+        manager.removeController(NotificationController.getInstance());
         manager.removeController(EXCDController.getInstance());
         EXCDController.getInstance().setReviceDataCallback(null);
         manager.unregisterWearableListener(mWearableListener);
@@ -614,13 +649,13 @@ public class MainService extends Service {
     public void startNotificationService() {
         Log.i(TAG, "startNotificationService()");
         mNotificationService = new NotificationService();
-        NotificationController.setListener(mNotificationService);
+//        NotificationController.setListener(mNotificationService);
 
     }
 
     public void stopNotificationService() {
         Log.i(TAG, "stopNotificationService()");
-        NotificationController.setListener(null);
+//        NotificationController.setListener(null);
         mNotificationService = null;
     }
 
@@ -667,14 +702,15 @@ public class MainService extends Service {
 
         WearableManager manager = WearableManager.getInstance();
         manager.addController(MapController.getInstance(sContext));
-        manager.addController(NotificationController.getInstance(sContext));
+        manager.addController(NotificationController.getInstance());
         manager.addController(EXCDController.getInstance());
         EXCDController.getInstance().setReviceDataCallback(reviceDataCallback);
         manager.registerWearableListener(mWearableListener);
         // start SMS service
-        if (checkSelfPermission(Manifest.permission.READ_SMS)== PackageManager.PERMISSION_GRANTED)
+        if (LoadDataUtil.newInstance().needNotify("message"))
             startSmsService();
         startNotificationService();
+        BleClient.getInstance().setiOtaResponse(iOtaResponse);
     }
 
 
@@ -771,6 +807,43 @@ public class MainService extends Service {
         }
     };
 
+
+    /**
+     * 下载文件
+     * */
+    public boolean downloadFirmsoft(String dialUrl) {
+        Log.i("DATA******","dialUrl = "+dialUrl);
+
+        String[] fileNames = dialUrl.split("/");
+        String fileName = fileNames[fileNames.length-1];
+        Log.i("DATA******","fileName = "+fileName);
+        File file = new File(app.getPrivatePath() + fileName);
+        if (file.exists()){
+            return true;
+        }
+        //创建下载任务
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(dialUrl));
+        request.setAllowedOverRoaming(true);//漫游网络是否可以下载
+
+        //在通知栏中显示，默认就是显示的
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+
+        //sdcard的目录下的download文件夹，必须设置
+        request.setDestinationInExternalFilesDir(MainService.this, "/",fileName);
+
+        //将下载请求加入下载队列
+        downloadManager = (DownloadManager) MainService.this.getSystemService(Context.DOWNLOAD_SERVICE);
+        //加入下载队列后会给该任务返回一个long型的id，
+        //通过该id可以取消任务，重启任务等等
+        mTaskId = downloadManager.enqueue(request);
+
+        //注册广播接收者，监听下载状态
+        MainService.this.registerReceiver(receiver,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        app.setDialUrl(dialUrl);
+        return false;
+    }
+
     private void checkDownloadStatus() {
         DownloadManager.Query query = new DownloadManager.Query();
         query.setFilterById(mTaskId);//筛选下载任务，传入任务ID，可变参数
@@ -796,18 +869,83 @@ public class MainService extends Service {
             }
         }
     }
-//
-//    private void installApk() {
-//        Intent updateApk = new Intent(Intent.ACTION_VIEW);
-//        File apkFile = new File(getExternalFilesDir(null).getPath()+"/Just Switch.apk");
-//        Log.e("SZIP******",apkFile.toString());
-//        Uri uri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", apkFile);
-//        Log.e("SZIP******",uri.toString());
-//        updateApk.setDataAndType(uri, "application/vnd.android.package-archive");
-//        updateApk.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        updateApk.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        this.startActivity(updateApk);
-//    }
+
+
+    private int index;
+    private byte fileDatas[];
+    private int page;
+
+    private IOtaResponse iOtaResponse = new IOtaResponse() {
+        @Override
+        public void onStartToSendFile(int type, int address) {
+            Log.d("DATA******","准备发送数据");
+            if (type == 0||type == 1){
+                InputStream in = null;
+                try {
+                    in = new FileInputStream(MyApplication.getInstance().getPrivatePath()+"image.bin");
+                    byte[] datas =  FileUtil.getInstance().toByteArray(in);
+                    in.close();
+                    fileDatas = datas;
+                    index = address;
+                    page = 0;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                timer = new Timer();
+                sendDataTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        sendByte();
+                    }
+                };
+                timer.schedule(sendDataTask,0,20);
+            }else {
+
+            }
+        }
+
+        @Override
+        public void onSendProgress() {
+
+        }
+
+        @Override
+        public void onSendSccuess() {
+            Log.d("DATA******","发送数据成功");
+        }
+
+        @Override
+        public void onSendFail() {
+            Log.d("DATA******","发送数据失败");
+            if(timer!=null){
+                timer.cancel();
+                timer = null;
+            }
+        }
+    };
+
+    private Timer timer;
+    private TimerTask sendDataTask;
+
+    private void sendByte(){
+        byte[] newDatas;
+        int len = (fileDatas.length-index- page >175)?175:(fileDatas.length-index- page);
+        if (len<0)
+            return;
+        newDatas = new byte[len];
+        System.arraycopy(fileDatas, page+index,newDatas,0,len);
+        BleClient.getInstance().writeForSendOtaFile(1,null,index+page, page/175,newDatas);
+        page+=175;
+        if (page>=fileDatas.length-index){
+            if(timer!=null){
+                timer.cancel();
+                timer = null;
+            }
+            BleClient.getInstance().writeForSendOtaFile(2,null,0,0,null);
+        }
+    }
 
 
 }

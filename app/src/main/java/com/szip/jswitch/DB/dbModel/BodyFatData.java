@@ -103,5 +103,8 @@ public class BodyFatData extends BaseModel {
     //水分重量
     @Column
     public float weightOfWater;
+    //理想体重
+    @Column
+    public float idealWeight;
 
 }

@@ -267,6 +267,16 @@ public class MyApplication extends Application{
     }
 
 
+    public boolean checkFaceType(int width,int height){
+        String[] faceStr = getFaceType().split("\\*");
+        int faceWidth = Integer.valueOf(faceStr[0]);
+        int faceHeight = Integer.valueOf(faceStr[1]);
+        if (width!=faceWidth||height!=faceHeight)
+            return false;
+        return true;
+    }
+
+
     public String getPrivatePath() {
         return privatePath;
     }
@@ -311,11 +321,11 @@ public class MyApplication extends Application{
     private void initNotifyList() {
 
         List<NotificationData> list = new ArrayList<>();
-        list.add(new NotificationData("massage", R.mipmap.cp_icon_empty, getString(R.string.message), true));
+        list.add(new NotificationData("message", R.mipmap.cp_icon_empty, getString(R.string.message), true));
         list.add(new NotificationData("com.tencent.mm", R.mipmap.cp_icon_empty, getString(R.string.wechat), true));
         list.add(new NotificationData("com.tencent.mobileqq", R.mipmap.cp_icon_empty, getString(R.string.qq), true));
         list.add(new NotificationData("com.facebook.katana", R.mipmap.cp_icon_empty, getString(R.string.facebook), true));
-        list.add(new NotificationData("com.facebook.orca", R.mipmap.cp_icon_empty, getString(R.string.facebook_massage), true));
+        list.add(new NotificationData("com.facebook.orca", R.mipmap.cp_icon_empty, getString(R.string.facebook_message), true));
         list.add(new NotificationData("com.twitter.android", R.mipmap.cp_icon_empty, getString(R.string.twitter), true));
         list.add(new NotificationData("com.whatsapp", R.mipmap.cp_icon_empty, getString(R.string.whatsApp), true));
         list.add(new NotificationData("com.instagram.android", R.mipmap.cp_icon_empty, getString(R.string.instagram), true));

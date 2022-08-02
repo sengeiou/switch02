@@ -1375,14 +1375,12 @@ public class LoadDataUtil {
         return list;
     }
 
-    public boolean needNotify(String packageName){
+    public NotificationData getNotification(String packageName){
         NotificationData notificationData = SQLite.select()
                 .from(NotificationData.class)
                 .where(NotificationData_Table.packageName.is(packageName))
                 .querySingle();
-        if (notificationData == null)
-            return false;
-        return notificationData.state;
+        return notificationData;
     }
 
     public String getNotifyName(String packageName){
@@ -1394,5 +1392,17 @@ public class LoadDataUtil {
             return "";
         return notificationData.name;
     }
+
+    public boolean needNotify(String packageName){
+        NotificationData notificationData = SQLite.select()
+                .from(NotificationData.class)
+                .where(NotificationData_Table.packageName.is(packageName))
+                .querySingle();
+        if (notificationData == null)
+            return false;
+        return notificationData.state;
+    }
+
+
 
 }

@@ -48,6 +48,8 @@ import com.szip.jswitch.DB.dbModel.StepData;
 import com.szip.jswitch.DB.dbModel.StepData_Table;
 import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
+import com.szip.jswitch.Notification.AppList;
+import com.szip.jswitch.R;
 
 
 import org.json.JSONArray;
@@ -62,13 +64,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.text.TextUtils.isEmpty;
 import static com.szip.jswitch.MyApplication.FILE;
+import static com.szip.jswitch.MyApplication.getInstance;
 
 /**
  * Created by Administrator on 2019/1/28.
@@ -175,6 +181,26 @@ public class MathUitl {
                 cursor.close();
         }
         return null;
+    }
+
+
+    public static String getKeyFromValue(CharSequence charSequence) {
+        Map<Object, Object> appList = AppList.getInstance().getAppList();
+        for (Object ob:appList.keySet()){
+            Log.d("key******","key = "+ob.toString()+" ;value = "+appList.get(ob).toString());
+        }
+        Set<?> set = appList.entrySet();
+        Iterator<?> it = set.iterator();
+        String key = "";
+        while (it.hasNext()) {
+            @SuppressWarnings("rawtypes")
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getValue() != null && entry.getValue().equals(charSequence)) {
+                key = entry.getKey().toString();
+                break;
+            }
+        }
+        return key;
     }
 
     /**
@@ -304,24 +330,7 @@ public class MathUitl {
         return isSystemApp;
     }
 
-//    public static String getKeyFromValue(CharSequence charSequence) {
-//        Map<Object, Object> appList = AppList.getInstance().getAppList();
-//        for (Object ob:appList.keySet()){
-//            Log.d("key******","key = "+ob.toString()+" ;value = "+appList.get(ob).toString());
-//        }
-//        Set<?> set = appList.entrySet();
-//        Iterator<?> it = set.iterator();
-//        String key = "";
-//        while (it.hasNext()) {
-//            @SuppressWarnings("rawtypes")
-//            Map.Entry entry = (Map.Entry) it.next();
-//            if (entry.getValue() != null && entry.getValue().equals(charSequence)) {
-//                key = entry.getKey().toString();
-//                break;
-//            }
-//        }
-//        return key;
-//    }
+
 
     /**
      * Array转换成Stirng
@@ -946,9 +955,11 @@ public class MathUitl {
         return false;
     }
 
-    public static void toJpgFile(){
-        String filePath = MyApplication.getInstance().getPrivatePath()+"crop.jpg";
+    public static boolean toJpgFile(){
+        String filePath = MyApplication.getInstance().getPrivatePath()+"crop";
         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        if (!MyApplication.getInstance().checkFaceType(bitmap.getWidth(),bitmap.getHeight()))
+            return false;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int options = 100;
@@ -968,6 +979,7 @@ public class MathUitl {
         } finally {
             bitmap.recycle();
         }
+        return true;
     }
 
 
@@ -977,14 +989,59 @@ public class MathUitl {
                 return 1;
             case "com.tencent.mobileqq":
                 return 2;
-            case "com.twitter.android":
-                return 3;
-            case "com.instagram.android":
-                return 4;
             case "com.whatsapp":
                 return 5;
+            case "com.twitter.android":
+                return 6;
+            case "com.instagram.android":
+                return 7;
+            case "com.facebook.katana":
+            case "com.facebook.orca":
+                return 8;
+            case "com.skype.rover":
+                return 9;
+            case "com.linkedin.android":
+                return 10;
+            case "jp.naver.line.android":
+                return 11;
+            case "com.snapchat.android":
+                return 12;
+            case "com.pinterest":
+                return 13;
+            case "com.google.android.apps.plus":
+                return 14;
+            case "com.tumblr":
+                return 15;
+            case "com.viber.voip":
+                return 16;
+            case "com.vkontakte.android":
+                return 17;
+            case "org.telegram.messenger":
+                return 18;
+            case "com.zhiliaoapp.musically":
+                return 20;
             default:
                 return -1;
+        }
+    }
+
+    public static String getApplicationName(String pakeName){
+        switch (pakeName){
+            case "com.tencent.mm":
+                return getInstance().getString(R.string.wechat);
+            case "com.tencent.mobileqq":
+                return getInstance().getString(R.string.qq);
+            case "com.twitter.android":
+                return getInstance().getString(R.string.twitter);
+            case "com.instagram.android":
+                return getInstance().getString(R.string.instagram);
+            case "com.whatsapp":
+                return getInstance().getString(R.string.whatsApp);
+            case "com.facebook.katana":
+            case "com.facebook.orca":
+                return getInstance().getString(R.string.facebook);
+            default:
+                return getInstance().getString(R.string.other);
         }
     }
 

@@ -126,23 +126,23 @@ public class StepPresenterImpl implements IGpsPresenter{
         }
     }
 
-    @Override
-    public void openMap(FragmentManager fragmentManager) {
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        final Fragment prev = fragmentManager.findFragmentByTag("MAP");
-        if (prev != null){
-            ft.remove(prev).commit();
-            ft = fragmentManager.beginTransaction();
-        }
-        ft.addToBackStack(null);
-        if (context.getResources().getConfiguration().locale.getCountry().equals("CN")){
-            mapFragment = new GaoDeMapFragment(speed,distance,calorie,preLocation);
-            mapFragment.show(ft, "MAP");
-        }else {
-            mapFragment = new GoogleMapFragment(speed,distance,calorie,preLocation);
-            mapFragment.show(ft, "MAP");
-        }
-    }
+//    @Override
+//    public void openMap(FragmentManager fragmentManager) {
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        final Fragment prev = fragmentManager.findFragmentByTag("MAP");
+//        if (prev != null){
+//            ft.remove(prev).commit();
+//            ft = fragmentManager.beginTransaction();
+//        }
+//        ft.addToBackStack(null);
+//        if (context.getResources().getConfiguration().locale.getCountry().equals("CN")){
+//            mapFragment = new GaoDeMapFragment(speed,distance,calorie,preLocation);
+//            mapFragment.show(ft, "MAP");
+//        }else {
+//            mapFragment = new GoogleMapFragment(speed,distance,calorie,preLocation);
+//            mapFragment.show(ft, "MAP");
+//        }
+//    }
 
     @Override
     public void setViewDestory() {
@@ -240,12 +240,8 @@ public class StepPresenterImpl implements IGpsPresenter{
                 lngStr.append(String.format(",%d",(int)(lng*1000000)));
                 preLocation=location;
             }
-            if (mapFragment !=null&&!mapFragment.isHidden()){
-                if (context.getResources().getConfiguration().locale.getCountry().equals("CN"))
-                    ((GaoDeMapFragment)mapFragment).setLocation(location);
-                else
-                    ((GoogleMapFragment)mapFragment).setLocation(location);
-            }
+            if (iGpsView!=null)
+                iGpsView.updateLocation(location);
         }
     }
 

@@ -25,6 +25,7 @@ import androidx.annotation.RequiresApi;
 import com.szip.jswitch.MyApplication;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -139,5 +140,16 @@ public class FileUtil {
             if (file != null)
                 file.delete();
         }
+    }
+
+    public byte[] toByteArray(InputStream in) throws IOException {
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024 * 4];
+        int n = 0;
+        while ((n = in.read(buffer)) != -1) {
+            out.write(buffer, 0, n);
+        }
+        return out.toByteArray();
     }
 }

@@ -905,7 +905,41 @@ public class BleClient {
         }else {
             ClientManager.getClient().write(mMac,serviceUUID,UUID.fromString(Config.char1),
                     CommandUtil.getCommandbytePicture(10,2,type,clockType,clockType,num,datas),bleWriteResponse);
+        }
+    }
 
+    public void writeForSendOtaFile(int type,byte[] version,int addresss,int num,byte[] datas){
+        if (type == 0){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteOtaFileTest(14,6,type,version,addresss,num,datas),bleWriteResponse);
+        }else if (type == 1){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteOtaFileTest(datas.length+15,datas.length+7,type,version,addresss,num,datas),bleWriteResponse);
+        }else {
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteOtaFileTest(10,2,type,version,addresss,num,datas),bleWriteResponse);
+        }
+    }
+
+    public void writeForSendDialFile(int type,byte clockId,int addresss,int num,byte[] datas){
+        if (type == 3){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(2,type,clockId,addresss,num,datas),bleWriteResponse);
+        }else if (type == 4){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(datas.length+7,type,clockId,addresss,num,datas),bleWriteResponse);
+        }else if (type == 5){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(2,type,clockId,addresss,num,datas),bleWriteResponse);
+        }else if (type == 6){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(2,type,clockId,addresss,num,datas),bleWriteResponse);
+        }else if (type == 7){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(datas.length+7,type,clockId,addresss,num,datas),bleWriteResponse);
+        }else if (type == 8){
+            ClientManager.getClient().write(mMac,UUID.fromString(Config.char5),UUID.fromString(Config.char4),
+                    CommandUtil.getCommandbyteDialFile(2,type,clockId,addresss,num,datas),bleWriteResponse);
         }
     }
 
