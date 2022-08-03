@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,6 +110,7 @@ public class DiyPresenterImpl06 implements IDiyPresenter{
     @Override
     public void cropPhoto(Uri uri) {
         try {
+            Log.d("data******","uri = "+uri);
             String[] spaceType = MyApplication.getInstance().getFaceType().split("\\*");
             Uri path = uri;
             //临时用一个名字用来保存裁剪后的图片

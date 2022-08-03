@@ -174,7 +174,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         uri = Uri.fromFile(file);
                     } else {
-                        uri = FileProvider.getUriForFile(this, "com.szip.sportwatch.fileprovider", file);
+                        uri = FileProvider.getUriForFile(this, "com.szip.jswitch.fileprovider", file);
                     }
                     iDiyPresenter.cropPhoto(uri);
                 }
@@ -301,6 +301,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
 
     @Override
     public void getCropPhoto(UCrop uCrop) {
+        Log.d("data******","start crop");
         uCrop.start(this);
     }
 

@@ -279,7 +279,7 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String photoName = MyApplication.getInstance().getPrivatePath()+"camera.jpg";
+                String photoName = MyApplication.getInstance().getPrivatePath()+"camera";
                 File file = new File(photoName);
                 Uri photoURI = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -351,7 +351,7 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
                         if (iUserInfoView!=null)
                             iUserInfoView.setPhoto(response.getData().getUrl());
                         //裁剪成功之后，删掉之前拍的照片
-                        new File(MyApplication.getInstance().getPrivatePath()+"camera.jpg").delete();
+                        new File(MyApplication.getInstance().getPrivatePath()+"camera").delete();
                         new File(MyApplication.getInstance().getPrivatePath()+"crop.jpg").delete();
                     }
                 }

@@ -94,7 +94,7 @@ public class FileUtil {
             AssetFileDescriptor audioAsset = context.getContentResolver()
                     .openAssetFileDescriptor(uri, "r");
             InputStream in = audioAsset.createInputStream();
-            OutputStream out = new FileOutputStream(MyApplication.getInstance().getPrivatePath()+"camera.jpg");
+            OutputStream out = new FileOutputStream(MyApplication.getInstance().getPrivatePath()+"camera");
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
