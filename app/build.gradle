@@ -147,4 +147,7 @@ dependencies {
     //google地图SDK
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
+
+
+//    implementation 'com.tencent.bugly:crashreport:latest.release'
 }

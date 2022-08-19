@@ -41,6 +41,7 @@ import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.Util.MusicUtil;
 import com.szip.jswitch.Util.ProgressHudModel;
 import com.szip.jswitch.View.MyAlerDialog;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,6 +151,8 @@ public class MyApplication extends Application{
          * */
         if(BuildConfig.FLAVORS.equals(""))
             LogUtil.getInstance().init(this);
+
+//        CrashReport.initCrashReport(getApplicationContext(), "60aaf47ddd", false);
 
         /**
          * 初始化音乐控制器
