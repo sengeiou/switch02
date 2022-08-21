@@ -41,7 +41,7 @@ import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.Util.MusicUtil;
 import com.szip.jswitch.Util.ProgressHudModel;
 import com.szip.jswitch.View.MyAlerDialog;
-import com.tencent.bugly.crashreport.CrashReport;
+//import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -206,7 +206,10 @@ public class MyApplication extends Application{
                 Log.e("onActivityStarted", mFinalCount + "");
                 if (mFinalCount == 1) {
                     //说明从后台回到了前台
-                    Log.i("SZIP******", " 返回到了 前台");
+                    Log.i("DATA******", " 返回到了 前台");
+                    if (MainService.getInstance()!=null){
+                        WearableManager.getInstance().scanDevice(true);
+                    }
                     if(isFirst){
                         isFirst = false;
                     }else {
