@@ -11,11 +11,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.szip.jswitch.Interface.HttpCallbackWithBase;
 import com.szip.jswitch.Model.HttpBean.BaseApi;
 import com.szip.jswitch.Model.HttpBean.CheckVerificationBean;
+import com.szip.jswitch.Model.HttpBean.ImageVerificationBean;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Util.HttpMessgeUtil;
 import com.szip.jswitch.Util.JsonGenericsSerializator;
@@ -59,6 +62,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Timer timer;
     private int time;
 
+    private ImageView imageIv;
+    private String imageId;
+    private EditText imageEt;
+
     private Context mContext;
     private SharedPreferences sharedPreferencesp;
 
@@ -99,6 +106,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        updateImageVerification();
     }
 
     /**
@@ -113,6 +121,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         userEt = findViewById(R.id.userEt);
         userTipTv = findViewById(R.id.userTipTv);
+
+        imageEt = findViewById(R.id.imageEt);
+        imageIv = findViewById(R.id.imageIv);
 
         verifyCodeEt = findViewById(R.id.verifyCodeEt);
         verifyCodeTipTv = findViewById(R.id.verifyCodeTipTv);
@@ -131,6 +142,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.countryRl).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
         findViewById(R.id.backIv).setOnClickListener(this);
+        findViewById(R.id.imageIv).setOnClickListener(this);
         userEt.addTextChangedListener(watcher);
         userEt.setOnFocusChangeListener(focusChangeListener);
         verifyCodeEt.addTextChangedListener(watcher);
@@ -141,28 +153,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 开始倒计时
      * */
     private void startTimer(){
-        try {
-            if (!MathUitl.isNumeric(userEt.getText().toString()))
-                HttpMessgeUtil.getInstance().getVerificationCode("2","","",
-                        userEt.getText().toString(),callback);
-            else
-                HttpMessgeUtil.getInstance().getVerificationCode("1","00"+countryCodeTv.getText().toString().substring(1),
-                        userEt.getText().toString(),"",callback);
+        if (userEt.getText().toString().contains("@"))
+            HttpMessgeUtil.getInstance().getVerificationV2(2,"","",
+                    userEt.getText().toString().trim(),imageId,1,imageEt.getText().toString().trim(),callback);
+        else
+            HttpMessgeUtil.getInstance().getVerificationV2(1,"00"+countryCodeTv.getText().toString().substring(1),
+                    userEt.getText().toString(),"",imageId,1,imageEt.getText().toString().trim(),callback);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sendTv.setTextColor(getResources().getColor(R.color.gray));
-        sendTv.setEnabled(false);
-        time = 120;
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.sendEmptyMessage(100);
-            }
-        };
-        timer = new Timer();
-        timer.schedule(timerTask,1000,1000);
+
     }
 
     /**
@@ -205,6 +203,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     showToast(getString(R.string.choseCountry));
                 }else if (userEt.getText().toString().equals("")){
                     showToast(getString(R.string.phoneOrEmail));
+                }else if (imageEt.getText().toString().equals("")){
+                    showToast(getString(R.string.enter_verification_code));
                 }else {
                     if (!MathUitl.isNumeric(userEt.getText().toString())){
                         if (!MathUitl.isEmail(userEt.getText().toString()))
@@ -217,6 +217,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.backIv:
                 finish();
+                break;
+            case R.id.imageIv:
+                updateImageVerification();
                 break;
             case R.id.nextBtn:
                 if (countryCodeTv.getText().toString().equals("")){
@@ -321,6 +324,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             if (response.getCode() != 200) {
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
+            }else {
+                sendTv.setTextColor(getResources().getColor(R.color.gray));
+                sendTv.setEnabled(false);
+                time = 120;
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.sendEmptyMessage(100);
+                    }
+                };
+                timer = new Timer();
+                timer.schedule(timerTask,1000,1000);
             }
         }
     };
@@ -350,4 +365,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
         }
     };
+
+    private void updateImageVerification(){
+        HttpMessgeUtil.getInstance().postGetImageVerification(new GenericsCallback<ImageVerificationBean>(new JsonGenericsSerializator()) {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(ImageVerificationBean response, int id) {
+                imageId = response.getData().getId();
+                Glide.with(RegisterActivity.this)
+                        .load(response.getData().getInputImage())
+                        .into(imageIv);
+            }
+        });
+    }
 }

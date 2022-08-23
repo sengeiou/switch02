@@ -3,6 +3,11 @@
 
     <string name="app_name">mycandy</string>
 
+    <string name="graphic_verification_code">کد تصدیق گرافیکی</string>
+    <string name="enter_numbers_letters">لطفا اعداد یا حروف تصویر را وارد کنید</string>
+    <string name="enter_verification_code">لطفا ابتدا کد تایید تصویر را وارد کنید</string>
+
+
     <string name = "logo"> به mycandy خوش آمدید </string>
     <string name = "user"> شماره حساب </string>
     <string name = "phoneOrEmail"> لطفاً تلفن / ایمیل خود را وارد کنید </string>

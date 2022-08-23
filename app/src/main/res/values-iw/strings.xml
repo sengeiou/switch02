@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">mycandy</string>
+    <string name="graphic_verification_code">קוד אימות גרפי</string>
+    <string name="enter_numbers_letters">נא להזין מספרים או אותיות מהתמונה</string>
+    <string name="enter_verification_code">אנא הזן תחילה את קוד אימות התמונה</string>
 
     <!--עמוד הכניסה / עמוד השחזור הסיסמה / עמוד הרישום-->
     <string name="logo">ברוכים הבאים לאורט.</string>

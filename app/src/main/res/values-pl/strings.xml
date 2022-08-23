@@ -3,6 +3,9 @@
 
     <string name="app_name">mycandy</string>
 
+    <string name="graphic_verification_code">Graficzny kod weryfikacyjny</string>
+    <string name="enter_numbers_letters">Proszę wpisać cyfry lub litery z obrazka</string>
+    <string name="enter_verification_code">Najpierw wprowadź kod weryfikacyjny obrazu</string>
 
     <string name = "logo"> Witamy w mycandy </string>
     <string name = "user"> numer konta </string>
