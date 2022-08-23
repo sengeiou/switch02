@@ -138,6 +138,7 @@
                 android:textSize="@dimen/reset_text_size"
                 android:textColorHint="@color/gray"
                 android:layout_toStartOf="@id/imageIv"
+                android:lines="1"
                 android:ellipsize="end"/>
 
 

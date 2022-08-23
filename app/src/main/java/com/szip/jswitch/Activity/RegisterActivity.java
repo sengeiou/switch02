@@ -159,8 +159,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         else
             HttpMessgeUtil.getInstance().getVerificationV2(1,"00"+countryCodeTv.getText().toString().substring(1),
                     userEt.getText().toString(),"",imageId,1,imageEt.getText().toString().trim(),callback);
-
-
     }
 
     /**
