@@ -106,7 +106,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        updateImageVerification();
     }
 
     /**
@@ -133,6 +132,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         countryTv.setText(sharedPreferencesp.getString("countryName",""));
         countryCodeTv.setText(sharedPreferencesp.getString("countryCode",""));
 
+        updateImageVerification();
     }
     /**
      * 初始化事件

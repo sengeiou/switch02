@@ -14,12 +14,16 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocationClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mediatek.leprofiles.LocalBluetoothLEManager;
 import com.mediatek.wearable.WearableManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.szip.jswitch.BLE.EXCDController;
@@ -154,6 +158,10 @@ public class MyApplication extends Application{
 
 //        CrashReport.initCrashReport(getApplicationContext(), "60aaf47ddd", false);
 
+        //初始化蓝牙
+        LocalBluetoothLEManager.getInstance().init(this, 511);
+        final boolean isSuccess = WearableManager.getInstance().init(true, this, "we had", R.xml.wearable_config);
+
         /**
          * 初始化音乐控制器
          * */
@@ -204,9 +212,9 @@ public class MyApplication extends Application{
                 mFinalCount++;
                 //如果mFinalCount ==1，说明是从后台到前台
                 Log.e("onActivityStarted", mFinalCount + "");
-                if (mFinalCount == 1) {
+                if (mFinalCount == 1&&"com.szip.jswitch.Activity.main.MainActivity".equals(activity.getClass().getName())) {
                     //说明从后台回到了前台
-                    Log.i("DATA******", " 返回到了 前台");
+                    Log.i("DATA******", " 返回到了 前台 = "+activity.getClass().getName());
                     if (MainService.getInstance()!=null){
                         WearableManager.getInstance().scanDevice(true);
                     }
@@ -235,13 +243,16 @@ public class MyApplication extends Application{
                 mFinalCount--;
                 //如果mFinalCount ==0，说明是前台到后台
 
-                Log.i("onActivityStopped", mFinalCount + "");
-                if (mFinalCount == 0) {
+                String packageName = activity.getClass().getName();
+                if (mFinalCount == 0&&packageName.equals("com.szip.jswitch.Activity.main.MainActivity")) {
                     //说明从前台回到了后台
-                    Log.i("SZIP******", " 切换到了 后台");
+                    Log.i("DATA******", " 切换到了 后台");
+
                     if (isMtk()&&WearableManager.getInstance().getConnectState()==WearableManager.STATE_CONNECTED){
                         EXCDController.getInstance().writeForEnableSend(0);
                     }
+
+
                 }
             }
 

@@ -98,7 +98,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        updateImageVerification();
+
     }
 
     @Override
@@ -132,6 +132,8 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
         SharedPreferences sharedPreferencesp = getSharedPreferences(FILE,MODE_PRIVATE);
         countryTv.setText(sharedPreferencesp.getString("countryName",""));
         countryCodeTv.setText(sharedPreferencesp.getString("countryCode",""));
+
+        updateImageVerification();
     }
 
     /**

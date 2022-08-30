@@ -33,7 +33,7 @@ public class PrivacyActivity extends BaseActivity {
         });
         webView = findViewById(R.id.webview);
         if(getResources().getConfiguration().locale.getLanguage().equals("zh"))
-            webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement-en.html");
+            webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement.html");
         else
             webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement-en.html");
         webView.getSettings().setJavaScriptEnabled(true);
