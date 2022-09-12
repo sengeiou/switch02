@@ -70,7 +70,6 @@ public class NotificationReceiver extends AccessibilityService {
             setAccessibilityServiceInfo();
         }
 
-        MainService.setNotificationReceiver(this);
     }
 
     private void setAccessibilityServiceInfo() {
@@ -91,7 +90,6 @@ public class NotificationReceiver extends AccessibilityService {
     @Override
     public boolean onUnbind(Intent intent) {
         Log.i(TAG, "onUnbind()");
-        MainService.clearNotificationReceiver();
 
         return false;
     }

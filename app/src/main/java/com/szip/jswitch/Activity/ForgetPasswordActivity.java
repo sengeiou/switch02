@@ -348,12 +348,13 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onResponse(BaseApi response, int id) {
-            if(id!=100){
-                ProgressHudModel.newInstance().diss();
-                showToast(getString(R.string.resetSuccess));
-                finish();
-            }else {
-                if (response.getCode()==200){
+
+            if (response.getCode()==200){
+                if(id!=100){
+                    ProgressHudModel.newInstance().diss();
+                    showToast(getString(R.string.resetSuccess));
+                    finish();
+                }else {
                     sendTv.setTextColor(getResources().getColor(R.color.gray));
                     sendTv.setEnabled(false);
                     time = 120;
@@ -364,11 +365,12 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                         }
                     };
                     timer = new Timer();
-                    timer.schedule(timerTask,1000,1000);
-                }else {
-                    showToast(response.getMessage());
-                }
+                    timer.schedule(timerTask,1000,1000); }
+            }else {
+                updateImageVerification();
+                showToast(response.getMessage());
             }
+
         }
     };
 

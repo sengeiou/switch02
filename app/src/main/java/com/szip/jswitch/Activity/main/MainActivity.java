@@ -1,15 +1,20 @@
 package com.szip.jswitch.Activity.main;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
@@ -33,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTabHost;
@@ -56,22 +62,46 @@ public class MainActivity extends BaseActivity implements IMainView{
      * 淡出
      * */
     private AlphaAnimation alphaAnimation1  = new AlphaAnimation(1f, 0f);
+
+    private Binder binder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
-        StatusBarCompat.translucentStatusBar(MainActivity.this,true);
-        setAndroidNativeLightStatusBar(this,true);
+        iMainPrisenter = new MainPresenterImpl(this,this);
         app = (MyApplication) getApplicationContext();
         layout = findViewById(R.id.layout);
-        iMainPrisenter = new MainPresenterImpl(this,this);
-        iMainPrisenter.checkBluetoochState();
-        iMainPrisenter.checkUpdata();
+        initService();
+        StatusBarCompat.translucentStatusBar(MainActivity.this,true);
+        setAndroidNativeLightStatusBar(this,true);
+
+
+
         initAnimation();
         initHost();
         checkPermission();
     }
+
+    private void initService() {
+        if (binder==null) {
+            bindService(new Intent(this, MainService.class),connection,BIND_AUTO_CREATE);
+        }
+    }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder = (Binder) service;
+            iMainPrisenter.checkBluetoochState();
+            iMainPrisenter.checkUpdata();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            binder = null;
+        }
+    };
 
     private void checkPermission(){
         if (app.isCamerable()){
@@ -112,7 +142,11 @@ public class MainActivity extends BaseActivity implements IMainView{
         super.onDestroy();
         LogUtil.getInstance().logd("SZIP******","MAIN DESTROY");
         iMainPrisenter.setViewDestory();
-        MainService.getInstance().stopConnect();
+        if (binder!=null){
+            binder = null;
+            unbindService(connection);
+            stopService(new Intent(this, MainService.class));
+        }
     }
 
     @Override

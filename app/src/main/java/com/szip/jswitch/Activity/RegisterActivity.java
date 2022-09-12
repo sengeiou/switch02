@@ -320,6 +320,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         @Override
         public void onResponse(BaseApi response, int id) {
             if (response.getCode() != 200) {
+                updateImageVerification();
                 ProgressHudModel.newInstance().diss();
                 MathUitl.showToast(mContext,response.getMessage());
             }else {
@@ -359,6 +360,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
             }else {
                 ProgressHudModel.newInstance().diss();
+                updateImageVerification();
                 MathUitl.showToast(mContext,response.getMessage());
             }
         }
