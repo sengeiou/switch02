@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.szip.jswitch.Activity.BaseActivity;
 import com.szip.jswitch.BLE.BleClient;
 import com.szip.jswitch.BLE.EXCDController;
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.Model.EvenBusModel.UpdateDIYView;
 import com.szip.jswitch.Model.EvenBusModel.UpdateDialView;
 import com.szip.jswitch.Model.EvenBusModel.UpdateView;
@@ -174,7 +175,7 @@ public class DIYActivity extends BaseActivity implements IDiyView{
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         uri = Uri.fromFile(file);
                     } else {
-                        uri = FileProvider.getUriForFile(this, "com.szip.jswitch.fileprovider", file);
+                        uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".fileprovider", file);
                     }
                     iDiyPresenter.cropPhoto(uri);
                 }

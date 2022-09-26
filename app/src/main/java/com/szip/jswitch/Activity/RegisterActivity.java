@@ -360,7 +360,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
             }else {
                 ProgressHudModel.newInstance().diss();
-                updateImageVerification();
                 MathUitl.showToast(mContext,response.getMessage());
             }
         }

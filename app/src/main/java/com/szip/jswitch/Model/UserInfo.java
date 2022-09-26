@@ -27,7 +27,15 @@ public class UserInfo implements Cloneable{
     private int stepsPlan;
     private int sleepPlan;
     private int tempUnit;
+    private String product;
 
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
     public String getBindId() {
         return bindId;
@@ -214,5 +222,37 @@ public class UserInfo implements Cloneable{
             e.printStackTrace();
         }
         return object;
+    }
+
+
+    public UserInfo copy(){
+
+        UserInfo userInfo1 = new UserInfo();
+        userInfo1.areaCode = this.areaCode;
+        userInfo1.phoneNumber = this.phoneNumber;
+        userInfo1.id = this.id;
+        userInfo1.email = this.email;
+        userInfo1.userName = this.userName;
+        userInfo1.lastName = this.lastName;
+        userInfo1.firstName = this.firstName;
+        userInfo1.avatar = this.avatar;
+        userInfo1.sex = this.sex;
+        userInfo1.birthday = this.birthday;
+        userInfo1.nation = this.nation;
+        userInfo1.unit = this.unit;
+        userInfo1.height = this.height;
+        userInfo1.weight = this.weight;
+        userInfo1.heightBritish = this.heightBritish;
+        userInfo1.weightBritish = this.weightBritish;
+        userInfo1.blood = this.blood;
+        userInfo1.deviceCode = this.deviceCode;
+        userInfo1.bindId = this.bindId;
+        userInfo1.stepsPlan = this.stepsPlan;
+        userInfo1.sleepPlan = this.sleepPlan;
+        userInfo1.tempUnit = this.tempUnit;
+        userInfo1.product = this.product;
+
+        return userInfo1;
+
     }
 }

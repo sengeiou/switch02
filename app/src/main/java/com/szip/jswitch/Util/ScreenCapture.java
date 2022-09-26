@@ -28,6 +28,7 @@ import android.widget.ScrollView;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.R;
 
@@ -87,7 +88,7 @@ public class ScreenCapture {
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
 				uri = Uri.fromFile(file);
 			} else {
-				uri = FileProvider.getUriForFile(activity, "com.szip.jswitch.fileprovider", file);
+				uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID+".fileprovider", file);
 			}
 			return uri;
 		}
@@ -147,7 +148,7 @@ public class ScreenCapture {
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
 				uri = Uri.fromFile(file);
 			} else {
-				uri = FileProvider.getUriForFile(activity, "com.szip.jswitch.fileprovider", file);
+				uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID+".fileprovider", file);
 			}
 			return uri;
 		}

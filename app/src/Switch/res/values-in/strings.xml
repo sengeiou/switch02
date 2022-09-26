@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Switch Essentials</string>
+
+    <!--Halaman daftar masuk / halaman pemulihan sandi / halaman pendaftaran-->
+    <string name="logo">Selamat datang di Switch Essentials</string>
+
+
+</resources>

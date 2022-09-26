@@ -19,7 +19,7 @@
             android:id="@+id/pictureIv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/my_head_male_52"
+            android:src="@mipmap/head"
             android:layout_gravity="center"
             app:is_circular="true"/>
 

@@ -6,7 +6,7 @@ package com.szip.jswitch.Interface;
 
 public interface ReviceDataCallback {
     void checkVersion(boolean stepNum,boolean deltaStepNum,boolean sleepNum,boolean deltaSleepNum,
-                      boolean heart,boolean bloodPressure,boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum);
+                      boolean heart,boolean bloodPressure,boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum,int elc);
 
     void getStepsForDay(String [] stepsForday);
     void getSteps(String [] steps);

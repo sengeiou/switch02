@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- 第一层阴影：左偏移2dp，上偏移4dp -->
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#0Dcecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#15cecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#30cecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#40cecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#60cecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="0.8dp"
+                android:left="0dp"
+                android:right="0.6dp"
+                android:top="0dp" />
+            <solid android:color="#80cecfd8" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+
+<!-- 第二层前景：：底偏移4dp，右偏移2dp -->
+    <item>
+        <shape>
+            <gradient android:startColor="@color/gray"
+                android:endColor="@color/gray"
+                android:angle="0"/>
+            <!--圆角-->
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+
+</layer-list>

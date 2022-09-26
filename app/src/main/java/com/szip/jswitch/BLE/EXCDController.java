@@ -121,6 +121,7 @@ public class EXCDController extends Controller {
                 String bloodPressure = commands[15];
                 String bloodOxygen = commands[16];
                 String ecg = commands[22];
+                int elc = Integer.valueOf(commands[24]);
                 String animalHeat = null;
                 if(commands.length>23)
                     animalHeat = commands[23];
@@ -128,7 +129,7 @@ public class EXCDController extends Controller {
                 if (reviceDataCallback!=null)
                     reviceDataCallback.checkVersion(!step[0].equals("0"),!step[1].equals("0"),
                             !sleep[0].equals("0"),!sleep[1].equals("0"),!heart.equals("0"),
-                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"),(animalHeat==null)?false:!animalHeat.equals("0"),commands[17]);
+                            !bloodPressure.equals("0"),!bloodOxygen.equals("0"),!ecg.equals("0"),(animalHeat==null)?false:!animalHeat.equals("0"),commands[17],elc);
             }else if (commands[1].equals("10")){//同步计步数据
                 if (commands.length>2){//有数据
                     String datas[] = new String[commands.length-2];
@@ -773,7 +774,7 @@ public class EXCDController extends Controller {
 
     //发送图片
     public void writeForSendImage(byte[] image,int index,int num,int clock,int clockStye){
-        String str = String.format("SET,81,%d;%d;%d;%d;%d;",clockStye,clock,image.length,num,index);
+        String str = String.format(Locale.ENGLISH,"SET,81,%d;%d;%d;%d;%d;",clockStye,clock,image.length,num,index);
         byte[] datas = new byte[0];
         try {
             datas = str.getBytes("ASCII");

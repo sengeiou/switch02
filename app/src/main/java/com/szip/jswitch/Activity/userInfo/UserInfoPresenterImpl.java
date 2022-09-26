@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider;
 
 import com.szip.jswitch.BLE.BleClient;
 import com.szip.jswitch.BLE.EXCDController;
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.Model.HttpBean.AvatarBean;
 import com.szip.jswitch.Model.HttpBean.BaseApi;
 import com.szip.jswitch.Model.UserInfo;
@@ -234,7 +235,8 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
                         @Override
                         public void onResponse(BaseApi response, int id) {
                             if (response.getCode()==200){
-                                MyApplication.getInstance().setUserInfo(userInfo);
+
+                                MyApplication.getInstance().setUserInfo(userInfo.copy());
                                 if (iUserInfoView!=null)
                                     iUserInfoView.saveSeccuss(true);
                             }
@@ -283,7 +285,7 @@ public class UserInfoPresenterImpl implements IUserInfoPresenter{
                 File file = new File(photoName);
                 Uri photoURI = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    photoURI = FileProvider.getUriForFile(context,"com.szip.jswitch.fileprovider", file);
+                    photoURI = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".fileprovider", file);
                 } else {
                     photoURI = Uri.fromFile(file);
                 }

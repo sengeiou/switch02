@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColorArcProgressBar">
+        <attr name="bg_arc_color" format="color"/>
+        <attr name="degree_color" format="color"/>
+        <attr name="hint_color" format="color"/>
+        <attr name="front_color1" format="color"/>
+        <attr name="front_color2" format="color"/>
+        <attr name="front_color3" format="color"/>
+        <attr name="bg_arc_width" format="dimension"/>
+        <attr name="front_width" format="dimension"/>
+        <attr name="is_seek_enable" format="boolean"/>
+        <attr name="is_need_title" format="boolean"/>
+        <attr name="is_need_content" format="boolean"/>
+        <attr name="is_need_unit" format="boolean"/>
+        <attr name="is_need_dial" format="boolean"/>
+        <attr name="string_title" format="string"/>
+        <attr name="string_unit" format="string"/>
+        <attr name="sweep_angle" format="integer"/>
+        <attr name="current_value" format="float"/>
+        <attr name="max_value" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="HealthyProgressView">
+        <attr name="bg_color" format="color"/>
+        <attr name="color1" format="color"/>
+        <attr name="color2" format="color"/>
+        <attr name="color3" format="color"/>
+        <attr name="is_average" format="boolean"/>
+        <attr name="bg_width" format="dimension"/>
+        <attr name="front_bar_width" format="dimension"/>
+        <attr name="current" format="float"/>
+        <attr name="max" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="ReportView">
+        <attr name="text_color" format="color"/>
+        <attr name="bar_bg_color" format="color"/>
+        <attr name="pross_color1" format="color"/>
+        <attr name="pross_color2" format="color"/>
+        <attr name="is_bar" format="boolean"/>
+        <attr name="bar_width" format="dimension"/>
+        <attr name="margin_top" format="dimension"/>
+        <attr name="x_value" format="boolean"/>
+        <attr name="y_value" format="boolean"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="data_number" format="integer"/>
+        <attr name="x_value_num" format="integer"/>
+        <attr name="y_value_num" format="integer"/>
+        <attr name="maxVelue" format="integer"/>
+        <attr name="flag" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="SportReportView">
+        <attr name="color_text" format="color"/>
+        <attr name="color_pross" format="color"/>
+        <attr name="width_bar" format="dimension"/>
+        <attr name="value_y" format="boolean"/>
+        <attr name="size_text" format="dimension"/>
+        <attr name="number_data" format="integer"/>
+        <attr name="value_max" format="integer"/>
+        <attr name="flag_y" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="NoScrollViewPager">
+        <attr name="scorll_able" format="boolean"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="androidWheelView">
+        <attr name="awv_textsize" format="integer" />
+        <attr name="awv_lineSpace" format="float" />
+        <attr name="awv_centerTextColor" format="integer" />
+        <attr name="awv_outerTextColor" format="integer" />
+        <attr name="awv_dividerTextColor" format="integer" />
+        <attr name="awv_itemsVisibleCount" format="integer" />
+        <attr name="awv_isLoop" format="boolean" />
+        <attr name="awv_initialPosition" format="integer" />
+        <attr name="awv_scaleX" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageView">
+        <attr name="is_circular" format="boolean"/>
+        <attr name="is_allRadius" format="boolean"/>
+        <attr name="radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="style_array" format="integer"/>
+    </declare-styleable>
+
+</resources>

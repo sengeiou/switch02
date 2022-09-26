@@ -45,6 +45,7 @@ import com.szip.jswitch.DB.dbModel.StepData;
 import com.szip.jswitch.Interface.IOtaResponse;
 import com.szip.jswitch.Interface.ReviceDataCallback;
 import com.szip.jswitch.Model.EvenBusModel.ConnectState;
+import com.szip.jswitch.Model.EvenBusModel.UpdateElc;
 import com.szip.jswitch.Model.SendDialModel;
 import com.szip.jswitch.Model.UpdateSportView;
 import com.szip.jswitch.MyApplication;
@@ -205,7 +206,7 @@ public class MainService extends Service {
     private ReviceDataCallback reviceDataCallback = new ReviceDataCallback() {
         @Override
         public void checkVersion(boolean stepNum, boolean deltaStepNum, boolean sleepNum, boolean deltaSleepNum,
-                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum) {
+                                 boolean heart, boolean bloodPressure, boolean bloodOxygen,boolean ecg,boolean animalHeat,String deviceNum,int elc) {
             LogUtil.getInstance().logd("SZIP******","收到心跳包step = "+stepNum+" ;stepD = "+deltaStepNum+" ;sleep = "+sleepNum+
                     " ;sleepD = "+deltaSleepNum+" ;heart = "+heart+ " ;bloodPressure = "+bloodPressure+
                     " ;bloodOxygen = "+heart+" ;ecg = "+ecg+" ;animalHeat = "+animalHeat);
@@ -232,7 +233,10 @@ public class MainService extends Service {
                 app.setDeviceNum(deviceNum);
                 EventBus.getDefault().post(new UpdateSportView());
             }
-
+            if(app.getElc()!=elc){
+                app.setElc(elc);
+                EventBus.getDefault().post(new UpdateElc(elc));
+            }
         }
 
         @Override

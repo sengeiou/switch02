@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Switch Essentials</string>
+    <string name = "logo"> ยินดีต้อนรับสู่ Switch Essentials </string>
+    <string name = "notificationlistener_prompt_content"> Switch Essentials จำเป็นต้องส่งต่อการแจ้งเตือนของแอปพลิเคชันไปยังอุปกรณ์อัจฉริยะระยะไกล กด \ "OK \" เพื่อเข้าสู่หน้าการแจ้งเตือนเพื่อเปิดใช้งาน </string>
+
+</resources>

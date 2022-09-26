@@ -8,53 +8,32 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.szip.jswitch.Activity.BaseActivity;
 import com.szip.jswitch.BLE.BleClient;
-import com.szip.jswitch.Interface.HttpCallbackWithBase;
-import com.szip.jswitch.Model.HttpBean.AvatarBean;
-import com.szip.jswitch.Model.HttpBean.BaseApi;
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Service.MainService;
-import com.szip.jswitch.Util.DateUtil;
 import com.szip.jswitch.Util.FileUtil;
-import com.szip.jswitch.Util.HttpMessgeUtil;
-import com.szip.jswitch.Util.JsonGenericsSerializator;
-import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.Util.ProgressHudModel;
 import com.szip.jswitch.Util.StatusBarCompat;
 import com.szip.jswitch.View.CharacterPickerWindow;
 import com.szip.jswitch.View.MyAlerDialog;
-import com.szip.jswitch.View.character.OnOptionChangedListener;
 import com.szip.jswitch.BLE.EXCDController;
 import com.yalantis.ucrop.UCrop;
-import com.zhy.http.okhttp.callback.GenericsCallback;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-import okhttp3.Call;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener,IUserInfoView{
 
@@ -144,7 +123,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
         else
-            pictureIv.setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52: R.mipmap.my_head_female_52);
+            pictureIv.setImageResource(R.mipmap.head);
         if (userInfo.getUnit() == 0){
             heightTv.setText(userInfo.getHeight()+"cm");
             weightTv.setText(userInfo.getWeight()+"kg");
@@ -250,7 +229,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         uri = Uri.fromFile(file);
                     } else {
-                        uri = FileProvider.getUriForFile(this, "com.szip.jswitch.fileprovider", file);
+                        uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".fileprovider", file);
                     }
                     iUserInfoPresenter.cropPhoto(uri);
                 }
@@ -265,7 +244,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         uri = Uri.fromFile(file);
                     } else {
-                        uri = FileProvider.getUriForFile(this, "com.szip.jswitch.fileprovider", file);
+                        uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".fileprovider", file);
                     }
                     iUserInfoPresenter.cropPhoto(uri);
                 }
@@ -285,10 +264,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         sexTv.setText(sexStr);
         userInfo.setSex(sex);
         if (userInfo.getAvatar()==null){
-            if (sex==0)
-                pictureIv.setImageResource(R.mipmap.my_head_female_36);
-            else
-                pictureIv.setImageResource(R.mipmap.my_head_male_36);
+            pictureIv.setImageResource(R.mipmap.mine_head);
         }
     }
 

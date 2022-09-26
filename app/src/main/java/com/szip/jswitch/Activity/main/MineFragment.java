@@ -9,12 +9,15 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
@@ -36,6 +39,7 @@ import com.szip.jswitch.DB.SaveDataUtil;
 import com.szip.jswitch.Fragment.BaseFragment;
 import com.szip.jswitch.Model.EvenBusModel.ConnectState;
 import com.szip.jswitch.Model.EvenBusModel.PlanModel;
+import com.szip.jswitch.Model.EvenBusModel.UpdateElc;
 import com.szip.jswitch.Model.HttpBean.BaseApi;
 import com.szip.jswitch.Model.UserInfo;
 import com.szip.jswitch.MyApplication;
@@ -93,6 +97,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
 
     private View updateView;
 
+    private LinearLayout elcLl;
+    private ImageView elcIv;
+    private TextView nameTv;
+
     /**
      * 下拉菜单实例
      * */
@@ -113,17 +121,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     @Override
     protected void afterOnCreated(Bundle savedInstanceState) {
         app = (MyApplication) getActivity().getApplicationContext();
-        userInfo = app.getUserInfo();
         initView();
         initEvent();
         initWindow();
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        userInfo = app.getUserInfo();
         EventBus.getDefault().register(this);
-        if (app.getUserInfo().getDeviceCode()==null){
+        if (userInfo.getDeviceCode()==null){
             deviceTv.setText("");
             stateTv.setText(getString(R.string.addDevice));
         } else {
@@ -142,6 +156,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 stateTv.setText(getString(R.string.disConnect));
             }
         }
+        updateElc(app.getElc());
         initData();
     }
 
@@ -162,7 +177,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             if (unbind){
                 unbind = false;
                 ProgressHudModel.newInstance().diss();
-                app.getUserInfo().setDeviceCode(null);
+                userInfo.setDeviceCode(null);
                 MainService.getInstance().stopConnect();
                 SaveDataUtil.newInstance().clearDB();
                 getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
@@ -185,6 +200,33 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
            }
 
        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateElc(UpdateElc updateElc){
+        updateElc(updateElc.getElc());
+    }
+
+
+    private void updateElc(int elc){
+        if (elc==0){
+            elcLl.setVisibility(View.GONE);
+        }else if (elc==1){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_0);
+        }else if (elc==2){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_1);
+        }else if (elc==3){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_2);
+        }else if (elc==4){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_3);
+        }else if (elc==5){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_4);
+        }
     }
 
     /**
@@ -218,7 +260,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                         }else {
                             unbind = false;
                             ProgressHudModel.newInstance().diss();
-                            app.getUserInfo().setDeviceCode(null);
+                            userInfo.setDeviceCode(null);
                             MainService.getInstance().stopConnect();
                             SaveDataUtil.newInstance().clearDB();
                             getActivity().startActivity(new Intent(getActivity(),SeachingActivity.class));
@@ -317,6 +359,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 初始化视图
      * */
     private void initView() {
+        nameTv = getView().findViewById(R.id.nameTv);
+        elcIv = getView().findViewById(R.id.elcIv);
+        elcLl = getView().findViewById(R.id.elcLl);
         deviceTv = getView().findViewById(R.id.deviceTv);
         userNameTv = getView().findViewById(R.id.userNameTv);
         pictureIv = getView().findViewById(R.id.pictureIv);
@@ -402,14 +447,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 初始化数据
      * */
     private void initData() {
+        nameTv.setText(userInfo.getProduct());
         userNameTv.setText(userInfo.getUserName());
         stepPlanTv.setText(userInfo.getStepsPlan()+"");
         sleepPlanTv.setText(String.format(Locale.ENGLISH,"%.1fh",userInfo.getSleepPlan()/60f));
 
-        if (app.getUserInfo().getAvatar()!=null)
-            Glide.with(this).load(app.getUserInfo().getAvatar()).into(pictureIv);
+        if (userInfo.getAvatar()!=null)
+            Glide.with(this).load(userInfo.getAvatar()).into(pictureIv);
         else
-            pictureIv.setImageResource(userInfo.getSex()==1?R.mipmap.my_head_male_52:R.mipmap.my_head_female_52);
+            pictureIv.setImageResource(R.mipmap.head);
 
         if (app.isMtk()){
             getView().findViewById(R.id.heartSwitchLl).setVisibility(View.GONE);
@@ -456,13 +502,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.pictureIv:
             case R.id.userNameTv:
-                if (app.getUserInfo().getPhoneNumber()==null&&app.getUserInfo().getEmail()==null)
+                if (userInfo.getPhoneNumber()==null&&userInfo.getEmail()==null)
                     showToast(getString(R.string.visiter));
                 else
                     startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.deviceLl:
-                if (app.getUserInfo().getDeviceCode()==null){
+                if (userInfo.getDeviceCode()==null){
                     startActivity(new Intent(getContext(),SeachingActivity.class));
                 }else {
                     if (MainService.getInstance().getState()== WearableManager.STATE_CONNECTING){
@@ -517,7 +563,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                             @Override
                             public void onDialogTouch(boolean flag) {
                                 if (flag){
-                                    if (app.getUserInfo().getDeviceCode()!=null){
+                                    if (userInfo.getDeviceCode()!=null){
                                         String datas = MathUitl.getStringWithJson(getActivity().getSharedPreferences(FILE,MODE_PRIVATE));
                                         try {
                                             HttpMessgeUtil.getInstance().postForUpdownReportData(datas);
@@ -527,7 +573,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                                     }
                                     if (sharedPreferencesp==null)
                                         sharedPreferencesp = getActivity().getSharedPreferences(FILE,MODE_PRIVATE);
-                                    app.getUserInfo().setDeviceCode(null);
+                                    userInfo.setDeviceCode(null);
                                     SharedPreferences.Editor editor = sharedPreferencesp.edit();
                                     editor.putString("token",null);
                                     editor.commit();
@@ -555,7 +601,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     ProgressHudModel.newInstance().diss();
                     stepPlanTv.setText(stepPlan+"");
                     if(isUpdatePlan){
-                        app.getUserInfo().setStepsPlan(stepPlan);
+                        userInfo.setStepsPlan(stepPlan);
                         MathUitl.saveIntData(getContext(),"stepsPlan",stepPlan).commit();
                         if (MainService.getInstance().getState()!=3){
                             showToast(getString(R.string.syceError));
@@ -569,7 +615,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 }else if (id == SLEEPFLAG){
                     ProgressHudModel.newInstance().diss();
                     sleepPlanTv.setText(String.format(Locale.ENGLISH,"%.1fh",sleepPlan/60f));
-                    app.getUserInfo().setSleepPlan(sleepPlan);
+                    userInfo.setSleepPlan(sleepPlan);
                     MathUitl.saveIntData(getContext(),"sleepPlan",sleepPlan).commit();
                 }
             }else {

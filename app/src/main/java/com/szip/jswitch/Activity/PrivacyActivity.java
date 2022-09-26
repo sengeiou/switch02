@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Util.StatusBarCompat;
 
@@ -32,10 +33,22 @@ public class PrivacyActivity extends BaseActivity {
             }
         });
         webView = findViewById(R.id.webview);
-        if(getResources().getConfiguration().locale.getLanguage().equals("zh"))
-            webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement.html");
-        else
-            webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement-en.html");
+        if(getResources().getConfiguration().locale.getLanguage().equals("zh")){
+            if (BuildConfig.APP_NAME.equals("mycandy")){
+                webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement.html");
+            }else if (BuildConfig.APP_NAME.equals("Switch Essentials")){
+                webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/Switch%20essentials/statement-zh.html");
+            }
+
+
+        } else{
+            if (BuildConfig.APP_NAME.equals("mycandy")){
+                webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement-en.html");
+            }else if (BuildConfig.APP_NAME.equals("Switch Essentials")){
+                webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/Switch%20essentials/statement-en.html");
+            }
+
+        }
         webView.getSettings().setJavaScriptEnabled(true);
     }
 }

@@ -312,8 +312,7 @@ public class HealthyFragment extends BaseFragment implements View.OnClickListene
         if (app.getUserInfo().getAvatar()!=null)
             Glide.with(this).load(app.getUserInfo().getAvatar()).into( ((CircularImageView)getView().findViewById(R.id.pictureIv)));
         else
-            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(app.getUserInfo().getSex()==1?R.mipmap.my_head_male_52:
-                    R.mipmap.my_head_female_52);
+            ((CircularImageView)getView().findViewById(R.id.pictureIv)).setImageResource(R.mipmap.head);
     }
 
 

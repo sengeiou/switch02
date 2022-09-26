@@ -367,7 +367,9 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                     timer = new Timer();
                     timer.schedule(timerTask,1000,1000); }
             }else {
-                updateImageVerification();
+                if(id!=100){
+                    updateImageVerification();
+                }
                 showToast(response.getMessage());
             }
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Switch Essentials</string>
+
+    <string name = "logo"> به Switch Essentials خوش آمدید </string>
+
+    <string name = "notificationlistener_prompt_content"> Switch Essentials باید اعلان های برنامه را به دستگاه های هوشمند از راه دور منتقل کند. برای ورود به صفحه اعلان ها ، "OK" را فشار دهید تا فعال شود. </string>
+
+
+</resources>

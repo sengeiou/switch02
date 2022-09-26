@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name = "app_name">Switch Essentials</string>
+    <string name = "logo">Benvenuto in Switch Essentials</string>
+    <string name = "face">Switch Essentials dial</string>
+
+
+</resources>

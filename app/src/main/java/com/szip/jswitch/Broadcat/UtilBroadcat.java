@@ -13,6 +13,7 @@ import com.szip.jswitch.BLE.BleClient;
 import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.Service.MainService;
+import com.szip.jswitch.Util.HttpMessgeUtil;
 import com.szip.jswitch.Util.LogUtil;
 
 import java.util.Calendar;
@@ -63,7 +64,7 @@ public class UtilBroadcat extends BroadcastReceiver {
                 WearableManager.getInstance().scanDevice(true);
             }
             LogUtil.getInstance().logd("SZIP******","蓝牙连接 type = "+device.getType()+" ;address = "+device.getAddress());
-        }if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
+        }else if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
             long priTime = Calendar.getInstance().getTimeInMillis();
             if (priTime-time>50){
                 time = priTime;
@@ -73,12 +74,15 @@ public class UtilBroadcat extends BroadcastReceiver {
 
             }
 
+        }else if (intent.getAction().equals("android.intent.action.LOCALE_CHANGED")){
+            HttpMessgeUtil.getInstance().init(context);
         }
     }
 
     private IntentFilter getmIntentFilter() {
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        mIntentFilter.addAction("android.intent.action.LOCALE_CHANGED");
         mIntentFilter.addAction("android.intent.action.ACTION_SHUTDOWN");
         mIntentFilter.addAction("android.media.VOLUME_CHANGED_ACTION");
         mIntentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);

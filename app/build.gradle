@@ -51,78 +51,116 @@ android {
             signingConfig signingConfigs.szp
         }
     }
-    flavorDimensions "SZP"
+    flavorDimensions "app","config"
     productFlavors {
-        Cloud {
-            dimension "SZP"
+
+
+        Mycandy{
+            dimension "app"
+            applicationId = 'com.szip.jswitch'
+            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+            targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+            versionName '1.29'
+
+            versionCode 30
+            signingConfig signingConfigs.szp
+            buildConfigField "int", "App", "1"
             buildConfigField("String", "APP_NAME", '"mycandy"')
+            manifestPlaceholders = [
+                    app_name      : "mycandy",
+                    app_icon      : "@mipmap/icon",
+                    app_round_icon: "@mipmap/icon",
+                    app_style     : "@style/AppTheme"]
+        }
+
+        Switch{
+            dimension "app"
+            applicationId = 'com.szip.switch2'
+            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+            targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+            versionName '1.01'
+
+            versionCode 1
+            signingConfig signingConfigs.szp
+            buildConfigField "int", "App", "1"
+            buildConfigField("String", "APP_NAME", '"switch essentials"')
+            manifestPlaceholders = [
+                    app_name      : "switch essentials",
+                    app_icon      : "@mipmap/icon",
+                    app_round_icon: "@mipmap/icon",
+                    app_style     : "@style/AppTheme"]
+        }
+
+
+        iSmarport{
+            dimension "app"
+            applicationId = 'com.szip.sportwatch'
+            minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+            targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+            versionName '1.70'
+
+            versionCode 70
+            signingConfig signingConfigs.szp
+            buildConfigField "int", "App", "1"
+            buildConfigField("String", "APP_NAME", '"iSmarport"')
+            manifestPlaceholders = [
+                    app_name      : "iSmarport",
+                    app_icon      : "@mipmap/icon",
+                    app_round_icon: "@mipmap/icon",
+                    app_style     : "@style/AppTheme"]
+        }
+
+        Cloud {
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '""')
         }
 
         Local {
-            dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"mycandy"')
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://test.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '""')
         }
 
         Tencent {
-            dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"mycandy"')
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.tencent.android.qqdownloader"')
         }
 
         Vivo {
-            dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"mycandy"')
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.bbk.appstore"')
         }
 
         Huawei {
-            dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"mycandy"')
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.huawei.appmarket"')
         }
 
         Google {
-            dimension "SZP"
-            buildConfigField("String", "APP_NAME", '"mycandy"')
+            dimension "config"
+
             buildConfigField("String", "SERVER_URL", '"https://cloud.znsdkj.com:8443/sportWatch/"')
             buildConfigField("String", "FLAVORS", '"com.android.vending"')
         }
 
+    }
+    buildFeatures {
+        viewBinding true
     }
 
 
     //改写APK名称
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                def fileName
-               if(outputFile != null && outputFile.name.endsWith('.aab')){
-                    switch (variant.buildType.name) {
-                        case "release":
-                            fileName = "mycandy_v${defaultConfig.versionName}_release.aab"
-                            break
-                        case "debug":
-                            fileName = "mycandy_v${defaultConfig.versionName}_debug.aab"
-                            break
-                        default:
-                            fileName = "mycandy.abb"
-                            break
-                    }
-                    /*******************************************************************
-                     * qinchun add 20180404
-                     * gradle 3.0, outputFile is read only property
-                     *******************************************************************/
-                    outputFileName = fileName
-                }
-            }
             variant.getPackageApplication().outputDirectory = new File("F:\\aab\\MyCandy")
         }
     }
@@ -133,6 +171,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
     testImplementation 'junit:junit:4.12'
     implementation project(':ncalendar')
     implementation 'androidx.appcompat:appcompat:1.0.0'

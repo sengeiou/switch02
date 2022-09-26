@@ -33,26 +33,37 @@
             android:orientation="vertical"
             >
 
-            <TextView
-                android:id="@+id/cTv"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_mine_item"
-                android:text="°C"
-                android:textColor="@color/rayblue"
-                android:textSize="@dimen/item_text_size"
-                android:padding="@dimen/item_pad_text"/>
+                android:padding="@dimen/item_pad_text">
+                <TextView
+                    android:id="@+id/cTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C"
+                    android:textColor="@color/rayblue"
+                    android:textSize="@dimen/item_text_size"
+                    android:layout_alignParentStart="true"/>
+            </RelativeLayout>
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mine_item"
+                android:padding="@dimen/item_pad_text"
+                android:layout_marginTop="@dimen/item_margin_parallel">
             <TextView
                 android:id="@+id/fTv"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_mine_item"
-                android:layout_marginTop="@dimen/item_margin_parallel"
                 android:text="°F"
                 android:textColor="@color/rayblue"
                 android:textSize="@dimen/item_text_size"
-                android:padding="@dimen/item_pad_text" />
+                android:layout_alignParentStart="true"/>
+            </RelativeLayout>
 
         </LinearLayout>
 

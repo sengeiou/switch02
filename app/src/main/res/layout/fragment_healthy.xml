@@ -52,7 +52,7 @@
                             android:id="@+id/pictureIv"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@mipmap/my_head_male_36"
+                            android:src="@mipmap/mine_head"
                             app:is_circular="true"/>
 
                         <LinearLayout
