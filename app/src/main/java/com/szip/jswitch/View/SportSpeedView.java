@@ -22,6 +22,8 @@ import androidx.annotation.Nullable;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 public class SportSpeedView extends View {
 
     private int width,height;//本页面宽，高
@@ -118,8 +120,8 @@ public class SportSpeedView extends View {
         if (datas.length!=0){
             for (int i = 0;i<datas.length;i++){
 
-                String speedStr = String.format("%02d'%02d''",datas[i]/60,datas[i]%60);
-                String numStr = String.format("%d",i+1);
+                String speedStr = String.format(Locale.ENGLISH,"%02d'%02d''",datas[i]/60,datas[i]%60);
+                String numStr = String.format(Locale.ENGLISH,"%d",i+1);
 //                if (i == datas.length-1){
 //                    numStr +=("(<1km)");
 //                }
@@ -160,7 +162,7 @@ public class SportSpeedView extends View {
             }else {
                 datas = new int[list.length];
                 for (int i = 0;i<list.length;i++){
-                    datas[i] = Integer.valueOf(list[i]);
+                    datas[i] = Integer.valueOf(MathUitl.FloatToInt(list[i]));
                     if (datas[i]>maxValue)
                         maxValue = datas[i];
                 }

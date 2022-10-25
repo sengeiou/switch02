@@ -140,6 +140,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         if (userInfo.getDeviceCode()==null){
             deviceTv.setText("");
             stateTv.setText(getString(R.string.addDevice));
+            app.setElc(0);
         } else {
             if (MainService.getInstance().getState() == WearableManager.STATE_CONNECTED){
                 deviceTv.setText(userInfo.getDeviceCode());
@@ -148,12 +149,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     MainService.getInstance().getState() == WearableManager.STATE_CONNECT_FAIL){
                 deviceTv.setText("");
                 stateTv.setText(getString(R.string.disConnect));
+                app.setElc(0);
             }else if (MainService.getInstance().getState() == WearableManager.STATE_CONNECTING){
                 deviceTv.setText("");
                 stateTv.setText(getString(R.string.connectting));
+                app.setElc(0);
             }else {
                 deviceTv.setText("");
                 stateTv.setText(getString(R.string.disConnect));
+                app.setElc(0);
             }
         }
         updateElc(app.getElc());
@@ -226,6 +230,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         }else if (elc==5){
             elcLl.setVisibility(View.VISIBLE);
             elcIv.setImageResource(R.mipmap.my_bat_4);
+        }else if (elc==8){
+            elcLl.setVisibility(View.VISIBLE);
+            elcIv.setImageResource(R.mipmap.my_bat_charging);
         }
     }
 

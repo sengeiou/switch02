@@ -864,7 +864,7 @@ public class MathUitl {
     public static UserInfo loadInfoData(SharedPreferences sharedPreferences){
         UserInfo info = new UserInfo();
         info.setBirthday(sharedPreferences.getString("birthday",""));
-        info.setUserName(sharedPreferences.getString("userName","ipt"));
+        info.setUserName(sharedPreferences.getString("userName",""));
         info.setHeight(sharedPreferences.getInt("height1",170));
         info.setWeight(sharedPreferences.getInt("weight1",60));
         info.setHeightBritish(sharedPreferences.getInt("heightBritish",66));
@@ -895,6 +895,13 @@ public class MathUitl {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(dataKey,data);
         return editor;
+    }
+
+    public static String FloatToInt(String floatData){
+        int index = floatData.indexOf('.');
+        if (index == -1)
+            return floatData;
+        return floatData.substring(0,index);
     }
 
 

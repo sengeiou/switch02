@@ -1,5 +1,9 @@
 package com.szip.jswitch.Model;
 
+import android.text.TextUtils;
+
+import com.szip.jswitch.BuildConfig;
+
 /**
  * Created by Administrator on 2019/11/30.
  */
@@ -70,6 +74,8 @@ public class UserInfo implements Cloneable{
     }
 
     public String getUserName() {
+        if (TextUtils.isEmpty(userName))
+            return BuildConfig.APP_NAME;
         return userName;
     }
 

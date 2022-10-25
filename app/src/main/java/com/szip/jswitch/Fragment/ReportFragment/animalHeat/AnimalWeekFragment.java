@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Locale;
+
 public class AnimalWeekFragment extends BaseFragment implements View.OnClickListener{
 
     private ReportView reportView;
@@ -63,11 +65,11 @@ public class AnimalWeekFragment extends BaseFragment implements View.OnClickList
         if (reportDataBean.getValue()!=0){
             if (reportDataBean.getValue()!=0){
                 if (MyApplication.getInstance().getUserInfo().getTempUnit()==0){
-                    averageTv.setText(String.format("%.1f℃",(reportDataBean.getValue()+340)/10f));
-                    reachTv.setText(String.format("%.1f℃",(reportDataBean.getValue1()+340)/10f));
+                    averageTv.setText(String.format(Locale.ENGLISH,"%.1f℃",(reportDataBean.getValue()+340)/10f));
+                    reachTv.setText(String.format(Locale.ENGLISH,"%.1f℃",(reportDataBean.getValue1()+340)/10f));
                 }else {
-                    averageTv.setText(String.format("%.1f℉", MathUitl.c2f((reportDataBean.getValue()+340)/10f)));
-                    reachTv.setText(String.format("%.1f℉", MathUitl.c2f((reportDataBean.getValue1()+340)/10f)));
+                    averageTv.setText(String.format(Locale.ENGLISH,"%.1f℉", MathUitl.c2f((reportDataBean.getValue()+340)/10f)));
+                    reachTv.setText(String.format(Locale.ENGLISH,"%.1f℉", MathUitl.c2f((reportDataBean.getValue1()+340)/10f)));
                 }
             }
         }

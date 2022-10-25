@@ -179,12 +179,11 @@
             android:layout_weight="6"
             android:gravity="center">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/switchRl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="start"
-               >
+                android:tag="start">
 
                 <View
                     android:id="@+id/switchView"
@@ -197,15 +196,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
                     android:src="@mipmap/sport_icon_continue"/>
 
 
-            </RelativeLayout>
+            </FrameLayout>
 
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/finishRl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -221,11 +218,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
                     android:src="@mipmap/sport_icon_end"/>
 
-            </RelativeLayout>
+            </FrameLayout>
 
 
 
@@ -378,7 +373,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="配速"
+                    android:text="@string/speed"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"/>
@@ -406,7 +401,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="运动里程"
+                    android:text="@string/distanceData"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"/>
@@ -434,7 +429,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="运动消耗"
+                    android:text="@string/kcal"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"/>

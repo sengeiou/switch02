@@ -160,7 +160,7 @@ public class MyApplication extends Application{
 //        CrashReport.initCrashReport(getApplicationContext(), "60aaf47ddd", false);
 
         //初始化蓝牙
-        LocalBluetoothLEManager.getInstance().init(this, 511);
+        LocalBluetoothLEManager.getInstance().init(this, 479);
         final boolean isSuccess = WearableManager.getInstance().init(true, this, "we had", R.xml.wearable_config);
 
         /**
@@ -213,12 +213,13 @@ public class MyApplication extends Application{
                 mFinalCount++;
                 //如果mFinalCount ==1，说明是从后台到前台
                 Log.e("onActivityStarted", mFinalCount + "");
-                if (mFinalCount == 1&&"com.szip.jswitch.Activity.main.MainActivity".equals(activity.getClass().getName())) {
+                if (mFinalCount == 1) {
                     //说明从后台回到了前台
                     Log.i("DATA******", " 返回到了 前台 = "+activity.getClass().getName());
                     if (MainService.getInstance()!=null){
                         WearableManager.getInstance().scanDevice(true);
                     }
+
                     if(isFirst){
                         isFirst = false;
                     }else {
@@ -245,7 +246,7 @@ public class MyApplication extends Application{
                 //如果mFinalCount ==0，说明是前台到后台
 
                 String packageName = activity.getClass().getName();
-                if (mFinalCount == 0&&packageName.equals("com.szip.jswitch.Activity.main.MainActivity")) {
+                if (mFinalCount == 0) {
                     //说明从前台回到了后台
                     Log.i("DATA******", " 切换到了 后台");
 

@@ -223,6 +223,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
                                 //缓存蓝牙mac地址
                                 MyApplication app = (MyApplication) getApplicationContext();
                                 app.getUserInfo().setDeviceCode(device.getAddress());
+                                app.getUserInfo().setProduct(device.getName());
                                 MathUitl.saveStringData(SeachingActivity.this,"deviceCode",device.getAddress()).commit();
 
 

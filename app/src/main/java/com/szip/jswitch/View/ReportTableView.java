@@ -12,6 +12,8 @@ import android.view.View;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Util.MathUitl;
 
+import java.util.Locale;
+
 /**
  * Created by Administrator on 2019/12/21.
  */
@@ -131,16 +133,16 @@ public class ReportTableView extends View {
         String[] yMsg= new String[yValueNum];
         for (int i = 0;i<yValueNum;i++){
             if (isF){
-                yMsg[i] = String.format("%.1f",(14.4/yValueNum)*(i+1)+93.2);
+                yMsg[i] = String.format(Locale.ENGLISH,"%.1f",(14.4/yValueNum)*(i+1)+93.2);
             }else {
                 if (flag == 4)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+45);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+45);
                 else if (flag == 5)
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1)+70);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1)+70);
                 else if (flag == 6)
-                    yMsg[i] = String.format("%d",((maxValue/yValueNum)*(i+1)+340)/10);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",((maxValue/yValueNum)*(i+1)+340)/10);
                 else
-                    yMsg[i] = String.format("%d",(maxValue/yValueNum)*(i+1));
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d",(maxValue/yValueNum)*(i+1));
             }
 
         }

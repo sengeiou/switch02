@@ -175,13 +175,18 @@ public class LoadDataUtil {
             long startMonth = calendar.getTimeInMillis()/1000;//年报告的起始月份的第一天第一秒
             calendar.add(Calendar.MONTH,1);
             long endMonth = calendar.getTimeInMillis()/1000-1;//下一个月的第一天-1秒则是上个月的最后一秒
+            Log.d("data******","----------------------------------------------------");
+            Log.d("data******","开始时间 = "+DateUtil.getStringDateFromSecond(startMonth,"yyyy/MM/dd")+
+                    " ；结束时间 = "+DateUtil.getStringDateFromSecond(endMonth,"yyyy/MM/dd"));
             List<StepData> list = SQLite.select()
                     .from(StepData.class)
                     .where(StepData_Table.time.lessThanOrEq(endMonth),
                             StepData_Table.time.greaterThanOrEq(startMonth))
                     .queryList();
             for (int j = 0;j<list.size();j++){
+                Log.d("data******",DateUtil.getStringDateFromSecond(list.get(j).time,"yyyy/MM/dd HH:mm:ss")+"号的步数为 = "+list.get(j).steps);
                 stepSum+=list.get(j).steps;
+                Log.d("data******","总步数为 = "+stepSum);
             }
             drawData.add(new DrawDataBean(stepSum,0,0));
         }

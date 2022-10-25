@@ -22,6 +22,7 @@ import com.amap.api.maps.model.LatLng;
 import com.szip.jswitch.DB.dbModel.SportData;
 import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.Util.LocationUtil;
+import com.szip.jswitch.Util.LogUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -208,6 +209,8 @@ public class StepPresenterImpl implements IGpsPresenter{
                     preTime =System.currentTimeMillis();
                 }else {
                     float stepData = data-systemStep;
+                    if (stepData<10)
+                        return;
                     systemStep = data;
                     updataWithStep(stepData);
                 }
@@ -288,6 +291,7 @@ public class StepPresenterImpl implements IGpsPresenter{
     private int getInstantaneousSpeed(float v){
         //当前配速公式：1000/当前速度
         float speed = (v == 0)?0:(1000/v);
+        LogUtil.getInstance().logd("data******","配速 = "+(int)speed);
         return (int)speed;
     }
 

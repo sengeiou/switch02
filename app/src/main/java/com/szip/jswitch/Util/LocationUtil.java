@@ -5,11 +5,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
+import android.location.GnssStatus;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.amap.api.maps.CoordinateConverter;
@@ -32,7 +35,8 @@ public class LocationUtil {
     }
 
 
-    public Location getLocation(LocationManager myLocationManager,boolean needNetwork, GpsStatus.Listener myListener, LocationListener locationListener) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Location getLocation(LocationManager myLocationManager, boolean needNetwork, GpsStatus.Listener myListener, LocationListener locationListener) {
         //获取位置管理服务
 
         //查找服务信息
@@ -50,7 +54,12 @@ public class LocationUtil {
             return null;
         }
 
-        myLocationManager.addGpsStatusListener(myListener);
+        myLocationManager.registerGnssStatusCallback(new GnssStatus.Callback() {
+            @Override
+            public void onStarted() {
+                super.onStarted();
+            }
+        });
 
         if (gpsIsOpen(myLocationManager)) {
             myLocationManager.requestLocationUpdates("gps", 1000, 1, locationListener);

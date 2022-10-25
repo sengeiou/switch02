@@ -40,12 +40,15 @@ import com.szip.jswitch.Util.StatusBarCompat;
 import com.szip.jswitch.View.MyAlerDialog;
 import com.szip.jswitch.View.PulldownUpdateView;
 
+import java.util.Locale;
+
 public class GpsActivity extends BaseActivity implements IGpsView, OnMapReadyCallback {
 
     private TextView distanceTv,speedTv,timeTv,calorieTv,countDownTv,distanceMapTv,speedMapTv,calorieMapTv;
     private View switchView;
     private ImageView lockIv,mapIv,switchIv,gpsIv,gpsMapIv;
-    private RelativeLayout switchRl,finishRl,mapRl;
+    private FrameLayout switchRl,finishRl;
+    private RelativeLayout mapRl;
     private FrameLayout lockFl,startTimeFl;
     private RelativeLayout updateRl;
 
@@ -325,9 +328,12 @@ public class GpsActivity extends BaseActivity implements IGpsView, OnMapReadyCal
 
     @Override
     public void upDateRunData(int speed, float distance, float calorie,float acc) {
-        speedTv.setText(String.format("%d'%d''",speed/60,speed%60));
-        distanceTv.setText(String.format("%.2f",distance/1000));
-        calorieTv.setText(String.format("%.1f",calorie));
+        speedTv.setText(String.format(Locale.ENGLISH,"%d'%d''",speed/60,speed%60));
+        distanceTv.setText(String.format(Locale.ENGLISH,"%.2f",distance/1000));
+        calorieTv.setText(String.format(Locale.ENGLISH,"%.1f",calorie));
+        speedMapTv.setText(String.format(Locale.ENGLISH,"%d'%d''",speed/60,speed%60));
+        distanceMapTv.setText(String.format(Locale.ENGLISH,"%.2f",distance/1000));
+        calorieMapTv.setText(String.format(Locale.ENGLISH,"%.1f",calorie));
         if (acc>=29){
             gpsIv.setImageResource(R.mipmap.sport_icon_gps_1);
             gpsMapIv.setImageResource(R.mipmap.sport_icon_gps_1);

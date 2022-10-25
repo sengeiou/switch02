@@ -232,10 +232,10 @@ public class SportReportView extends View {
                 datas = new int[list.length];
                 if(data_num<2)
                     data_num = 2;
-                maxDraw = Integer.valueOf(list[0]);
-                minDraw = Integer.valueOf(list[0]);
+                maxDraw = Integer.valueOf(MathUitl.FloatToInt(list[0]));
+                minDraw = Integer.valueOf(MathUitl.FloatToInt(list[0]));
                 for (int i = 0;i<list.length;i++){
-                    datas[i] = Integer.valueOf(list[i]);
+                    datas[i] = Integer.valueOf(MathUitl.FloatToInt(list[i]));
                     if (minDraw >datas[i])
                         minDraw = datas[i];
                     if (maxDraw <datas[i])

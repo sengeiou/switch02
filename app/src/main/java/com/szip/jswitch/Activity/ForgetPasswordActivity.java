@@ -246,7 +246,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                                 ProgressHudModel.newInstance().show(ForgetPasswordActivity.this,getString(R.string.waitting)
                                         ,getString(R.string.httpError),10000);
                                 HttpMessgeUtil.getInstance().postForgotPassword("2","",""
-                                        ,userEt.getText().toString(), verifyCodeEt.getText().toString(),passwordEt.getText().toString(),callback);
+                                        ,userEt.getText().toString(), verifyCodeEt.getText().toString(),passwordEt.getText().toString(),resetCallback);
                             }else
                                 showToast(getString(R.string.enterRightEmail));
 
@@ -254,7 +254,7 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
                             ProgressHudModel.newInstance().show(ForgetPasswordActivity.this,getString(R.string.waitting)
                                     ,getString(R.string.httpError),10000);
                             HttpMessgeUtil.getInstance().postForgotPassword("1","00"+countryCodeTv.getText().toString().substring(1),
-                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString(),passwordEt.getText().toString(),callback);
+                                    userEt.getText().toString(),"", verifyCodeEt.getText().toString(),passwordEt.getText().toString(),resetCallback);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -348,33 +348,45 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onResponse(BaseApi response, int id) {
-
             if (response.getCode()==200){
-                if(id!=100){
-                    ProgressHudModel.newInstance().diss();
-                    showToast(getString(R.string.resetSuccess));
-                    finish();
-                }else {
-                    sendTv.setTextColor(getResources().getColor(R.color.gray));
-                    sendTv.setEnabled(false);
-                    time = 120;
-                    TimerTask timerTask = new TimerTask() {
-                        @Override
-                        public void run() {
-                            handler.sendEmptyMessage(100);
-                        }
-                    };
-                    timer = new Timer();
-                    timer.schedule(timerTask,1000,1000); }
+                sendTv.setTextColor(getResources().getColor(R.color.gray));
+                sendTv.setEnabled(false);
+                time = 120;
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.sendEmptyMessage(100);
+                    }
+                };
+                timer = new Timer();
+                timer.schedule(timerTask,1000,1000);
             }else {
-                if(id!=100){
-                    updateImageVerification();
-                }
+                updateImageVerification();
                 showToast(response.getMessage());
             }
 
         }
     };
+
+    private GenericsCallback<BaseApi> resetCallback = new GenericsCallback<BaseApi>(new JsonGenericsSerializator()) {
+        @Override
+        public void onError(Call call, Exception e, int id) {
+
+        }
+
+        @Override
+        public void onResponse(BaseApi response, int id) {
+            ProgressHudModel.newInstance().diss();
+            if (response.getCode()==200){
+                ProgressHudModel.newInstance().diss();
+                showToast(getString(R.string.resetSuccess));
+                finish();
+            }else {
+                showToast(response.getMessage());
+            }
+        }
+    };
+
 
     private void updateImageVerification(){
         HttpMessgeUtil.getInstance().postGetImageVerification(new GenericsCallback<ImageVerificationBean>(new JsonGenericsSerializator()) {

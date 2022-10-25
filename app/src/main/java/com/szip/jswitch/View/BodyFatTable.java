@@ -230,10 +230,10 @@ public class BodyFatTable extends View {
                 String weightStr = "",unitStr = "",timeStr = "";
 
                 if (MyApplication.getInstance().getUserInfo().getUnit()==0){
-                    weightStr = String.format("%.1f",bodyFatDataList.get(index).weight);
+                    weightStr = String.format(Locale.ENGLISH,"%.1f",bodyFatDataList.get(index).weight);
                     unitStr = "kg";
                 }else {
-                    weightStr = String.format("%.1f", VTComUtils.kg2Lb(bodyFatDataList.get(index).weight));
+                    weightStr = String.format(Locale.ENGLISH,"%.1f", VTComUtils.kg2Lb(bodyFatDataList.get(index).weight));
                     unitStr = "lb";
                 }
                 timeStr = DateUtil.getStringDateFromSecond(bodyFatDataList.get(index).time,"MM-dd HH:mm");
@@ -301,11 +301,11 @@ public class BodyFatTable extends View {
         int sub = ((int)maxValue)/10;
         minValue = (sub+1)*10-20;
         if (MyApplication.getInstance().getUserInfo().getUnit()==0){
-            yMsg[0] = String.format("%d",sub*10);
-            yMsg[1] = String.format("%d",(sub+1)*10);
+            yMsg[0] = String.format(Locale.ENGLISH,"%d",sub*10);
+            yMsg[1] = String.format(Locale.ENGLISH,"%d",(sub+1)*10);
         }else {
-            yMsg[0] = String.format("%d",(int)VTComUtils.kg2Lb(sub*10));
-            yMsg[1] = String.format("%d",(int)VTComUtils.kg2Lb((sub+1)*10));
+            yMsg[0] = String.format(Locale.ENGLISH,"%d",(int)VTComUtils.kg2Lb(sub*10));
+            yMsg[1] = String.format(Locale.ENGLISH,"%d",(int)VTComUtils.kg2Lb((sub+1)*10));
         }
         return yMsg;
     }

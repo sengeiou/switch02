@@ -20,6 +20,7 @@ import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 import com.inuker.bluetooth.library.utils.proxy.ProxyUtils;
 
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -42,14 +43,14 @@ public class BluetoothClient implements IBluetoothClient {
 
     @Override
     public void connect(String mac, BleConnectOptions options, BleConnectResponse response) {
-        BluetoothLog.v(String.format("connect %s", mac));
+        BluetoothLog.v(String.format(Locale.ENGLISH,"connect %s", mac));
         response = ProxyUtils.getUIProxy(response);
         mClient.connect(mac, options, response);
     }
 
     @Override
     public void disconnect(String mac) {
-        BluetoothLog.v(String.format("disconnect %s", mac));
+        BluetoothLog.v(String.format(Locale.ENGLISH,"disconnect %s", mac));
         mClient.disconnect(mac);
     }
 

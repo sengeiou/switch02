@@ -30,7 +30,7 @@ public class AboutActivity extends BaseActivity {
 
         String ver;
         try {
-            ver = getPackageManager().getPackageInfo("com.szip.jswitch",
+            ver = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID,
                     0).versionName;
             versionTv.setText("V" + ver);
         } catch (PackageManager.NameNotFoundException e) {

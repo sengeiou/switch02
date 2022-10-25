@@ -452,7 +452,7 @@ public class ReportView extends View {
         }else {
             for (int i = 0;i<yValueNum;i++) {
                 if (isF) {
-                    yMsg[i] = String.format("%d", (16 / yValueNum) * (i + 1) + 94);
+                    yMsg[i] = String.format(Locale.ENGLISH,"%d", (16 / yValueNum) * (i + 1) + 94);
                 } else {
                     if (flag == 1)
                         yMsg[i] = String.format(Locale.ENGLISH, "%dk", (maxValue / yValueNum) * (i + 1) / 1000);

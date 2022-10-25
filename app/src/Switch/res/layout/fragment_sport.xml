@@ -26,14 +26,15 @@
 
         <TextView
             android:id="@+id/userNameTv"
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_text_size"
             android:textColor="@color/rayblue"
             android:layout_gravity="center"
             android:text="用户名"
             android:layout_marginStart="10dp"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

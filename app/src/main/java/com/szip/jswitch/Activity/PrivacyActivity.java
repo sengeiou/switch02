@@ -36,7 +36,7 @@ public class PrivacyActivity extends BaseActivity {
         if(getResources().getConfiguration().locale.getLanguage().equals("zh")){
             if (BuildConfig.APP_NAME.equals("mycandy")){
                 webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement.html");
-            }else if (BuildConfig.APP_NAME.equals("Switch Essentials")){
+            }else if (BuildConfig.APP_NAME.equals("switch essentials")){
                 webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/Switch%20essentials/statement-zh.html");
             }
 
@@ -44,7 +44,7 @@ public class PrivacyActivity extends BaseActivity {
         } else{
             if (BuildConfig.APP_NAME.equals("mycandy")){
                 webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/mycandy/statement-en.html");
-            }else if (BuildConfig.APP_NAME.equals("Switch Essentials")){
+            }else if (BuildConfig.APP_NAME.equals("switch essentials")){
                 webView.loadUrl("https://cloud.znsdkj.com:8443/file/contract/Switch%20essentials/statement-en.html");
             }
 

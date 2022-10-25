@@ -179,7 +179,7 @@
             android:layout_weight="6"
             android:gravity="center">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/switchRl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -195,15 +195,14 @@
                     android:id="@+id/switchIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/sport_icon_continue"/>
+                    android:src="@mipmap/sport_icon_continue"
+                    android:layout_gravity="center"/>
 
 
-            </RelativeLayout>
+            </FrameLayout>
 
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/finishRl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -218,11 +217,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/sport_icon_end"/>
+                    android:src="@mipmap/sport_icon_end"
+                    android:layout_gravity="center"/>
 
-            </RelativeLayout>
+            </FrameLayout>
 
 
 

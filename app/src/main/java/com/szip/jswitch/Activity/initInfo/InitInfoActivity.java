@@ -3,8 +3,10 @@ package com.szip.jswitch.Activity.initInfo;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.szip.jswitch.Activity.BaseActivity;
+import com.szip.jswitch.BuildConfig;
 import com.szip.jswitch.R;
 import com.szip.jswitch.Util.StatusBarCompat;
 
@@ -26,8 +28,13 @@ public class InitInfoActivity extends BaseActivity {
         ProductFragment productFragment = new ProductFragment();
         tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.fragment, productFragment, "product");
-        tx.addToBackStack(null);
+
         tx.commit();
+        if (BuildConfig.APP_NAME.equals("mycandy")){
+            findViewById(R.id.bgIv).setVisibility(View.VISIBLE);
+        }else {
+            findViewById(R.id.bgIv).setVisibility(View.GONE);
+        }
     }
 
     public void unitPage() {

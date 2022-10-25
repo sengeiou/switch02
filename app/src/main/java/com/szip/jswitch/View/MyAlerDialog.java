@@ -16,6 +16,8 @@ import com.szip.jswitch.MyApplication;
 import com.szip.jswitch.R;
 import com.vtrump.vtble.VTComUtils;
 
+import java.util.Locale;
+
 
 public class MyAlerDialog {
     private static MyAlerDialog dialogUtil;
@@ -146,7 +148,7 @@ public class MyAlerDialog {
         TextView tv_weight =  window.findViewById(R.id.weightTv);
         if(MyApplication.getInstance().getUserInfo().getUnit()!=0)
             weight = (float) VTComUtils.kg2Lb(weight);
-        tv_weight.setText(String.format("%.1f",weight));
+        tv_weight.setText(String.format(Locale.ENGLISH,"%.1f",weight));
         alertDialog.setCancelable(cancelable);
 
         Button cancel = window.findViewById(R.id.btn_cancel);

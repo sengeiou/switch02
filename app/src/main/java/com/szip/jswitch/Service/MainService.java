@@ -57,7 +57,6 @@ import com.szip.jswitch.Util.FileUtil;
 import com.szip.jswitch.Util.LogUtil;
 import com.szip.jswitch.Util.MathUitl;
 import com.szip.jswitch.BLE.EXCDController;
-import com.szip.jswitch.Notification.NotificationReceiver;
 import com.szip.jswitch.Notification.NotificationService;
 import com.szip.jswitch.Notification.SmsService;
 import com.szip.jswitch.Util.MusicUtil;

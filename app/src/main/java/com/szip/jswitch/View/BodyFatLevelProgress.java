@@ -20,6 +20,8 @@ import com.szip.jswitch.Util.CommandUtil;
 import com.szip.jswitch.Util.MathUitl;
 import com.vtrump.vtble.VTComUtils;
 
+import java.util.Locale;
+
 public class BodyFatLevelProgress extends View {
 
 
@@ -154,10 +156,10 @@ public class BodyFatLevelProgress extends View {
             String weightStr = "",unitStr = "";
 
             if (MyApplication.getInstance().getUserInfo().getUnit()==0){
-                weightStr = String.format("%.1f",radio);
+                weightStr = String.format(Locale.ENGLISH,"%.1f",radio);
                 unitStr = "kg";
             }else {
-                weightStr = String.format("%.1f", VTComUtils.kg2Lb(radio));
+                weightStr = String.format(Locale.ENGLISH,"%.1f", VTComUtils.kg2Lb(radio));
                 unitStr = "lb";
             }
             float weightTextWidth = weightTextPaint.measureText(weightStr);
