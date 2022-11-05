@@ -212,7 +212,7 @@
     <string name="set">設定</string>
     <string name="other">その他</string>
     <string name="cancel">キャンセル</string>
-    <string name="confirm">確認</string>
+    <string name="confirm">OK</string>
     <string name="tip">ヒント</string>
     <string name="delete">このデータを削除してもよろしいですか？</string>
     <string name="logoutTip">ログアウトしてもよろしいですか？</string>
@@ -246,7 +246,7 @@
     <!--单位制式界面 Unit System Interface-->
     <string name="measureUnit">計量単位</string>
     <string name="tempUnit">温度単位</string>
-    <string name="metric">メートル制</string>
+    <string name="metric">メートル</string>
     <string name="british">フートポンド法</string>
 
     <string name="stepReport">ステップレポート</string>
