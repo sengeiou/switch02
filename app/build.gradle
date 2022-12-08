@@ -60,9 +60,9 @@ android {
             applicationId = 'com.szip.jswitch'
             minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
             targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
-            versionName '1.32'
+            versionName '1.33'
 
-            versionCode 32
+            versionCode 33
             signingConfig signingConfigs.szp
             buildConfigField "int", "App", "1"
             buildConfigField("String", "APP_NAME", '"mycandy"')
@@ -78,9 +78,9 @@ android {
             applicationId = 'com.szip.switch2'
             minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
             targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
-            versionName '1.05'
+            versionName '1.06'
 
-            versionCode 5
+            versionCode 6
             signingConfig signingConfigs.szp
             buildConfigField "int", "App", "1"
             buildConfigField("String", "APP_NAME", '"switch essentials"')
