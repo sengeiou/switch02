@@ -27,9 +27,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-<!--    <uses-permission android:name="android.permission.READ_SMS" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_SMS" />-->
-<!--    <uses-permission android:name="android.permission.SEND_SMS" />-->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
@@ -153,7 +153,8 @@
                 <action android:name="android.deletion.notification" />
             </intent-filter>
         </service>
-        <service android:name=".Service.MainService" />
+        <service android:name=".Service.MainService"
+            android:exported="false"/>
 
 
         <activity

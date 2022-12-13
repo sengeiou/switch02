@@ -52,14 +52,31 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
     @Override
     public void checkPrivacyResult(boolean comfirm) {
         if (comfirm){//隐私协议通过
-            welcomePresenter.initBle(getApplicationContext());
-            welcomePresenter.initDeviceConfig();
-            welcomePresenter.initUserInfo(getApplicationContext());
+            checkBluePermission();
         }else {
             finish();
         }
     }
 
+    private void checkBluePermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED||
+                    checkSelfPermission(Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_DENIED||
+                    checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT
+                                ,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_SCAN},
+                        100);
+            }else {
+                welcomePresenter.initBle(getApplicationContext());
+                welcomePresenter.initDeviceConfig();
+                welcomePresenter.initUserInfo(getApplicationContext());
+            }
+        }else {
+            welcomePresenter.initBle(getApplicationContext());
+            welcomePresenter.initDeviceConfig();
+            welcomePresenter.initUserInfo(getApplicationContext());
+        }
+    }
 
     @Override
     public void initDeviceConfigFinish() {
@@ -107,6 +124,23 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
                     startActivity(new Intent(mContext, MainActivity.class));
             }
             finish();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100){
+            int code = grantResults[0];
+            int code1 = grantResults[1];
+            int code2 = grantResults[2];
+            if ((code == PackageManager.PERMISSION_GRANTED)
+                    &&(code1 == PackageManager.PERMISSION_GRANTED)
+                    &&(code2 == PackageManager.PERMISSION_GRANTED)){
+                welcomePresenter.initBle(getApplicationContext());
+                welcomePresenter.initDeviceConfig();
+                welcomePresenter.initUserInfo(getApplicationContext());
+            }
         }
     }
 }
