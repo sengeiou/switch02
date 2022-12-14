@@ -117,16 +117,7 @@ public class SeachingActivity extends BaseActivity implements View.OnClickListen
             if (code == PackageManager.PERMISSION_GRANTED){
                 searchDevice(true);
             }else {
-                MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tip),getString(R.string.findPermission),getString(R.string.applyPermission),
-                        getString(R.string.confirm),false, new MyAlerDialog.AlerDialogOnclickListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @Override
-                            public void onDialogTouch(boolean flag) {
-                                if (flag)
-                                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                            100);
-                            }
-                        },this);
+
             }
         }
     }

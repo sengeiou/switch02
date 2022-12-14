@@ -1,6 +1,7 @@
 package com.szip.jswitch.Activity.main;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -75,17 +76,16 @@ public class MainActivity extends BaseActivity implements IMainView{
         initService();
         StatusBarCompat.translucentStatusBar(MainActivity.this,true);
         setAndroidNativeLightStatusBar(this,true);
-
-
-
+        checkPermission();
         initAnimation();
         initHost();
-        checkPermission();
+
     }
 
     private void initService() {
         if (binder==null) {
-            bindService(new Intent(this, MainService.class),connection,BIND_AUTO_CREATE);
+            Intent intent = new Intent(this, MainService.class);
+            bindService(intent,connection,BIND_AUTO_CREATE);
         }
     }
 
@@ -93,7 +93,6 @@ public class MainActivity extends BaseActivity implements IMainView{
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             binder = (Binder) service;
-            iMainPrisenter.checkBluetoochState();
             iMainPrisenter.checkUpdata();
         }
 
@@ -102,6 +101,8 @@ public class MainActivity extends BaseActivity implements IMainView{
             binder = null;
         }
     };
+
+
 
     private void checkPermission(){
         if (app.isCamerable()){

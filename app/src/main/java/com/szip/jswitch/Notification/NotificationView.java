@@ -60,7 +60,7 @@ public class NotificationView {
                 .setSmallIcon(R.mipmap.small)
                 // 设置点击通知栏后跳转地址
                 .setContentIntent(PendingIntent.getActivity(context, 1,
-                        intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                        intent, PendingIntent.FLAG_IMMUTABLE))
                 .build();
 //        添加渠道
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){

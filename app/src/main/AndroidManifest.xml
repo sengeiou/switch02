@@ -41,9 +41,16 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+=======
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+>>>>>>> ee00fa043f47dc16272d2824ebc54068a3b534f6
 
     <application
         android:name=".MyApplication"
@@ -152,7 +159,8 @@
                 <action android:name="android.deletion.notification" />
             </intent-filter>
         </service>
-        <service android:name=".Service.MainService" />
+        <service android:name=".Service.MainService"
+            android:exported="false"/>
 
 
         <activity
