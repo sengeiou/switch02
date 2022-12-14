@@ -97,6 +97,8 @@ public class MyApplication extends Application{
 
     private int productId = 0;//用于判断用户用的是什么产品，0：手表 1:体重秤 2：两者都用
 
+    private boolean mtkInitSuccess = false;
+
     public int getProductId() {
         return productId;
     }
@@ -159,9 +161,6 @@ public class MyApplication extends Application{
 
 //        CrashReport.initCrashReport(getApplicationContext(), "60aaf47ddd", false);
 
-        //初始化蓝牙
-        LocalBluetoothLEManager.getInstance().init(this, 479);
-        final boolean isSuccess = WearableManager.getInstance().init(true, this, "we had", R.xml.wearable_config);
 
         /**
          * 初始化音乐控制器
@@ -270,7 +269,7 @@ public class MyApplication extends Application{
         });
 
 
-        String packageName = getPackageName();
+        String packageName = getPackageName()+"/";
         String strListener = Settings.Secure.getString(this.getContentResolver(),
                 "enabled_notification_listeners");
         if (strListener != null
@@ -285,6 +284,15 @@ public class MyApplication extends Application{
 //       startUpdownThread();
     }
 
+
+    public void initMtk(){
+
+            //初始化蓝牙
+            LocalBluetoothLEManager.getInstance().init(this, 479);
+            mtkInitSuccess = WearableManager.getInstance().init(true, this, "we had", R.xml.wearable_config);
+            Log.d("szip******","init Mtk = "+mtkInitSuccess);
+
+    }
 
     public int getElc() {
         return elc;

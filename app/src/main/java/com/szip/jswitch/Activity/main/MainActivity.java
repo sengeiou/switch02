@@ -85,6 +85,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     private void initService() {
         if (binder==null) {
             Intent intent = new Intent(this, MainService.class);
+            Log.d("SZIP******","serve start ok");
             bindService(intent,connection,BIND_AUTO_CREATE);
         }
     }

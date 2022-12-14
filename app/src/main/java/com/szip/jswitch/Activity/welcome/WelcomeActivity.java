@@ -67,11 +67,13 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
                                 ,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_SCAN},
                         100);
             }else {
+                ((MyApplication)getApplication()).initMtk();
                 welcomePresenter.initBle(getApplicationContext());
                 welcomePresenter.initDeviceConfig();
                 welcomePresenter.initUserInfo(getApplicationContext());
             }
         }else {
+            ((MyApplication)getApplication()).initMtk();
             welcomePresenter.initBle(getApplicationContext());
             welcomePresenter.initDeviceConfig();
             welcomePresenter.initUserInfo(getApplicationContext());
@@ -137,6 +139,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
             if ((code == PackageManager.PERMISSION_GRANTED)
                     &&(code1 == PackageManager.PERMISSION_GRANTED)
                     &&(code2 == PackageManager.PERMISSION_GRANTED)){
+                ((MyApplication)getApplication()).initMtk();
                 welcomePresenter.initBle(getApplicationContext());
                 welcomePresenter.initDeviceConfig();
                 welcomePresenter.initUserInfo(getApplicationContext());

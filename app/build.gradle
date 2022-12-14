@@ -67,7 +67,7 @@ android {
             buildConfigField "int", "App", "1"
             buildConfigField("String", "APP_NAME", '"mycandy"')
             manifestPlaceholders = [
-                    app_name      : "mycandy beta",
+                    app_name      : "mycandy",
                     app_icon      : "@mipmap/icon",
                     app_round_icon: "@mipmap/icon",
                     app_style     : "@style/AppTheme"]

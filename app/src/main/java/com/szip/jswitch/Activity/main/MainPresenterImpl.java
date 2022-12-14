@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.TabHost;
 
 import androidx.annotation.NonNull;
@@ -249,9 +250,11 @@ public class MainPresenterImpl implements IMainPrisenter{
     }
 
     private boolean isNotificationListenerActived() {
-        String packageName = context.getPackageName();
+
+        String packageName = context.getPackageName()+"/";
         String strListener = Settings.Secure.getString(context.getContentResolver(),
                 "enabled_notification_listeners");
+        Log.d("szip******","name = "+packageName+" ;list = "+strListener);
         return strListener != null
                 && strListener
                 .contains(packageName);

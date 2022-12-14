@@ -66,7 +66,6 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
     private void checkPermission(){
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Log.i("data******","state = "+getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)+"Build.VERSION.SDK_INT = "+Build.VERSION.SDK_INT);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
                 if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED
                 ||getActivity().checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
@@ -83,7 +82,6 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
                             }, getActivity());
                 }
             }else {
-
                 if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
                     MyAlerDialog.getSingle().showAlerDialog(getString(R.string.tipForPrivacy), getString(R.string.getPrivacy), getString(R.string.confirm),
                             getString(R.string.cancel), false, new MyAlerDialog.AlerDialogOnclickListener() {
@@ -97,7 +95,6 @@ public class SportFragment extends BaseFragment implements View.OnClickListener{
                             }, getActivity());
                 }
             }
-
         }
     }
 
