@@ -41,6 +41,10 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
     <application
         android:name=".MyApplication"
             android:icon="${app_round_icon}"
